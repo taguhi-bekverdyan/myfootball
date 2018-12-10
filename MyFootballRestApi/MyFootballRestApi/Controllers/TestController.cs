@@ -1,12 +1,13 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace MyFootballRestApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class TestController : ControllerBase
     {
         [HttpGet]
         [Route("public")]
@@ -30,6 +31,30 @@ namespace MyFootballRestApi.Controllers
                 Message = "Hello from a private endpoint! You need to be authenticated to see this."
             });
         }
+
+
+        [HttpGet]
+        [Route("private-user")]
+        [Authorize(Policy = "User")]
+        public IActionResult PrivateUser()
+        {
+            return new JsonResult(new
+            {
+                Message = "Hello from a private endpoint! You need to be authenticated as USER to see this."
+            });
+        }
+
+        [HttpGet]
+        [Route("private-admin")]
+        [Authorize(Policy = "Admin")]
+        public IActionResult PrivateAdmin()
+        {
+            return new JsonResult(new
+            {
+                Message = "Hello from a private endpoint! You need to be authenticated as ADMIN to see this."
+            });
+        }
+
 
         [HttpGet("claims")]
         public IActionResult Claims()
