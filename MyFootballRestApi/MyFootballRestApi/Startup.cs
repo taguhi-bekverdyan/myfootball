@@ -45,13 +45,14 @@ namespace MyFootballRestApi
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("read:messages", policy => policy.Requirements.Add(new HasScopeRequirement("read:messages", domain)));
+                options.AddPolicy("User",
+                        policy => policy.Requirements.Add(new HasGroupRequirement("User", domain)));
+                options.AddPolicy("Admin",
+                    policy => policy.Requirements.Add(new HasGroupRequirement("Admin", domain)));
             });
 
             // register the scope authorization handler
-            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
-
-
+            services.AddSingleton<IAuthorizationHandler, HasGroupHandler>();
 
         }
 
