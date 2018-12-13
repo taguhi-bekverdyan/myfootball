@@ -8,11 +8,10 @@
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              d:DataContext="{d:DesignInstance local:MainViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <StackPanel Height="300" Width="250">
-            <Button Content="Login" Height="30" Command="{Binding LoginCommand}"></Button>
-            <TextBlock Text="{Binding LoginResult}" TextWrapping="Wrap"></TextBlock>
-        </StackPanel>
+               xmlns:common="clr-namespace:MyFootballAdmin.Common;assembly=MyFootballAdmin.Common"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="Gray">
+        <!--<ContentControl mvvm:RegionManager.RegionName="{x:Static common:RegionNames.AddTournamentRegion}" />-->
+        <Button Content="Add Tournament" Width="100" Height="25" Command="{Binding AddTournamentCommand}"></Button>
     </Grid>
 </UserControl>

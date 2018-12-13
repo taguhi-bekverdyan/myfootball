@@ -1,75 +1,71 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Text;
 using Auth0.OidcClient;
+using MyFootballAdmin.Common;
 using MyFootballAdmin.Common.Prism;
+using MyFootballAdmin.Main.Views.AddTournament;
+using MyFootballAdmin.Main.Views.Notification;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
+using Prism.Regions;
 
 namespace MyFootballAdmin.Main.Views.Main
 {
-    public class MainViewModel : BindableBase
+    public class MainViewModel : BindableBase, INavigationAware,IRegionManagerAware
     {
         private readonly IShellService _shellService;
+        private readonly IEventAggregator _eventAggregator;
 
-        private readonly string _domain = ConfigurationManager.AppSettings["Auth0:Domain"];
-        private readonly string _clientId = ConfigurationManager.AppSettings["Auth0:ClientId"];
-
-        public MainViewModel(IShellService shellService)
+        public MainViewModel(IShellService shellService, IEventAggregator eventAggregator)
         {
             _shellService = shellService;
+            _eventAggregator = eventAggregator;
         }
 
-
-        #region Properties
-
-        private string _loginResult;
-        public string LoginResult
+        public class NotificationEvent : PubSubEvent<NotificationEventArgs>
         {
-            get => _loginResult;
-            set => SetProperty(ref _loginResult, value);
+
+        }
+
+        public class NotificationEventArgs
+        {
+
+        }
+
+        public IRegionManager RegionManager { get; set; }
+
+        #region Navigations
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
 
-        private DelegateCommand _loginCommand;
+        #region Commands
 
-        public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(LoginCommandAction));
+        private DelegateCommand _addTournamentCommand;
 
-        public async void LoginCommandAction()
+        public DelegateCommand AddTournamentCommand => _addTournamentCommand ?? (_addTournamentCommand = new DelegateCommand(AddTournamentCommandAction));
+
+        public void AddTournamentCommandAction()
         {
-            var client = new Auth0Client(new Auth0ClientOptions
-            {
-                Domain = _domain,
-                ClientId = _clientId
-            });
-
-            //login window
-            var loginResult=await client.LoginAsync();
-
-            if (loginResult.IsError)
-            {
-                LoginResult = loginResult.Error;
-                return;
-            }
-
-            var sb = new StringBuilder();
-            sb.AppendLine("Tokens");
-            sb.AppendLine("------");
-            sb.AppendLine($"id_token: {loginResult.IdentityToken}");
-            sb.AppendLine($"access_token: {loginResult.AccessToken}");
-            sb.AppendLine($"refresh_token: {loginResult.RefreshToken}");
-            sb.AppendLine();
-
-            sb.AppendLine("Claims");
-            sb.AppendLine("------");
-            foreach (var claim in loginResult.User.Claims)
-            {
-                sb.AppendLine($"{claim.Type}: {claim.Value}");
-            }
-
-            LoginResult = sb.ToString();
-
-
+            RegionManager.RequestNavigate(RegionNames.WindowContentRegion, nameof(AddTournamentView));
         }
+
+        #endregion
     }
 }

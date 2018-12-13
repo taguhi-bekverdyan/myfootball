@@ -9,7 +9,7 @@ namespace MyFootballAdmin.Common.Views
         private readonly IShellService _service;
 
 
-        private string _title = "HCS Admin Panel";
+        private string _title = "MyFootball Admin Panel";
         public string Title
         {
             get => _title;

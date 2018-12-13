@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="MyFootballAdmin.Main.Views.Notification.NotificationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyFootballAdmin.Main.Views.Notification"
+             xmlns:mvvm="http://prismlibrary.com/"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
+               d:DataContext="{d:DesignInstance local:NotificationViewModel, IsDesignTimeCreatable=True}"
+             mc:Ignorable="d" 
+             d:DesignHeight="45" d:DesignWidth="800">
+    <Grid Background="Gray">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Line Grid.Row="0" X1="0" X2="800" Stroke="Blue" />
+        <TextBlock Text="{Binding Message}" Grid.Row="1"></TextBlock>
+    </Grid>
+</UserControl>
