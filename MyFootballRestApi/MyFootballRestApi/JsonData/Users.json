@@ -1,0 +1,38 @@
+[
+  
+  {
+    "Id": "ddfdfd",
+    "FirstName": "user1",
+    "LastName": "u1",
+    "FavoriteTeamId": "88d0cd56-2284-4871-9283-1fa942f9c34e",
+    "Team": null
+  },
+  {
+    "Id": "ddfdfd",
+    "FirstName": "aa",
+    "LastName": "aaaaaa",
+    "FavoriteTeamId": "88d0cd56-2284-4871-9283-1fa942f9c34e",
+    "Team": null
+  },
+  {
+    "Id": "asdsada",
+    "FirstName": "Ghevond",
+    "LastName": "Gevorgyan",
+    "FavoriteTeamId": "88d0cd56-2284-4871-9283-1fa942f9c34e",
+    "Team": null
+  },
+  {
+    "Id": "\"auth0|5c0d2c1c37922454b90d8ad1\"",
+    "FirstName": "admin",
+    "LastName": "admin",
+    "FavoriteTeamId": "c6079b8a-0f1b-4e80-af23-a4db2e058a1f",
+    "Team": null
+  },
+  {
+    "Id": "\"auth0|5c0d36d62ac55c1ce85a88c3\"",
+    "FirstName": "Ghevond",
+    "LastName": "Gevorgyan",
+    "FavoriteTeamId": "88d0cd56-2284-4871-9283-1fa942f9c34e",
+    "Team": null
+  }
+]

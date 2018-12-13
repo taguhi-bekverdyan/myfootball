@@ -40,14 +40,12 @@ namespace MyFootballMvc.Controllers
 
 
 
-        public async Task<IActionResult>  Index()
+        public IActionResult  Index()
         {
-
-
             return View();
         }
 
-
+        
         public async Task<IActionResult> TestPublic()
         {
             var client = new RestClient("https://localhost:44350/api/test/public");
@@ -115,10 +113,11 @@ namespace MyFootballMvc.Controllers
             dynamic json = JsonConvert.DeserializeObject(response.Content);
 
             ViewData["Message"] = response.Content;
-
+            
             return View("~/Views/Home/Test.cshtml");
         }
 
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
