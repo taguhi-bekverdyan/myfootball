@@ -12,9 +12,14 @@ namespace MyFootballAdmin.Main.Views.Notification
         public string Message { get; set; }
         public string Colour { get; set; }
 
+        public Notification()
+        {
+
+        }
+
         public Notification(NotificationType notificationType, string message)
         {
-            Message = message;
+            Message = notificationType.ToString()+ "!" + message;
             NotificationType = notificationType;
             if (NotificationType.Equals(NotificationType.Alert))
             {

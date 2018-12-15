@@ -5,16 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyFootballAdmin.Main.Views.Notification"
              xmlns:mvvm="http://prismlibrary.com/"
-             mvvm:ViewModelLocator.AutoWireViewModel="True"
-               d:DataContext="{d:DesignInstance local:NotificationViewModel, IsDesignTimeCreatable=True}"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"             
              mc:Ignorable="d" 
+               d:DataContext="{d:DesignInstance local:NotificationViewModel, IsDesignTimeCreatable=True}"
              d:DesignHeight="45" d:DesignWidth="800">
-    <Grid Background="Gray">
+    <Grid Background="#FFD4CCCC">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Line Grid.Row="0" X1="0" X2="800" Stroke="Blue" />
-        <TextBlock Text="{Binding Message}" Grid.Row="1"></TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="12*"/>
+        </Grid.ColumnDefinitions>
+        <Line Grid.ColumnSpan="2" Grid.Row="0" X1="0" X2="800" Stroke="Blue" />
+        <TextBlock Foreground="{Binding Notification.Colour}" Text="{Binding Notification.Message}" FontSize="15" Grid.Row="1" Grid.Column="1" TextAlignment="Center"/>
     </Grid>
 </UserControl>

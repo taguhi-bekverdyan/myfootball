@@ -13,7 +13,7 @@ using Prism.Regions;
 
 namespace MyFootballAdmin.Main.Views.Main
 {
-    public class MainViewModel : BindableBase, INavigationAware,IRegionManagerAware
+    public class MainViewModel : BindableBase, INavigationAware, IRegionManagerAware
     {
         private readonly IShellService _shellService;
         private readonly IEventAggregator _eventAggregator;
@@ -24,14 +24,12 @@ namespace MyFootballAdmin.Main.Views.Main
             _eventAggregator = eventAggregator;
         }
 
-        public class NotificationEvent : PubSubEvent<NotificationEventArgs>
+        private Notification.Notification _notification;
+
+        public Notification.Notification notification
         {
-
-        }
-
-        public class NotificationEventArgs
-        {
-
+            get { return _notification; }
+            set { SetProperty(ref _notification, value); }
         }
 
         public IRegionManager RegionManager { get; set; }
@@ -40,7 +38,7 @@ namespace MyFootballAdmin.Main.Views.Main
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            throw new NotImplementedException();
+
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
@@ -50,7 +48,7 @@ namespace MyFootballAdmin.Main.Views.Main
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            throw new NotImplementedException();
+
         }
 
         #endregion
@@ -64,8 +62,22 @@ namespace MyFootballAdmin.Main.Views.Main
         public void AddTournamentCommandAction()
         {
             RegionManager.RequestNavigate(RegionNames.WindowContentRegion, nameof(AddTournamentView));
+            Notification.Notification notification = new Notification.Notification(NotificationType.Info,"Teams count must be over 4.");
+            _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs { Notification = notification });
         }
 
         #endregion
+
+        #region Event
+
+        public class NotificationEvent : PubSubEvent<NotificationEventArgs> { }
+
+        public class NotificationEventArgs
+        {
+            public Notification.Notification Notification { get; set; }
+        }
+
+        #endregion
+
     }
 }

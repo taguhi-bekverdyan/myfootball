@@ -186,15 +186,16 @@
       <DependentUpon>AddTournamentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AddTournament\AddTournamentViewModel.cs" />
+    <Compile Include="Views\AddTournament\Tournament.cs" />
     <Compile Include="Views\Main\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Main\MainViewModel.cs" />
-    <Compile Include="Views\Notification\Notification.cs" />
-    <Compile Include="Views\Notification\NotificationView.xaml.cs">
+    <Compile Include="Views\Notifications\Notification.cs" />
+    <Compile Include="Views\Notifications\NotificationView.xaml.cs">
       <DependentUpon>NotificationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Notification\NotificationViewModel.cs" />
+    <Compile Include="Views\Notifications\NotificationViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -221,7 +222,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Notification\NotificationView.xaml">
+    <Page Include="Views\Notifications\NotificationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

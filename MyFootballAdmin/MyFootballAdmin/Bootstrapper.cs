@@ -10,6 +10,8 @@ using Microsoft.Practices.Unity;
 using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Common.Views;
 using MyFootballAdmin.Main;
+using MyFootballAdmin.Main.Views.Notification;
+using Prism.Events;
 using Prism.Modularity;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -103,6 +105,7 @@ namespace MyFootballAdmin
 
             LoginResult = sb.ToString();
         }
+
 
         protected override void ConfigureModuleCatalog()
         {
