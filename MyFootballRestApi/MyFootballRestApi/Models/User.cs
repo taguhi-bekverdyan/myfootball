@@ -14,6 +14,8 @@ namespace MyFootballRestApi.Models
         public string FirstName { get; set; }
         [MaxLength(80),Required]
         public string LastName { get; set; }
+        [Required, Display(Name = "Date of birth")]
+        public DateTime Birthdate { get; set; }
 
         public Guid FavoriteTeamId { get; set; }
         public Team Team { get; set; }

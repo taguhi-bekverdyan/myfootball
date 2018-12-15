@@ -58,14 +58,7 @@ namespace MyFootballMvc.Services
             IRestResponse response = await _client.ExecuteTaskAsync(request);
         }
 
-        public async Task<string> GetUserAuth0Id(string accessToken)
-        {
-            var request = new RestRequest("users/claims", Method.GET);
-            request.AddHeader("authorization", $"Bearer {accessToken}");
-            var response = await _client.ExecuteTaskAsync(request);
-
-            return response.Content;
-        }
+        
 
     }
 }

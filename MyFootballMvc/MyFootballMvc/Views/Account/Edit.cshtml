@@ -33,6 +33,10 @@
                 new SelectList(Model.Teams,"Id","Name"),"Select Team",new { @class = "form-control"})
             @Html.ValidationMessageFor(m => m.User.FavoriteTeamId)
         </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.User.Birthdate)
+            @Html.TextBoxFor(m => m.User.Birthdate, "{0:d MMM yyyy}", new { @class= "date-picker form-control" })
+        </div>
         @Html.HiddenFor(m => m.User.Id)
         <button type="submit" class="btn btn-primary">Save</button>
     }

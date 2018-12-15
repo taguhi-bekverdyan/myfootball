@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -45,7 +47,7 @@ namespace MyFootballMvc.Controllers
         public async Task<IActionResult> Edit()
         {
             string accessToken = await GetAccessToken();
-            string id = await _usersService.GetUserAuth0Id(accessToken);
+            string id = GetUserAuth0Id();
             List<Team> teams = await _temsService.FindAll(accessToken);
             User user = await _usersService.FindUserById(accessToken, id);
 
@@ -79,8 +81,9 @@ namespace MyFootballMvc.Controllers
                     Teams = await _temsService.FindAll(accessToken)
                 });
             }
-         
-            string id = await _usersService.GetUserAuth0Id(accessToken);
+
+
+            string id = GetUserAuth0Id();
             try
             {               
                 if (string.IsNullOrEmpty(user.Id))
@@ -123,6 +126,10 @@ namespace MyFootballMvc.Controllers
             }
             return string.Empty;
 
+        }
+        private string GetUserAuth0Id()
+        {
+            return User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
         }
 
     }

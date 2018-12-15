@@ -25,7 +25,7 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy ="User")]
+        [Authorize]
         public async Task<IActionResult> FindAll()
         {
             try
@@ -39,7 +39,7 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "User")]
+        [Authorize]
         public async Task<IActionResult> Insert([FromBody] User user)
         {
             try
@@ -55,6 +55,7 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> Update([FromBody]User user)
         {
             try
@@ -76,7 +77,7 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Policy = "User")]
+        [Authorize]
         public Task<IActionResult> FindUserById([FromRoute] string id)
         {
             return Task<IActionResult>.Factory.StartNew(()=> {
@@ -91,22 +92,6 @@ namespace MyFootballRestApi.Controllers
                     return StatusCode(500, e);
                 }
             });          
-        }
-
-        [HttpGet("claims")]
-        [Authorize(Policy ="User")]
-        public IActionResult Claims()
-        {
-            
-            string id = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            //return new JsonResult(User.Claims.Select(c =>
-            //    new
-            //    {
-            //        c.Type,
-            //        c.Value,
-            //        id
-            //    }));
-            return new JsonResult(id);
         }
 
         private Task<List<User>> GetUsers()
