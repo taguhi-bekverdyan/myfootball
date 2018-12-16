@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:Alias="clr-namespace:MyFootballAdmin.Main.Views.AddTournament;assembly=MyFootballAdmin.Main.Views.AddTournament"
              xmlns:local="clr-namespace:MyFootballAdmin.Main.Views.AddTournament"
              xmlns:mvvm="http://prismlibrary.com/"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -15,13 +14,13 @@
         <ObjectDataProvider x:Key="DataFromEnum" MethodName="GetValues"
                         ObjectType="{x:Type sys:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="Alias:tournamentType"/>
+                <x:Type TypeName="local:TournamentType"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
         <ObjectDataProvider x:Key="DataFromEnum2" MethodName="GetValues"
             ObjectType="{x:Type sys:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="Alias:responseMatch"/>
+                <x:Type TypeName="local:ResponseMatch"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>

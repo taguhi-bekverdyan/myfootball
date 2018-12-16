@@ -10,7 +10,7 @@ using Microsoft.Practices.Unity;
 using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Common.Views;
 using MyFootballAdmin.Main;
-using MyFootballAdmin.Main.Views.Notification;
+using MyFootballAdmin.Main.Views.Notifications;
 using Prism.Events;
 using Prism.Modularity;
 using Prism.Mvvm;

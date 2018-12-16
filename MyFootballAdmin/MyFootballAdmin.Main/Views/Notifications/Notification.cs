@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyFootballAdmin.Main.Views.Notification
+namespace MyFootballAdmin.Main.Views.Notifications
 {
-    public class Notification
+    public class Notification:BindableBase
     {
         NotificationType NotificationType { get; set; }
         public string Message { get; set; }
@@ -23,15 +24,15 @@ namespace MyFootballAdmin.Main.Views.Notification
             NotificationType = notificationType;
             if (NotificationType.Equals(NotificationType.Alert))
             {
-                Colour = "Grey";
+                Colour = "Green";
             }
             else if (NotificationType.Equals(NotificationType.Error))
             {
-                Colour = "Red";
+                Colour = "#FF960931";
             }
             else if (NotificationType.Equals(NotificationType.Info))
             {
-                Colour = "Black";
+                Colour = "Blue";
             }
             else if (NotificationType.Equals(NotificationType.Warning))
             {

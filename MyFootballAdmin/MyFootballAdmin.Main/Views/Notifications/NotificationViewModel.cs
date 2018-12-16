@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using static MyFootballAdmin.Main.Views.Main.MainViewModel;
 
-namespace MyFootballAdmin.Main.Views.Notification
+namespace MyFootballAdmin.Main.Views.Notifications
 {
     public class NotificationViewModel:BindableBase, INavigationAware, IRegionManagerAware
     {
@@ -27,7 +27,7 @@ namespace MyFootballAdmin.Main.Views.Notification
             _eventAggregator = eventAggregator;
         }
 
-        private Notification _notification = new Notification(NotificationType.Alert,"Admin");
+        private Notification _notification;
 
         public Notification Notification
         {
@@ -52,7 +52,7 @@ namespace MyFootballAdmin.Main.Views.Notification
 
         private void NotificationEventHandler(NotificationEventArgs args)
         {
-            Notification Notification = new Notification();
+            this.Notification = args.Notification;
             _eventAggregator.GetEvent<NotificationEvent>().Unsubscribe(NotificationEventHandler);
         }
 

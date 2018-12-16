@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Configuration;
-using System.Text;
-using Auth0.OidcClient;
 using MyFootballAdmin.Common;
 using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Main.Views.AddTournament;
-using MyFootballAdmin.Main.Views.Notification;
+using MyFootballAdmin.Main.Views.Notifications;
+using MyFootballAdmin.Main.Views.Notifications;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -24,9 +22,9 @@ namespace MyFootballAdmin.Main.Views.Main
             _eventAggregator = eventAggregator;
         }
 
-        private Notification.Notification _notification;
+        private Notification _notification;
 
-        public Notification.Notification notification
+        public Notification notification
         {
             get { return _notification; }
             set { SetProperty(ref _notification, value); }
@@ -61,9 +59,9 @@ namespace MyFootballAdmin.Main.Views.Main
 
         public void AddTournamentCommandAction()
         {
-            RegionManager.RequestNavigate(RegionNames.WindowContentRegion, nameof(AddTournamentView));
-            Notification.Notification notification = new Notification.Notification(NotificationType.Info,"Teams count must be over 4.");
+            Notification notification = new Notification(NotificationType.Info,"Teams count must be over 4.");
             _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs { Notification = notification });
+            RegionManager.RequestNavigate(RegionNames.WindowContentRegion, nameof(AddTournamentView));
         }
 
         #endregion
@@ -74,7 +72,7 @@ namespace MyFootballAdmin.Main.Views.Main
 
         public class NotificationEventArgs
         {
-            public Notification.Notification Notification { get; set; }
+            public Notifications.Notification Notification { get; set; }
         }
 
         #endregion

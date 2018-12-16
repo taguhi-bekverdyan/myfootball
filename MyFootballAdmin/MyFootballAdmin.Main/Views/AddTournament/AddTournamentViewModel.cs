@@ -1,5 +1,7 @@
-﻿using MyFootballAdmin.Common.Prism;
-using MyFootballAdmin.Main.Views.Notification;
+﻿using MyFootballAdmin.Common;
+using MyFootballAdmin.Common.Prism;
+using MyFootballAdmin.Main.Views.Main;
+using MyFootballAdmin.Main.Views.Notifications;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -12,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MyFootballAdmin.Main.Views.AddTournament
 {
-    public class AddTournamentViewModel : BindableBase, INavigationAware
+    public class AddTournamentViewModel : BindableBase, INavigationAware, IRegionManagerAware
     {
 
         private readonly IShellService _shellService;
@@ -78,7 +80,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             set {
                 if (_endDate < new DateTime(01 / 01 / 2019))
                 {
-                    _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs { Notification = new Notification.Notification(NotificationType.Error,"Date can not be till 2019.") });
+                    _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs { Notification = new Notifications.Notification(NotificationType.Error,"Date can not be till 2019.") });
                 }
                 else
                 {
@@ -96,7 +98,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             {
                 if (_startDate < new DateTime(01 / 01 / 2019))
                 {
-                    _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs { Notification = new Notification.Notification(NotificationType.Error, "Date can not be till 2019.") });
+                    _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs { Notification = new Notifications.Notification(NotificationType.Error, "Date can not be till 2019.") });
                 }
                 else
                 {
@@ -128,6 +130,8 @@ namespace MyFootballAdmin.Main.Views.AddTournament
 
         public DelegateCommand AddCommand => _addCommand ?? (_addCommand = new DelegateCommand(AddCommandAction));
 
+        public IRegionManager RegionManager { get; set; }
+
         public void AddCommandAction()
         {
             CreateTournament();
@@ -145,6 +149,8 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             Tournament.responseMatch = ResponseMatch;
             Tournament.startDate = StartDate;
             Tournament.endDate = EndDate;
+            RegionManager.RequestNavigate(RegionNames.WindowContentRegion, nameof(MainView));
+            _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs { Notification = new Notifications.Notification(NotificationType.Alert, "Tournament successfully added!") });
         }
 
         #region Navigation
@@ -171,7 +177,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
 
         public class NotificationEventArgs
         {
-            public Notification.Notification Notification { get; set; }
+            public Notification Notification { get; set; }
         }
 
         #endregion

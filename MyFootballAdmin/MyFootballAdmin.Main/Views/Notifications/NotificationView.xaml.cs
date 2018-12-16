@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MyFootballAdmin.Main.Views.Notification
+namespace MyFootballAdmin.Main.Views.Notifications
 {
     /// <summary>
     /// Interaction logic for NotificationView.xaml

@@ -2,7 +2,7 @@
 using MyFootballAdmin.Common;
 using MyFootballAdmin.Main.Views.AddTournament;
 using MyFootballAdmin.Main.Views.Main;
-using MyFootballAdmin.Main.Views.Notification;
+using MyFootballAdmin.Main.Views.Notifications;
 using Prism.Modularity;
 using Prism.Regions;
 
