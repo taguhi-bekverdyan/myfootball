@@ -47,6 +47,8 @@ namespace MyFootballMvc.Controllers
 
         public async Task<IActionResult> TestPublic()
         {
+            return StatusCode(404);
+
             var client = new RestClient("https://localhost:44350/api/test/public");
             var request = new RestRequest(Method.GET);
             //request.AddHeader("authorization", "Bearer YOUR_ACCESS_TOKEN");
@@ -62,6 +64,8 @@ namespace MyFootballMvc.Controllers
 
         public async Task<IActionResult> TestPrivate()
         {
+            return StatusCode(500);
+
             var client = new RestClient("https://localhost:44350/api/test/private");
             var request = new RestRequest(Method.GET);
             request.AddHeader("authorization", $"Bearer {await GetAccessToken()}");
@@ -76,6 +80,8 @@ namespace MyFootballMvc.Controllers
 
         public async Task<IActionResult> TestUser()
         {
+            return StatusCode(503);
+
             var client = new RestClient("https://localhost:44350/api/test/private-user");
             var request = new RestRequest(Method.GET);
             request.AddHeader("authorization", $"Bearer {await GetAccessToken()}");
@@ -90,6 +96,8 @@ namespace MyFootballMvc.Controllers
 
         public async Task<IActionResult> TestAdmin()
         {
+            return StatusCode(502);
+
             var client = new RestClient("https://localhost:44350/api/test/private-admin");
             var request = new RestRequest(Method.GET);
             request.AddHeader("authorization", $"Bearer {await GetAccessToken()}");
