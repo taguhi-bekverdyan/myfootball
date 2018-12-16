@@ -3,8 +3,9 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
     .field-validation-error {
         color: red;
@@ -35,7 +36,9 @@
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.User.Birthdate)
-            @Html.TextBoxFor(m => m.User.Birthdate, "{0:d MMM yyyy}", new { @class= "date-picker form-control" })
+            @Html.TextBoxFor(m => m.User.Birthdate,
+                string.Format("{0:d}",Model.User.Birthdate.ToShortDateString()),
+                new { @class= "date-picker form-control", type="date" })
         </div>
         @Html.HiddenFor(m => m.User.Id)
         <button type="submit" class="btn btn-primary">Save</button>
