@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -64,7 +65,10 @@ namespace MyFootballRestApi.Controllers
                 {
                     c.Type,
                     c.Value
+
                 }));
+            //return new JsonResult(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+
         }
 
     }
