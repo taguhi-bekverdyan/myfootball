@@ -18,7 +18,7 @@ namespace MyFootballRestApi.Controllers
     [HttpGet]
     public IActionResult Get()
     {
-      var players = _playerRepository.GetAll();
+      var players = _playerRepository.GetAll(typeof(Player));
       return Ok(players);
     }
 

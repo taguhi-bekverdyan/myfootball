@@ -1,5 +1,6 @@
 ﻿using Couchbase;
 using Couchbase.Core;
+using Couchbase.N1QL;
 using MyFootballRestApi.Models;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,12 @@ namespace MyFootballRestApi.Data
 
     #region CRUD
 
-    public List<T> GetAll()
+    public List<T> GetAll(Type t)
     {
-      var result = _bucket.Query<T>("Select MyFootball.* From MyFootball");
+      var type = t.Name.ToLower();
+      var query = new QueryRequest("SELECT * FROM MyFootball WHERE type = $type");
+      query.AddNamedParameter("type", type);
+      var result = _bucket.Query<T>(query);
       return !result.Success ? null : result.Rows;
     }
 
