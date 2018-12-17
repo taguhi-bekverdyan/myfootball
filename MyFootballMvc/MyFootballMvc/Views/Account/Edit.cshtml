@@ -3,9 +3,7 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <style>
     .field-validation-error {
         color: red;
@@ -36,9 +34,14 @@
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.User.Birthdate)
-            @Html.TextBoxFor(m => m.User.Birthdate,
+            <div class="input-group date" data-provide="datepicker">
+
+                @Html.TextBoxFor(m => m.User.Birthdate,
                 string.Format("{0:d}",Model.User.Birthdate.ToShortDateString()),
-                new { @class= "date-picker form-control", type="date" })
+                new { @class= "form-control", type="text"})
+                <div class="input-group-addon glyphicon glyphicon-th"></div>
+            </div>
+
         </div>
         @Html.HiddenFor(m => m.User.Id)
         <button type="submit" class="btn btn-primary">Save</button>
