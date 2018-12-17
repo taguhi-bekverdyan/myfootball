@@ -3,7 +3,6 @@ using MyFootballAdmin.Common;
 using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Main.Views.AddTournament;
 using MyFootballAdmin.Main.Views.Notifications;
-using MyFootballAdmin.Main.Views.Notifications;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -32,7 +31,7 @@ namespace MyFootballAdmin.Main.Views.Main
 
         public IRegionManager RegionManager { get; set; }
 
-        #region Navigations
+        #region Navigation
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
@@ -72,7 +71,7 @@ namespace MyFootballAdmin.Main.Views.Main
 
         public class NotificationEventArgs
         {
-            public Notifications.Notification Notification { get; set; }
+            public Notification Notification { get; set; }
         }
 
         #endregion

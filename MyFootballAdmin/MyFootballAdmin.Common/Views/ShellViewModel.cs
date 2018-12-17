@@ -19,7 +19,6 @@ namespace MyFootballAdmin.Common.Views
         public ShellViewModel(IShellService service)
         {
             _service = service;
-            //RegionManager.RequestNavigate(RegionNames.WindowContentRegion, nameof(DeviceListView));
         }
 
         public IRegionManager RegionManager { get; set; }

@@ -58,7 +58,15 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             }
         }
 
-        private int _minCount ;
+        private Notification _notification;
+
+        public Notification notification
+        {
+            get { return _notification; }
+            set { SetProperty(ref _notification, value); }
+        }
+
+        private int _minCount;
 
         public int MinCount
         {
@@ -78,14 +86,15 @@ namespace MyFootballAdmin.Main.Views.AddTournament
         {
             get { return _endDate; }
             set {
-                if (_endDate < new DateTime(01 / 01 / 2019))
-                {
-                    _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs { Notification = new Notifications.Notification(NotificationType.Error,"Date can not be till 2019.") });
-                }
-                else
-                {
+                //if (_endDate < StartDate)
+                //{
+                //    Notification notification = new Notification(NotificationType.Error, "End Date can not be till Start Date.");
+                //    _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs { Notification = notification});
+                //}
+                //else
+                //{
                     SetProperty(ref _endDate, value);
-                }
+                //}
                 }
         }
 
@@ -96,14 +105,15 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             get { return _startDate; }
             set
             {
-                if (_startDate < new DateTime(01 / 01 / 2019))
-                {
-                    _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs { Notification = new Notifications.Notification(NotificationType.Error, "Date can not be till 2019.") });
-                }
-                else
-                {
+                //if (_startDate < new DateTime(01 / 01 / 2019))
+                //{
+                //    Notification notification = new Notification(NotificationType.Error, "Date can not be till 2019.");
+                //    _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs { Notification = notification });
+                //}
+                //else
+                //{
                     SetProperty(ref _startDate, value);
-                }
+                //}
             }
         }
 
@@ -124,17 +134,21 @@ namespace MyFootballAdmin.Main.Views.AddTournament
         }
         #endregion
 
+
+        public IRegionManager RegionManager { get; set; }
+
         #region Commands
 
         private DelegateCommand _addCommand;
 
         public DelegateCommand AddCommand => _addCommand ?? (_addCommand = new DelegateCommand(AddCommandAction));
 
-        public IRegionManager RegionManager { get; set; }
 
         public void AddCommandAction()
         {
             CreateTournament();
+            Notification notification = new Notification(NotificationType.Alert, "Tournament is successfully added!");
+            _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs { Notification = notification });
         }
 
         #endregion
@@ -149,15 +163,13 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             Tournament.responseMatch = ResponseMatch;
             Tournament.startDate = StartDate;
             Tournament.endDate = EndDate;
-            RegionManager.RequestNavigate(RegionNames.WindowContentRegion, nameof(MainView));
-            _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs { Notification = new Notifications.Notification(NotificationType.Alert, "Tournament successfully added!") });
         }
 
         #region Navigation
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public void OnNavigatedFrom(NavigationContext navigationContext)

@@ -21,9 +21,10 @@ namespace MyFootballAdmin
 {
     public class Bootstrapper : UnityBootstrapper
     {
+
         public Bootstrapper()
         {
-            //AutoWireViewModel logic
+
             ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver((viewType) =>
             {
                 var viewName = viewType.FullName;
@@ -86,7 +87,6 @@ namespace MyFootballAdmin
             {
                 App.Current.MainWindow.Show();
             }
-            
 
             var sb = new StringBuilder();
             sb.AppendLine("Tokens");
@@ -120,7 +120,6 @@ namespace MyFootballAdmin
             behaviors.AddIfMissing(RegionManagerAwareBehavior.BehaviorKey, typeof(RegionManagerAwareBehavior));
             return behaviors;
         }
-
 
     }
 }

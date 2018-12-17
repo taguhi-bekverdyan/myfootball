@@ -25,15 +25,22 @@ namespace MyFootballAdmin.Main.Views.Notifications
         {
             _shellService = shellService;
             _eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<NotificationEvent>().Subscribe(NotificationEventHandler, ThreadOption.UIThread);
         }
 
-        private Notification _notification;
+        #region Types
+
+        private Notification _notification = new Notification(NotificationType.Alert, "You logged in as Admin.");
 
         public Notification Notification
         {
             get { return _notification; }
             set { SetProperty(ref _notification, value); }
         }
+
+        #endregion
+
+        #region Navigation
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
@@ -47,11 +54,14 @@ namespace MyFootballAdmin.Main.Views.Notifications
  
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-
+            
         }
+
+        #endregion
 
         private void NotificationEventHandler(NotificationEventArgs args)
         {
+            Notification Notification = new Notification();
             this.Notification = args.Notification;
             _eventAggregator.GetEvent<NotificationEvent>().Unsubscribe(NotificationEventHandler);
         }

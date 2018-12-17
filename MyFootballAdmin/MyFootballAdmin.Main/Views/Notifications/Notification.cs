@@ -20,7 +20,7 @@ namespace MyFootballAdmin.Main.Views.Notifications
 
         public Notification(NotificationType notificationType, string message)
         {
-            Message = notificationType.ToString()+ "!" + message;
+            Message = notificationType.ToString()+ "! " + message;
             NotificationType = notificationType;
             if (NotificationType.Equals(NotificationType.Alert))
             {
