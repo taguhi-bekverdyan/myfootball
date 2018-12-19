@@ -28,7 +28,7 @@ namespace MyFootballRestApi.Data
     public List<T> GetAll(Type t)
     {
       var type = t.Name.ToLower();
-      var query = new QueryRequest("SELECT * FROM MyFootball WHERE type = $type");
+      var query = new QueryRequest("SELECT MyFootball.* FROM MyFootball WHERE type = $type");
       query.AddNamedParameter("type", type);
       var result = _bucket.Query<T>(query);
       return !result.Success ? null : result.Rows;
