@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 
 namespace MyFootballRestApi
 {
@@ -21,6 +22,7 @@ namespace MyFootballRestApi
     {
         public Startup(IConfiguration configuration)
         {
+            Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
             Configuration = configuration;
         }
 
@@ -57,7 +59,7 @@ namespace MyFootballRestApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -71,6 +73,9 @@ namespace MyFootballRestApi
             app.UseAuthentication();
 
             app.UseHttpsRedirection();
+            app.UseMvc();
+
+            loggerFactory.AddSerilog();
             app.UseMvc();
         }
     }
