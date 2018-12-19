@@ -4,6 +4,7 @@ using Couchbase.N1QL;
 using MyFootballRestApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MyFootballRestApi.Data
 {
@@ -25,13 +26,20 @@ namespace MyFootballRestApi.Data
 
     #region CRUD
 
-    public List<T> GetAll(Type t)
+    public async Task<List<T>> GetAll(Type t)
     {
-      var type = t.Name.ToLower();
-      var query = new QueryRequest("SELECT * FROM MyFootball WHERE type = $type");
-      query.AddNamedParameter("type", type);
-      var result = _bucket.Query<T>(query);
-      return !result.Success ? null : result.Rows;
+            var type = t.Name.ToLower();
+
+            var queryRequest = new QueryRequest()
+                .Statement("SELECT MyFootball.* FROM MyFootball WHERE type = $type")
+                .AddNamedParameter("$type", type);
+
+
+
+            var results = await _bucket.QueryAsync<T>(queryRequest);
+
+            //return !result.Success ? null : result.Rows;
+            return results.Rows;
     }
 
     public T Get(string id)

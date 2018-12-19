@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyFootballRestApi.Data;
@@ -16,9 +17,9 @@ namespace MyFootballRestApi.Controllers
 
     // GET: api/Player
     [HttpGet]
-    public IActionResult Get()
+    public async Task<IActionResult> Get()
     {
-      var players = _playerRepository.GetAll(typeof(Player));
+      var players = await _playerRepository.GetAll(typeof(Player));
       return Ok(players);
     }
 
@@ -31,11 +32,11 @@ namespace MyFootballRestApi.Controllers
     }
 
     [HttpPost("Create")]
-    public IActionResult Create([FromBody] Player player, string id)
+    public IActionResult Create([FromBody] Player player)
     {
-      var result = _playerRepository.Create(id, player);
+      var result = _playerRepository.Create(player.Id.ToString(), player);
       if (result == null) return BadRequest(player);
-      return Created($"/api/Player/Get/{id}", result);
+      return Created($"/api/Player/Get/{player.Id.ToString()}", result);
     }
 
     [HttpPost("Upsert")]

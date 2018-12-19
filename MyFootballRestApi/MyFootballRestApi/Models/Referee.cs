@@ -5,10 +5,7 @@ using System.Threading.Tasks;
 
 namespace MyFootballRestApi.Models
 {
-    public class Team:EntityBase<Team>
+    public class Referee
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        
     }
 }

@@ -12,8 +12,8 @@ namespace MyFootballRestApi.Models
         public Team Team2 { get; set; }
         public int GoalClub1 { get; set; }
         public int GoalClub2 { get; set; }
+        public Referee Referee { get; set; }
 
-        
 
     }
 }

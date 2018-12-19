@@ -1,7 +1,11 @@
-﻿namespace MyFootballRestApi.Models
+﻿using System;
+
+namespace MyFootballRestApi.Models
 {
   public class Player : EntityBase<Player>
   {
+
+    public Guid Id { get; set; }
     public string firstName { get; set; }
     public string lastName { get; set; }
     public int age { get; set; }

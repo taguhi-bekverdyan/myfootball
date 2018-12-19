@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace MyFootballRestApi.Models
 {
-    public class Team:EntityBase<Team>
+    public enum MatchResult
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        
+        Win,
+        Draw,
+        Lose
     }
 }
