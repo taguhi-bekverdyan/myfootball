@@ -1,75 +1,80 @@
-﻿using System.Configuration;
-using System.Text;
-using Auth0.OidcClient;
+﻿using System;
+using MyFootballAdmin.Common;
 using MyFootballAdmin.Common.Prism;
+using MyFootballAdmin.Main.Views.AddTournament;
+using MyFootballAdmin.Main.Views.Notifications;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
+using Prism.Regions;
 
 namespace MyFootballAdmin.Main.Views.Main
 {
-    public class MainViewModel : BindableBase
+    public class MainViewModel : BindableBase, INavigationAware, IRegionManagerAware
     {
         private readonly IShellService _shellService;
+        private readonly IEventAggregator _eventAggregator;
 
-        private readonly string _domain = ConfigurationManager.AppSettings["Auth0:Domain"];
-        private readonly string _clientId = ConfigurationManager.AppSettings["Auth0:ClientId"];
-
-        public MainViewModel(IShellService shellService)
+        public MainViewModel(IShellService shellService, IEventAggregator eventAggregator)
         {
             _shellService = shellService;
+            _eventAggregator = eventAggregator;
         }
 
+        private Notification _notification;
 
-        #region Properties
-
-        private string _loginResult;
-        public string LoginResult
+        public Notification notification
         {
-            get => _loginResult;
-            set => SetProperty(ref _loginResult, value);
+            get { return _notification; }
+            set { SetProperty(ref _notification, value); }
+        }
+
+        public IRegionManager RegionManager { get; set; }
+
+        #region Navigation
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+
         }
 
         #endregion
 
-        private DelegateCommand _loginCommand;
+        #region Commands
 
-        public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(LoginCommandAction));
+        private DelegateCommand _addTournamentCommand;
 
-        public async void LoginCommandAction()
+        public DelegateCommand AddTournamentCommand => _addTournamentCommand ?? (_addTournamentCommand = new DelegateCommand(AddTournamentCommandAction));
+
+        public void AddTournamentCommandAction()
         {
-            var client = new Auth0Client(new Auth0ClientOptions
-            {
-                Domain = _domain,
-                ClientId = _clientId
-            });
-
-            //login window
-            var loginResult=await client.LoginAsync();
-
-            if (loginResult.IsError)
-            {
-                LoginResult = loginResult.Error;
-                return;
-            }
-
-            var sb = new StringBuilder();
-            sb.AppendLine("Tokens");
-            sb.AppendLine("------");
-            sb.AppendLine($"id_token: {loginResult.IdentityToken}");
-            sb.AppendLine($"access_token: {loginResult.AccessToken}");
-            sb.AppendLine($"refresh_token: {loginResult.RefreshToken}");
-            sb.AppendLine();
-
-            sb.AppendLine("Claims");
-            sb.AppendLine("------");
-            foreach (var claim in loginResult.User.Claims)
-            {
-                sb.AppendLine($"{claim.Type}: {claim.Value}");
-            }
-
-            LoginResult = sb.ToString();
-
-
+            Notification notification = new Notification(NotificationType.Info,"Teams count must be over 4.");
+            _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs { Notification = notification });
+            RegionManager.RequestNavigate(RegionNames.WindowContentRegion, nameof(AddTournamentView));
         }
+
+        #endregion
+
+        #region Event
+
+        public class NotificationEvent : PubSubEvent<NotificationEventArgs> { }
+
+        public class NotificationEventArgs
+        {
+            public Notification Notification { get; set; }
+        }
+
+        #endregion
+
     }
 }

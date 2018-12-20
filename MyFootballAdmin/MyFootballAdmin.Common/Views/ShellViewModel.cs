@@ -9,7 +9,7 @@ namespace MyFootballAdmin.Common.Views
         private readonly IShellService _service;
 
 
-        private string _title = "HCS Admin Panel";
+        private string _title = "MyFootball Admin Panel";
         public string Title
         {
             get => _title;
@@ -19,7 +19,6 @@ namespace MyFootballAdmin.Common.Views
         public ShellViewModel(IShellService service)
         {
             _service = service;
-            //RegionManager.RequestNavigate(RegionNames.WindowContentRegion, nameof(DeviceListView));
         }
 
         public IRegionManager RegionManager { get; set; }
