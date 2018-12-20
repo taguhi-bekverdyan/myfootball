@@ -31,6 +31,4 @@ namespace MyFootballAdmin.Main.Views.AddTournament
         League,
         Cup,
     }
-
-
 }

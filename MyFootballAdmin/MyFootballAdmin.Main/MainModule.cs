@@ -33,14 +33,14 @@ namespace MyFootballAdmin.Main
 
 
             //register views
-            _unityContainer.RegisterType(typeof(object), typeof(MainView), nameof(MainView));
-            _unityContainer.RegisterType(typeof(object), typeof(NotificationView), nameof(NotificationView));
-            _unityContainer.RegisterType(typeof(object), typeof(AddTournamentView), nameof(AddTournamentView));
-            _unityContainer.RegisterType(typeof(object), typeof(ToolBarView), nameof(ToolBarView));
-            _unityContainer.RegisterType(typeof(object), typeof(BesidesToolBarView), nameof(BesidesToolBarView));
-            _unityContainer.RegisterType(typeof(object), typeof(PausesView), nameof(PausesView));
-            _unityContainer.RegisterType(typeof(object), typeof(MatchEditView), nameof(MatchEditView));
-            _unityContainer.RegisterType(typeof(object), typeof(TournamentsView), nameof(TournamentsView));
+            _unityContainer.RegisterType<object, MainView>(typeof(MainView).FullName);
+            _unityContainer.RegisterType<object, NotificationView>(typeof(NotificationView).FullName);
+            _unityContainer.RegisterType<object, AddTournamentView>(typeof(AddTournamentView).FullName);
+            _unityContainer.RegisterType<object, ToolBarView>(typeof(ToolBarView).FullName);
+            _unityContainer.RegisterType<object, BesidesToolBarView>(typeof(BesidesToolBarView).FullName);
+            _unityContainer.RegisterType<object, PausesView>(typeof(PausesView).FullName);
+            _unityContainer.RegisterType<object, MatchEditView>(typeof(MatchEditView).FullName);
+            _unityContainer.RegisterType<object, TournamentsView>(typeof(TournamentsView).FullName);
         }
     }
 }

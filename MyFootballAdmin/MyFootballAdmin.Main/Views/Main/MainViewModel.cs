@@ -14,46 +14,44 @@ using System.Threading.Tasks;
 
 namespace MyFootballAdmin.Main.Views.Main
 {
-    public class MainViewModel : BindableBase, INavigationAware, IRegionManagerAware
+  public class MainViewModel : BindableBase //, INavigationAware
+  {
+
+    private readonly IShellService _shellService;
+    private readonly IEventAggregator _eventAggregator;
+    private readonly INotificationService _notificationService;
+    private readonly IRegionManager _regionManager;
+
+    public MainViewModel(IShellService shellService, IEventAggregator eventAggregator, INotificationService notificationService, IRegionManager regionManager)
     {
-
-        private readonly IShellService _shellService;
-        private readonly IEventAggregator _eventAggregator;
-        private readonly INotificationService _notificationService;
-
-        public MainViewModel(IShellService shellService, IEventAggregator eventAggregator, INotificationService notificationService)
-        {
-            _shellService = shellService;
-            _eventAggregator = eventAggregator;
-            _notificationService = notificationService;
-        }
-    
-
-        private DelegateCommand _addTournamentCommand;
-
-        public DelegateCommand AddTournamentCommand => _addTournamentCommand ?? (_addTournamentCommand = new DelegateCommand(AddTournamentCommandAction));
-
-        public IRegionManager RegionManager { get; set; }
-
-        public void AddTournamentCommandAction()
-        {
-            //_notificationService.ShowNotification(NotificationType.Warning, "!");
-            RegionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, nameof(AddTournamentView));
-        }
-
-        public void OnNavigatedTo(NavigationContext navigationContext)
-        {
-
-        }
-
-        public bool IsNavigationTarget(NavigationContext navigationContext)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnNavigatedFrom(NavigationContext navigationContext)
-        {
-        
-        }
+      _shellService = shellService;
+      _eventAggregator = eventAggregator;
+      _notificationService = notificationService;
     }
+
+
+    private DelegateCommand _addTournamentCommand;
+    public DelegateCommand AddTournamentCommand => _addTournamentCommand ?? (_addTournamentCommand = new DelegateCommand(AddTournamentCommandAction));
+       
+    public void AddTournamentCommandAction()
+    {
+      //_notificationService.ShowNotification(NotificationType.Warning, "!");
+      _regionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, nameof(AddTournamentView));
+    }
+
+    //public void OnNavigatedTo(NavigationContext navigationContext)
+    //{
+
+    //}
+
+    //public bool IsNavigationTarget(NavigationContext navigationContext)
+    //{
+    //  throw new NotImplementedException();
+    //}
+
+    //public void OnNavigatedFrom(NavigationContext navigationContext)
+    //{
+
+    //}
+  }
 }
