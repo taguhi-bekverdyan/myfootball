@@ -31,25 +31,25 @@ namespace MyFootballRestApi.Controllers
     }
 
     [HttpPost("Create")]
-    public IActionResult Create([FromBody] Player player, string id)
+    public IActionResult Create([FromBody] Player player)
     {
-      var result = _playerRepository.Create(id, player);
+      var result = _playerRepository.Create( player);
       if (result == null) return BadRequest(player);
-      return Created($"/api/Player/Get/{id}", result);
+      return Created($"/api/Player/Get/{player.Id.ToString()}", result);
     }
 
     [HttpPost("Upsert")]
-    public IActionResult Upsert([FromBody] Player player, string id)
+    public IActionResult Upsert([FromBody] Player player)
     {
-      var result = _playerRepository.Upsert(id, player);
+      var result = _playerRepository.Upsert( player);
       if (result == null) return BadRequest(player);
-      return Created($"/api/Player/Get/{id}", result);
+      return Created($"/api/Player/Get/{player.Id.ToString()}", result);
     }
 
     [HttpPut("Update")]
-    public IActionResult Update([FromBody] Player player, string id)
+    public IActionResult Update([FromBody] Player player)
     {
-      var result = _playerRepository.Update(id, player);
+      var result = _playerRepository.Update( player);
       if (result == null) return BadRequest(player);
       return Ok(result);
     }

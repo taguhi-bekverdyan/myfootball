@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using MyFootballMvc.Models;
+using MyFootballMvc.ViewModels;
 using Newtonsoft.Json;
 using RestSharp;
 
@@ -14,7 +15,7 @@ namespace MyFootballMvc.Controllers
     {
         public async Task<IActionResult>  Index()
         {
-            return View();
+            return View(new HomeViewModel());
         }
 
 

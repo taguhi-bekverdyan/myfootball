@@ -1,8 +1,9 @@
 using System;
+using MyFootballMvc.ViewModels;
 
 namespace MyFootballMvc.Models
 {
-    public class ErrorViewModel
+    public class ErrorViewModel : LayoutViewModel
     {
         public string RequestId { get; set; }
 

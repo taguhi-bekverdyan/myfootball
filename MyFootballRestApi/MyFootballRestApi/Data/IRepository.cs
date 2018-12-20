@@ -8,9 +8,9 @@ namespace MyFootballRestApi.Data
   {
     List<T> GetAll(Type type);
     T Get(string id);
-    T Create(string id, T item);
-    T Update(string id, T item);
-    T Upsert(string id, T item);
+    T Create( T item);
+    T Update( T item);
+    T Upsert( T item);
     void Delete(string id);    
   }
 }
