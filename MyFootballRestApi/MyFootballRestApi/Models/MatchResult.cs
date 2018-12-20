@@ -9,6 +9,7 @@ namespace MyFootballRestApi.Models
     {
         Win,
         Draw,
-        Lose
+        Lose,
+        Other
     }
 }

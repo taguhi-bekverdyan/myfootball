@@ -42,52 +42,52 @@ namespace MyFootballRestApi.Data
             return results.Rows;
     }
 
-    public T Get(string id)
+    public async Task<T> Get(string id)
     {
       var key = CreateKey(id);
-      var result = _bucket.Get<T>(key);
+      var result = await _bucket.GetAsync<T>(key);
       return !result.Success ? null : result.Value;
     }
 
-    public T Create(string id, T item)
+    public async Task<T> Create(string id, T item)
     {
       item.Created = DateTime.Now;
       item.Updated = DateTime.Now;
       var key = CreateKey(id);
 
-      var result = _bucket.Insert(key, item);
+      var result = await _bucket.InsertAsync(key, item);
       if (!result.Success) throw result.Exception;
 
       return item;
     }
 
-    public T Update(string id, T item)
+    public async Task<T> Update(string id, T item)
     {
       item.Updated = DateTime.Now;
       var key = CreateKey(id);
-      var result = _bucket.Replace(key, item);
+      var result = await _bucket.ReplaceAsync(key, item);
 
       if (!result.Success) throw result.Exception;
 
       return item;
     }
 
-    public T Upsert(string id, T item)
+    public async Task<T> Upsert(string id, T item)
     {
       if (Get(id) == null) item.Created = DateTime.Now;
       item.Updated = DateTime.Now;
       var key = CreateKey(id);
-      var result = _bucket.Upsert(key, item);
+      var result = await _bucket.UpsertAsync(key, item);
 
       if (!result.Success) throw result.Exception;
 
       return item;
     }
 
-    public void Delete(string id)
+    public async Task Delete(string id)
     {
       var key = CreateKey(id);
-      var result = _bucket.Remove(key);
+      var result = await _bucket.RemoveAsync(key);
       if (!result.Success) throw result.Exception;
     }
 

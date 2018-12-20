@@ -8,10 +8,10 @@ namespace MyFootballRestApi.Data
   public interface IRepository<T> where T:EntityBase<T>
   {
     Task<List<T>> GetAll(Type type);
-    T Get(string id);
-    T Create(string id, T item);
-    T Update(string id, T item);
-    T Upsert(string id, T item);
-    void Delete(string id);    
+    Task<T> Get(string id);
+    Task<T> Create(string id, T item);
+    Task<T> Update(string id, T item);
+    Task<T> Upsert(string id, T item);
+    Task Delete(string id);    
   }
 }

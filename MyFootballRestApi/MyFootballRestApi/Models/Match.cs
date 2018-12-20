@@ -7,13 +7,12 @@ namespace MyFootballRestApi.Models
 {
     public class Match:EntityBase<Match>
     {
+        public Guid Id { get; set; }
         public DateTime MatchDateTime { get; set; }
         public Team Team1 { get; set; }
         public Team Team2 { get; set; }
         public int GoalClub1 { get; set; }
         public int GoalClub2 { get; set; }
-        public Referee Referee { get; set; }
-
-
+        public Guid RefereeId { get; set; }
     }
 }

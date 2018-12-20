@@ -5,7 +5,7 @@ namespace MyFootballRestApi.Models
 {
     public class League:EntityBase<League>
     {
-
+        public Guid Id { get; set; }
         public List<Team> Teams { get; set; }
         public int CountOfMatches { get; set; }
         public DateTime StartDate { get; set; }

@@ -23,11 +23,11 @@ namespace MyFootballRestApi.Controllers
 
         #region GET
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
-                var teams = _teamsRepository.GetAll(typeof(Team));
+                var teams = await _teamsRepository.GetAll(typeof(Team));
                 return Ok(teams);
             }
             catch (Exception e)
@@ -37,11 +37,11 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetTeamById([FromRoute]string id)
+        public async Task<IActionResult> GetTeamById([FromRoute]string id)
         {
             try
             {
-                var team = _teamsRepository.Get(id);
+                var team = await _teamsRepository.Get(id);
                 if (team == null) { return NotFound(); }
                 return Ok(team);
             }
@@ -54,12 +54,13 @@ namespace MyFootballRestApi.Controllers
 
         #region POST
 
-        [HttpPost]
-        public IActionResult Create([FromBody]Team team,string id)
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create([FromBody]Team team)
         {
             try
             {
-                var result = _teamsRepository.Create(id,team);
+                string id = team.Id.ToString();
+                var result = await _teamsRepository.Create(id,team);
                 if (result == null) { return BadRequest(team); }
                 return Created($"/api/Teams/{id}",result);
             }
@@ -70,11 +71,12 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpPost("Upsert")]
-        public IActionResult Upsert([FromBody] Team team, string id)
+        public async Task<IActionResult> Upsert([FromBody] Team team)
         {
             try
             {
-                var result = _teamsRepository.Upsert(id, team);
+                string id = team.Id.ToString();
+                var result = await _teamsRepository.Upsert(id, team);
                 if (result == null) return BadRequest(team);
                 return Created($"/api/teams/{id}", result);
             }
@@ -87,12 +89,13 @@ namespace MyFootballRestApi.Controllers
         #endregion
 
         #region PUT
-        [HttpPut]
-        public IActionResult Update([FromBody] Team team, string id)
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update([FromBody] Team team)
         {
             try
             {
-                var result = _teamsRepository.Update(id, team);
+                string id = team.Id.ToString();
+                var result = await _teamsRepository.Update(id, team);
                 if (result == null) return BadRequest(team);
                 return Ok(result);
             }
@@ -105,12 +108,12 @@ namespace MyFootballRestApi.Controllers
 
         #region DELETE
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> Delete(string id)
         {      
             try
             {
-                _teamsRepository.Delete(id);
+                await _teamsRepository.Delete(id);
                 return NoContent();
             }
             catch (Exception e)

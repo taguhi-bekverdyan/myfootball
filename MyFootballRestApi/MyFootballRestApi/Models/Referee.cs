@@ -7,5 +7,7 @@ namespace MyFootballRestApi.Models
 {
     public class Referee
     {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
     }
 }

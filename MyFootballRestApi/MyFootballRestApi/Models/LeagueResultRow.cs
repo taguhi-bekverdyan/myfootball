@@ -4,8 +4,8 @@ namespace MyFootballRestApi.Models
 {
     public class LeagueResultRow
     {
-        public int Position { get; set; }
-        public Guid  TeamId { get; set; }
+        public Guid TeamId { get; set; }
+        public int Position { get; set; }       
         public int Played { get; set; }
         public int Won { get; set; }
         public int Drawn { get; set; }

@@ -7,14 +7,14 @@ namespace MyFootballRestApi.Models
     {
         public List<LeagueResultRow> Table { get; set; }
 
-        public void Recalculate(List<Rule> rules)
-        {
-            rules=rules.OrderBy(x=>x.RulePriority).ToList();
-            for (int i=0;i<rules.Count; i++)
-            {
-                Table = rules[i].Order(Table, rules.GetRange(0,i));
-            }
-        }
+        //public void Recalculate(List<Rule> rules)
+        //{
+        //    rules=rules.OrderBy(x=>x.RulePriority).ToList();
+        //    for (int i=0;i<rules.Count; i++)
+        //    {
+        //        Table = rules[i].Order(Table, rules.GetRange(0,i));
+        //    }
+        //}
 
     }
 }
