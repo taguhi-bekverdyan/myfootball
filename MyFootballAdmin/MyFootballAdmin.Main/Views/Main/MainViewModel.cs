@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Text;
 using Auth0.OidcClient;
+using log4net;
 using MyFootballAdmin.Common.Prism;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -13,10 +14,13 @@ namespace MyFootballAdmin.Main.Views.Main
 
         private readonly string _domain = ConfigurationManager.AppSettings["Auth0:Domain"];
         private readonly string _clientId = ConfigurationManager.AppSettings["Auth0:ClientId"];
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public MainViewModel(IShellService shellService)
         {
             _shellService = shellService;
+            log4net.Config.XmlConfigurator.Configure();
+            log.Info("In MainView.xaml");
         }
 
 
@@ -49,6 +53,7 @@ namespace MyFootballAdmin.Main.Views.Main
             if (loginResult.IsError)
             {
                 LoginResult = loginResult.Error;
+                log.Error("error");
                 return;
             }
 
@@ -68,6 +73,7 @@ namespace MyFootballAdmin.Main.Views.Main
             }
 
             LoginResult = sb.ToString();
+            log.Info("Login");
 
 
         }
