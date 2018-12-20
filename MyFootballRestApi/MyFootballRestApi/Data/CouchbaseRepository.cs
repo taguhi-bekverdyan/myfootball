@@ -1,4 +1,6 @@
-﻿using Couchbase;
+﻿using System;
+using System.Collections.Generic;
+using Couchbase;
 using Couchbase.Core;
 using Couchbase.N1QL;
 using MyFootballRestApi.Models;
@@ -8,23 +10,23 @@ using System.Threading.Tasks;
 
 namespace MyFootballRestApi.Data
 {
-  public class CouchbaseRepository<T> : IRepository<T> where T : EntityBase<T>
-  {
-    private readonly IBucket _bucket = ClusterHelper.GetBucket("MyFootball");
-
-    #region Private Methods
-
-    private string CreateKey(string id)
+    public class CouchbaseRepository<T> : IRepository<T> where T : EntityBase<T>
     {
-      // generates type-prefixed key like 'player::123'
-      return string.Format("{0}::{1}", typeof(T).Name.ToLower(), id);
-    }
+        private readonly IBucket _bucket = ClusterHelper.GetBucket("MyFootball");
 
-    #endregion
+        #region Private Methods
 
-    #region Public Members
+        private string CreateKey(string id)
+        {
+            // generates type-prefixed key like 'player::123'
+            return string.Format("{0}::{1}", typeof(T).Name.ToLower(), id);
+        }
 
-    #region CRUD
+        #endregion
+
+        #region Public Members
+
+        #region CRUD
 
     public async Task<List<T>> GetAll(Type t)
     {
@@ -58,8 +60,8 @@ namespace MyFootballRestApi.Data
       var result = await _bucket.InsertAsync(key, item);
       if (!result.Success) throw result.Exception;
 
-      return item;
-    }
+            return item;
+        }
 
     public async Task<T> Update(string id, T item)
     {
@@ -67,10 +69,10 @@ namespace MyFootballRestApi.Data
       var key = CreateKey(id);
       var result = await _bucket.ReplaceAsync(key, item);
 
-      if (!result.Success) throw result.Exception;
+            if (!result.Success) throw result.Exception;
 
-      return item;
-    }
+            return item;
+        }
 
     public async Task<T> Upsert(string id, T item)
     {
@@ -79,10 +81,11 @@ namespace MyFootballRestApi.Data
       var key = CreateKey(id);
       var result = await _bucket.UpsertAsync(key, item);
 
-      if (!result.Success) throw result.Exception;
+            item.Updated = DateTime.Now;
+            var key = CreateKey(item.Id);
+            var result = _bucket.Upsert(key, item);
 
-      return item;
-    }
+            if (!result.Success) throw result.Exception;
 
     public async Task Delete(string id)
     {
@@ -91,8 +94,15 @@ namespace MyFootballRestApi.Data
       if (!result.Success) throw result.Exception;
     }
 
-    #endregion
+        public void Delete(string id)
+        {
+            var key = CreateKey(id);
+            var result = _bucket.Remove(key);
+            if (!result.Success) throw result.Exception;
+        }
 
-    #endregion
-  }
+        #endregion
+
+        #endregion
+    }
 }

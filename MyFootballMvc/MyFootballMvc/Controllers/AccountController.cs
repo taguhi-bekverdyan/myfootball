@@ -18,11 +18,11 @@ namespace MyFootballMvc.Controllers
     {
 
         public UsersService _usersService { get; set; }
-        public TeamsService _temsService { get; set; }
+        public TeamsService _teamsService { get; set; }
         public AccountController()
         {
             _usersService = new UsersService();
-            _temsService = new TeamsService();
+            _teamsService = new TeamsService();
         }
 
         public async Task Login(string returnUrl = "/")
@@ -48,7 +48,7 @@ namespace MyFootballMvc.Controllers
         {
             string accessToken = await GetAccessToken();
             string id = GetUserAuth0Id();
-            List<Team> teams = await _temsService.FindAll(accessToken);
+            List<Team> teams = await _teamsService.FindAll(accessToken);
             User user = await _usersService.FindUserById(accessToken, id);
 
             if (user == null)
@@ -78,7 +78,7 @@ namespace MyFootballMvc.Controllers
             {
                 return View("Edit",new EditAccountViewModel() {
                     User = user,
-                    Teams = await _temsService.FindAll(accessToken)
+                    Teams = await _teamsService.FindAll(accessToken)
                 });
             }
 

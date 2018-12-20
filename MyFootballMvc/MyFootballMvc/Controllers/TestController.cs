@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using MyFootballMvc.Models;
+using MyFootballMvc.ViewModels;
 using Newtonsoft.Json;
 using RestSharp;
 
@@ -41,7 +40,7 @@ namespace MyFootballMvc.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View();
+            return View(new TestViewModel());
         }
 
 
@@ -57,7 +56,7 @@ namespace MyFootballMvc.Controllers
 
             ViewData["Message"] = json.message;
 
-            return View("~/Views/Test/Test.cshtml");
+            return View("~/Views/Test/Test.cshtml",new TestViewModel());
         }
 
         public async Task<IActionResult> TestPrivate()
@@ -71,7 +70,7 @@ namespace MyFootballMvc.Controllers
 
             ViewData["Message"] = json.message;
 
-            return View("~/Views/Test/Test.cshtml");
+            return View("~/Views/Test/Test.cshtml", new TestViewModel());
         }
 
         public async Task<IActionResult> TestUser()
@@ -85,7 +84,7 @@ namespace MyFootballMvc.Controllers
 
             ViewData["Message"] = json.message;
 
-            return View("~/Views/Test/Test.cshtml");
+            return View("~/Views/Test/Test.cshtml", new TestViewModel());
         }
 
         public async Task<IActionResult> TestAdmin()
@@ -99,7 +98,7 @@ namespace MyFootballMvc.Controllers
 
             ViewData["Message"] = json.message;
 
-            return View("~/Views/Test/Test.cshtml");
+            return View("~/Views/Test/Test.cshtml", new TestViewModel());
         }
 
         public async Task<IActionResult> Claims()
@@ -113,7 +112,7 @@ namespace MyFootballMvc.Controllers
 
             ViewData["Message"] = response.Content;
 
-            return View("~/Views/Test/Test.cshtml");
+            return View("~/Views/Test/Test.cshtml", new TestViewModel());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
