@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace MyFootballRestApi.Models
 {
-  public class User
+  public class User:EntityBase<User>
   {
-        public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public DateTime Birthdate { get; set; }
+        public string FavoriteTeamId { get; set; }
     }
 }

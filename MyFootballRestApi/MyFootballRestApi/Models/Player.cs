@@ -4,22 +4,21 @@ namespace MyFootballRestApi.Models
 {
   public class Player : EntityBase<Player>
   {
-
-    public Guid Id { get; set; }
-    public string firstName { get; set; }
-    public string lastName { get; set; }
-    public int age { get; set; }
-    public User user { get; set; }
-    public Position position { get; set; }
-    public byte[] avatar { get; set; }
-    public PhysicalStats physicalStats { get; set; }
-    public bool hasTrained { get; set; }
-    public int teamId { get; set; }
-
-    // if has teamId
-    public int number { get; set; }
+        
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public int Age { get; set; }
+    public User User { get; set; }
+    public Position Position { get; set; }
+    public byte[] Avatar { get; set; }
+    public PhysicalStats PhysicalStats { get; set; }
+    public bool HasTrained { get; set; }
+    public int TeamId { get; set; }
 
     // if has teamId
-    public bool isCaptain { get; set; }
+    public int Number { get; set; }
+
+    // if has teamId
+    public bool IsCaptain { get; set; }
   }
 }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyFootballRestApi.Data;
 using MyFootballRestApi.Models;
+using System.Threading.Tasks;
+using System;
 
 namespace MyFootballRestApi.Controllers
 {
@@ -13,49 +15,94 @@ namespace MyFootballRestApi.Controllers
 
         // GET: api/Tournament
         [HttpGet]
-        public IActionResult Get()
-        {
-            var players = _tournamentRepository.GetAll(typeof(Tournament));
-            return Ok(players);
+        public async Task<IActionResult> Get()
+        {           
+            try
+            {
+                var players = await _tournamentRepository.GetAll(typeof(Tournament));
+                return Ok(players);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }
         }
 
         // GET: api/Tournament/5
-        [HttpGet("Get/{id}")]
+        [HttpGet("{id}")]
         public IActionResult Get(string id)
         {
-            var player = _tournamentRepository.Get(id);
-            return Ok(player);
+            try
+            {
+                var player = _tournamentRepository.Get(id);
+                return Ok(player);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }
         }
 
         [HttpPost("Create")]
-        public IActionResult Create([FromBody] Tournament tournament)
+        public async Task<IActionResult> Create([FromBody] Tournament tournament)
         {
-            var result = _tournamentRepository.Create( tournament);
-            if (result == null) return BadRequest(tournament);
-            return Created($"/api/Player/Get/{tournament.Id.ToString()}", result);
+            try
+            {
+                string id = tournament.Id;
+                var result = await _tournamentRepository.Create(id,tournament);
+                if (result == null) return BadRequest(tournament);
+                return Created($"/api/Tournament/{id}", result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }
         }
 
         [HttpPost("Upsert")]
-        public IActionResult Upsert([FromBody] Tournament tournament)
+        public async Task<IActionResult> Upsert([FromBody] Tournament tournament)
         {
-            var result = _tournamentRepository.Upsert(tournament);
-            if (result == null) return BadRequest(tournament);
-            return Created($"/api/Player/Get/{tournament.Id.ToString()}", result);
+            try
+            {
+                string id = tournament.Id;
+                var result = await _tournamentRepository.Upsert(id,tournament);
+                if (result == null) return BadRequest(tournament);
+                return Created($"/api/Tournament/{id}", result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }
         }
 
         [HttpPut("Update")]
-        public IActionResult Update([FromBody] Tournament tournament)
+        public async Task<IActionResult> Update([FromBody] Tournament tournament)
         {
-            var result = _tournamentRepository.Update( tournament);
-            if (result == null) return BadRequest(tournament);
-            return Ok(result);
+            try
+            {
+                string id = tournament.Id;
+                var result = await _tournamentRepository.Update(id,tournament);
+                if (result == null) return BadRequest(tournament);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }
         }
 
         [HttpDelete("Delete/{id}")]
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            _tournamentRepository.Delete(id);
-            return NoContent();
+            try
+            {
+                await _tournamentRepository.Delete(id);
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }
         }
     }
 }

@@ -59,7 +59,7 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                string id = team.Id.ToString();
+                string id = team.Id;
                 var result = await _teamsRepository.Create(id,team);
                 if (result == null) { return BadRequest(team); }
                 return Created($"/api/Teams/{id}",result);
@@ -75,7 +75,7 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                string id = team.Id.ToString();
+                string id = team.Id;
                 var result = await _teamsRepository.Upsert(id, team);
                 if (result == null) return BadRequest(team);
                 return Created($"/api/teams/{id}", result);
@@ -94,7 +94,7 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                string id = team.Id.ToString();
+                string id = team.Id;
                 var result = await _teamsRepository.Update(id, team);
                 if (result == null) return BadRequest(team);
                 return Ok(result);

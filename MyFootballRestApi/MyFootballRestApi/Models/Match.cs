@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 namespace MyFootballRestApi.Models
 {
     public class Match:EntityBase<Match>
-    {
-        public Guid Id { get; set; }
+    {       
         public DateTime MatchDateTime { get; set; }
         public Team Team1 { get; set; }
         public Team Team2 { get; set; }
