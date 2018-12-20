@@ -16,6 +16,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MyFootballRestApi.Configuration;
 using Swashbuckle.AspNetCore.Swagger;
+using Serilog;
 
 namespace MyFootballRestApi
 {
@@ -25,7 +26,9 @@ namespace MyFootballRestApi
     {
       Configuration = configuration;
       CouchbaseConfig.Setup();
-    }
+            Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
+            Configuration = configuration;
+        }
 
     public IConfiguration Configuration { get; }
 
@@ -63,6 +66,17 @@ namespace MyFootballRestApi
       });
 
     }
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHsts();
+            }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -90,6 +104,12 @@ namespace MyFootballRestApi
       {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
       });
+            app.UseHttpsRedirection();
+            app.UseMvc();
+
+            loggerFactory.AddSerilog();
+            app.UseMvc();
+        }
     }
 
     private static void OnShutdown()

@@ -1,0 +1,32 @@
+[
+  {
+    "Id": "c6079b8a-0f1b-4e80-af23-a4db2e058a1f",
+    "name": "Leicester City",
+    "code": "LEI"
+  },
+  {
+    "Id": "88d0cd56-2284-4871-9283-1fa942f9c34e",
+    "name": "Tottenham Hotspur",
+    "code": "TOT"
+  },
+  {
+    "Id": "655a3628-a8e0-4881-9738-9f637f6c536d",
+    "name": "Manchester City",
+    "code": "MCI"
+  },
+  {
+    "Id": "8d304113-6b4f-4e9e-b5e4-7e4bdcf28f69",
+    "name": "Liverpool",
+    "code": "LIV"
+  },
+  {
+    "Id": "93a7579b-7733-4ed3-8db6-374964caa058",
+    "name": "Arsenal",
+    "code": "ARS"
+  },
+  {
+    "Id": "579228a3-f293-4c04-9779-a69f53f71ff7",
+    "name": "Chelsea",
+    "code": "CHE"
+  }
+]

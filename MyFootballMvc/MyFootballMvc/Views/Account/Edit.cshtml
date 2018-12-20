@@ -1,0 +1,49 @@
+﻿@model MyFootballMvc.ViewModels.EditAccountViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+    .field-validation-error {
+        color: red;
+    }
+
+    .input-validation-error {
+        border: 2px solid red;
+    }
+</style>
+<div class="container">
+    @using (Html.BeginForm("CreateOrUpdate", "Account"))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.User.FirstName)
+            @Html.TextBoxFor(m => m.User.FirstName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.User.FirstName)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.User.LastName)
+            @Html.TextBoxFor(m => m.User.LastName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.User.LastName)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.User.FavoriteTeamId)
+            @Html.DropDownListFor(m => m.User.FavoriteTeamId,
+                new SelectList(Model.Teams,"Id","Name"),"Select Team",new { @class = "form-control"})
+            @Html.ValidationMessageFor(m => m.User.FavoriteTeamId)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.User.Birthdate)
+            @Html.TextBoxFor(m => m.User.Birthdate,
+                string.Format("{0:d}",Model.User.Birthdate.ToShortDateString()),
+                new { @class= "date-picker form-control", type="date" })
+        </div>
+        @Html.HiddenFor(m => m.User.Id)
+        <button type="submit" class="btn btn-primary">Save</button>
+    }
+</div>
+
+
+

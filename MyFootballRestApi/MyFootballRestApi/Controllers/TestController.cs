@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace MyFootballRestApi.Controllers
@@ -9,10 +11,18 @@ namespace MyFootballRestApi.Controllers
     [ApiController]
     public class TestController : ControllerBase
     {
+        private readonly ILogger<TestController> _logger;
+
+        public TestController(ILogger<TestController> logger)
+        {
+            _logger = logger;
+        }
+
         [HttpGet]
         [Route("public")]
         public IActionResult Public()
         {
+            _logger.LogInformation("public endpoint :) :) :) ");
             return new JsonResult(new
             {
                 Message = "Hello from a public endpoint! You don't need to be authenticated to see this."
@@ -64,7 +74,10 @@ namespace MyFootballRestApi.Controllers
                 {
                     c.Type,
                     c.Value
+
                 }));
+            //return new JsonResult(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+
         }
 
     }
