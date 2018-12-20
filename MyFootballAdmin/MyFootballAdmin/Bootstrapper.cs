@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Configuration;
 using System.Globalization;
 using System.Reflection;
-using System.Text;
 using System.Windows;
-using Auth0.OidcClient;
-using IdentityModel.OidcClient;
 using Microsoft.Practices.Unity;
 using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Common.Views;
 using MyFootballAdmin.Main;
-using MyFootballAdmin.Main.Views.Notifications;
-using Prism.Events;
 using Prism.Modularity;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -21,10 +15,9 @@ namespace MyFootballAdmin
 {
     public class Bootstrapper : UnityBootstrapper
     {
-
         public Bootstrapper()
         {
-
+            //AutoWireViewModel logic
             ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver((viewType) =>
             {
                 var viewName = viewType.FullName;
@@ -52,58 +45,7 @@ namespace MyFootballAdmin
         {
             var regionManager = RegionManager.GetRegionManager((Shell));
             RegionManagerAware.SetRegionManagerAware(Shell, regionManager);
-            Auth0Async();
-            
-        }
-
-        private readonly string _domain = ConfigurationManager.AppSettings["Auth0:Domain"];
-        private readonly string _clientId = ConfigurationManager.AppSettings["Auth0:ClientId"];
-
-        private string _loginResult;
-        public string LoginResult
-        {
-            get => _loginResult;
-            set => _loginResult = value;
-        }
-
-
-        public async void  Auth0Async()
-        {
-            var client = new Auth0Client(new Auth0ClientOptions
-            {
-                Domain = _domain,
-                ClientId = _clientId
-            });
-
-            //login window
-            var loginResult = await client.LoginAsync();
-
-            if (loginResult.IsError)
-            {
-                LoginResult = loginResult.Error;
-                return;
-            }
-            else
-            {
-                App.Current.MainWindow.Show();
-            }
-
-            var sb = new StringBuilder();
-            sb.AppendLine("Tokens");
-            sb.AppendLine("------");
-            sb.AppendLine($"id_token: {loginResult.IdentityToken}");
-            sb.AppendLine($"access_token: {loginResult.AccessToken}");
-            sb.AppendLine($"refresh_token: {loginResult.RefreshToken}");
-            sb.AppendLine();
-
-            sb.AppendLine("Claims");
-            sb.AppendLine("------");
-            foreach (var claim in loginResult.User.Claims)
-            {
-                sb.AppendLine($"{claim.Type}: {claim.Value}");
-            }
-
-            LoginResult = sb.ToString();
+            App.Current.MainWindow.Show();
         }
 
 
@@ -120,6 +62,7 @@ namespace MyFootballAdmin
             behaviors.AddIfMissing(RegionManagerAwareBehavior.BehaviorKey, typeof(RegionManagerAwareBehavior));
             return behaviors;
         }
+
 
     }
 }
