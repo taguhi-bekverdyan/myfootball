@@ -1,4 +1,5 @@
-﻿using MyFootballAdmin.Common;
+﻿using Microsoft.Win32;
+using MyFootballAdmin.Common;
 using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Main.Views.Main;
 using MyFootballAdmin.Main.Views.Notifications;
@@ -6,11 +7,16 @@ using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
+using System.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
+using System.Drawing;
+using System.IO;
+using System.Drawing.Imaging;
 
 namespace MyFootballAdmin.Main.Views.AddTournament
 {
@@ -19,21 +25,23 @@ namespace MyFootballAdmin.Main.Views.AddTournament
 
         private readonly IShellService _shellService;
         private readonly IEventAggregator _eventAggregator;
+        private readonly INotificationService _notificationService;
 
-        public AddTournamentViewModel(IShellService shellService, IEventAggregator eventAggregator)
+        public AddTournamentViewModel(IShellService shellService, IEventAggregator eventAggregator, INotificationService notificationService)
         {
             _shellService = shellService;
             _eventAggregator = eventAggregator;
+            _notificationService = notificationService;
         }
 
         #region Types
 
-        private Tournament _tournament;
+        private List<Tournament> _tournaments;
 
-        public Tournament Tournament
+        public List<Tournament> Tournaments
         {
-            get { return _tournament; }
-            set { SetProperty(ref _tournament, value); }
+            get { return _tournaments; }
+            set { SetProperty(ref _tournaments, value); }
         }
 
         private string _name;
@@ -44,58 +52,30 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             set { SetProperty(ref _name, value); }
         }
 
-        private int _maxCount;
+        private int _teamsCount;
 
-        public int MaxCount
+        public int TeamsCount
         {
-            get { return _maxCount; }
+            get { return _teamsCount; }
             set
             {
-                if (_maxCount > 48)
+                if (_teamsCount > 48)
                 { }
                 else
-                { SetProperty(ref _maxCount, value); }
+                { SetProperty(ref _teamsCount, value); }
             }
         }
 
-        private Notification _notification;
-
-        public Notification notification
-        {
-            get { return _notification; }
-            set { SetProperty(ref _notification, value); }
-        }
-
-        private int _minCount;
-
-        public int MinCount
-        {
-            get { return _minCount; }
-            set
-            {
-                if (_minCount < 4)
-                { }
-                else
-                { SetProperty(ref _minCount, value); }
-            }
-        }
 
         private DateTime _endDate;
 
         public DateTime EndDate
         {
             get { return _endDate; }
-            set {
-                //if (_endDate < StartDate)
-                //{
-                //    Notification notification = new Notification(NotificationType.Error, "End Date can not be till Start Date.");
-                //    _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs { Notification = notification});
-                //}
-                //else
-                //{
-                    SetProperty(ref _endDate, value);
-                //}
-                }
+            set
+            { 
+                SetProperty(ref _endDate, value);
+            }
         }
 
         private DateTime _startDate;
@@ -103,26 +83,23 @@ namespace MyFootballAdmin.Main.Views.AddTournament
         public DateTime StartDate
         {
             get { return _startDate; }
-            set
-            {
-                //if (_startDate < new DateTime(01 / 01 / 2019))
-                //{
-                //    Notification notification = new Notification(NotificationType.Error, "Date can not be till 2019.");
-                //    _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs { Notification = notification });
-                //}
-                //else
-                //{
-                    SetProperty(ref _startDate, value);
-                //}
-            }
+            set { SetProperty(ref _startDate, value);}
         }
 
-        private ResponseMatch _responseMatch;
+        private int _rounds;
 
-        public ResponseMatch ResponseMatch
+        public int Rounds
         {
-            get { return _responseMatch; }
-            set { SetProperty(ref _responseMatch, value); }
+            get { return _rounds; }
+            set { SetProperty(ref _rounds, value); }
+        }
+
+        private string _imagePath;
+
+        public string ImagePath
+        {
+            get { return _imagePath; }
+            set { SetProperty(ref _imagePath, value); }
         }
 
         private TournamentType _tournamentType;
@@ -147,22 +124,51 @@ namespace MyFootballAdmin.Main.Views.AddTournament
         public void AddCommandAction()
         {
             CreateTournament();
-            Notification notification = new Notification(NotificationType.Alert, "Tournament is successfully added!");
-            _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs { Notification = notification });
+            _notificationService.ShowNotification(NotificationType.Alert, "Tournament is sussecfully added!");
         }
+
+        public void ChooseImageAction()
+        {
+            OpenFileDialog fileChooser = new OpenFileDialog();
+            fileChooser.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+            fileChooser.FilterIndex = 1;
+            fileChooser.Multiselect = true;
+
+            if (fileChooser.ShowDialog() == DialogResult.OK)
+            {
+                ImagePath = fileChooser.FileName;
+            }
+
+        }
+
+        private byte[] GetBytesFromImage(string imagePath)
+        {
+            if (imagePath != string.Empty)
+            {
+                Bitmap image = new Bitmap(imagePath);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    image.Save(ms, ImageFormat.Png);
+                    return ms.ToArray();
+                }
+            }
+            return null;
+        }
+
 
         #endregion
 
         public void CreateTournament()
         {
             Tournament Tournament = new Tournament();
-            Tournament.teamsMaxCount = MaxCount;
-            Tournament.teamsMinCount = MinCount;
+            Tournament.teamsCount = TeamsCount;
             Tournament.name = Name;
             Tournament.tournamentType = TournamentType;
-            Tournament.responseMatch = ResponseMatch;
+            Tournament.rounds = Rounds;
             Tournament.startDate = StartDate;
             Tournament.endDate = EndDate;
+            Tournament.image = GetBytesFromImage(ImagePath);
+            Tournaments.Add(Tournament);
         }
 
         #region Navigation
@@ -183,15 +189,5 @@ namespace MyFootballAdmin.Main.Views.AddTournament
         }
         #endregion
 
-        #region Event
-
-        public class NotificationEvent : PubSubEvent<NotificationEventArgs> { }
-
-        public class NotificationEventArgs
-        {
-            public Notification Notification { get; set; }
-        }
-
-        #endregion
     }
 }

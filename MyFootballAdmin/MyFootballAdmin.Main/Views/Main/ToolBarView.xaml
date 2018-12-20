@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="MyFootballAdmin.Main.Views.Main.ToolBarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyFootballAdmin.Main.Views.Main"
+             xmlns:mvvm="http://prismlibrary.com/"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
+             d:DataContext="{d:DesignInstance local:ToolBarViewModel, IsDesignTimeCreatable=True}"
+             mc:Ignorable="d" 
+               xmlns:common="clr-namespace:MyFootballAdmin.Common;assembly=MyFootballAdmin.Common"
+             d:DesignHeight="450" d:DesignWidth="80">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="11*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.RowSpan="2" Grid.Column="0"  Background='#FF464242'>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <Button BorderThickness="0"  Command="{Binding MainViewCommand}" Content="Main View" Grid.Row="1" Background='#FF464242' FontSize="13"/>
+            <Button BorderThickness="0"  Command="{Binding TournamentsCommand}" Content="Tournaments" Grid.Row="2" Background='#FF464242' FontFamily="13"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+    </Grid>
+</UserControl>

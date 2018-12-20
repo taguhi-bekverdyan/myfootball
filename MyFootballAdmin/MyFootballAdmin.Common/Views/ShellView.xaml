@@ -12,10 +12,10 @@
         Title="{Binding Title}" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="9*"/>
+            <RowDefinition Height="11*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ContentControl Grid.Row="0" mvvm:RegionManager.RegionName="{x:Static common:RegionNames.WindowContentRegion}" />
-        <ContentControl Grid.Row="1" mvvm:RegionManager.RegionName="{x:Static common:RegionNames.DocumentsRegion}" />
+        <ContentControl Grid.Row="1" mvvm:RegionManager.RegionName="{x:Static common:RegionNames.NotificationRegion}" />
+        <ContentControl Grid.Row="0" mvvm:RegionManager.RegionName="{x:Static common:RegionNames.MainRegion}" />
     </Grid>
 </Window>

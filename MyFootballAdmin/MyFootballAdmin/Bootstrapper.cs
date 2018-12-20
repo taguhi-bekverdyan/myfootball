@@ -10,6 +10,7 @@ using Microsoft.Practices.Unity;
 using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Common.Views;
 using MyFootballAdmin.Main;
+using MyFootballAdmin.Main.Views.Error;
 using MyFootballAdmin.Main.Views.Notifications;
 using Prism.Events;
 using Prism.Modularity;
@@ -41,6 +42,7 @@ namespace MyFootballAdmin
             ViewModelLocationProvider.SetDefaultViewModelFactory((type) => Container.Resolve(type));
 
             Container.RegisterType<IShellService, ShellService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<INotificationService, NotificationService>(new ContainerControlledLifetimeManager());
         }
 
         protected override DependencyObject CreateShell()
@@ -81,29 +83,17 @@ namespace MyFootballAdmin
             if (loginResult.IsError)
             {
                 LoginResult = loginResult.Error;
-                return;
+
+                var errorView = new ErrorView();
+                errorView.Show();
+
+
             }
+
             else
             {
                 App.Current.MainWindow.Show();
             }
-
-            var sb = new StringBuilder();
-            sb.AppendLine("Tokens");
-            sb.AppendLine("------");
-            sb.AppendLine($"id_token: {loginResult.IdentityToken}");
-            sb.AppendLine($"access_token: {loginResult.AccessToken}");
-            sb.AppendLine($"refresh_token: {loginResult.RefreshToken}");
-            sb.AppendLine();
-
-            sb.AppendLine("Claims");
-            sb.AppendLine("------");
-            foreach (var claim in loginResult.User.Claims)
-            {
-                sb.AppendLine($"{claim.Type}: {claim.Value}");
-            }
-
-            LoginResult = sb.ToString();
         }
 
 

@@ -17,14 +17,8 @@
                 <x:Type TypeName="local:TournamentType"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        <ObjectDataProvider x:Key="DataFromEnum2" MethodName="GetValues"
-            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="local:ResponseMatch"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
     </UserControl.Resources>
-    <Grid TextBlock.TextAlignment="Center" TextBlock.FontSize="18" Background="Gray">
+    <Grid   TextBlock.FontWeight="Thin" TextBlock.TextAlignment="Center" TextBlock.FontSize="18" Background="Gray">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
@@ -41,20 +35,26 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Tournament Type" Grid.Row="4"/>
-        <TextBlock Text="Teams Minimum Count" Grid.Row="1"/>
-        <TextBlock Text="Teams Max Count" Grid.Row="2"/>
-        <TextBlock Text="Response Match" Grid.Row="3"/>
-        <TextBlock Text="Name" Grid.Row="0"/>
-        <TextBlock Text="Start Date" Grid.Row="5"/>
-        <TextBlock Text="End Date" Grid.Row="6"/>
+        <TextBlock Text="Tournament Type" Grid.Row="3" VerticalAlignment="Center"/>
+        <TextBlock Text="Teams Count" Grid.Row="1" VerticalAlignment="Center" />
+        <TextBlock Text="Rounds" Grid.Row="2" VerticalAlignment="Center"/>
+        <TextBlock Text="Name" Grid.Row="0" VerticalAlignment="Center"/>
+        <TextBlock Text="Start Date" Grid.Row="4" VerticalAlignment="Center"/>
+        <TextBlock Text="End Date" Grid.Row="5" VerticalAlignment="Center"/>
+        <TextBlock Text="Image" Grid.Row="6" VerticalAlignment="Center"/>
         <TextBox Text="{Binding Name,Mode=TwoWay}" Grid.Column="1" Grid.Row="0"/>
-        <TextBox Text="{Binding MinCount,Mode=TwoWay}" Grid.Column="1" Grid.Row="1"/>
-        <TextBox Text="{Binding MaxCount}" Grid.Column="1" Grid.Row="2"/>
-        <DatePicker SelectedDate="{Binding StartDate,Mode=TwoWay}" Grid.Column="1" Grid.Row="5"/>
-        <DatePicker SelectedDate="{Binding EndDate,Mode=TwoWay}" Grid.Column="1" Grid.Row="6"/>
-        <ComboBox ItemsSource="{Binding Source={StaticResource DataFromEnum}}"  SelectedItem="{Binding TournamentType ,Mode=TwoWay}"  Grid.Column="1" Grid.Row="4"/>
-        <ComboBox ItemsSource="{Binding Source={StaticResource DataFromEnum2}}"  SelectedItem="{Binding ResponseMatch,Mode=TwoWay}"  Grid.Column="1" Grid.Row="3"/>
-        <Button Content="Add" Command="{Binding AddCommand}" Grid.Column="1" Grid.Row="8" Margin="5"></Button>
+        <TextBox Text="{Binding Count,Mode=TwoWay}" Grid.Column="1" Grid.Row="1"/>
+        <TextBox Text="{Binding Rounds,Mode=TwoWay}" Grid.Column="1" Grid.Row="2"/>
+        <DatePicker SelectedDate="{Binding StartDate,Mode=TwoWay}" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"/>
+        <DatePicker SelectedDate="{Binding EndDate,Mode=TwoWay}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource DataFromEnum}}"  SelectedItem="{Binding TournamentType ,Mode=TwoWay}"  Grid.Column="1" Grid.Row="3"/>
+        <Button Content="choose" Command="{Binding ImageCommand}" Grid.Column="1" Grid.Row="6" Margin="8" />
+        <Line  X1="0" X2="800" Stroke="Blue" Grid.ColumnSpan="2"  Grid.Row="1"/>
+        <Line  X1="0" X2="800" Stroke="Blue" Grid.ColumnSpan="2"  Grid.Row="2"/>
+        <Line  X1="0" X2="800" Stroke="Blue" Grid.ColumnSpan="2"  Grid.Row="3"/>
+        <Line  X1="0" X2="800" Stroke="Blue" Grid.ColumnSpan="2"  Grid.Row="4"/>
+        <Line  X1="0" X2="800" Stroke="Blue" Grid.ColumnSpan="2"  Grid.Row="5"/>
+        <Line  X1="0" X2="800" Stroke="Blue" Grid.ColumnSpan="2"  Grid.Row="6"/>
+        <Button Content="Add" Command="{Binding AddCommand}" Grid.Column="1" Grid.Row="8" Margin="5"/>
     </Grid>
 </UserControl>

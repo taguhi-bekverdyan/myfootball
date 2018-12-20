@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MyFootballAdmin.Common.Controls
+namespace MyFootballAdmin.Main.Views.Main
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class ToolBarView : UserControl
     {
-        public LoginView()
+        public ToolBarView()
         {
             InitializeComponent();
         }

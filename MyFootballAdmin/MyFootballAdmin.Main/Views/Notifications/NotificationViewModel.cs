@@ -1,6 +1,7 @@
 ﻿using MyFootballAdmin.Common;
 using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Main.Views.AddTournament;
+using MyFootballAdmin.Main.Views.Helpers;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
@@ -12,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using static MyFootballAdmin.Main.Views.Main.MainViewModel;
+using static MyFootballAdmin.Main.Views.Main.ToolBarViewModel;
 
 namespace MyFootballAdmin.Main.Views.Notifications
 {
@@ -25,17 +26,25 @@ namespace MyFootballAdmin.Main.Views.Notifications
         {
             _shellService = shellService;
             _eventAggregator = eventAggregator;
-            _eventAggregator.GetEvent<NotificationEvent>().Subscribe(NotificationEventHandler, ThreadOption.UIThread);
+            
         }
 
         #region Types
 
-        private Notification _notification = new Notification(NotificationType.Alert, "You logged in as Admin.");
+        private string _message = "You logged in as Admin.";
 
-        public Notification Notification
+        public string Message
         {
-            get { return _notification; }
-            set { SetProperty(ref _notification, value); }
+            get { return _message; }
+            set { SetProperty(ref _message, value); }
+        }
+
+        private string _colour = "Blue";
+
+        public string Colour
+        {
+            get { return _colour; }
+            set { SetProperty(ref _colour, value); }
         }
 
         #endregion
@@ -54,16 +63,15 @@ namespace MyFootballAdmin.Main.Views.Notifications
  
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            
+            _eventAggregator.GetEvent<NotificationEvent>().Subscribe(NotificationEventHandler);
         }
 
         #endregion
 
         private void NotificationEventHandler(NotificationEventArgs args)
         {
-            Notification Notification = new Notification();
-            this.Notification = args.Notification;
-            _eventAggregator.GetEvent<NotificationEvent>().Unsubscribe(NotificationEventHandler);
+            Message = args.Notification.Message;
+            Colour = args.Notification.Colour;
         }
 
         public IRegionManager RegionManager { get; set; }

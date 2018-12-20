@@ -8,7 +8,7 @@
              mvvm:ViewModelLocator.AutoWireViewModel="True"             
              mc:Ignorable="d" 
                d:DataContext="{d:DesignInstance local:NotificationViewModel, IsDesignTimeCreatable=True}"
-             d:DesignHeight="45" d:DesignWidth="800">
+             d:DesignHeight="40" d:DesignWidth="800">
     <Grid Background="#FFD4CCCC">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -18,7 +18,7 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="12*"/>
         </Grid.ColumnDefinitions>
-        <Line Grid.ColumnSpan="2" X1="0" X2="800" Stroke="Blue" />
-        <TextBlock Foreground="{Binding Notification.Colour,Mode=TwoWay}" Text="{Binding Notification.Message,Mode=TwoWay}" FontSize="15" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+        <Line Grid.ColumnSpan="2" X1="0" X2="800" Stroke="{Binding Colour}" />
+        <TextBlock Foreground="{Binding Colour,Mode=TwoWay}" Text="{Binding Message,Mode=TwoWay}" FontSize="13" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>

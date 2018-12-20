@@ -7,6 +7,8 @@ namespace MyFootballAdmin
     /// </summary>
     public partial class App : Application
     {
+        public static object ErrorView { get; internal set; }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);

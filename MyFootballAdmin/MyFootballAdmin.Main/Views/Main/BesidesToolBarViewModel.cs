@@ -14,20 +14,20 @@ using System.Threading.Tasks;
 
 namespace MyFootballAdmin.Main.Views.Main
 {
-    public class MainViewModel : BindableBase, INavigationAware, IRegionManagerAware
+    public class BesidesToolBarViewModel : BindableBase, INavigationAware, IRegionManagerAware
     {
 
         private readonly IShellService _shellService;
         private readonly IEventAggregator _eventAggregator;
         private readonly INotificationService _notificationService;
 
-        public MainViewModel(IShellService shellService, IEventAggregator eventAggregator, INotificationService notificationService)
+        public BesidesToolBarViewModel(IShellService shellService, IEventAggregator eventAggregator, INotificationService notificationService)
         {
             _shellService = shellService;
             _eventAggregator = eventAggregator;
             _notificationService = notificationService;
         }
-    
+
 
         private DelegateCommand _addTournamentCommand;
 
@@ -53,7 +53,7 @@ namespace MyFootballAdmin.Main.Views.Main
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-        
+
         }
     }
 }
