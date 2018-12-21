@@ -9,6 +9,7 @@ using MyFootballAdmin.Main.Views.Notifications;
 using MyFootballAdmin.Main.Views.Pauses;
 using Prism.Modularity;
 using Prism.Regions;
+using MyFootballAdmin.Main.Views.TournamentEdit;
 
 namespace MyFootballAdmin.Main
 {
@@ -41,6 +42,7 @@ namespace MyFootballAdmin.Main
             _unityContainer.RegisterType<object, PausesView>(typeof(PausesView).FullName);
             _unityContainer.RegisterType<object, MatchEditView>(typeof(MatchEditView).FullName);
             _unityContainer.RegisterType<object, TournamentsView>(typeof(TournamentsView).FullName);
+            _unityContainer.RegisterType<object, TournamentEditView>(typeof(TournamentEditView).FullName);
         }
     }
 }

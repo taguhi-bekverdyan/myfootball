@@ -9,23 +9,10 @@
              d:DataContext="{d:DesignInstance local:PausesViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="300">
-    <!--<UserControl.Resources>
-        <ObjectDataProvider x:Key="DataFromEnum" MethodName="GetValues"
-                        ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="local:TournamentType"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-    </UserControl.Resources>-->
     <Grid   TextBlock.FontWeight="Thin" TextBlock.TextAlignment="Center" TextBlock.FontSize="15" Background="Gray">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
-            <!--<RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>-->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -33,24 +20,9 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TextBlock Text="Pause" Grid.Row="0" VerticalAlignment="Center"/>
-        <!--<TextBlock Text="Fourth Pause" Grid.Row="4" VerticalAlignment="Center"/>
-        <TextBlock Text="Second Pause" Grid.Row="2" VerticalAlignment="Center" />
-        <TextBlock Text="Third Pause" Grid.Row="3" VerticalAlignment="Center"/>
-        <TextBlock Text="First Pause" Grid.Row="1" VerticalAlignment="Center"/>-->
-        <!--<ComboBox ItemsSource="{Binding Source={StaticResource DataFromEnum}}"  SelectedItem="{Binding Tournament ,Mode=TwoWay}" Grid.Column="1"  Grid.ColumnSpan="2" Grid.Row="0"/>-->
-        <DatePicker SelectedDate="{Binding Pauses[0].StartDate,Mode=TwoWay}" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"/>
-        <DatePicker SelectedDate="{Binding Pauses[0].EndDate,Mode=TwoWay}" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center"/>
-        <!--<DatePicker SelectedDate="{Binding Pauses[1].StartDate,Mode=TwoWay}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
-        <DatePicker SelectedDate="{Binding Pauses[1].EndDate,Mode=TwoWay}" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center"/>
-        <DatePicker SelectedDate="{Binding Pauses[2].StartDate,Mode=TwoWay}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"/>
-        <DatePicker SelectedDate="{Binding Pauses[2].EndDate,Mode=TwoWay}" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center"/>
-        <DatePicker SelectedDate="{Binding Pauses[3].StartDate,Mode=TwoWay}" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"/>
-        <DatePicker SelectedDate="{Binding Pauses[3].EndDate,Mode=TwoWay}" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center"/>-->
-        <Line  X1="0" X2="800" Stroke="Blue" Grid.ColumnSpan="3"  Grid.Row="1"/>
-        <!--<Line  X1="0" X2="800" Stroke="Blue" Grid.ColumnSpan="3"  Grid.Row="2"/>
-        <Line  X1="0" X2="800" Stroke="Blue" Grid.ColumnSpan="3"  Grid.Row="3"/>
-        <Line  X1="0" X2="800" Stroke="Blue" Grid.ColumnSpan="3"  Grid.Row="4"/>-->
-       
+        <DatePicker SelectedDate="{Binding StartDate,Mode=TwoWay}" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"/>
+        <DatePicker SelectedDate="{Binding EndDate,Mode=TwoWay}" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center"/>
+        <Line  X1="0" X2="3800" Stroke="Black" Grid.ColumnSpan="3"  Grid.Row="1"/>
         <Button Content="Add" Command="{Binding AddCommand}" Grid.Column="2" Grid.Row="8" Margin="12" Height="30"></Button>
     </Grid>
 </UserControl>

@@ -36,8 +36,8 @@ namespace MyFootballAdmin.Main.Views.Main
 
     public void AddTournamentCommandAction()
     {
-      //_notificationService.ShowNotification(NotificationType.Warning, "!");
-      _regionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, typeof(AddTournamentView).FullName);
+            _notificationService.ShowNotification(NotificationType.Warning, "!");
+            _regionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, typeof(AddTournamentView).FullName);
     }
 
     //public void OnNavigatedTo(NavigationContext navigationContext)

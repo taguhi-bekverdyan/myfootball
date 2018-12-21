@@ -8,7 +8,7 @@ namespace MyFootballAdmin.Main.Views.Pauses
 {
     public class Pause
     {
-        public DateTime StarDate { get; set; }
+        public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
     }
 }

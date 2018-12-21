@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MyFootballAdmin.Main.Views.Main
 {
-  public class MainViewModel : BindableBase //, INavigationAware
+  public class MainViewModel : BindableBase 
   {
 
     private readonly IShellService _shellService;
@@ -27,31 +27,9 @@ namespace MyFootballAdmin.Main.Views.Main
       _shellService = shellService;
       _eventAggregator = eventAggregator;
       _notificationService = notificationService;
+       _regionManager = regionManager;
     }
 
 
-    private DelegateCommand _addTournamentCommand;
-    public DelegateCommand AddTournamentCommand => _addTournamentCommand ?? (_addTournamentCommand = new DelegateCommand(AddTournamentCommandAction));
-       
-    public void AddTournamentCommandAction()
-    {
-      //_notificationService.ShowNotification(NotificationType.Warning, "!");
-      _regionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, nameof(AddTournamentView));
-    }
-
-    //public void OnNavigatedTo(NavigationContext navigationContext)
-    //{
-
-    //}
-
-    //public bool IsNavigationTarget(NavigationContext navigationContext)
-    //{
-    //  throw new NotImplementedException();
-    //}
-
-    //public void OnNavigatedFrom(NavigationContext navigationContext)
-    //{
-
-    //}
   }
 }

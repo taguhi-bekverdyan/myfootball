@@ -202,6 +202,10 @@
     <Compile Include="Views\Notifications\INotificationService.cs" />
     <Compile Include="Views\Notifications\NotificationService.cs" />
     <Compile Include="Views\Pauses\Pause.cs" />
+    <Compile Include="Views\TournamentEdit\TournamentEditView.xaml.cs">
+      <DependentUpon>TournamentEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TournamentEdit\TournamentEditViewModel.cs" />
     <Compile Include="Views\Tournaments\TournamentsView.xaml.cs">
       <DependentUpon>TournamentsView.xaml</DependentUpon>
     </Compile>
@@ -254,6 +258,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Main\BesidesToolBarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TournamentEdit\TournamentEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

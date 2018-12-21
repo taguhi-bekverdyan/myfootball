@@ -127,6 +127,11 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             _notificationService.ShowNotification(NotificationType.Alert, "Tournament is sussecfully added!");
         }
 
+        private DelegateCommand _chooseImageCommand;
+
+        public DelegateCommand ChooseImageCommand => _chooseImageCommand ?? (_chooseImageCommand = new DelegateCommand(ChooseImageAction));
+
+
         public void ChooseImageAction()
         {
             OpenFileDialog fileChooser = new OpenFileDialog();
@@ -141,6 +146,11 @@ namespace MyFootballAdmin.Main.Views.AddTournament
 
         }
 
+
+
+        #endregion
+
+        #region Helpers
         private byte[] GetBytesFromImage(string imagePath)
         {
             if (imagePath != string.Empty)
@@ -155,9 +165,6 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             return null;
         }
 
-
-        #endregion
-
         public void CreateTournament()
         {
             Tournament Tournament = new Tournament();
@@ -170,6 +177,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             Tournament.image = GetBytesFromImage(ImagePath);
             Tournaments.Add(Tournament);
         }
+        #endregion
 
         #region Navigation
 
@@ -187,6 +195,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
         {
 
         }
+
         #endregion
 
     }
