@@ -4,13 +4,12 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="row">
-
+<div class="container-fluid">
+    <h2>Test area</h2>
     <div class="row">
-        <h2>Test area</h2>
+
         <div class="col-md-2">
             <a asp-controller="Test" asp-action="TestPublic">Test unauthorized</a>
-
         </div>
         <div class="col-md-2">
             <a asp-controller="Test" asp-action="TestPrivate">Test authorized</a>

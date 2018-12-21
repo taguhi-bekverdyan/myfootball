@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MyFootballMvc.Models;
 
 namespace MyFootballMvc.ViewModels
 {
     public class TournamentViewModel : LayoutViewModel
     {
+        public Tournament Tournament { get; set; }
+
     }
 }
