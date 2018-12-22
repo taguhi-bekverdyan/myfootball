@@ -26,12 +26,13 @@ namespace MyFootballAdmin.Main.Views.Notifications
         {
             _shellService = shellService;
             _eventAggregator = eventAggregator;
-            
-        }
+            _eventAggregator.GetEvent<NotificationEvent>().Subscribe(NotificationEventHandler);
 
-        #region Types
+    }
 
-        private string _message = "You logged in as Admin.";
+    #region Types
+
+    private string _message = "You logged in as Admin.";
 
         public string Message
         {
@@ -63,7 +64,6 @@ namespace MyFootballAdmin.Main.Views.Notifications
  
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            _eventAggregator.GetEvent<NotificationEvent>().Subscribe(NotificationEventHandler);
         }
 
         #endregion
@@ -72,6 +72,7 @@ namespace MyFootballAdmin.Main.Views.Notifications
         {
             Message = args.Notification.Message;
             Colour = args.Notification.Colour;
+
         }
 
         public IRegionManager RegionManager { get; set; }

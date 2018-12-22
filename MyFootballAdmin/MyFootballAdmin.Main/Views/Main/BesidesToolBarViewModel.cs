@@ -1,6 +1,7 @@
 ﻿using MyFootballAdmin.Common;
 using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Main.Views.AddTournament;
+using MyFootballAdmin.Main.Views.Helpers;
 using MyFootballAdmin.Main.Views.Notifications;
 using Prism.Commands;
 using Prism.Events;
@@ -36,11 +37,11 @@ namespace MyFootballAdmin.Main.Views.Main
 
     public void AddTournamentCommandAction()
     {
-            _notificationService.ShowNotification(NotificationType.Warning, "!");
-            _regionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, typeof(AddTournamentView).FullName);
+      _notificationService.ShowNotification(NotificationType.Warning, "Add tournament page");
+      _regionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, typeof(AddTournamentView).FullName);
     }
 
-    //public void OnNavigatedTo(NavigationContext navigationContext)
+        //public void OnNavigatedTo(NavigationContext navigationContext)
     //{
 
     //}

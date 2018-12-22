@@ -20,8 +20,8 @@ namespace MyFootballAdmin.Main.Views.Notifications
 
     public void ShowNotification(NotificationType notificationType, string notificationMessage)
     {
-      var message = notificationType.ToString() + "! " + notificationMessage;
-      Notification = new Notification(message, notificationType);
+      //var message = notificationType.ToString() + "! " + notificationMessage;
+      Notification = new Notification(notificationMessage, notificationType);
       if (notificationType.Equals(NotificationType.Alert))
       {
         Notification.Colour = "Yellow";
