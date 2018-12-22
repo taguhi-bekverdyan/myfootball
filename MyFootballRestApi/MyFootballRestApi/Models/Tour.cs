@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace MyFootballRestApi.Models
 {
-    public class Team:EntityBase<Team>
+    public class Tour
     {
-        public string Name { get; set; }
-        
+        public List<Match> Matches { get; set; }
+        public bool IsPlayed { get; set; }
     }
 }

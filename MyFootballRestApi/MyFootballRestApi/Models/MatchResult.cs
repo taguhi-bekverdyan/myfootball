@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 
 namespace MyFootballRestApi.Models
 {
-    public class Team:EntityBase<Team>
+    public enum MatchResult
     {
-        public string Name { get; set; }
-        
+        Win,
+        Draw,
+        Lose,
+        Other
     }
 }

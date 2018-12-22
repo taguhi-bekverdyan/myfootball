@@ -4,6 +4,7 @@ using Couchbase;
 using Couchbase.Core;
 using Couchbase.N1QL;
 using MyFootballRestApi.Models;
+using System.Threading.Tasks;
 
 namespace MyFootballRestApi.Data
 {
@@ -25,67 +26,62 @@ namespace MyFootballRestApi.Data
 
         #region CRUD
 
-        public List<T> GetAll(Type t)
+        public async Task<List<T>> GetAll(Type t)
         {
             var type = t.Name.ToLower();
             var query = new QueryRequest("SELECT MyFootball.* FROM MyFootball WHERE type = $type");
             query.AddNamedParameter("type", type);
-            var result = _bucket.Query<T>(query);
+            var result = await _bucket.QueryAsync<T>(query);
             return !result.Success ? null : result.Rows;
         }
 
-        public T Get(string id)
+        public async Task<T> Get(string id)
         {
             var key = CreateKey(id);
-            var result = _bucket.Get<T>(key);
+            var result = await _bucket.GetAsync<T>(key);
             return !result.Success ? null : result.Value;
         }
 
-        public T Create(T item)
+        public async Task<T> Create(T item)
         {
-            item.Id = Guid.NewGuid().ToString();
             item.Created = DateTime.Now;
             item.Updated = DateTime.Now;
+            item.Id = Guid.NewGuid().ToString();
             var key = CreateKey(item.Id);
 
-            var result = _bucket.Insert(key, item);
+            var result = await _bucket.InsertAsync(key, item);
             if (!result.Success) throw result.Exception;
 
             return item;
         }
 
-        public T Update(T item)
+        public async Task<T> Update(T item)
         {
             item.Updated = DateTime.Now;
             var key = CreateKey(item.Id);
-            var result = _bucket.Replace(key, item);
+            var result = await _bucket.ReplaceAsync(key, item);
 
             if (!result.Success) throw result.Exception;
 
             return item;
         }
 
-        public T Upsert(T item)
+        public async Task<T> Upsert(T item)
         {
-            if (Get(item.Id) == null)
-            {
-                item.Id = Guid.NewGuid().ToString();
-                item.Created = DateTime.Now;
-            }
-
+            if (Get(item.Id) == null) item.Created = DateTime.Now;
             item.Updated = DateTime.Now;
             var key = CreateKey(item.Id);
-            var result = _bucket.Upsert(key, item);
+            var result = await _bucket.UpsertAsync(key, item);
 
             if (!result.Success) throw result.Exception;
 
             return item;
         }
 
-        public void Delete(string id)
+        public async Task Delete(string id)
         {
             var key = CreateKey(id);
-            var result = _bucket.Remove(key);
+            var result = await _bucket.RemoveAsync(key);
             if (!result.Success) throw result.Exception;
         }
 
@@ -93,4 +89,5 @@ namespace MyFootballRestApi.Data
 
         #endregion
     }
+
 }

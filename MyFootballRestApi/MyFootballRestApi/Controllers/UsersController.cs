@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyFootballRestApi.Data;
 using MyFootballRestApi.Models;
 using Newtonsoft.Json;
 
@@ -17,111 +18,115 @@ namespace MyFootballRestApi.Controllers
     public class UsersController : ControllerBase
     {
 
-        public List<User> Users { get;private set; }
+        private readonly IRepository<User> _usersRepository;
 
         public UsersController()
         {
-            Users = GetUsers().Result;
+            _usersRepository = new CouchbaseRepository<User>();
         }
 
+        #region GET
         [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> FindAll()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
-                return Ok(await GetUsers());
+                var users = await _usersRepository.GetAll(typeof(User));
+                return Ok(users);
             }
             catch (Exception e)
             {
-                return StatusCode(500,e);
-            }
-        }
-
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> Insert([FromBody] User user)
-        {
-            try
-            {
-                Users.Add(user);
-                await InsertUsers();
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500,e);
-            }
-        }
-
-        [HttpPut]
-        [Authorize]
-        public async Task<IActionResult> Update([FromBody]User user)
-        {
-            try
-            {
-                Users = await GetUsers();
-                User us = Users.FirstOrDefault(u => u.Id == user.Id);
-                if (us != null)
-                {
-                    Users.Remove(us);
-                    Users.Add(user);
-                    await InsertUsers();
-                }
-                return NotFound();
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500,e);
+                return StatusCode(500, e);
             }
         }
 
         [HttpGet("{id}")]
-        [Authorize]
-        public Task<IActionResult> FindUserById([FromRoute] string id)
+        public async Task<IActionResult> GetTeamById([FromRoute]string id)
         {
-            return Task<IActionResult>.Factory.StartNew(()=> {
-                try
-                {
-                    User user = Users.FirstOrDefault(u => u.Id == id);
-                    if (user != null) { return Ok(user); }
-                    return NotFound();
-                }
-                catch (Exception e)
-                {
-                    return StatusCode(500, e);
-                }
-            });          
-        }
-
-        private Task<List<User>> GetUsers()
-        {
-            return Task<List<User>>.Factory.StartNew(()=> {
-                string userJson;
-                try
-                {
-                    using (StreamReader sr = new StreamReader(@"JsonData/Users.json"))
-                    {
-                        userJson = sr.ReadToEnd();
-                    }
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-                return JsonConvert.DeserializeObject<List<User>>(userJson);
-            });            
-        }
-
-        private async Task InsertUsers()
-        {
-            string usersJson = JsonConvert.SerializeObject(Users);
-            using (StreamWriter sw = new StreamWriter(@"JsonData/Users.json"))
+            try
             {
-                await sw.WriteAsync(usersJson);
+                var user = await _usersRepository.Get(id);
+                if (user == null) { return NotFound(); }
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
             }
         }
+        #endregion
+
+        #region POST
+
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create([FromBody]User user)
+        {
+            try
+            {
+                string id = user.Id;
+                var result = await _usersRepository.Create(user);
+                if (result == null) { return BadRequest(user); }
+                return Created($"/api/Users/{id}", result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
+        [HttpPost("Upsert")]
+        public async Task<IActionResult> Upsert([FromBody] User user)
+        {
+            try
+            {
+                string id = user.Id;
+                var result = await _usersRepository.Upsert(user);
+                if (result == null) return BadRequest(user);
+                return Created($"/api/users/{id}", result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
+        #endregion
+
+        #region PUT
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update([FromBody] User user)
+        {
+            try
+            {
+                string id = user.Id.ToString();
+                var result = await _usersRepository.Update(user);
+                if (result == null) return BadRequest(user);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+        #endregion
+
+        #region DELETE
+
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            try
+            {
+                await _usersRepository.Delete(id);
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
+        #endregion
 
     }
 }

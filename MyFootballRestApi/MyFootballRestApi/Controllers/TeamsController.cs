@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyFootballRestApi.Data;
 using MyFootballRestApi.Models;
-using Newtonsoft.Json;
 
 namespace MyFootballRestApi.Controllers
 {
@@ -14,12 +13,22 @@ namespace MyFootballRestApi.Controllers
     [ApiController]
     public class TeamsController : ControllerBase
     {
+
+        private readonly IRepository<Team> _teamsRepository;
+
+        public TeamsController()
+        {
+            _teamsRepository = new CouchbaseRepository<Team>();
+        }
+
+        #region GET
         [HttpGet]
-        public async Task<IActionResult> FindAll()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
-                return Ok(await GetTeams());
+                var teams = await _teamsRepository.GetAll(typeof(Team));
+                return Ok(teams);
             }
             catch (Exception e)
             {
@@ -27,40 +36,91 @@ namespace MyFootballRestApi.Controllers
             }
         }
 
-        [HttpGet("{guid}")]
-        public async Task<IActionResult> FindTeamById([FromRoute]Guid guid)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTeamById([FromRoute]string id)
         {
             try
             {
-                List<Team> teams = await GetTeams();
-                Team team = teams.FirstOrDefault(t => t.Id == guid);
-                if (team != null) { return Ok(team); }
-                return NotFound();
+                var team = await _teamsRepository.Get(id);
+                if (team == null) { return NotFound(); }
+                return Ok(team);
             }
             catch (Exception e)
             {
                 return StatusCode(500, e);
             }
         }
+        #endregion
 
-        private Task<List<Team>> GetTeams()
+        #region POST
+
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create([FromBody]Team team)
         {
-            return Task<List<Team>>.Factory.StartNew(() => {
-                string userJson;
-                try
-                {
-                    using (StreamReader sr = new StreamReader(@"JsonData/Teams.json"))
-                    {
-                        userJson = sr.ReadToEnd();
-                    }
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-                return JsonConvert.DeserializeObject<List<Team>>(userJson);
-            });
+            try
+            {
+                var result = await _teamsRepository.Create(team);
+                if (result == null) { return BadRequest(team); }
+                return Created($"/api/Teams/{team.Id}",result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }
         }
+
+        [HttpPost("Upsert")]
+        public async Task<IActionResult> Upsert([FromBody] Team team)
+        {
+            try
+            {
+                var result = await _teamsRepository.Upsert(team);
+                if (result == null) return BadRequest(team);
+                return Created($"/api/teams/{team.Id}", result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }
+        }
+
+        #endregion
+
+        #region PUT
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update([FromBody] Team team)
+        {
+            try
+            {
+                string id = team.Id;
+                var result = await _teamsRepository.Update(team);
+                if (result == null) return BadRequest(team);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+        #endregion
+
+        #region DELETE
+
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {      
+            try
+            {
+                await _teamsRepository.Delete(id);
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }
+        }
+
+        #endregion
+
     }
 }

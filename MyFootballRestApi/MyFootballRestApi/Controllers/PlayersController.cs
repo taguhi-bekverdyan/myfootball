@@ -1,25 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using MyFootballRestApi.Data;
 using MyFootballRestApi.Models;
-using System.Threading.Tasks;
 using System;
 
 namespace MyFootballRestApi.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
-    public class TournamentController : ControllerBase
+    public class PlayersController : ControllerBase
     {
+        private readonly IRepository<Player> _playerRepository = new CouchbaseRepository<Player>();
 
-        private readonly IRepository<Tournament> _tournamentRepository = new CouchbaseRepository<Tournament>();
-
-        // GET: api/Tournament
+        // GET: api/Player
         [HttpGet]
         public async Task<IActionResult> Get()
-        {           
+        {          
             try
             {
-                var players = await _tournamentRepository.GetAll(typeof(Tournament));
+                var players = await _playerRepository.GetAll(typeof(Player));
                 return Ok(players);
             }
             catch (Exception e)
@@ -28,13 +32,13 @@ namespace MyFootballRestApi.Controllers
             }
         }
 
-        // GET: api/Tournament/5
+        // GET: api/Player/5
         [HttpGet("{id}")]
-        public IActionResult Get(string id)
+        public async Task<IActionResult> Get(string id)
         {
             try
             {
-                var player = _tournamentRepository.Get(id);
+                var player = await _playerRepository.Get(id);
                 return Ok(player);
             }
             catch (Exception e)
@@ -44,14 +48,13 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create([FromBody] Tournament tournament)
+        public async Task<IActionResult> Create([FromBody] Player player)
         {
             try
             {
-                string id = tournament.Id;
-                var result = await _tournamentRepository.Create(tournament);
-                if (result == null) return BadRequest(tournament);
-                return Created($"/api/Tournament/{id}", result);
+                var result = await _playerRepository.Create(player);
+                if (result == null) return BadRequest(player);
+                return Created($"/api/Player/Get/{player.Id}", result);
             }
             catch (Exception e)
             {
@@ -60,14 +63,14 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpPost("Upsert")]
-        public async Task<IActionResult> Upsert([FromBody] Tournament tournament)
+        public async Task<IActionResult> Upsert([FromBody] Player player)
         {
             try
             {
-                string id = tournament.Id;
-                var result = await _tournamentRepository.Upsert(tournament);
-                if (result == null) return BadRequest(tournament);
-                return Created($"/api/Tournament/{id}", result);
+                
+                var result = await _playerRepository.Upsert(player);
+                if (result == null) return BadRequest(player);
+                return Created($"/api/Player/Get/{player.Id}", result);
             }
             catch (Exception e)
             {
@@ -76,13 +79,13 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update([FromBody] Tournament tournament)
+        public async Task<IActionResult> Update([FromBody] Player player)
         {
             try
             {
-                string id = tournament.Id;
-                var result = await _tournamentRepository.Update(tournament);
-                if (result == null) return BadRequest(tournament);
+                
+                var result = await _playerRepository.Update(player);
+                if (result == null) return BadRequest(player);
                 return Ok(result);
             }
             catch (Exception e)
@@ -96,7 +99,7 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                await _tournamentRepository.Delete(id);
+                await _playerRepository.Delete(id);
                 return NoContent();
             }
             catch (Exception e)
@@ -105,4 +108,5 @@ namespace MyFootballRestApi.Controllers
             }
         }
     }
+
 }

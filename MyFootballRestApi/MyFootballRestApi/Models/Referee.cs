@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace MyFootballRestApi.Models
 {
-    public class Team:EntityBase<Team>
+    public class Referee:EntityBase<Referee>
     {
         public string Name { get; set; }
-        
     }
 }

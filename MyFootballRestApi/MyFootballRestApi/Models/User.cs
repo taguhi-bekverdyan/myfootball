@@ -6,23 +6,11 @@ using System.Threading.Tasks;
 
 namespace MyFootballRestApi.Models
 {
-    public class User:IEquatable<User>
-    {
-        [Required]
-        public string Id { get; set; }
-        [MaxLength(80),Required]
+  public class User:EntityBase<User>
+  {
         public string FirstName { get; set; }
-        [MaxLength(80),Required]
         public string LastName { get; set; }
-        [Required, Display(Name = "Date of birth")]
         public DateTime Birthdate { get; set; }
-
-        public Guid FavoriteTeamId { get; set; }
-        public Team Team { get; set; }
-
-        public bool Equals(User other)
-        {
-            return Id == other.Id;
-        }
+        public string FavoriteTeamId { get; set; }
     }
 }
