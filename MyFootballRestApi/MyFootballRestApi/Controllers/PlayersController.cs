@@ -52,9 +52,9 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                var result = await _playerRepository.Create(player.Id.ToString(), player);
+                var result = await _playerRepository.Create(player);
                 if (result == null) return BadRequest(player);
-                return Created($"/api/Player/Get/{player.Id.ToString()}", result);
+                return Created($"/api/Player/Get/{player.Id}", result);
             }
             catch (Exception e)
             {
@@ -67,10 +67,10 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                string id = player.Id.ToString();
-                var result = await _playerRepository.Upsert(id, player);
+                
+                var result = await _playerRepository.Upsert(player);
                 if (result == null) return BadRequest(player);
-                return Created($"/api/Player/Get/{id}", result);
+                return Created($"/api/Player/Get/{player.Id}", result);
             }
             catch (Exception e)
             {
@@ -83,8 +83,8 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                string id = player.Id.ToString();
-                var result = await _playerRepository.Update(id, player);
+                
+                var result = await _playerRepository.Update(player);
                 if (result == null) return BadRequest(player);
                 return Ok(result);
             }

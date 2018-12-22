@@ -42,11 +42,12 @@ namespace MyFootballRestApi.Data
             return !result.Success ? null : result.Value;
         }
 
-        public async Task<T> Create(string id, T item)
+        public async Task<T> Create(T item)
         {
             item.Created = DateTime.Now;
             item.Updated = DateTime.Now;
-            var key = CreateKey(id);
+            item.Id = Guid.NewGuid().ToString();
+            var key = CreateKey(item.Id);
 
             var result = await _bucket.InsertAsync(key, item);
             if (!result.Success) throw result.Exception;
@@ -54,10 +55,10 @@ namespace MyFootballRestApi.Data
             return item;
         }
 
-        public async Task<T> Update(string id, T item)
+        public async Task<T> Update(T item)
         {
             item.Updated = DateTime.Now;
-            var key = CreateKey(id);
+            var key = CreateKey(item.Id);
             var result = await _bucket.ReplaceAsync(key, item);
 
             if (!result.Success) throw result.Exception;
@@ -65,11 +66,11 @@ namespace MyFootballRestApi.Data
             return item;
         }
 
-        public async Task<T> Upsert(string id, T item)
+        public async Task<T> Upsert(T item)
         {
-            if (Get(id) == null) item.Created = DateTime.Now;
+            if (Get(item.Id) == null) item.Created = DateTime.Now;
             item.Updated = DateTime.Now;
-            var key = CreateKey(id);
+            var key = CreateKey(item.Id);
             var result = await _bucket.UpsertAsync(key, item);
 
             if (!result.Success) throw result.Exception;

@@ -59,10 +59,9 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                string id = team.Id;
-                var result = await _teamsRepository.Create(id,team);
+                var result = await _teamsRepository.Create(team);
                 if (result == null) { return BadRequest(team); }
-                return Created($"/api/Teams/{id}",result);
+                return Created($"/api/Teams/{team.Id}",result);
             }
             catch (Exception e)
             {
@@ -75,10 +74,9 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                string id = team.Id;
-                var result = await _teamsRepository.Upsert(id, team);
+                var result = await _teamsRepository.Upsert(team);
                 if (result == null) return BadRequest(team);
-                return Created($"/api/teams/{id}", result);
+                return Created($"/api/teams/{team.Id}", result);
             }
             catch (Exception e)
             {
@@ -95,7 +93,7 @@ namespace MyFootballRestApi.Controllers
             try
             {
                 string id = team.Id;
-                var result = await _teamsRepository.Update(id, team);
+                var result = await _teamsRepository.Update(team);
                 if (result == null) return BadRequest(team);
                 return Ok(result);
             }

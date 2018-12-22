@@ -49,7 +49,7 @@ namespace MyFootballRestApi.Controllers
             try
             {
                 string id = tournament.Id;
-                var result = await _tournamentRepository.Create(id,tournament);
+                var result = await _tournamentRepository.Create(tournament);
                 if (result == null) return BadRequest(tournament);
                 return Created($"/api/Tournament/{id}", result);
             }
@@ -65,7 +65,7 @@ namespace MyFootballRestApi.Controllers
             try
             {
                 string id = tournament.Id;
-                var result = await _tournamentRepository.Upsert(id,tournament);
+                var result = await _tournamentRepository.Upsert(tournament);
                 if (result == null) return BadRequest(tournament);
                 return Created($"/api/Tournament/{id}", result);
             }
@@ -81,7 +81,7 @@ namespace MyFootballRestApi.Controllers
             try
             {
                 string id = tournament.Id;
-                var result = await _tournamentRepository.Update(id,tournament);
+                var result = await _tournamentRepository.Update(tournament);
                 if (result == null) return BadRequest(tournament);
                 return Ok(result);
             }

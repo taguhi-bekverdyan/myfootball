@@ -64,7 +64,7 @@ namespace MyFootballRestApi.Controllers
             try
             {
                 string id = user.Id;
-                var result = await _usersRepository.Create(id, user);
+                var result = await _usersRepository.Create(user);
                 if (result == null) { return BadRequest(user); }
                 return Created($"/api/Users/{id}", result);
             }
@@ -80,7 +80,7 @@ namespace MyFootballRestApi.Controllers
             try
             {
                 string id = user.Id;
-                var result = await _usersRepository.Upsert(id, user);
+                var result = await _usersRepository.Upsert(user);
                 if (result == null) return BadRequest(user);
                 return Created($"/api/users/{id}", result);
             }
@@ -99,7 +99,7 @@ namespace MyFootballRestApi.Controllers
             try
             {
                 string id = user.Id.ToString();
-                var result = await _usersRepository.Update(id, user);
+                var result = await _usersRepository.Update(user);
                 if (result == null) return BadRequest(user);
                 return Ok(result);
             }
