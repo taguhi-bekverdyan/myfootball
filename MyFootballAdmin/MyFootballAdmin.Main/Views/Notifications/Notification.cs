@@ -10,20 +10,32 @@ using System.Threading.Tasks;
 
 namespace MyFootballAdmin.Main.Views.Notifications
 {
-    public class Notification
+  public class Notification
+  {
+    public NotificationType NotificationType { get; set; }
+    public string Message { get; set; }
+    public string Colour { get; set; }
+
+    public Notification()
     {
-        public  NotificationType NotificationType { get; set; }
-        public  string Message { get; set; }
-        public  string Colour { get; set; }
+
     }
 
-    public enum NotificationType
+    public Notification(string message, NotificationType type)
     {
-        Warning,
-        Info,
-        Error,
-        Alert
+      Message = message;
+      NotificationType = type;
     }
+  }
+
+
+  public enum NotificationType
+  {
+    Warning,
+    Info,
+    Error,
+    Alert
+  }
 
 }
 
