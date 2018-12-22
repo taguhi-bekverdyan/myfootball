@@ -8,6 +8,7 @@
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              d:DataContext="{d:DesignInstance local:MatchEditViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d" 
+                xmlns:common="clr-namespace:MyFootballAdmin.Common;assembly=MyFootballAdmin.Common"
              d:DesignHeight="405" d:DesignWidth="750">
     <Grid>
             

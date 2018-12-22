@@ -4,25 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyFootballAdmin.Main.Views.Pauses"
-                 xmlns:mvvm="http://prismlibrary.com/"
+              xmlns:mvvm="http://prismlibrary.com/"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
-             d:DataContext="{d:DesignInstance local:PausesViewModel, IsDesignTimeCreatable=True}"
+              d:DataContext="{d:DesignInstance local:TournamentsViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="300">
-    <Grid   TextBlock.FontWeight="Thin" TextBlock.TextAlignment="Center" TextBlock.FontSize="15" Background="Gray">
+             d:DesignHeight="250" d:DesignWidth="500">
+    <Grid Background="Gray">
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="Pause" Grid.Row="0" VerticalAlignment="Center"/>
-        <DatePicker SelectedDate="{Binding StartDate,Mode=TwoWay}" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"/>
-        <DatePicker SelectedDate="{Binding EndDate,Mode=TwoWay}" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center"/>
-        <Line  X1="0" X2="3800" Stroke="Black" Grid.ColumnSpan="3"  Grid.Row="1"/>
-        <Button Content="Add" Command="{Binding AddCommand}" Grid.Column="2" Grid.Row="8" Margin="12" Height="30"></Button>
+        <Button Command="{Binding AddPauseCommand}" Content="Add" Margin="5"/>
+        <Button Command="{Binding DeletePauseCommand}" Content="Delete" Grid.Column="1" Margin="5"/>
+        <Button Command="{Binding EditPauseCommand}" Content="Edit" Grid.Column="2" Margin="7"/>
+        <DataGrid SelectedItem="{Binding SelectedTournament}"  ItemsSource="{Binding Tournaments}" Grid.Row="1" Grid.ColumnSpan="4" Margin="7"/>
     </Grid>
 </UserControl>

@@ -58,7 +58,8 @@ namespace MyFootballAdmin.Main.Views.Main
 
     public void MainViewCommandAction()
     {
-      _regionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, typeof(BesidesToolBarView).FullName);
+            _notificationService.ShowNotification(NotificationType.Info,"Main View");
+            _regionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, typeof(BesidesToolBarView).FullName);
     }
 
     private DelegateCommand _tournamentsCommand;
@@ -67,7 +68,8 @@ namespace MyFootballAdmin.Main.Views.Main
 
     public void TournamentsCommandAction()
     {
-      _regionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, typeof(TournamentsView).FullName);
+            //_notificationService.ShowNotification(NotificationType, "");
+            _regionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, typeof(TournamentsView).FullName);
     }
 
     #endregion

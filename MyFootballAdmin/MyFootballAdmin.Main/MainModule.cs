@@ -32,7 +32,6 @@ namespace MyFootballAdmin.Main
             _regionManager.RegisterViewWithRegion(RegionNames.BesidesToolBarRegion, typeof(BesidesToolBarView));
             _regionManager.RegisterViewWithRegion(RegionNames.ToolBarRegion, typeof(ToolBarView));
 
-
             //register views
             _unityContainer.RegisterType<object, MainView>(typeof(MainView).FullName);
             _unityContainer.RegisterType<object, NotificationView>(typeof(NotificationView).FullName);
@@ -40,6 +39,7 @@ namespace MyFootballAdmin.Main
             _unityContainer.RegisterType<object, ToolBarView>(typeof(ToolBarView).FullName);
             _unityContainer.RegisterType<object, BesidesToolBarView>(typeof(BesidesToolBarView).FullName);
             _unityContainer.RegisterType<object, PausesView>(typeof(PausesView).FullName);
+            _unityContainer.RegisterType<object, AddPauseView>(typeof(AddPauseView).FullName);
             _unityContainer.RegisterType<object, MatchEditView>(typeof(MatchEditView).FullName);
             _unityContainer.RegisterType<object, TournamentsView>(typeof(TournamentsView).FullName);
             _unityContainer.RegisterType<object, TournamentEditView>(typeof(TournamentEditView).FullName);

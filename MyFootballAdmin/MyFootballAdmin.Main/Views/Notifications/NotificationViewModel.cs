@@ -26,7 +26,7 @@ namespace MyFootballAdmin.Main.Views.Notifications
         {
             _shellService = shellService;
             _eventAggregator = eventAggregator;
-            
+            _eventAggregator.GetEvent<NotificationEvent>().Subscribe(NotificationEventHandler);
         }
 
         #region Types
@@ -58,12 +58,12 @@ namespace MyFootballAdmin.Main.Views.Notifications
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-
+            _eventAggregator.GetEvent<NotificationEvent>().Unsubscribe(NotificationEventHandler);
         }
  
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            _eventAggregator.GetEvent<NotificationEvent>().Subscribe(NotificationEventHandler);
+
         }
 
         #endregion

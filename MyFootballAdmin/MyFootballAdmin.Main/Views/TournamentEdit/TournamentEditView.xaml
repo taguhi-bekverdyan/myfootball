@@ -8,11 +8,12 @@
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              d:DataContext="{d:DesignInstance local:TournamentEditViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d" 
+               xmlns:common="clr-namespace:MyFootballAdmin.Common;assembly=MyFootballAdmin.Common"
              d:DesignHeight="405" d:DesignWidth="700">
     <Grid Background="Gray">
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -21,7 +22,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
-            <Image Width="120" Height="130" Margin="15"/>
+            <Image Width="90" Height="100" Margin="15"/>
         </StackPanel>
         <Grid Grid.Column="1" Grid.ColumnSpan="3">
             <Grid.RowDefinitions>
@@ -39,9 +40,9 @@
             <TextBlock/>
             <TextBlock/>
         </Grid>
-        <Button Content="Edit Matches" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="25" FontSize="25"/>
-        <Button Content="Edit Pauses" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Margin="25" FontSize="25"/>
-        <ContentControl Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Button Command="{Binding MatchesCommand}" Content="Matches" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="55" FontSize="25"/>
+        <Button Command="{Binding PausesCommand}" Content="Pauses" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Margin="55" FontSize="25"/>
+        <ContentControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" mvvm:RegionManager.RegionName="{x:Static common:RegionNames.PausesAndMatchesRegion}" />
         <Line Stroke="Black" Grid.Row="1" Grid.ColumnSpan="4" X1="0" X2="10000" StrokeThickness="3"/>
     </Grid>
 </UserControl>

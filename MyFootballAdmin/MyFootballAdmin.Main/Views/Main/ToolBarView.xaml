@@ -25,8 +25,8 @@
                 <RowDefinition/>
                 <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
-            <Button BorderThickness="0"  Command="{Binding MainViewCommand}" Content="Main View" Grid.Row="1" Background='#FF464242' FontSize="13"/>
-            <Button BorderThickness="0"  Command="{Binding TournamentsCommand}" Content="Tournaments" Grid.Row="2" Background='#FF464242' FontFamily="13"/>
+            <Button BorderThickness="0"  Command="{Binding MainViewCommand}" Content="Main View" Grid.Row="1" Background='#FF464242' FontSize="12"/>
+            <Button BorderThickness="0"  Command="{Binding TournamentsCommand}" Content="Tournaments" Grid.Row="2" Background='#FF464242' FontFamily="12"/>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="0">
             <Grid.ColumnDefinitions>

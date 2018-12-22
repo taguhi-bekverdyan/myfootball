@@ -9,16 +9,16 @@
              mc:Ignorable="d" 
                d:DataContext="{d:DesignInstance local:NotificationViewModel, IsDesignTimeCreatable=True}"
              d:DesignHeight="40" d:DesignWidth="800">
-    <Grid Background="#FFD4CCCC">
+    <Grid Background="{Binding Colour}">
         <Grid.RowDefinitions>
             <RowDefinition/>
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="12*"/>
+            <ColumnDefinition Width="15*"/>
         </Grid.ColumnDefinitions>
         <Line Grid.ColumnSpan="2" X1="0" X2="3800" Stroke="{Binding Colour}" />
-        <TextBlock Foreground="{Binding Colour,Mode=TwoWay}" Text="{Binding Message,Mode=TwoWay}" FontSize="13" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+        <TextBlock Foreground="White" Text="{Binding Message,Mode=TwoWay}" FontSize="13" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>

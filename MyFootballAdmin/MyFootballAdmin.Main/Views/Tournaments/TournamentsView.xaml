@@ -10,6 +10,19 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="Gray">
-   
-  </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button Command="{Binding AddTournamentCommand}" Content="Add" Margin="7"/>
+        <Button Command="{Binding DeleteTournamentCommand}" Content="Delete" Grid.Column="1" Margin="7"/>
+        <Button Command="{Binding TournamentEditCommand}" Content="Edit" Grid.Column="2" Margin="7"/>
+        <DataGrid SelectedItem="{Binding SelectedTournament}"  ItemsSource="{Binding Tournaments}" Grid.Row="1" Grid.ColumnSpan="4" Margin="7"/>
+    </Grid>
 </UserControl>

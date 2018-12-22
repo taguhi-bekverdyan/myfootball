@@ -37,7 +37,6 @@ namespace MyFootballAdmin.Main.Views.Notifications
       else if (notificationType.Equals(NotificationType.Warning))
       {
         Notification.Colour = "Red";
-
       }
       _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs(Notification));
     }

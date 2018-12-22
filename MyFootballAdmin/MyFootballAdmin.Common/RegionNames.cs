@@ -6,5 +6,6 @@
         public const string NotificationRegion = "NotificationRegion";
         public const string MainRegion = "MainRegion";
         public const string BesidesToolBarRegion = "BesidesToolBarRegion";
+        public const string PausesAndMatchesRegion = "PausesAndMatchesRegion";
     }
 }

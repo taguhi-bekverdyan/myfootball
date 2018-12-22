@@ -12,59 +12,56 @@ using System.Threading.Tasks;
 
 namespace MyFootballAdmin.Main.Views.Pauses
 {
-    class PausesViewModel : BindableBase, INavigationAware, IRegionManagerAware
+    public class PausesViewModel : BindableBase, INavigationAware, IRegionManagerAware
     {
         private readonly IShellService _shellService;
         private readonly IEventAggregator _eventAggregator;
+        private readonly INotificationService _notificationService;
 
-        public PausesViewModel(IShellService shellService, IEventAggregator eventAggregator)
+        public PausesViewModel(IShellService shellService, IEventAggregator eventAggregator, INotificationService notificationService)
         {
             _shellService = shellService;
+            _notificationService = notificationService;
             _eventAggregator = eventAggregator;
         }
 
-        private DateTime _startDate;
+        #region Commands
+        private DelegateCommand _addPauseCommand;
 
-        public DateTime StartDate
+        public DelegateCommand AddPauseCommand => _addPauseCommand ?? (_addPauseCommand = new DelegateCommand(AddPauseCommandAction));
+
+        public void AddPauseCommandAction()
         {
-            get { return _startDate; }
-            set
-            {
-                SetProperty(ref _startDate, value);
-            }
+            //_notificationService.ShowNotification(NotificationType, "");
+            _shellService.ShowShell(nameof(AddPauseView));
         }
 
-        private DateTime _endDate;
+        private DelegateCommand _editPauseCommand;
 
-        public DateTime EndDate
+        public DelegateCommand EditPauseCommand => _editPauseCommand ?? (_editPauseCommand = new DelegateCommand(EditPauseCommandAction));
+
+        public void EditPauseCommandAction()
         {
-            get { return _endDate; }
-            set
-            {
-                SetProperty(ref _endDate, value);
-            }
+            //_notificationService.ShowNotification(NotificationType, "");
+            _shellService.ShowShell(nameof(AddPauseView));
         }
 
-        private Pause _pause;
+        private DelegateCommand _deletePauseCommand;
 
-        public Pause Pause
+        public DelegateCommand DeletePauseCommand => _deletePauseCommand ?? (_deletePauseCommand = new DelegateCommand(DeletePauseCommandAction));
+
+        public void DeletePauseCommandAction()
         {
-            get { return _pause; }
-            set
-            {
-                SetProperty(ref _pause, value);
-            }
+
+            _notificationService.ShowNotification(NotificationType.Alert, "Tournament has been deleted.");
         }
+
+
+        #endregion
 
         public IRegionManager RegionManager { get; set; }
 
         #region Navigation
-
-        public void OnNavigatedTo(NavigationContext navigationContext)
-        {
-
-        }
-
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
             throw new NotImplementedException();
@@ -72,23 +69,13 @@ namespace MyFootballAdmin.Main.Views.Pauses
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-
         }
 
-        #endregion
-
-        #region Commands
-
-        private DelegateCommand _addCommand;
-
-        public DelegateCommand AddCommand => _addCommand ?? (_addCommand = new DelegateCommand(AddCommandAction));
-
-        public void AddCommandAction()
+        public void OnNavigatedTo(NavigationContext navigationContext)
         {
-           
         }
-
+        
         #endregion
-    }
 
+    }
 }
