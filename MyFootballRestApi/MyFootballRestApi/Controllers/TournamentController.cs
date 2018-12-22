@@ -30,11 +30,11 @@ namespace MyFootballRestApi.Controllers
 
         // GET: api/Tournament/5
         [HttpGet("{id}")]
-        public IActionResult Get(string id)
+        public async Task<IActionResult>  Get(string id)
         {
             try
             {
-                var player = _tournamentRepository.Get(id);
+                var player = await _tournamentRepository.Get(id);
                 return Ok(player);
             }
             catch (Exception e)
