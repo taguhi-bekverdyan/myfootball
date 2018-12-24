@@ -54,7 +54,7 @@ namespace MyFootballRestApi.Controllers
             {
                 var result = await _playerRepository.Create(player);
                 if (result == null) return BadRequest(player);
-                return Created($"/api/Player/Get/{player.Id}", result);
+                return Created($"/api/Player/{player.Id}", result);
             }
             catch (Exception e)
             {
@@ -70,7 +70,7 @@ namespace MyFootballRestApi.Controllers
                 
                 var result = await _playerRepository.Upsert(player);
                 if (result == null) return BadRequest(player);
-                return Created($"/api/Player/Get/{player.Id}", result);
+                return Created($"/api/Player/{player.Id}", result);
             }
             catch (Exception e)
             {
