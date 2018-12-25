@@ -1,5 +1,5 @@
 ﻿
-@model MyFootballMvc.ViewModels.TournamentViewModel
+@model MyFootballMvc.ViewModels.LeagueViewModel
 @{
     Layout = "_Layout";
 }
@@ -14,7 +14,7 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">@Model.Tournament.Name</a>
+        <a class="navbar-brand" asp-area="" asp-controller="League" asp-action="Index" asp-route-tournamentId="@Model.Tournament.Id">@Model.Tournament.Name</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#leagueNavbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -22,34 +22,34 @@
         <div class="collapse navbar-collapse" id="leagueNavbar">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Fixtures</a>
+                    <a class="nav-link" asp-area="" asp-controller="League" asp-action="Fixtures" asp-route-tournamentId="@Model.Tournament.Id">Fixtures</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Results</a>
+                    <a class="nav-link" asp-area="" asp-controller="League" asp-action="Results" asp-route-tournamentId="@Model.Tournament.Id">Results</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Tables</a>
+                    <a class="nav-link" asp-area="" asp-controller="League" asp-action="Tables" asp-route-tournamentId="@Model.Tournament.Id">Tables</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Clubs</a>
+                    <a class="nav-link" asp-area="" asp-controller="League" asp-action="Clubs" asp-route-tournamentId="@Model.Tournament.Id">Clubs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Players</a>
+                    <a class="nav-link" asp-area="" asp-controller="League" asp-action="Players" asp-route-tournamentId="@Model.Tournament.Id">Players</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Managers</a>
+                    <a class="nav-link" asp-area="" asp-controller="League" asp-action="Managers" asp-route-tournamentId="@Model.Tournament.Id">Managers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">News</a>
+                    <a class="nav-link" asp-area="" asp-controller="League" asp-action="News" asp-route-tournamentId="@Model.Tournament.Id">News</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Social</a>
+                    <a class="nav-link" asp-area="" asp-controller="League" asp-action="Social" asp-route-tournamentId="@Model.Tournament.Id">Social</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">History</a>
+                    <a class="nav-link" asp-area="" asp-controller="League" asp-action="History" asp-route-tournamentId="@Model.Tournament.Id">History</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Referees</a>
+                    <a class="nav-link" asp-area="" asp-controller="League" asp-action="Referees" asp-route-tournamentId="@Model.Tournament.Id">Referees</a>
                 </li>
             </ul>
         </div>

@@ -12,4 +12,8 @@
     <PackageReference Include="RestSharp" Version="105.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Tournament\" />
+  </ItemGroup>
+
 </Project>
