@@ -12,5 +12,11 @@ namespace MyFootballRestApi.Models
         public string LastName { get; set; }
         public DateTime Birthdate { get; set; }
         public string FavoriteTeamId { get; set; }
+
+        public Player Player { get; set; }
+        public Coach Coach { get; set; }
+        public Staff Staff { get; set; }
+        public Referee Referee { get; set; }
+
     }
 }

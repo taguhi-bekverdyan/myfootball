@@ -1,23 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using MyFootballRestApi.Data;
 using MyFootballRestApi.Models;
-using System;
-using System.Threading.Tasks;
 
 namespace MyFootballRestApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MatchController : ControllerBase
+    public class CoachController : ControllerBase
     {
 
-        private readonly IRepository<Match> _matchRepository;
-
-        public MatchController()
+        private readonly IRepository<Coach> _coachRepository;
+        public CoachController()
         {
-            _matchRepository = new CouchbaseRepository<Match>();
+            _coachRepository = new CouchbaseRepository<Coach>();
         }
-
 
         #region GET
         [HttpGet]
@@ -25,8 +26,8 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                var match = await _matchRepository.GetAll(typeof(Match));
-                return Ok(match);
+                var coaches = await _coachRepository.GetAll(typeof(Coach));
+                return Ok(coaches);
             }
             catch (Exception e)
             {
@@ -35,12 +36,12 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetMatchById([FromRoute]string id)
+        public async Task<IActionResult> GetCoachById([FromRoute]string id)
         {
             try
             {
-                var match = await _matchRepository.Get(id);
-                return Ok(match);
+                var coach = await _coachRepository.Get(id);
+                return Ok(coach);
             }
             catch (Exception e)
             {
@@ -53,13 +54,13 @@ namespace MyFootballRestApi.Controllers
         #region POST
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create([FromBody] Match match)
+        public async Task<IActionResult> Create([FromBody] Coach coach)
         {
             try
             {
-                var result = await _matchRepository.Create(match);
+                var result = await _coachRepository.Create(coach);
                 if (result == null) { return BadRequest(result); }
-                return Created(string.Format("/api/Leagues/{0}", match.Id), result);
+                return Created(string.Format("/api/Coach/{0}", coach.Id), result);
             }
             catch (Exception e)
             {
@@ -68,13 +69,13 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpPost("Upsert")]
-        public async Task<IActionResult> Upsert([FromBody] Match match)
+        public async Task<IActionResult> Upsert([FromBody] Coach coach)
         {
             try
             {
-                var result = await _matchRepository.Upsert(match);
+                var result = await _coachRepository.Upsert(coach);
                 if (result == null) { return BadRequest(); }
-                return Created(string.Format("/api/Leagues/{0}", match.Id), result);
+                return Created(string.Format("/api/Coach/{0}", coach.Id), result);
             }
             catch (Exception e)
             {
@@ -87,11 +88,11 @@ namespace MyFootballRestApi.Controllers
         #region PUT
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update([FromBody]Match match)
+        public async Task<IActionResult> Update([FromBody]Coach coach)
         {
             try
             {
-                var result = await _matchRepository.Update(match);
+                var result = await _coachRepository.Update(coach);
                 if (result == null) { return BadRequest(result); }
                 return Ok(result);
             }
@@ -110,7 +111,7 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                await _matchRepository.Delete(id);
+                await _coachRepository.Delete(id);
                 return Ok();
             }
             catch (Exception e)

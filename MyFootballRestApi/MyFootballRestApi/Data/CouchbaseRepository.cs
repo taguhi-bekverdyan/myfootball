@@ -46,7 +46,7 @@ namespace MyFootballRestApi.Data
         {
             item.Created = DateTime.Now;
             item.Updated = DateTime.Now;
-            item.Id = Guid.NewGuid().ToString();
+            //item.Id = Guid.NewGuid().ToString();
             var key = CreateKey(item.Id);
 
             var result = await _bucket.InsertAsync(key, item);

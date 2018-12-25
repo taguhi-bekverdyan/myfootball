@@ -1,23 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using MyFootballRestApi.Data;
 using MyFootballRestApi.Models;
-using System;
-using System.Threading.Tasks;
 
 namespace MyFootballRestApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MatchController : ControllerBase
+    public class StaffController : ControllerBase
     {
 
-        private readonly IRepository<Match> _matchRepository;
 
-        public MatchController()
+        private readonly IRepository<Staff> _staffRepository;
+
+        public StaffController()
         {
-            _matchRepository = new CouchbaseRepository<Match>();
+            _staffRepository = new CouchbaseRepository<Staff>();
         }
-
 
         #region GET
         [HttpGet]
@@ -25,8 +28,8 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                var match = await _matchRepository.GetAll(typeof(Match));
-                return Ok(match);
+                var staff = await _staffRepository.GetAll(typeof(Staff));
+                return Ok(staff);
             }
             catch (Exception e)
             {
@@ -35,12 +38,12 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetMatchById([FromRoute]string id)
+        public async Task<IActionResult> GetStaffById([FromRoute]string id)
         {
             try
             {
-                var match = await _matchRepository.Get(id);
-                return Ok(match);
+                var staff = await _staffRepository.Get(id);
+                return Ok(staff);
             }
             catch (Exception e)
             {
@@ -53,13 +56,13 @@ namespace MyFootballRestApi.Controllers
         #region POST
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create([FromBody] Match match)
+        public async Task<IActionResult> Create([FromBody] Staff staff)
         {
             try
             {
-                var result = await _matchRepository.Create(match);
+                var result = await _staffRepository.Create(staff);
                 if (result == null) { return BadRequest(result); }
-                return Created(string.Format("/api/Leagues/{0}", match.Id), result);
+                return Created(string.Format("/api/Staff/{0}", staff.Id), result);
             }
             catch (Exception e)
             {
@@ -68,13 +71,13 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpPost("Upsert")]
-        public async Task<IActionResult> Upsert([FromBody] Match match)
+        public async Task<IActionResult> Upsert([FromBody] Staff staff)
         {
             try
             {
-                var result = await _matchRepository.Upsert(match);
+                var result = await _staffRepository.Upsert(staff);
                 if (result == null) { return BadRequest(); }
-                return Created(string.Format("/api/Leagues/{0}", match.Id), result);
+                return Created(string.Format("/api/Staff/{0}", staff.Id), result);
             }
             catch (Exception e)
             {
@@ -87,11 +90,11 @@ namespace MyFootballRestApi.Controllers
         #region PUT
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update([FromBody]Match match)
+        public async Task<IActionResult> Update([FromBody]Staff staff)
         {
             try
             {
-                var result = await _matchRepository.Update(match);
+                var result = await _staffRepository.Update(staff);
                 if (result == null) { return BadRequest(result); }
                 return Ok(result);
             }
@@ -110,7 +113,7 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                await _matchRepository.Delete(id);
+                await _staffRepository.Delete(id);
                 return Ok();
             }
             catch (Exception e)
@@ -120,6 +123,5 @@ namespace MyFootballRestApi.Controllers
         }
 
         #endregion
-
     }
 }

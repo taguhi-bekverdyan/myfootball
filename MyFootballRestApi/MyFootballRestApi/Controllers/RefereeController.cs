@@ -1,22 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using MyFootballRestApi.Data;
 using MyFootballRestApi.Models;
-using System;
-using System.Threading.Tasks;
 
 namespace MyFootballRestApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MatchController : ControllerBase
+    public class RefereeController : ControllerBase
     {
 
-        private readonly IRepository<Match> _matchRepository;
+        private readonly IRepository<Referee> _refereeRepository;
 
-        public MatchController()
+        public RefereeController()
         {
-            _matchRepository = new CouchbaseRepository<Match>();
+            _refereeRepository = new CouchbaseRepository<Referee>();
         }
+
 
 
         #region GET
@@ -25,8 +29,8 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                var match = await _matchRepository.GetAll(typeof(Match));
-                return Ok(match);
+                var referees = await _refereeRepository.GetAll(typeof(Referee));
+                return Ok(referees);
             }
             catch (Exception e)
             {
@@ -35,12 +39,12 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetMatchById([FromRoute]string id)
+        public async Task<IActionResult> GetrefereeById([FromRoute]string id)
         {
             try
             {
-                var match = await _matchRepository.Get(id);
-                return Ok(match);
+                var referee = await _refereeRepository.Get(id);
+                return Ok(referee);
             }
             catch (Exception e)
             {
@@ -53,13 +57,13 @@ namespace MyFootballRestApi.Controllers
         #region POST
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create([FromBody] Match match)
+        public async Task<IActionResult> Create([FromBody] Referee referee)
         {
             try
             {
-                var result = await _matchRepository.Create(match);
+                var result = await _refereeRepository.Create(referee);
                 if (result == null) { return BadRequest(result); }
-                return Created(string.Format("/api/Leagues/{0}", match.Id), result);
+                return Created(string.Format("/api/Coach/{0}", referee.Id), result);
             }
             catch (Exception e)
             {
@@ -68,13 +72,13 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpPost("Upsert")]
-        public async Task<IActionResult> Upsert([FromBody] Match match)
+        public async Task<IActionResult> Upsert([FromBody] Referee referee)
         {
             try
             {
-                var result = await _matchRepository.Upsert(match);
+                var result = await _refereeRepository.Upsert(referee);
                 if (result == null) { return BadRequest(); }
-                return Created(string.Format("/api/Leagues/{0}", match.Id), result);
+                return Created(string.Format("/api/Coach/{0}", referee.Id), result);
             }
             catch (Exception e)
             {
@@ -87,11 +91,11 @@ namespace MyFootballRestApi.Controllers
         #region PUT
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update([FromBody]Match match)
+        public async Task<IActionResult> Update([FromBody]Referee referee)
         {
             try
             {
-                var result = await _matchRepository.Update(match);
+                var result = await _refereeRepository.Update(referee);
                 if (result == null) { return BadRequest(result); }
                 return Ok(result);
             }
@@ -110,7 +114,7 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                await _matchRepository.Delete(id);
+                await _refereeRepository.Delete(id);
                 return Ok();
             }
             catch (Exception e)

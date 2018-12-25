@@ -19,8 +19,4 @@ namespace MyFootballMvc.ViewModels
             Tournaments = JsonConvert.DeserializeObject<List<Tournament>>(response.Content).OrderBy(x=>x.Priority).ToList();
         }
     }
-
-
-
-
 }

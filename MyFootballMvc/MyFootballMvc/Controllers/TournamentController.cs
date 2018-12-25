@@ -13,7 +13,7 @@ namespace MyFootballMvc.Controllers
     {
         public IActionResult Index(string tournamentId)
         {
-            var client = new RestClient($@"https://localhost:44350/api/Tournament/Get/{tournamentId}");
+            var client = new RestClient($@"https://localhost:44350/api/Tournament/{tournamentId}");
             var request = new RestRequest(Method.GET);
             var response = client.Execute(request);
 

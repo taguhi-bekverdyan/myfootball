@@ -41,7 +41,7 @@ namespace MyFootballMvc.Services
 
         public async Task Insert(string accessToken,User user)
         {
-            var request = new RestRequest("users", Method.POST);
+            var request = new RestRequest("users/create", Method.POST);
             request.AddHeader("authorization", $"Bearer {accessToken}");
             request.RequestFormat = DataFormat.Json;
             request.AddBody(user);
@@ -51,7 +51,7 @@ namespace MyFootballMvc.Services
 
         public async Task Update(string accessToken, User user)
         {
-            var request = new RestRequest("users", Method.PUT);
+            var request = new RestRequest("users/update", Method.PUT);
             request.AddHeader("authorization", $"Bearer {accessToken}");
             request.RequestFormat = DataFormat.Json;
             request.AddBody(user);
