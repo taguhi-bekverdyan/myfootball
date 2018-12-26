@@ -7,5 +7,6 @@
         public const string MainRegion = "MainRegion";
         public const string BesidesToolBarRegion = "BesidesToolBarRegion";
         public const string PausesAndMatchesRegion = "PausesAndMatchesRegion";
+        public const string AddTournamentRegion = "AddTournamentRegion";
     }
 }

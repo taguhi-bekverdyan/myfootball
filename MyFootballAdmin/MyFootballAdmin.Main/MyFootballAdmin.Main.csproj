@@ -185,6 +185,18 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Properties\ShellViewModel.cs" />
+    <Compile Include="Views\AddTournament\AddCupView.xaml.cs">
+      <DependentUpon>AddCupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddTournament\AddCupViewModel.cs" />
+    <Compile Include="Views\AddTournament\AddLeagueView.xaml.cs">
+      <DependentUpon>AddLeagueView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddTournament\AddLeagueViewModel.cs" />
+    <Compile Include="Views\AddTournament\AddTournamentStepBarView.xaml.cs">
+      <DependentUpon>AddTournamentStepBarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddTournament\AddTournamentStepBarViewModel.cs" />
     <Compile Include="Views\AddTournament\AddTournamentView.xaml.cs">
       <DependentUpon>AddTournamentView.xaml</DependentUpon>
     </Compile>
@@ -253,6 +265,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\AddTournament\AddCupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddTournament\AddLeagueView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddTournament\AddTournamentStepBarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddTournament\AddTournamentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

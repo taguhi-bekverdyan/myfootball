@@ -26,11 +26,12 @@ namespace MyFootballAdmin.Main
 
         public void Initialize()
         {
-            //register first view
+
             _regionManager.RegisterViewWithRegion(RegionNames.NotificationRegion, typeof(NotificationView));
             _regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(MainView));
             _regionManager.RegisterViewWithRegion(RegionNames.BesidesToolBarRegion, typeof(BesidesToolBarView));
             _regionManager.RegisterViewWithRegion(RegionNames.ToolBarRegion, typeof(ToolBarView));
+            _regionManager.RegisterViewWithRegion(RegionNames.AddTournamentRegion, typeof(AddTournamentView));
 
             //register views
             _unityContainer.RegisterType<object, MainView>(typeof(MainView).FullName);
