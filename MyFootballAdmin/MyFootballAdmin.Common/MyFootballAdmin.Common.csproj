@@ -156,10 +156,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\LoginView.xaml.cs">
-      <DependentUpon>LoginView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\LoginViewModel.cs" />
     <Compile Include="Prism\IRegionManagerAware.cs" />
     <Compile Include="Prism\IShellService.cs" />
     <Compile Include="Prism\RegionManagerAware.cs" />
@@ -194,15 +190,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\LoginView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controls\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

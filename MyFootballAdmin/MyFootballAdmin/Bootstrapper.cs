@@ -6,6 +6,9 @@ using Microsoft.Practices.Unity;
 using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Common.Views;
 using MyFootballAdmin.Main;
+using MyFootballAdmin.Main.Views.Error;
+using MyFootballAdmin.Main.Views.Notifications;
+using Prism.Events;
 using Prism.Modularity;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -34,6 +37,7 @@ namespace MyFootballAdmin
             ViewModelLocationProvider.SetDefaultViewModelFactory((type) => Container.Resolve(type));
 
             Container.RegisterType<IShellService, ShellService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<INotificationService, NotificationService>(new ContainerControlledLifetimeManager());
         }
 
         protected override DependencyObject CreateShell()
@@ -46,6 +50,42 @@ namespace MyFootballAdmin
             var regionManager = RegionManager.GetRegionManager((Shell));
             RegionManagerAware.SetRegionManagerAware(Shell, regionManager);
             App.Current.MainWindow.Show();
+        }
+
+
+        private string _loginResult;
+        public string LoginResult
+        {
+            get => _loginResult;
+            set => _loginResult = value;
+        }
+
+
+        public async void  Auth0Async()
+        {
+            var client = new Auth0Client(new Auth0ClientOptions
+            {
+                Domain = _domain,
+                ClientId = _clientId
+            });
+
+            //login window
+            var loginResult = await client.LoginAsync();
+
+            if (loginResult.IsError)
+            {
+                LoginResult = loginResult.Error;
+
+                var errorView = new ErrorView();
+                errorView.Show();
+
+
+            }
+
+            else
+            {
+                App.Current.MainWindow.Show();
+            }
         }
 
 
