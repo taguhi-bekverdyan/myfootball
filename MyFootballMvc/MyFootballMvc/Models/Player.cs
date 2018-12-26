@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace MyFootballRestApi.Models
+namespace MyFootballMvc.Models
 {
     public class Player : EntityBase<Player>
     {

@@ -6,18 +6,22 @@ using System.Threading.Tasks;
 
 namespace MyFootballMvc.Models
 {
-    public class User
+    
+    public class User : EntityBase<User>
     {
-        //[Required]
-        public string Id { get; set; }
-        [MaxLength(80),Required,Display(Name ="First Name")]
+        [MaxLength(80), Required, Display(Name = "First Name")]
         public string FirstName { get; set; }
-        [MaxLength(80),Required, Display(Name = "First Name")]
+        [MaxLength(80), Required, Display(Name = "Last Name")]
         public string LastName { get; set; }
-        [Required,Display(Name ="Date of birth")]
+        [Required, Display(Name = "Date of birth")]
         public DateTime Birthdate { get; set; }
 
         public Guid FavoriteTeamId { get; set; }
-        public Team Team { get; set; }
+
+        public Player Player { get; set; }
+        public Coach Coach { get; set; }
+        public Staff Staff { get; set; }
+        public Referee Referee { get; set; }
+
     }
 }
