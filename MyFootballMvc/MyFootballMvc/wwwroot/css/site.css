@@ -1,37 +1,143 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
-body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+  margin-top: 72px;
+}
+
+/* Navbar */
+.navbar {
+  padding: 0 1rem;
+  height: 4rem;
+}
+.navbar .nav-item {
+  padding: 1rem 0;
+  position: relative;
+}
+.navbar .dropdown-menu {
+  margin-top: -0.25rem;
+  padding: 0;
+  border-radius: 0;
+  left: -50%;
+  z-index: 100;
+}
+
+  .navbar .dropdown-menu ul {
+    column-count: 2;
+    list-style-type: none;
+    padding: 0.3rem 0.6rem;
+    background-color: #d0d0d0;
+  }
+
+  .navbar .dropdown-menu a {
+    padding: 0;
+  }
+
+  .navbar .dropdown-menu:before {
+    content: "";
+    display: block;
+    border: 8px solid transparent;
+    border-bottom-color: #d0d0d0;
+    position: absolute;
+    top: -1rem;
+    left: 50%;
+    margin-left: -0.5rem;
+  }
+
+.navbar .dropdown-item:hover,
+.navbar .dropdown-item:focus {
+  background-color: #d0d0d0;
+  text-decoration: underline;
+}
+.nav-item:hover .dropdown-menu {
+  display: block;
+}
+
+.navbar .nav-item a:not(.dropdown-toggle):before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  right: 0;
+  height: 0;
+  transition: .2s;
+  z-index: -1;
+}
+
+.navbar .nav-item a:hover:before {
+  height: 5px;
+  background-color: #d0d0d0;
+}
+
+.navbar .nav-item.active a:before {
+  height: 5px;
+  background-color: #ececec;
+}
+
+/* Subnav*/
+.subnav {
+  top: 64px;
+  padding: 0.3rem 15% 0;
+  z-index: 10;
+  background-color: #c9e6ff !important;
+}
+
+
+.subnav .nav-item a:before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  right: 0;
+  height: 0;
+  transition: .2s;
+  z-index: -1;
+}
+
+  .subnav .nav-item a:hover:before {
+    height: 5px;
+    background: #4aa4ff;
+  }
+
+  .subnav .nav-item.active a:before {
+    height: 5px;
+    background: #00539a;
+  }
+
+
+/* Main content*/
+.main-content {
+  padding: 2rem 1rem;
+}
+
+.submenu-title {
+  margin-top: 2rem;
 }
 
 /* Carousel */
 .carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+  font-size: 1.25rem;
+  line-height: 1.4;
 }
 
 /* Make .svg files in the carousel display properly in older browsers */
 .carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+  width: 100%;
 }
 
 /* QR code generator */
 #qrCode {
-    margin: 15px;
+  margin: 15px;
 }
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
+  /* Hide captions */
+  .carousel-caption {
+    display: none;
+  }
 }

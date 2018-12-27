@@ -18,7 +18,7 @@
     </environment>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Logo</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -31,12 +31,12 @@
                     Tournaments
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @foreach (var tournament in  Model.Tournaments)
+                  <ul role="menu">
+                    @foreach (var tournament in Model.Tournaments)
                     {
-                        <a class="dropdown-item" asp-controller="Tournament" asp-action="Index" asp-route-tournamentId="@tournament.Id">@tournament.Name</a>
+                      <li><a class="dropdown-item" asp-controller="Tournament" asp-action="Index" asp-route-tournamentId="@tournament.Id">@tournament.Name</a></li>
                     }
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                  </ul>
                 </div>
             </li>
             
@@ -67,11 +67,11 @@
 
 <div class="body-content">
     @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; 2018 - MyFootballMvc</p>
-    </footer>
 </div>
+
+<footer>
+  <p>&copy; 2018 - MyFootballMvc</p>
+</footer>
 
 <environment include="Development">
     <script src="~/lib/jquery/dist/jquery.js"></script>
