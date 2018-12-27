@@ -3,6 +3,7 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using MyFootballMvc.Models
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -61,7 +62,41 @@
             </nav>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-player" role="tabpanel" aria-labelledby="nav-player-tab">
-                    <p>player</p>
+                    @using (Html.BeginForm("Player", "Account", FormMethod.Post, new { id = "js-playerForm" }))
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.User.Player.Position)
+                            @*@Html.DropDownList("SelectPosition", Html.GetEnumSelectList<Position>(),
+                                        "Select your position", new { @class = "form-control" ,id="js-position"})*@
+                            <select class="form-control" asp-for="User.Player.Position" asp-items="Html.GetEnumSelectList<Position>()">
+                                <option selected="selected" value="">Please select</option>
+                            </select>
+                            @Html.ValidationMessageFor(m => m.User.Player.Position)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.User.Player.PhysicalStats.Foot)
+                            @*@Html.DropDownList("SelectFoot", Html.GetEnumSelectList<Foot>(),
+        "Select your foot", new { @class = "form-control",id="js-foot" })*@
+                            <select class="form-control" asp-for="User.Player.PhysicalStats.Foot" asp-items="Html.GetEnumSelectList<Foot>()">
+                                <option selected="selected" value="">Please select</option>
+                            </select>
+                            @Html.ValidationMessageFor(m => m.User.Player.PhysicalStats.Foot)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.User.Player.PhysicalStats.Height)
+                            @Html.TextBoxFor(m => m.User.Player.PhysicalStats.Height,
+                                    new {@class = "form-control",id="js-height" })
+                            @Html.ValidationMessageFor(m => m.User.Player.PhysicalStats.Height)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.User.Player.PhysicalStats.Weight)
+                            @Html.TextBoxFor(m => m.User.Player.PhysicalStats.Weight,
+                                    new {@class="form-control",id="js-weight" })
+                            @Html.ValidationMessageFor(m => m.User.Player.PhysicalStats.Weight)
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Become a Player</button>
+                    }
                 </div>
                 <div class="tab-pane fade" id="nav-coach" role="tabpanel" aria-labelledby="nav-coach-tab">
                     <p>coach</p>
@@ -76,6 +111,32 @@
         </div>
     </div>
 </div>
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        $("#js-playerForm").submit(function (e) {
+            e.preventDefault();
 
+            var position = $("#js-position").val();
+            var foot = $("#js-foot").val();
+            var height = $("#js-height").val();
+            var weight = $("#js-weight").val();
+
+            var ps = { Foot: foot, Height: height, Weight: weight};
+
+            var player = { Position: position, PhysicalStats:ps};
+
+            $.ajax({
+                url: "Player/",
+                method: "POST",
+                contentType:"application/json",
+                dataType: "json",
+                data: JSON.stringify(player)
+            }).done(function () {
+                alert("done");
+            });
+
+        });
+    });
+</script>*@
 
 

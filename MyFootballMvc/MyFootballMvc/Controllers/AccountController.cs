@@ -54,6 +54,13 @@ namespace MyFootballMvc.Controllers
             if (user == null)
             {
                 User u = new User();
+
+                u.Player = new Player();
+                u.Player.PhysicalStats = new PhysicalStats();
+                u.Coach = new Coach();
+                u.Staff = new Staff();
+                u.Referee = new Referee();
+
                 u.Id = string.Empty;
 
                 return View(new EditAccountViewModel()
@@ -96,6 +103,48 @@ namespace MyFootballMvc.Controllers
                     await _usersService.Update(accessToken,user);
                 }
                 return RedirectToAction("Index","Home");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }           
+        }
+
+        [HttpPost("Account/Player")]
+        public async Task<IActionResult> Player(Player player)
+        {
+
+            string token = await GetAccessToken();
+            string userId = GetUserAuth0Id();
+            if (!ModelState.IsValid)
+            {
+                User user = await _usersService.FindUserById(token, userId);
+                user.Player = player;
+                return View("Edit", new EditAccountViewModel() {
+                    User = user,
+                    Teams = await _teamsService.FindAll(token)
+                });
+            }
+            try
+            {
+                string accessToken = await GetAccessToken();
+                string id = GetUserAuth0Id();
+                User user = await _usersService.FindUserById(accessToken, id);
+                if (user.Player == null)
+                {
+                    player.Created = DateTime.Now;
+                    player.Updated = DateTime.Now;
+                }
+                else
+                {
+                    player.Updated = DateTime.Now;
+                }
+                user.Player = player;
+                await _usersService.Update(accessToken,user);
+                return View("Edit", new EditAccountViewModel() {
+                    User = await _usersService.FindUserById(token,userId),
+                    Teams = await _teamsService.FindAll(token)
+                });
             }
             catch (Exception e)
             {
