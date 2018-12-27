@@ -104,6 +104,7 @@
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.3.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
     </Reference>
@@ -149,6 +150,7 @@
     <Reference Include="System.Text.Encodings.Web, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.4.4.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -185,6 +187,65 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Properties\ShellViewModel.cs" />
+    <Compile Include="Views\AddTournament\AddCupView.xaml.cs">
+      <DependentUpon>AddCupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddTournament\AddCupViewModel.cs" />
+    <Compile Include="Views\AddTournament\AddLeagueView.xaml.cs">
+      <DependentUpon>AddLeagueView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddTournament\AddLeagueViewModel.cs" />
+    <Compile Include="Views\AddTournament\AddTournamentStepBarView.xaml.cs">
+      <DependentUpon>AddTournamentStepBarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddTournament\AddTournamentStepBarViewModel.cs" />
+    <Compile Include="Views\AddTournament\AddTournamentView.xaml.cs">
+      <DependentUpon>AddTournamentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddTournament\AddTournamentViewModel.cs" />
+    <Compile Include="Views\AddTournament\Tournament.cs" />
+    <Compile Include="Views\Error\ErrorView.xaml.cs">
+      <DependentUpon>ErrorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Error\ErrorViewModel.cs" />
+    <Compile Include="Views\Helpers\NotificationEvent.cs" />
+    <Compile Include="Views\Main\BesidesToolBarView.xaml.cs">
+      <DependentUpon>BesidesToolBarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Main\BesidesToolBarViewModel.cs" />
+    <Compile Include="Views\Notifications\INotificationService.cs" />
+    <Compile Include="Views\Notifications\NotificationService.cs" />
+    <Compile Include="Views\Pauses\Pause.cs" />
+    <Compile Include="Views\Pauses\PausesView.xaml.cs">
+      <DependentUpon>PausesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pauses\PausesViewModel.cs" />
+    <Compile Include="Views\TournamentEdit\TournamentEditView.xaml.cs">
+      <DependentUpon>TournamentEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TournamentEdit\TournamentEditViewModel.cs" />
+    <Compile Include="Views\Tournaments\TournamentsView.xaml.cs">
+      <DependentUpon>TournamentsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tournaments\TournamentsViewModel.cs" />
+    <Compile Include="Views\Main\ToolBarView.xaml.cs">
+      <DependentUpon>ToolBarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Main\ToolBarViewModel.cs" />
+    <Compile Include="Views\MatchEdit\MatchEditView.xaml.cs">
+      <DependentUpon>MatchEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MatchEdit\MatchEditViewModel.cs" />
+    <Compile Include="Views\Notifications\Notification.cs" />
+    <Compile Include="Views\Notifications\NotificationView.xaml.cs">
+      <DependentUpon>NotificationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Notifications\NotificationViewModel.cs" />
+    <Compile Include="Views\Pauses\AddPauseView.xaml.cs">
+      <DependentUpon>AddPauseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pauses\AddPauseViewModel.cs" />
     <Compile Include="Views\Main\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -207,10 +268,65 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\AddTournament\AddCupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddTournament\AddLeagueView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddTournament\AddTournamentStepBarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddTournament\AddTournamentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Error\ErrorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Main\BesidesToolBarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pauses\PausesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TournamentEdit\TournamentEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tournaments\TournamentsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Main\ToolBarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MatchEdit\MatchEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Notifications\NotificationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pauses\AddPauseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Main\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Matches\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

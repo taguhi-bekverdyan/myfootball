@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace MyFootballAdmin.Main.Views.Main
 {
     /// <summary>
-    /// Interaction logic for RoundsView.xaml
+    /// Interaction logic for BesidesToolBarView.xaml
     /// </summary>
-    public partial class MainView : UserControl
+    public partial class BesidesToolBarView : UserControl
     {
-        public MainView()
+        public BesidesToolBarView()
         {
             InitializeComponent();
         }

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MyFootballAdmin.Main.Views.Main
+namespace MyFootballAdmin.Main.Views.MatchEdit
 {
     /// <summary>
-    /// Interaction logic for RoundsView.xaml
+    /// Interaction logic for MatchEditView.xaml
     /// </summary>
-    public partial class MainView : UserControl
+    public partial class MatchEditView : UserControl
     {
-        public MainView()
+        public MatchEditView()
         {
             InitializeComponent();
         }

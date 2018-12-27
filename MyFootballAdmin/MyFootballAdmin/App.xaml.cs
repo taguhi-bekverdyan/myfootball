@@ -8,6 +8,8 @@ namespace MyFootballAdmin
     /// </summary>
     public partial class App : Application
     {
+        public static object ErrorView { get; internal set; }
+
         private static readonly ILog log = LogManager.GetLogger(typeof(App));
         protected override void OnStartup(StartupEventArgs e)
         {

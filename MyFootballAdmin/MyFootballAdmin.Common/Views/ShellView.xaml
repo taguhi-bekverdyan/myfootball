@@ -11,6 +11,11 @@
         d:DataContext="{d:DesignInstance local:ShellViewModel, IsDesignTimeCreatable=True}"
         Title="{Binding Title}" Height="450" Width="800">
     <Grid>
-        <ContentControl mvvm:RegionManager.RegionName="{x:Static common:RegionNames.WindowContentRegion}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <ContentControl Grid.Row="1" mvvm:RegionManager.RegionName="{x:Static common:RegionNames.NotificationRegion}" />
+        <ContentControl Grid.Row="0" mvvm:RegionManager.RegionName="{x:Static common:RegionNames.MainRegion}" />
     </Grid>
 </Window>

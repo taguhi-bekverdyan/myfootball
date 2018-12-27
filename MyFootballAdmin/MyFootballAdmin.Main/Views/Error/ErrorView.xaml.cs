@@ -10,19 +10,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MyFootballAdmin.Main.Views.Main
+namespace MyFootballAdmin.Main.Views.Error
 {
     /// <summary>
-    /// Interaction logic for RoundsView.xaml
+    /// Interaction logic for ErrorView.xaml
     /// </summary>
-    public partial class MainView : UserControl
+    public partial class ErrorView : Window
     {
-        public MainView()
+        public ErrorView()
         {
             InitializeComponent();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+
+            System.Windows.Application.Current.Shutdown();
+
         }
     }
 }
