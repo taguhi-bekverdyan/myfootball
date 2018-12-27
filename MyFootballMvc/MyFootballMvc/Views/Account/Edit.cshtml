@@ -85,13 +85,13 @@
                         <div class="form-group">
                             @Html.LabelFor(m => m.User.Player.PhysicalStats.Height)
                             @Html.TextBoxFor(m => m.User.Player.PhysicalStats.Height,
-                                    new {@class = "form-control",id="js-height" })
+                                new {@class = "form-control",id="js-height" })
                             @Html.ValidationMessageFor(m => m.User.Player.PhysicalStats.Height)
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(m => m.User.Player.PhysicalStats.Weight)
                             @Html.TextBoxFor(m => m.User.Player.PhysicalStats.Weight,
-                                    new {@class="form-control",id="js-weight" })
+                                new {@class="form-control",id="js-weight" })
                             @Html.ValidationMessageFor(m => m.User.Player.PhysicalStats.Weight)
                         </div>
                         
@@ -111,7 +111,11 @@
         </div>
     </div>
 </div>
-@*<script type="text/javascript">
+
+
+
+
+<script type="text/javascript">
     $(document).ready(function () {
         $("#js-playerForm").submit(function (e) {
             e.preventDefault();
@@ -137,6 +141,6 @@
 
         });
     });
-</script>*@
+</script>
 
 

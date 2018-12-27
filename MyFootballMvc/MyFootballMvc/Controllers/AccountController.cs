@@ -111,7 +111,7 @@ namespace MyFootballMvc.Controllers
         }
 
         [HttpPost("Account/Player")]
-        public async Task<IActionResult> Player(Player player)
+        public async Task<IActionResult> Player([FromBody] Player player)
         {
 
             string token = await GetAccessToken();
