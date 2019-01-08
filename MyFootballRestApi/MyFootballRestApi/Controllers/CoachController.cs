@@ -49,6 +49,23 @@ namespace MyFootballRestApi.Controllers
             }
         }
 
+        [HttpGet("by_user_id/{id}")]
+        public async Task<IActionResult> GetCoachByUserId([FromRoute]string id) {
+            try
+            {
+                List<Coach> couches = await _coachRepository.GetAll(typeof(Coach));
+                var coach = couches.FirstOrDefault(c => c.User.Id == id);
+                if (couches == null) {
+                    return NotFound();
+                }
+                return Ok(coach);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }
+        }
+
         #endregion
 
         #region POST
