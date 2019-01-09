@@ -37,7 +37,7 @@ namespace MyFootballAdmin.Main.Views.Tournaments
         public void AddTournamentCommandAction()
         {
             //_notificationService.ShowNotification(NotificationType, "");
-            _regionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, typeof(AddTournamentView).FullName);
+            _regionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, typeof(AddTournamentStepBarView).FullName);
         }
 
         private DelegateCommand _tournamentEditCommand;

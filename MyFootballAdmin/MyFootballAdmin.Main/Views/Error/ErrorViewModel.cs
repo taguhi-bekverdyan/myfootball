@@ -11,12 +11,12 @@ namespace MyFootballAdmin.Main.Views.Error
 {
     public class ErrorViewModel:BindableBase
     {
-        private readonly IShellService _shellService;
-        private readonly IEventAggregator _eventAggregator;
+        //private readonly IShellService _shellService;
+        //private readonly IEventAggregator _eventAggregator;
 
-        public ErrorViewModel(IShellService shellService)
-        {
-            _shellService = shellService;
-        }
+        //public ErrorViewModel(IShellService shellService)
+        //{
+        //    _shellService = shellService;
+        //}
     }
 }

@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFootballAdmin.App", "MyFootballAdmin\MyFootballAdmin.App.csproj", "{EA344A4B-4FFF-4E1A-8C13-9B71B149259E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{E6CF6171-8E62-4F35-9302-20C850DFDD45}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFootballAdmin.Common", "MyFootballAdmin.Common\MyFootballAdmin.Common.csproj", "{3FC21308-2B72-4078-84D6-E340396E2D5B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFootballAdmin.Main", "MyFootballAdmin.Main\MyFootballAdmin.Main.csproj", "{504EFEA1-515E-4112-A477-F406FB3337A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFootballAdmin.Data", "MyFootballAdmin.Data\MyFootballAdmin.Data.csproj", "{4D8F1185-2797-42EC-91D2-C8EDC269F0F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +29,10 @@ Global
 		{504EFEA1-515E-4112-A477-F406FB3337A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{504EFEA1-515E-4112-A477-F406FB3337A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{504EFEA1-515E-4112-A477-F406FB3337A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D8F1185-2797-42EC-91D2-C8EDC269F0F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D8F1185-2797-42EC-91D2-C8EDC269F0F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D8F1185-2797-42EC-91D2-C8EDC269F0F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D8F1185-2797-42EC-91D2-C8EDC269F0F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

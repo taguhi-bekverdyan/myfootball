@@ -45,16 +45,6 @@ namespace MyFootballAdmin.Main.Views.Pauses
             }
         }
 
-        private Pause _pause;
-
-        public Pause Pause
-        {
-            get { return _pause; }
-            set
-            {
-                SetProperty(ref _pause, value);
-            }
-        }
 
         public IRegionManager RegionManager { get; set; }
 

@@ -1,19 +1,9 @@
-﻿using MyFootballAdmin.Common;
-using MyFootballAdmin.Common.Prism;
-using MyFootballAdmin.Main.Views.AddTournament;
+﻿using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Main.Views.Helpers;
-using Prism.Commands;
 using Prism.Events;
-using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using static MyFootballAdmin.Main.Views.Main.ToolBarViewModel;
 
 namespace MyFootballAdmin.Main.Views.Notifications
 {

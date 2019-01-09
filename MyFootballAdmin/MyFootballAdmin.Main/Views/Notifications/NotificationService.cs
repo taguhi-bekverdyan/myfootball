@@ -24,7 +24,7 @@ namespace MyFootballAdmin.Main.Views.Notifications
       Notification = new Notification(message, notificationType);
       if (notificationType.Equals(NotificationType.Alert))
       {
-        Notification.Colour = "Yellow";
+        Notification.Colour = "#FFCAC647";
       }
       else if (notificationType.Equals(NotificationType.Error))
       {

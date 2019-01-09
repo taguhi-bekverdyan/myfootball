@@ -37,7 +37,7 @@ namespace MyFootballAdmin.Main.Views.Main
     public void AddTournamentCommandAction()
     {
             _notificationService.ShowNotification(NotificationType.Warning, "Please fill in the details");
-            _regionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, typeof(AddTournamentView).FullName);
+            _regionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, typeof(AddTournamentStepBarView).FullName);
     }
 
     //public void OnNavigatedTo(NavigationContext navigationContext)
