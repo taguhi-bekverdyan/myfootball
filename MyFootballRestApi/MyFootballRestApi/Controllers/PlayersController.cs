@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyFootballRestApi.Data;
 using MyFootballRestApi.Models;
 using System;
+using System.Linq;
 
 namespace MyFootballRestApi.Controllers
 {
@@ -44,6 +45,25 @@ namespace MyFootballRestApi.Controllers
             catch (Exception e)
             {
                 return StatusCode(500,e);
+            }
+        }
+
+        [HttpGet("by_user_id/{id}")]
+        public async Task<IActionResult> GetPlayerByUserId([FromRoute]string id)
+        {
+            try
+            {
+                List<Player> players = await _playerRepository.GetAll(typeof(Player));
+                var player = players.FirstOrDefault(p => p.User.Id == id);
+                if (player == null)
+                {
+                    return NotFound();
+                }
+                return Ok(player);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
             }
         }
 

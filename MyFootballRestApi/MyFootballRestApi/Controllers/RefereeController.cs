@@ -52,6 +52,25 @@ namespace MyFootballRestApi.Controllers
             }
         }
 
+        [HttpGet("by_user_id/{id}")]
+        public async Task<IActionResult> GetRefereeByUserId([FromRoute]string id)
+        {
+            try
+            {
+                List<Referee> referee = await _refereeRepository.GetAll(typeof(Referee));
+                var r = referee.FirstOrDefault(p => p.User.Id == id);
+                if (r == null)
+                {
+                    return NotFound();
+                }
+                return Ok(r);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
         #endregion
 
         #region POST

@@ -1,10 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyFootballRestApi.Models
 {
     public class Player : EntityBase<Player>
     {
-        public string UserId { get; set; }
+        
         public Position Position { get; set; }
         public byte[] Avatar { get; set; }
         public PhysicalStats PhysicalStats { get; set; }
@@ -16,5 +17,8 @@ namespace MyFootballRestApi.Models
 
         // if has teamId
         public bool IsCaptain { get; set; }
+
+        [Required]
+        public User User { get; set; }
     }
 }

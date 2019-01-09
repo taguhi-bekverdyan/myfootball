@@ -28,15 +28,46 @@ namespace MyFootballMvc.Services
             return plyaers;
         }
 
-        public async Task<Player> FindUserById(string accessToken, Guid guid)
+        public async Task<Player> FindPlayerById(string accessToken, string id)
         {
             var request = new RestRequest("players/{id}", Method.GET);
             request.AddHeader("authorization", $"Bearer {accessToken}");
-            request.AddUrlSegment("id", guid.ToString());
+            request.AddUrlSegment("id", id);
             IRestResponse response = await _client.ExecuteTaskAsync(request);
 
             Player player = JsonConvert.DeserializeObject<Player>(response.Content);
             return player;
+        }
+
+        public async Task<Player> GetPlayerByUserId(string accessToken,string id)
+        {
+            var request = new RestRequest("players/by_user_id/{id}", Method.GET);
+            request.AddHeader("authorization", $"Bearer {accessToken}");
+            request.AddUrlSegment("id", id);
+
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
+
+            Player player = JsonConvert.DeserializeObject<Player>(response.Content);
+            return player;
+
+        }
+
+        public async Task Insert(string accessToken, Player player)
+        {
+            var request = new RestRequest("players/create", Method.POST);
+            request.AddHeader("authorization", $"Bearer {accessToken}");
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(player);
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
+        }
+
+        public async Task Update(string accessToken, Player player)
+        {
+            var request = new RestRequest("players/update", Method.PUT);
+            request.AddHeader("authorization", $"Bearer {accessToken}");
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(player);
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
         }
 
     }

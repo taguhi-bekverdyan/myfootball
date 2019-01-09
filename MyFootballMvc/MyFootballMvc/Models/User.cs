@@ -18,10 +18,5 @@ namespace MyFootballMvc.Models
 
         public Guid FavoriteTeamId { get; set; }
 
-        public Player Player { get; set; }
-        public Coach Coach { get; set; }
-        public Staff Staff { get; set; }
-        public Referee Referee { get; set; }
-
     }
 }

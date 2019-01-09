@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,9 +8,12 @@ namespace MyFootballMvc.Models
 {
     public class Player : EntityBase<Player>
     {
-        public string UserId { get; set; }
+        
+        
+        [Required]
         public Position Position { get; set; }
         public byte[] Avatar { get; set; }
+        [Required]
         public PhysicalStats PhysicalStats { get; set; }
         public bool HasTrained { get; set; }
         public int TeamId { get; set; }
@@ -19,5 +23,8 @@ namespace MyFootballMvc.Models
 
         // if has teamId
         public bool IsCaptain { get; set; }
+
+        
+        public User User { get; set; }
     }
 }
