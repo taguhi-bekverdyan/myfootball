@@ -3,8 +3,10 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using MyFootballMvc.Models;
+using MyFootballMvc.Services;
 using MyFootballMvc.ViewModels;
 using Newtonsoft.Json;
 using RestSharp;
@@ -13,6 +15,14 @@ namespace MyFootballMvc.Controllers
 {
     public class TestController : Controller
     {
+
+        private readonly IEmailSender _enailSender;
+
+        public TestController(IEmailSender emailSender)
+        {
+            _enailSender = emailSender;
+        }
+
         private async Task<string> GetAccessToken()
         {
             if (User.Identity.IsAuthenticated)
@@ -40,7 +50,9 @@ namespace MyFootballMvc.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(new TestViewModel());
+            var viewModel = new TestViewModel();
+            viewModel.Email = new Email();
+            return View("Index",viewModel);
         }
 
 
@@ -99,6 +111,12 @@ namespace MyFootballMvc.Controllers
             ViewData["Message"] = json.message;
 
             return View("~/Views/Test/Test.cshtml", new TestViewModel());
+        }
+
+        public async Task<IActionResult> SendEmail(Email email)
+        {
+            await _enailSender.SendEmailAsync(email.Address,email.Subject,email.Message);
+            return View("Index");
         }
 
         public async Task<IActionResult> Claims()

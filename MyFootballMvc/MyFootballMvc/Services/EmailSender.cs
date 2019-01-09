@@ -35,10 +35,11 @@ namespace MyFootballMvc.Services
                 Credentials = new NetworkCredential(userName, password),
                 EnableSsl = enableSSL
             };
-           
+
             return client.SendMailAsync(
-                new MailMessage(userName, "tagnvard@gmail.com", "Hi", "hi") { IsBodyHtml = true }
+                new MailMessage(userName, email, subject, htmlMessage) { IsBodyHtml = true }
             );
+
         }
 
         //public Task SendEmailAsync(string email, string subject, string htmlMessage)
