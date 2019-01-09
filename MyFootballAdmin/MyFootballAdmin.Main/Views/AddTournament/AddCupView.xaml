@@ -4,9 +4,57 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyFootballAdmin.Main.Views.AddTournament"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+                 xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
+             d:DataContext="{d:DesignInstance local:AddCupViewModel, IsDesignTimeCreatable=True}"
+             mc:Ignorable="d"
+             d:DesignHeight="305" d:DesignWidth="600">
+    <UserControl.Resources>
+        <!--<ObjectDataProvider x:Key="DataFromEnum" MethodName="GetValues"
+                        ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:TournamentType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>-->
+    </UserControl.Resources>
+    <Grid   TextBlock.FontWeight="Thin" TextBlock.TextAlignment="Center" TextBlock.FontSize="18" Background="Gray" >
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!--<TextBlock Text="Tournament Type" Grid.Row="1" VerticalAlignment="Center"/>
+        --><!--<TextBlock Text="Teams Count" Grid.Row="1" VerticalAlignment="Center" />
+        <TextBlock Text="Rounds" Grid.Row="2" VerticalAlignment="Center"/>--><!--
+        <TextBlock Text="Name" Grid.Row="0" VerticalAlignment="Center"/>
+        <TextBlock Text="Priority" Grid.Row="3" VerticalAlignment="Center"/>
+        --><!--<TextBlock Text="End Date" Grid.Row="5" VerticalAlignment="Center"/>--><!--
+        <TextBlock Text="Avatar" Grid.Row="2" VerticalAlignment="Center"/>
+        <TextBox Text="{Binding Name,Mode=TwoWay}" Grid.Column="1" Grid.Row="0"/>
+        <TextBox Text="{Binding Count,Mode=TwoWay}" Grid.Column="1" Grid.Row="1"/>
+        <TextBox Text="{Binding Priority,Mode=TwoWay}" Grid.Column="1" Grid.Row="3"/>
+        --><!--<DatePicker SelectedDate="{Binding StartDate,Mode=TwoWay}" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"/>
+        <DatePicker SelectedDate="{Binding EndDate,Mode=TwoWay}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center"/>--><!--
+        <ComboBox ItemsSource="{Binding Source={StaticResource DataFromEnum}}"  SelectedItem="{Binding TournamentType ,Mode=TwoWay}"  Grid.Column="1" Grid.Row="1"/>
+        <Button Content="choose" Command="{Binding ChooseImageCommand}" Grid.Column="1" Grid.Row="2" Margin="8,7.6,230,19" />
+        --><!--<Line  X1="0" X2="3800" Stroke="Black" Grid.ColumnSpan="2"  Grid.Row="1"/>
+        <Line  X1="0" X2="3800" Stroke="Black" Grid.ColumnSpan="2"  Grid.Row="2"/>-->
+        <!--<Line  X1="0" X2="3800" Stroke="Black" Grid.ColumnSpan="2"  Grid.Row="3"/>
+        <Line  X1="0" X2="3800" Stroke="Black" Grid.ColumnSpan="2"  Grid.Row="4"/>
+        <Line  X1="0" X2="3800" Stroke="Black" Grid.ColumnSpan="2"  Grid.Row="5"/>
+        <Line  X1="0" X2="3800" Stroke="Black" Grid.ColumnSpan="2"  Grid.Row="6"/>-->
+        <Button Content="Add" Command="{Binding AddCommand}" Grid.Column="1" Grid.Row="8" Margin="5"/>
     </Grid>
 </UserControl>

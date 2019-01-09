@@ -17,6 +17,7 @@ using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using System.Drawing;
 using System.IO;
 using System.Drawing.Imaging;
+using MyFootballAdmin.Data.Models;
 
 namespace MyFootballAdmin.Main.Views.AddTournament
 {
@@ -26,12 +27,14 @@ namespace MyFootballAdmin.Main.Views.AddTournament
         private readonly IShellService _shellService;
         private readonly IEventAggregator _eventAggregator;
         private readonly INotificationService _notificationService;
+        private readonly IRegionManager _regionManager;
 
-        public AddTournamentViewModel(IShellService shellService, IEventAggregator eventAggregator, INotificationService notificationService)
+        public AddTournamentViewModel(IShellService shellService, IEventAggregator eventAggregator, INotificationService notificationService, IRegionManager regionManager)
         {
             _shellService = shellService;
             _eventAggregator = eventAggregator;
             _notificationService = notificationService;
+            _regionManager = regionManager;
         }
 
         #region Types
@@ -52,55 +55,23 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             set { SetProperty(ref _name, value); }
         }
 
-        private int _teamsCount;
+     
 
-        public int TeamsCount
+        private int _priority;
+
+        public int Priority
         {
-            get { return _teamsCount; }
-            set
-            {
-                if (_teamsCount > 48)
-                { }
-                else
-                { SetProperty(ref _teamsCount, value); }
-            }
+            get { return _priority; }
+            set { SetProperty(ref _priority, value); }
         }
 
+        //private string _imagePath;
 
-        private DateTime _endDate;
-
-        public DateTime EndDate
-        {
-            get { return _endDate; }
-            set
-            { 
-                SetProperty(ref _endDate, value);
-            }
-        }
-
-        private DateTime _startDate;
-
-        public DateTime StartDate
-        {
-            get { return _startDate; }
-            set { SetProperty(ref _startDate, value);}
-        }
-
-        private int _rounds;
-
-        public int Rounds
-        {
-            get { return _rounds; }
-            set { SetProperty(ref _rounds, value); }
-        }
-
-        private string _imagePath;
-
-        public string ImagePath
-        {
-            get { return _imagePath; }
-            set { SetProperty(ref _imagePath, value); }
-        }
+        //public string ImagePath
+        //{
+        //    get { return _imagePath; }
+        //    set { SetProperty(ref _imagePath, value); }
+        //}
 
         private TournamentType _tournamentType;
 
@@ -123,60 +94,60 @@ namespace MyFootballAdmin.Main.Views.AddTournament
 
         public void AddCommandAction()
         {
-            CreateTournament();
-            _notificationService.ShowNotification(NotificationType.Alert, "Tournament is sussecfully added!");
-        }
-
-        private DelegateCommand _chooseImageCommand;
-
-        public DelegateCommand ChooseImageCommand => _chooseImageCommand ?? (_chooseImageCommand = new DelegateCommand(ChooseImageAction));
-
-
-        public void ChooseImageAction()
-        {
-            OpenFileDialog fileChooser = new OpenFileDialog();
-            fileChooser.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
-            fileChooser.FilterIndex = 1;
-            fileChooser.Multiselect = true;
-
-            if (fileChooser.ShowDialog() == DialogResult.OK)
+            Tournament Tournament = new Tournament();
+            Tournament.Name = Name;
+            Tournament.Priority = Priority;
+            Tournament.TournamentType = TournamentType;
+            //Tournament.image = GetBytesFromImage(ImagePath);
+            NavigationParameters param;
+            param = new NavigationParameters { { "request", Tournament} };
+            if (TournamentType.Equals(TournamentType.League))
             {
-                ImagePath = fileChooser.FileName;
+                _regionManager.RequestNavigate(RegionNames.AddTournamentRegion, typeof(AddLeagueView).FullName, param);
             }
-
+            else
+            {
+                _regionManager.RequestNavigate(RegionNames.AddTournamentRegion, typeof(AddCupView).FullName, param);
+            }
         }
+
+        //private DelegateCommand _chooseImageCommand;
+
+        //public DelegateCommand ChooseImageCommand => _chooseImageCommand ?? (_chooseImageCommand = new DelegateCommand(ChooseImageAction));
+
+
+        //public void ChooseImageAction()
+        //{
+        //    OpenFileDialog fileChooser = new OpenFileDialog();
+        //    fileChooser.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+        //    fileChooser.FilterIndex = 1;
+        //    fileChooser.Multiselect = true;
+
+        //    if (fileChooser.ShowDialog() == DialogResult.OK)
+        //    {
+        //        ImagePath = fileChooser.FileName;
+        //    }
+
+        //}
 
 
 
         #endregion
 
         #region Helpers
-        private byte[] GetBytesFromImage(string imagePath)
-        {
-            if (imagePath != string.Empty)
-            {
-                Bitmap image = new Bitmap(imagePath);
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    image.Save(ms, ImageFormat.Png);
-                    return ms.ToArray();
-                }
-            }
-            return null;
-        }
-
-        public void CreateTournament()
-        {
-            Tournament Tournament = new Tournament();
-            Tournament.teamsCount = TeamsCount;
-            Tournament.name = Name;
-            Tournament.tournamentType = TournamentType;
-            Tournament.rounds = Rounds;
-            Tournament.startDate = StartDate;
-            Tournament.endDate = EndDate;
-            Tournament.image = GetBytesFromImage(ImagePath);
-            Tournaments.Add(Tournament);
-        }
+        //private byte[] GetBytesFromImage(string imagePath)
+        //{
+        //    if (imagePath != string.Empty)
+        //    {
+        //        Bitmap image = new Bitmap(imagePath);
+        //        using (MemoryStream ms = new MemoryStream())
+        //        {
+        //            image.Save(ms, ImageFormat.Png);
+        //            return ms.ToArray();
+        //        }
+        //    }
+        //    return null;
+        //}
         #endregion
 
         #region Navigation

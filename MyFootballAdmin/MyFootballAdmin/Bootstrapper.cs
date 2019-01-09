@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Configuration;
 using System.Globalization;
 using System.Reflection;
 using System.Windows;
+using Auth0.OidcClient;
 using Microsoft.Practices.Unity;
 using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Common.Views;
+using MyFootballAdmin.Data.Services.LeagueService;
 using MyFootballAdmin.Main;
 using MyFootballAdmin.Main.Views.Error;
 using MyFootballAdmin.Main.Views.Notifications;
@@ -38,6 +41,8 @@ namespace MyFootballAdmin
 
             Container.RegisterType<IShellService, ShellService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<INotificationService, NotificationService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ILeagueService, LeagueService>(new ContainerControlledLifetimeManager());
+            //Container.RegisterType<ICupService, CupService>(new ContainerControlledLifetimeManager());
         }
 
         protected override DependencyObject CreateShell()
@@ -49,11 +54,14 @@ namespace MyFootballAdmin
         {
             var regionManager = RegionManager.GetRegionManager((Shell));
             RegionManagerAware.SetRegionManagerAware(Shell, regionManager);
-            App.Current.MainWindow.Show();
+            Auth0Async();
         }
 
+        private readonly string _domain = ConfigurationManager.AppSettings["Auth0:Domain"];
+        private readonly string _clientId = ConfigurationManager.AppSettings["Auth0:ClientId"];
 
         private string _loginResult;
+
         public string LoginResult
         {
             get => _loginResult;
@@ -78,8 +86,6 @@ namespace MyFootballAdmin
 
                 var errorView = new ErrorView();
                 errorView.Show();
-
-
             }
 
             else

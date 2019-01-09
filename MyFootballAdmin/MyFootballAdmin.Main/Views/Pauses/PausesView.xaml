@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MyFootballAdmin.Main.Views.Pauses"
               xmlns:mvvm="http://prismlibrary.com/"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
-              d:DataContext="{d:DesignInstance local:TournamentsViewModel, IsDesignTimeCreatable=True}"
+              d:DataContext="{d:DesignInstance local:PausesViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d" 
              d:DesignHeight="250" d:DesignWidth="500">
     <Grid Background="Gray">
@@ -22,7 +22,7 @@
         </Grid.ColumnDefinitions>
         <Button Command="{Binding AddPauseCommand}" Content="Add" Margin="5"/>
         <Button Command="{Binding DeletePauseCommand}" Content="Delete" Grid.Column="1" Margin="5"/>
-        <Button Command="{Binding EditPauseCommand}" Content="Edit" Grid.Column="2" Margin="7"/>
+        <Button Command="{Binding EditPauseCommand}" Content="Edit" Grid.Column="2" Margin="5"/>
         <DataGrid SelectedItem="{Binding SelectedTournament}"  ItemsSource="{Binding Tournaments}" Grid.Row="1" Grid.ColumnSpan="4" Margin="7"/>
     </Grid>
 </UserControl>
