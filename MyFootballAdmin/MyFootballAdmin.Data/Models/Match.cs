@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MyFootballAdmin.Data.Models
 {
-    public class Match
+    public class Match:EntityBase<Match>
     {       
         public DateTime MatchDateTime { get; set; }
         public Team Team1 { get; set; }

@@ -8,5 +8,6 @@ namespace MyFootballAdmin.Data.Models
         public string RuleName { get; set; }
         public int RulePriority { get; set; }
         public string ParameterName { get; set; }
+
     }
 }

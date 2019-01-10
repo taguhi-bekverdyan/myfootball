@@ -1,19 +1,19 @@
-﻿
-using MyFootballAdmin.Data.Models;
-using MyFootballAdmin.Data.Services.LeagueService;
+﻿using MyFootballAdmin.Data.Models;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace MyFootballAdmin.Data.Services.LeagueService
+namespace MyFootballAdmin.Data.Services.TeamsService
 {
-    public class LeagueService : ILeagueService
+    public class TeamsService: ITeamsService
     {
         private const string EndPoint = @"https://localhost:44350/api/";
         private readonly RestClient _client;
 
-        public LeagueService()
+        public TeamsService()
         {
             _client = new RestClient(EndPoint);
         }
@@ -22,7 +22,7 @@ namespace MyFootballAdmin.Data.Services.LeagueService
         {
             return Task.Factory.StartNew(() => {
                 RestRequest request = new RestRequest("Leagues/{id}", Method.DELETE);
-                request.AddUrlSegment("guid", id.ToString());
+                request.AddUrlSegment("id", id.ToString());
                 IRestResponse response = _client.Execute(request);
                 if (!response.IsSuccessful)
                 {
@@ -32,11 +32,11 @@ namespace MyFootballAdmin.Data.Services.LeagueService
         }
 
 
-        public Task<List<League>> FindAll()
+        public Task<List<Team>> FindAll()
         {
-            return Task<List<League>>.Factory.StartNew(()=> {
-                RestRequest request = new RestRequest("Leagues", Method.GET);
-                IRestResponse<List<League>> response = _client.Execute<List<League>>(request);
+            return Task<List<Team>>.Factory.StartNew(() => {
+                RestRequest request = new RestRequest("Teams", Method.GET);
+                IRestResponse<List<Team>> response = _client.Execute<List<Team>>(request);
 
                 if (response.IsSuccessful)
                 {
@@ -47,17 +47,17 @@ namespace MyFootballAdmin.Data.Services.LeagueService
                     throw new Exception(response.ErrorMessage);
                 }
 
-            });               
+            });
         }
 
-        public Task<League> FindLeagueById(string id)
+        public Task<Team> FindTeamById(string id)
         {
-            return Task<League>.Factory.StartNew(() =>
+            return Task<Team>.Factory.StartNew(() =>
             {
-                RestRequest request = new RestRequest("Leagues/{id}", Method.GET);
+                RestRequest request = new RestRequest("Teams/{id}", Method.GET);
                 request.AddUrlSegment("id", id);
 
-                IRestResponse<League> response = _client.Execute<League>(request);
+                IRestResponse<Team> response = _client.Execute<Team>(request);
                 if (response.IsSuccessful)
                 {
                     return response.Data;
@@ -71,14 +71,14 @@ namespace MyFootballAdmin.Data.Services.LeagueService
 
 
 
-        public Task Create(League league)
+        public Task Create(Team team)
         {
             return Task.Factory.StartNew(() =>
             {
 
                 RestRequest request = new RestRequest(Method.POST);
                 request.RequestFormat = DataFormat.Json;
-                request.AddBody(new { league });
+                request.AddBody(new { team });
 
                 IRestResponse response = _client.Execute(request);
                 if (!response.IsSuccessful)
@@ -88,12 +88,12 @@ namespace MyFootballAdmin.Data.Services.LeagueService
             });
         }
 
-        public Task Update(League league)
+        public Task Update(Team team)
         {
-            return Task.Factory.StartNew(()=> {
+            return Task.Factory.StartNew(() => {
                 RestRequest request = new RestRequest(Method.PUT);
                 request.RequestFormat = DataFormat.Json;
-                request.AddBody(league);
+                request.AddBody(team);
                 IRestResponse response = _client.Execute(request);
                 if (!response.IsSuccessful)
                 {

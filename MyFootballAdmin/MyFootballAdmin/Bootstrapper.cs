@@ -8,6 +8,8 @@ using Microsoft.Practices.Unity;
 using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Common.Views;
 using MyFootballAdmin.Data.Services.LeagueService;
+using MyFootballAdmin.Data.Services.MatchService;
+using MyFootballAdmin.Data.Services.TeamsService;
 using MyFootballAdmin.Main;
 using MyFootballAdmin.Main.Views.Error;
 using MyFootballAdmin.Main.Views.Notifications;
@@ -42,6 +44,8 @@ namespace MyFootballAdmin
             Container.RegisterType<IShellService, ShellService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<INotificationService, NotificationService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ILeagueService, LeagueService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ITeamsService, TeamsService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IMatchService, MatchService>(new ContainerControlledLifetimeManager());
             //Container.RegisterType<ICupService, CupService>(new ContainerControlledLifetimeManager());
         }
 

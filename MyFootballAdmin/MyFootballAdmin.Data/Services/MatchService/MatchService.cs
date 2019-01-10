@@ -1,19 +1,20 @@
 ﻿
 using MyFootballAdmin.Data.Models;
-using MyFootballAdmin.Data.Services.LeagueService;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Match = MyFootballAdmin.Data.Models.Match;
 
-namespace MyFootballAdmin.Data.Services.LeagueService
+namespace MyFootballAdmin.Data.Services.MatchService
 {
-    public class LeagueService : ILeagueService
+    public class MatchService: IMatchService
     {
         private const string EndPoint = @"https://localhost:44350/api/";
         private readonly RestClient _client;
 
-        public LeagueService()
+        public MatchService()
         {
             _client = new RestClient(EndPoint);
         }
@@ -21,8 +22,8 @@ namespace MyFootballAdmin.Data.Services.LeagueService
         public Task Delete(string id)
         {
             return Task.Factory.StartNew(() => {
-                RestRequest request = new RestRequest("Leagues/{id}", Method.DELETE);
-                request.AddUrlSegment("guid", id.ToString());
+                RestRequest request = new RestRequest("Delete/{id}", Method.DELETE);
+                request.AddUrlSegment("id", id.ToString());
                 IRestResponse response = _client.Execute(request);
                 if (!response.IsSuccessful)
                 {
@@ -32,11 +33,11 @@ namespace MyFootballAdmin.Data.Services.LeagueService
         }
 
 
-        public Task<List<League>> FindAll()
+        public Task<List<Match>> FindAll()
         {
-            return Task<List<League>>.Factory.StartNew(()=> {
-                RestRequest request = new RestRequest("Leagues", Method.GET);
-                IRestResponse<List<League>> response = _client.Execute<List<League>>(request);
+            return Task<List<Match>>.Factory.StartNew(() => {
+                RestRequest request = new RestRequest("Matches", Method.GET);
+                IRestResponse<List<Match>> response = _client.Execute<List<Match>>(request);
 
                 if (response.IsSuccessful)
                 {
@@ -47,17 +48,17 @@ namespace MyFootballAdmin.Data.Services.LeagueService
                     throw new Exception(response.ErrorMessage);
                 }
 
-            });               
+            });
         }
 
-        public Task<League> FindLeagueById(string id)
+        public Task<Match> FindMatchById(string id)
         {
-            return Task<League>.Factory.StartNew(() =>
+            return Task<Match>.Factory.StartNew(() =>
             {
-                RestRequest request = new RestRequest("Leagues/{id}", Method.GET);
-                request.AddUrlSegment("id", id);
+                RestRequest request = new RestRequest("Matches/{id}", Method.GET);
+                request.AddUrlSegment("guid", id.ToString());
 
-                IRestResponse<League> response = _client.Execute<League>(request);
+                IRestResponse<Match> response = _client.Execute<Match>(request);
                 if (response.IsSuccessful)
                 {
                     return response.Data;
@@ -71,15 +72,14 @@ namespace MyFootballAdmin.Data.Services.LeagueService
 
 
 
-        public Task Create(League league)
+        public Task Create(Match match)
         {
             return Task.Factory.StartNew(() =>
             {
 
                 RestRequest request = new RestRequest(Method.POST);
                 request.RequestFormat = DataFormat.Json;
-                request.AddBody(new { league });
-
+                request.AddBody(new { match });
                 IRestResponse response = _client.Execute(request);
                 if (!response.IsSuccessful)
                 {
@@ -88,12 +88,12 @@ namespace MyFootballAdmin.Data.Services.LeagueService
             });
         }
 
-        public Task Update(League league)
+        public Task Update(Match match)
         {
-            return Task.Factory.StartNew(()=> {
+            return Task.Factory.StartNew(() => {
                 RestRequest request = new RestRequest(Method.PUT);
                 request.RequestFormat = DataFormat.Json;
-                request.AddBody(league);
+                request.AddBody(match);
                 IRestResponse response = _client.Execute(request);
                 if (!response.IsSuccessful)
                 {
@@ -101,5 +101,6 @@ namespace MyFootballAdmin.Data.Services.LeagueService
                 }
             });
         }
+
     }
 }

@@ -58,17 +58,31 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Coach.cs" />
+    <Compile Include="Models\CoachStatus.cs" />
+    <Compile Include="Models\EntityBase.cs" />
+    <Compile Include="Models\Foot.cs" />
+    <Compile Include="Models\ImageLink.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\LeagueResultRow.cs" />
     <Compile Include="Models\LeagueResultTable.cs" />
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\MatchResult.cs" />
     <Compile Include="Models\Pause.cs" />
+    <Compile Include="Models\PhysicalStats.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\PlayerStatus.cs" />
+    <Compile Include="Models\Position.cs" />
+    <Compile Include="Models\Referee.cs" />
     <Compile Include="Models\Rule.cs" />
     <Compile Include="Models\RuleParameterBase.cs" />
+    <Compile Include="Models\Staff.cs" />
+    <Compile Include="Models\StaffStatus.cs" />
     <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\TeamStat.cs" />
     <Compile Include="Models\Tour.cs" />
     <Compile Include="Models\Tournament.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -86,6 +100,10 @@
     <Compile Include="Services\CupService\ICupService.cs" />
     <Compile Include="Services\LeagueService\ILeagueService.cs" />
     <Compile Include="Services\LeagueService\LeagueService.cs" />
+    <Compile Include="Services\MatchService\IMatchService.cs" />
+    <Compile Include="Services\MatchService\MatchService.cs" />
+    <Compile Include="Services\TeamsService\ITeamsService.cs" />
+    <Compile Include="Services\TeamsService\TeamsService.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

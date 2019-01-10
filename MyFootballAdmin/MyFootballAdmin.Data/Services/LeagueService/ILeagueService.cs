@@ -9,10 +9,10 @@ namespace MyFootballAdmin.Data.Services.LeagueService
 {
     public interface ILeagueService
     {
-        //Task Insert(League league);
+        Task Create(League league);
         Task Update(League league);
-        Task Delete(Guid id);
+        Task Delete(string id);
         Task<List<League>> FindAll();
-        Task<League> FindLeagueById(Guid id);
+        Task<League> FindLeagueById(string id);
     }
 }

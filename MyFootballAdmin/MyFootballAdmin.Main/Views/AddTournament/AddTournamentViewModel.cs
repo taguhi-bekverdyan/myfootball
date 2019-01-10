@@ -87,12 +87,12 @@ namespace MyFootballAdmin.Main.Views.AddTournament
 
         #region Commands
 
-        private DelegateCommand _addCommand;
+        private DelegateCommand _nextCommand;
 
-        public DelegateCommand AddCommand => _addCommand ?? (_addCommand = new DelegateCommand(AddCommandAction));
+        public DelegateCommand NextCommand => _nextCommand ?? (_nextCommand = new DelegateCommand(NextCommandAction));
 
 
-        public void AddCommandAction()
+        public void NextCommandAction()
         {
             Tournament Tournament = new Tournament();
             Tournament.Name = Name;
