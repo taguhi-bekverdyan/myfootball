@@ -1,56 +1,53 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-  margin-top: 72px;
-}
-
 /* Navbar */
 .navbar {
   padding: 0 1rem;
-  height: 4rem;
-}
-.navbar .nav-item {
-  padding: 1rem 0;
-  position: relative;
-}
-.navbar .dropdown-menu {
-  margin-top: -0.25rem;
-  padding: 0;
-  border-radius: 0;
-  left: -50%;
-  z-index: 100;
+  height: 4.5rem;
 }
 
-  .navbar .dropdown-menu ul {
-    column-count: 2;
-    list-style-type: none;
-    padding: 0.3rem 0.6rem;
-    background-color: #d0d0d0;
+  .navbar .nav-item {
+    padding: 1rem 0;
+    position: relative;
   }
 
-  .navbar .dropdown-menu a {
+  .navbar .dropdown-menu {
+    margin-top: 0;
     padding: 0;
+    border-radius: 0;
+    left: -50%;
+    z-index: 100;
   }
 
-  .navbar .dropdown-menu:before {
-    content: "";
-    display: block;
-    border: 8px solid transparent;
-    border-bottom-color: #d0d0d0;
-    position: absolute;
-    top: -1rem;
-    left: 50%;
-    margin-left: -0.5rem;
+    .navbar .dropdown-menu ul {
+      column-count: 2;
+      list-style-type: none;
+      padding: 0.3rem 0.6rem;
+      background-color: #d0d0d0;
+    }
+
+    .navbar .dropdown-menu a {
+      padding: 0;
+    }
+
+    .navbar .dropdown-menu:before {
+      content: "";
+      display: block;
+      border: 8px solid transparent;
+      border-bottom-color: #d0d0d0;
+      position: absolute;
+      top: -1rem;
+      left: 50%;
+      margin-left: -0.5rem;
+    }
+
+  .navbar .dropdown-item:hover,
+  .navbar .dropdown-item:focus {
+    background-color: #d0d0d0;
+    text-decoration: underline;
   }
 
-.navbar .dropdown-item:hover,
-.navbar .dropdown-item:focus {
-  background-color: #d0d0d0;
-  text-decoration: underline;
-}
 .nav-item:hover .dropdown-menu {
   display: block;
 }
@@ -59,7 +56,7 @@ for details on configuring this project to bundle and minify static web assets. 
   content: "";
   display: block;
   position: absolute;
-  bottom: 4px;
+  bottom: 0;
   left: 0;
   right: 0;
   height: 0;
@@ -79,23 +76,10 @@ for details on configuring this project to bundle and minify static web assets. 
 
 /* Subnav*/
 .subnav {
-  top: 64px;
-  padding: 0.3rem 15% 0;
+  top: 4.5rem;
+  padding: 0 15%;
   z-index: 10;
   background-color: #c9e6ff !important;
-}
-
-
-.subnav .nav-item a:before {
-  content: "";
-  display: block;
-  position: absolute;
-  bottom: 6px;
-  left: 0;
-  right: 0;
-  height: 0;
-  transition: .2s;
-  z-index: -1;
 }
 
   .subnav .nav-item a:hover:before {
@@ -108,20 +92,35 @@ for details on configuring this project to bundle and minify static web assets. 
     background: #00539a;
   }
 
-
-/* Main content*/
-.main-content {
-  padding: 2rem 1rem;
-}
-
-.submenu-title {
-  margin-top: 2rem;
-}
-
 /* Carousel */
 .carousel-caption p {
   font-size: 1.25rem;
   line-height: 1.4;
+}
+
+/* Home page */
+.page-home {
+  margin-top: 4.5rem;
+  padding-top: 1rem;
+}
+
+/* Tournaments page */
+.page-tournaments {
+  margin-top: 9rem;
+}
+
+.banner {
+  padding: 0.25rem 0;
+  background-color: #38003c;
+}
+
+.banner h2 {
+  color: #fff;
+}
+
+.main-content {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 /* Make .svg files in the carousel display properly in older browsers */
@@ -132,6 +131,16 @@ for details on configuring this project to bundle and minify static web assets. 
 /* QR code generator */
 #qrCode {
   margin: 15px;
+}
+
+/* Footer */
+footer {
+  background-color: #38003c;
+  color: #fff;
+}
+
+footer p {
+  margin-bottom: 0;
 }
 
 /* Hide/rearrange for smaller screens */
