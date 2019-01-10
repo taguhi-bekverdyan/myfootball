@@ -48,6 +48,7 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
+                tournament.Id = Guid.NewGuid().ToString();
                 string id = tournament.Id;
                 var result = await _tournamentRepository.Create(tournament);
                 if (result == null) return BadRequest(tournament);

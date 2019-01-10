@@ -80,6 +80,7 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
+                referee.Id = Guid.NewGuid().ToString();
                 var result = await _refereeRepository.Create(referee);
                 if (result == null) { return BadRequest(result); }
                 return Created(string.Format("/api/Coach/{0}", referee.Id), result);

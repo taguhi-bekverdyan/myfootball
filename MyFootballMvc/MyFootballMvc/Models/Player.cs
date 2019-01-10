@@ -16,7 +16,9 @@ namespace MyFootballMvc.Models
         [Required]
         public PhysicalStats PhysicalStats { get; set; }
         public bool HasTrained { get; set; }
-        public int TeamId { get; set; }
+        public string TeamId { get; set; }
+        [Required]
+        public PlayerStatus PlayerStatus { get; set; }
 
         // if has teamId
         public int Number { get; set; }

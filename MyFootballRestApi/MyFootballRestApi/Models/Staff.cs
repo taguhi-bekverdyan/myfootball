@@ -11,6 +11,10 @@ namespace MyFootballRestApi.Models
         
         public string Occupation { get; set; }
         public string License { get; set; }
+        [Required]
+        public StaffStatus StaffStatus { get; set; }
+
+        public string TeamId { get; set; }
 
         [Required]
         public User User { get; set; }

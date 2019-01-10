@@ -57,6 +57,7 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
+                match.Id = Guid.NewGuid().ToString();
                 var result = await _matchRepository.Create(match);
                 if (result == null) { return BadRequest(result); }
                 return Created(string.Format("/api/Leagues/{0}", match.Id), result);

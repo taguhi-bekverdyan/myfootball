@@ -79,6 +79,23 @@ namespace MyFootballMvc.Controllers
             Staff staff = await _staffService.GetStaffByUserId(accessToken,id);
             Referee referee = await _refereeService.GetRefereeByUserId(accessToken,id);
 
+            if (player == null) {
+                player = new Player();
+                player.PlayerStatus = PlayerStatus.FreeAgent;
+            }
+            if (coach == null) {
+                coach = new Coach();
+                coach.CoachStatus = CoachStatus.FreeCoach;
+            }
+            if (staff == null) {
+                staff = new Staff();
+                staff.StaffStatus = StaffStatus.FreeWorker;
+            }
+            if (referee == null) {
+                
+                referee = new Referee();
+            }
+
             return View(new EditAccountViewModel()
             {
                 User = user,
@@ -135,11 +152,6 @@ namespace MyFootballMvc.Controllers
 
             if (!ModelState.IsValid)
             {
-                //return View("Edit", new EditAccountViewModel()
-                //{
-                //    User = user,
-                //    Teams = await _teamsService.FindAll(accessToken)
-                //});
                 return StatusCode(500);
             }
 
@@ -156,7 +168,10 @@ namespace MyFootballMvc.Controllers
                 }
                 else
                 {
-                    await _playerService.Update(token, player);
+                    pl.Position = player.Position;
+                    pl.PhysicalStats = player.PhysicalStats;
+                    pl.PlayerStatus = player.PlayerStatus;
+                    await _playerService.Update(token, pl);
                 }
 
                 return Ok(200);
@@ -181,16 +196,18 @@ namespace MyFootballMvc.Controllers
                 string userId = GetUserAuth0Id();
 
                 User user = await _usersService.FindUserById(token, userId);
-
                 coach.User = user;
 
-                if (await _coachService.GetCoachByUserId(token, userId) == null)
+                Coach current = await _coachService.GetCoachByUserId(token, userId);
+
+                if (current == null)
                 {
                     await _coachService.Insert(token, coach);
                 }
                 else
                 {
-                    await _coachService.Update(token,coach);
+                    current.License = coach.License;
+                    await _coachService.Update(token,current);
                 }
 
                 return Ok(200);
@@ -218,13 +235,17 @@ namespace MyFootballMvc.Controllers
 
                 staff.User = user;
 
-                if (await _staffService.GetStaffByUserId(token, userId) == null)
+                Staff current = await _staffService.GetStaffByUserId(token, userId);
+
+                if (current == null)
                 {
                     await _staffService.Insert(token, staff);
                 }
                 else
                 {
-                    await _staffService.Update(token, staff);
+                    current.Occupation = staff.Occupation;
+                    current.License = staff.License;
+                    await _staffService.Update(token, current);
                 }
 
                 return Ok(200);
@@ -249,15 +270,16 @@ namespace MyFootballMvc.Controllers
                 string userId = GetUserAuth0Id();
 
                 User user = await _usersService.FindUserById(token, userId);
-
+                Referee current = await _refereeService.GetRefereeByUserId(token, userId);
                 referee.User = user;
 
-                if (await _refereeService.GetRefereeByUserId(token, userId) == null)
+                if (current == null)
                 {
                     await _refereeService.Insert(token, referee);
                 }
                 else
                 {
+                    current.License = referee.License;
                     await _refereeService.Update(token, referee);
                 }
 
