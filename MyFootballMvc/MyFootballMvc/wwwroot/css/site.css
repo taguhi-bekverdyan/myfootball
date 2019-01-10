@@ -15,7 +15,7 @@ for details on configuring this project to bundle and minify static web assets. 
   .navbar .dropdown-menu {
     margin-top: 0;
     padding: 0;
-    border-radius: 0;
+    border: none;
     left: -50%;
     z-index: 100;
   }
@@ -24,7 +24,7 @@ for details on configuring this project to bundle and minify static web assets. 
       column-count: 2;
       list-style-type: none;
       padding: 0.3rem 0.6rem;
-      background-color: #d0d0d0;
+      background-color: #a557ab;
     }
 
     .navbar .dropdown-menu a {
@@ -35,7 +35,7 @@ for details on configuring this project to bundle and minify static web assets. 
       content: "";
       display: block;
       border: 8px solid transparent;
-      border-bottom-color: #d0d0d0;
+      border-bottom-color: #a557ab;
       position: absolute;
       top: -1rem;
       left: 50%;
@@ -44,7 +44,7 @@ for details on configuring this project to bundle and minify static web assets. 
 
   .navbar .dropdown-item:hover,
   .navbar .dropdown-item:focus {
-    background-color: #d0d0d0;
+    background-color: #a557ab;
     text-decoration: underline;
   }
 
@@ -63,15 +63,20 @@ for details on configuring this project to bundle and minify static web assets. 
   transition: .2s;
   z-index: -1;
 }
-
+ 
 .navbar .nav-item a:hover:before {
   height: 5px;
-  background-color: #d0d0d0;
+  background-color: #a557ab;
 }
 
 .navbar .nav-item.active a:before {
   height: 5px;
   background-color: #ececec;
+}
+
+.navbar-dark.navbar .nav-item a:hover,
+.navbar-dark.navbar .nav-item.active a {
+  color: #a557ab;
 }
 
 /* Subnav*/
