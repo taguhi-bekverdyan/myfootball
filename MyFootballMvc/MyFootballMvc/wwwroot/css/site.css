@@ -74,11 +74,6 @@ for details on configuring this project to bundle and minify static web assets. 
   background-color: #ececec;
 }
 
-.navbar-dark.navbar .nav-item a:hover,
-.navbar-dark.navbar .nav-item.active a {
-  color: #a557ab;
-}
-
 /* Subnav*/
 .subnav {
   top: 4.5rem;
