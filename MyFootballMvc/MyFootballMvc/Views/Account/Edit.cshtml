@@ -99,7 +99,7 @@
                                     new {@class="form-control",id="js-weight" })
                                 @Html.ValidationMessageFor(m => m.Player.PhysicalStats.Weight)
                             </div>
-
+                            @Html.HiddenFor(m => m.Player.PlayerStatus,new { id="js-player-status-hidden"})
                             <button type="submit" class="btn btn-primary">Become a Player</button>
                         }
                     </div>
@@ -112,6 +112,7 @@
                                new {@class = "form-control",id="js-coach-license" })
                                 @Html.ValidationMessageFor(m => m.Coach.License)
                             </div>
+                            @Html.HiddenFor(m => m.Coach.CoachStatus,new { id = "js-coach-status-hidden"})
                             <button type="submit" class="btn btn-primary">Become a Coach</button>
                         }
                     </div>
@@ -130,7 +131,7 @@
                                     new {@class="form-control",id="js-staff-occupation" })
                                 @Html.ValidationMessageFor(m => m.Staff.Occupation)
                             </div>
-
+                            @Html.HiddenFor(m=>m.Staff.StaffStatus,new {id="js-staff-status-hidden" })
                             <button type="submit" class="btn btn-primary">Become a Staff</button>
                         }
                     </div>
@@ -163,14 +164,15 @@
             var foot = $("#js-foot").val();
             var height = $("#js-height").val();
             var weight = $("#js-weight").val();
+            var playerStatus = $("#js-player-status-hidden").val();
 
             var ps = { Foot: foot, Height: height, Weight: weight };
 
-            var player = { Position: position, PhysicalStats: ps };
+            var player = { Position: position, PhysicalStats: ps, PlayerStatus: playerStatus };
 
             bootbox.confirm("Do you want to save chages?", function (result) {
                 if (result) {
-                    if (confirm("Do you want to save chages?")) {
+                    
                         $.ajax({
                             url: "Player/",
                             method: "POST",
@@ -178,9 +180,9 @@
                             dataType: "json",
                             data: JSON.stringify(player)
                         }).done(function () {
-                            console.log("done player");
+                            bootbox.alert("The changes have been done");
                         });
-                    }
+                    
                 }
             });
         });
@@ -195,8 +197,9 @@
 
 
             var license = $("#js-coach-license").val();
+            var coachStatus = $("js-coach-status-hidden").val();
 
-            var coach = { License: license };
+            var coach = { License: license, CoachStatus: coachStatus };
 
             bootbox.confirm("Do you want to save changes?", function (result) {
                 if (result) {
@@ -218,8 +221,9 @@
 
             var license = $("#js-staff-license").val();
             var occupation = $("#js-staff-occupation").val();
+            var staffStatus = $("js-staff-status-hidden").val();
 
-            var staff = { License: license, Occupation: occupation };
+            var staff = { License: license, Occupation: occupation, StaffStatus: staffStatus };
 
             bootbox.confirm("Do you want to save changes?", function (result) {
                 if (result) {

@@ -79,6 +79,7 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
+                staff.Id = Guid.NewGuid().ToString();
                 var result = await _staffRepository.Create(staff);
                 if (result == null) { return BadRequest(result); }
                 return Created(string.Format("/api/Staff/{0}", staff.Id), result);

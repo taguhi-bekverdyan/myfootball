@@ -12,8 +12,11 @@ namespace MyFootballMvc.Models
         public string Occupation { get; set; }
         [Required(ErrorMessage ="Please enter your License")]
         public string License { get; set; }
+        [Required]
+        public StaffStatus StaffStatus { get; set; }
 
-        
+        public string TeamId { get; set; }
+
         public User User { get; set; }
     }
 }
