@@ -1,0 +1,38 @@
+﻿@model MyFootballMvc.ViewModels.TeamsCreateViewModel
+@{
+    ViewData["Title"] = "CreateOrUpdate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .field-validation-error {
+        color: red;
+    }
+
+    .input-validation-error {
+        border: 2px solid red;
+    }
+</style>
+<div class="container-fluid">
+    @using (Html.BeginForm("CreateOrUpdate", "Teams", FormMethod.Post))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Team.Name, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Team.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Team.Name)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Team.ShortName, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Team.ShortName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Team.ShortName)
+        </div>
+        @Html.HiddenFor(m => m.Team.Id)
+        @if (Model.ViewType == MyFootballMvc.ViewModels.ViewType.Create)
+        {
+            <button type="submit" class="btn btn-primary">Create</button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-primary">Update</button>
+        }
+    }
+</div>

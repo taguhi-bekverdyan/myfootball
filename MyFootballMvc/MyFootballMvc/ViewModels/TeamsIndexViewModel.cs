@@ -5,16 +5,17 @@ using System.Threading.Tasks;
 
 namespace MyFootballMvc.ViewModels
 {
-    public class CupViewModel : TournamentViewModel
+    public class TeamsIndexViewModel:LayoutViewModel
     {
-        public CupViewModel():base()
+        public TeamsIndexViewModel():base()
         {
 
         }
 
-        public CupViewModel(string token, string id) : base(token,id)
+        public TeamsIndexViewModel(string token ,string id):base(token,id)
         {
 
         }
+
     }
 }

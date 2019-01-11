@@ -57,7 +57,7 @@ namespace MyFootballMvc.Controllers
         public async Task<IActionResult> Edit()
         {
             string accessToken = await GetAccessToken();
-            string id = GetUserAuth0Id();
+            string id = await GetUserAuth0Id();
             List<Team> teams = await _teamsService.FindAll(accessToken);
             User user = await _usersService.FindUserById(accessToken, id);
 
@@ -66,11 +66,12 @@ namespace MyFootballMvc.Controllers
                 User u = new User();
                 u.Id = string.Empty;
 
-                return View(new EditAccountViewModel()
+                return View(new EditAccountViewModel(accessToken, id)
                 {
                     User = u,
                     Teams = teams,
-                    IsMember = false
+                    IsMember = false,
+                    IsEditPage = true
                 });
             }
 
@@ -96,7 +97,7 @@ namespace MyFootballMvc.Controllers
                 referee = new Referee();
             }
 
-            return View(new EditAccountViewModel()
+            return View(new EditAccountViewModel(accessToken, id)
             {
                 User = user,
                 Coach = coach,
@@ -104,7 +105,8 @@ namespace MyFootballMvc.Controllers
                 Staff = staff,
                 Player = player,
                 Teams = teams,
-                IsMember = true
+                IsMember = true,
+                IsEditPage = true
             });
         }
 
@@ -112,16 +114,18 @@ namespace MyFootballMvc.Controllers
         public async Task<IActionResult> CreateOrUpdate(User user)
         {
             string accessToken = await GetAccessToken();
+            string id = await GetUserAuth0Id();
             if (!ModelState.IsValid)
             {
-                return View("Edit",new EditAccountViewModel() {
+                return View("Edit", new EditAccountViewModel(accessToken, id) {
                     User = user,
-                    Teams = await _teamsService.FindAll(accessToken)
+                    Teams = await _teamsService.FindAll(accessToken),
+                    IsEditPage = true
                 });
             }
 
 
-            string id = GetUserAuth0Id();
+            
             try
             {               
                 if (string.IsNullOrEmpty(user.Id))
@@ -156,7 +160,7 @@ namespace MyFootballMvc.Controllers
             }
 
             string token = await GetAccessToken();
-            string userId = GetUserAuth0Id();
+            string userId = await GetUserAuth0Id();
             try
             {
                 User user = await _usersService.FindUserById(token, userId);
@@ -193,7 +197,7 @@ namespace MyFootballMvc.Controllers
                 }
 
                 string token = await GetAccessToken();
-                string userId = GetUserAuth0Id();
+                string userId = await GetUserAuth0Id();
 
                 User user = await _usersService.FindUserById(token, userId);
                 coach.User = user;
@@ -229,7 +233,7 @@ namespace MyFootballMvc.Controllers
                 }
 
                 string token = await GetAccessToken();
-                string userId = GetUserAuth0Id();
+                string userId = await GetUserAuth0Id();
 
                 User user = await _usersService.FindUserById(token, userId);
 
@@ -267,7 +271,7 @@ namespace MyFootballMvc.Controllers
                 }
 
                 string token = await GetAccessToken();
-                string userId = GetUserAuth0Id();
+                string userId = await GetUserAuth0Id();
 
                 User user = await _usersService.FindUserById(token, userId);
                 Referee current = await _refereeService.GetRefereeByUserId(token, userId);
@@ -318,9 +322,11 @@ namespace MyFootballMvc.Controllers
             return string.Empty;
 
         }
-        private string GetUserAuth0Id()
+        private Task<string> GetUserAuth0Id()
         {
-            return User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            return Task.Factory.StartNew(()=> {
+                return User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            });
         }
         #endregion
 
