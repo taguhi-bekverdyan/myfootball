@@ -10,7 +10,6 @@ namespace MyFootballMvc.ViewModels
 {
   public class LeagueViewModel : TournamentViewModel
   {
-    public string ActiveTab { get; set; }
     public byte[] Logo { get; set; }
     public byte[] Banner { get; set; }
 

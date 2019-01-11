@@ -5,52 +5,67 @@ for details on configuring this project to bundle and minify static web assets. 
   margin-top: 4.5rem;
 }
 
-/* Navbar */
-.navbar {
+/* Main navbar */
+.main-nav {
   padding: 0 1rem;
   height: 4.5rem;
 }
 
-  .navbar .nav-item {
-    padding: 1rem 0;
-    position: relative;
-  }
+.navbar .nav-item {
+  padding: 1rem 0;
+  position: relative;
+}
 
-  .navbar .dropdown-menu {
-    margin-top: 0;
-    padding: 0;
-    border: none;
-    left: -50%;
-    z-index: 100;
-  }
+.main-nav .dropdown-menu {
+  margin-top: 0;
+  padding: 0;
+  border: none;
+  left: -50%;
+  z-index: 100;
+}
 
-    .navbar .dropdown-menu ul {
-      column-count: 2;
-      list-style-type: none;
-      padding: 0.3rem 0.6rem;
-      background-color: #a557ab;
-    }
-
-    .navbar .dropdown-menu a {
-      padding: 0;
-    }
-
-    .navbar .dropdown-menu:before {
-      content: "";
-      display: block;
-      border: 8px solid transparent;
-      border-bottom-color: #a557ab;
-      position: absolute;
-      top: -1rem;
-      left: 50%;
-      margin-left: -0.5rem;
-    }
-
-  .navbar .dropdown-item:hover,
-  .navbar .dropdown-item:focus {
+  .main-nav .dropdown-menu ul {
+    column-count: 2;
+    list-style-type: none;
+    padding: 0.3rem 0.6rem;
     background-color: #a557ab;
-    text-decoration: underline;
   }
+
+  .main-nav .dropdown-menu a {
+    padding: 0;
+  }
+
+  .main-nav .dropdown-menu:before {
+    content: "";
+    display: block;
+    border: 8px solid transparent;
+    border-bottom-color: #a557ab;
+    position: absolute;
+    top: -1rem;
+    left: 50%;
+    margin-left: -0.5rem;
+  }
+
+.main-nav .dropdown-item:hover,
+.main-nav .dropdown-item:focus {
+  background-color: #a557ab;
+  text-decoration: underline;
+}
+
+.main-nav .nav-item.active:after {
+  content: "";
+  display: block;
+  border: 6px solid transparent;
+  border-bottom-color: #fff;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin-left: -6px;
+}
+
+.main-nav .nav-item.dropdown.active:after {
+  border-bottom-color: #c9e6ff
+}
 
 .nav-item:hover .dropdown-menu {
   display: block;
@@ -67,15 +82,10 @@ for details on configuring this project to bundle and minify static web assets. 
   transition: .2s;
   z-index: -1;
 }
- 
-.navbar .nav-item a:hover:before {
+
+.main-nav .nav-item a:hover:before {
   height: 5px;
   background-color: #a557ab;
-}
-
-.navbar .nav-item.active a:before {
-  height: 5px;
-  background-color: #ececec;
 }
 
 /* Subnav*/
@@ -117,9 +127,9 @@ for details on configuring this project to bundle and minify static web assets. 
   background-color: #38003c;
 }
 
-.banner h2 {
-  color: #fff;
-}
+  .banner h2 {
+    color: #fff;
+  }
 
 .main-content {
   margin-top: 2rem;
@@ -142,9 +152,9 @@ footer {
   color: #fff;
 }
 
-footer p {
-  margin-bottom: 0;
-}
+  footer p {
+    margin-bottom: 0;
+  }
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {

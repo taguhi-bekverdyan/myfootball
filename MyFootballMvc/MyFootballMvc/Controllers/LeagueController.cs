@@ -14,69 +14,70 @@ namespace MyFootballMvc.Controllers
     public IActionResult Fixtures(string tournamentId)
     {
       var leagueViewModel = new LeagueViewModel(tournamentId);
-      leagueViewModel.ActiveTab = "fixtures";
+      leagueViewModel.ActiveItem = "fixtures";
       return View("~/Views/League/Fixtures.cshtml", leagueViewModel);
     }
+
     public IActionResult Results(string tournamentId)
     {
       var leagueViewModel = new LeagueViewModel(tournamentId);
-      leagueViewModel.ActiveTab = "results";
+      leagueViewModel.ActiveItem = "results";
       return View("~/Views/League/Results.cshtml", leagueViewModel);
     }
 
     public IActionResult Tables(string tournamentId)
     {
       var leagueViewModel = new LeagueViewModel(tournamentId);
-      leagueViewModel.ActiveTab = "tables";
+      leagueViewModel.ActiveItem = "tables";
       return View("~/Views/League/Tables.cshtml", leagueViewModel);
     }
 
     public IActionResult Clubs(string tournamentId)
     {
       var leagueViewModel = new LeagueViewModel(tournamentId);
-      leagueViewModel.ActiveTab = "clubs";
+      leagueViewModel.ActiveItem = "clubs";
       return View("~/Views/League/Clubs.cshtml", leagueViewModel);
     }
 
     public IActionResult Players(string tournamentId)
     {
       var leagueViewModel = new LeagueViewModel(tournamentId);
-      leagueViewModel.ActiveTab = "players";
+      leagueViewModel.ActiveItem = "players";
       return View("~/Views/League/Players.cshtml", leagueViewModel);
     }
 
     public IActionResult Managers(string tournamentId)
     {
       var leagueViewModel = new LeagueViewModel(tournamentId);
-      leagueViewModel.ActiveTab = "managers";
+      leagueViewModel.ActiveItem = "managers";
       return View("~/Views/League/Managers.cshtml", leagueViewModel);
     }
 
     public IActionResult News(string tournamentId)
     {
       var leagueViewModel = new LeagueViewModel(tournamentId);
-      leagueViewModel.ActiveTab = "news";
+      leagueViewModel.ActiveItem = "news";
       return View("~/Views/League/News.cshtml", leagueViewModel);
     }
 
     public IActionResult Social(string tournamentId)
     {
       var leagueViewModel = new LeagueViewModel(tournamentId);
-      leagueViewModel.ActiveTab = "social";
+      leagueViewModel.ActiveItem = "social";
       return View("~/Views/League/Social.cshtml", leagueViewModel);
     }
 
     public IActionResult History(string tournamentId)
     {
       var leagueViewModel = new LeagueViewModel(tournamentId);
-      leagueViewModel.ActiveTab = "history";
+      leagueViewModel.ActiveItem = "history";
       return View("~/Views/League/History.cshtml", leagueViewModel);
     }
 
     public IActionResult Referees(string tournamentId)
     {
       var leagueViewModel = new LeagueViewModel(tournamentId);
-      leagueViewModel.ActiveTab = "referees";
+      leagueViewModel.ActiveItem = "referees";
       return View("~/Views/League/Referees.cshtml", leagueViewModel);
     }
   }
