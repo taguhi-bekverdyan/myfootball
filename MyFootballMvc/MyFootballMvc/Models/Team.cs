@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 
 namespace MyFootballMvc.Models
 {
-    public class Team
+    public class Team:EntityBase<Team>
     {
         [Required]
-        public Guid Id { get; set; }
-        [MaxLength(50)]
         public string Name { get; set; }
-        [MaxLength(3)]
-        public string Code { get; set; }
+        [Required]
+        public string ShartName { get; set; }
+        
+        public User President { get; set; }
+
+        public List<Staff> StaffMembers { get; set; }
+        public List<Player> Players { get; set; }
+        public List<Coach> Managers { get; set; }
+        public List<string> Stats { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyFootballRestApi.Data;
 using MyFootballRestApi.Models;
 using System;
+using System.Linq;
 
 namespace MyFootballRestApi.Controllers
 {
@@ -47,14 +48,34 @@ namespace MyFootballRestApi.Controllers
             }
         }
 
+        [HttpGet("by_user_id/{id}")]
+        public async Task<IActionResult> GetPlayerByUserId([FromRoute]string id)
+        {
+            try
+            {
+                List<Player> players = await _playerRepository.GetAll(typeof(Player));
+                var player = players.FirstOrDefault(p => p.User.Id == id);
+                if (player == null)
+                {
+                    return NotFound();
+                }
+                return Ok(player);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] Player player)
         {
             try
             {
+                player.Id = Guid.NewGuid().ToString();
                 var result = await _playerRepository.Create(player);
                 if (result == null) return BadRequest(player);
-                return Created($"/api/Player/Get/{player.Id}", result);
+                return Created($"/api/Player/{player.Id}", result);
             }
             catch (Exception e)
             {
@@ -70,7 +91,7 @@ namespace MyFootballRestApi.Controllers
                 
                 var result = await _playerRepository.Upsert(player);
                 if (result == null) return BadRequest(player);
-                return Created($"/api/Player/Get/{player.Id}", result);
+                return Created($"/api/Player/{player.Id}", result);
             }
             catch (Exception e)
             {

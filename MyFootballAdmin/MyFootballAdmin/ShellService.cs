@@ -23,8 +23,7 @@ namespace MyFootballAdmin
             var scopedRegion = _regionManager.CreateRegionManager();
             RegionManager.SetRegionManager(shell, scopedRegion);
             RegionManagerAware.SetRegionManagerAware(shell, scopedRegion);
-            scopedRegion.RequestNavigate(RegionNames.WindowContentRegion, uri);
-
+            scopedRegion.RequestNavigate(RegionNames.MainRegion, uri);
             shell.Show();
             return shell;
         }
@@ -35,7 +34,7 @@ namespace MyFootballAdmin
             var scopedRegion = _regionManager.CreateRegionManager();
             RegionManager.SetRegionManager(shell, scopedRegion);
             RegionManagerAware.SetRegionManagerAware(shell, scopedRegion);
-            scopedRegion.RequestNavigate(RegionNames.WindowContentRegion, uri);
+            scopedRegion.RequestNavigate(RegionNames.MainRegion, uri);
             shell.Width = w;
             shell.Height = h;
             shell.Show();
@@ -48,7 +47,7 @@ namespace MyFootballAdmin
             var scopedRegion = _regionManager.CreateRegionManager();
             RegionManager.SetRegionManager(shell, scopedRegion);
             RegionManagerAware.SetRegionManagerAware(shell, scopedRegion);
-            scopedRegion.RequestNavigate(RegionNames.WindowContentRegion, uri, navigationParameters);
+            scopedRegion.RequestNavigate(RegionNames.MainRegion, uri, navigationParameters);
             shell.Width = w;
             shell.Height = h;
             shell.Show();
@@ -62,7 +61,7 @@ namespace MyFootballAdmin
 
             RegionManager.SetRegionManager(shell, scopedRegion);
             RegionManagerAware.SetRegionManagerAware(shell, scopedRegion);
-            scopedRegion.RequestNavigate(RegionNames.WindowContentRegion, uri, navigationParameters);
+            scopedRegion.RequestNavigate(RegionNames.MainRegion, uri, navigationParameters);
             shell.Show();
             return shell;
         }

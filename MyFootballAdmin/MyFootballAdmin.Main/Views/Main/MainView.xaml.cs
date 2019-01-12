@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace MyFootballAdmin.Main.Views.Main
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for RoundsView.xaml
     /// </summary>
     public partial class MainView : UserControl
     {

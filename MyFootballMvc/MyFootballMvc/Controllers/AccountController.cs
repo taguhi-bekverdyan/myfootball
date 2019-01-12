@@ -17,17 +17,27 @@ namespace MyFootballMvc.Controllers
     public class AccountController : Controller
     {
 
-        public UsersService _usersService { get; set; }
-        public TeamsService _teamsService { get; set; }
+        private UsersService _usersService { get; set; }
+        private TeamsService _teamsService { get; set; }
+        private StaffService _staffService { get; set; }
+        private PlayersService _playerService { get; set; }
+        private RefereeService _refereeService { get; set; }
+        private CoachService _coachService { get; set; }
+
         public AccountController()
         {
             _usersService = new UsersService();
             _teamsService = new TeamsService();
+            _staffService = new StaffService();
+            _playerService = new PlayersService();
+            _refereeService = new RefereeService();
+            _coachService = new CoachService();
         }
 
         public async Task Login(string returnUrl = "/")
         {
             await HttpContext.ChallengeAsync("Auth0", new AuthenticationProperties() { RedirectUri = returnUrl });
+            
         }
 
         [Authorize]
@@ -59,14 +69,42 @@ namespace MyFootballMvc.Controllers
                 return View(new EditAccountViewModel()
                 {
                     User = u,
-                    Teams = teams                
+                    Teams = teams,
+                    IsMember = false
                 });
+            }
+
+            Player player = await _playerService.GetPlayerByUserId(accessToken, id);
+            Coach coach = await _coachService.GetCoachByUserId(accessToken,id);
+            Staff staff = await _staffService.GetStaffByUserId(accessToken,id);
+            Referee referee = await _refereeService.GetRefereeByUserId(accessToken,id);
+
+            if (player == null) {
+                player = new Player();
+                player.PlayerStatus = PlayerStatus.FreeAgent;
+            }
+            if (coach == null) {
+                coach = new Coach();
+                coach.CoachStatus = CoachStatus.FreeCoach;
+            }
+            if (staff == null) {
+                staff = new Staff();
+                staff.StaffStatus = StaffStatus.FreeWorker;
+            }
+            if (referee == null) {
+                
+                referee = new Referee();
             }
 
             return View(new EditAccountViewModel()
             {
                 User = user,
-                Teams = teams
+                Coach = coach,
+                Referee = referee,
+                Staff = staff,
+                Player = player,
+                Teams = teams,
+                IsMember = true
             });
         }
 
@@ -94,8 +132,9 @@ namespace MyFootballMvc.Controllers
                 else
                 {
                     await _usersService.Update(accessToken,user);
+                    
                 }
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Edit", "Account");
             }
             catch (Exception e)
             {
@@ -103,6 +142,158 @@ namespace MyFootballMvc.Controllers
             }           
         }
 
+
+        #region POST
+
+        [HttpPost("Account/Player")]
+        public async Task<IActionResult> Player([FromBody] Player player)
+        {
+
+
+            if (!ModelState.IsValid)
+            {
+                return StatusCode(500);
+            }
+
+            string token = await GetAccessToken();
+            string userId = GetUserAuth0Id();
+            try
+            {
+                User user = await _usersService.FindUserById(token, userId);
+                Player pl = await _playerService.GetPlayerByUserId(token, userId);
+                player.User = user;
+                if (pl == null)
+                {
+                    await _playerService.Insert(token, player);
+                }
+                else
+                {
+                    pl.Position = player.Position;
+                    pl.PhysicalStats = player.PhysicalStats;
+                    pl.PlayerStatus = player.PlayerStatus;
+                    await _playerService.Update(token, pl);
+                }
+
+                return Ok(200);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
+        [HttpPost("Account/Coach")]
+        public async Task<IActionResult> Coach([FromBody]Coach coach)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    throw new Exception("the Model is invalid");
+                }
+
+                string token = await GetAccessToken();
+                string userId = GetUserAuth0Id();
+
+                User user = await _usersService.FindUserById(token, userId);
+                coach.User = user;
+
+                Coach current = await _coachService.GetCoachByUserId(token, userId);
+
+                if (current == null)
+                {
+                    await _coachService.Insert(token, coach);
+                }
+                else
+                {
+                    current.License = coach.License;
+                    await _coachService.Update(token,current);
+                }
+
+                return Ok(200);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }
+        }
+
+        [HttpPost("Account/Staff")]
+        public async Task<IActionResult> Staff([FromBody]Staff staff)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    throw new Exception("the Model is invalid");
+                }
+
+                string token = await GetAccessToken();
+                string userId = GetUserAuth0Id();
+
+                User user = await _usersService.FindUserById(token, userId);
+
+                staff.User = user;
+
+                Staff current = await _staffService.GetStaffByUserId(token, userId);
+
+                if (current == null)
+                {
+                    await _staffService.Insert(token, staff);
+                }
+                else
+                {
+                    current.Occupation = staff.Occupation;
+                    current.License = staff.License;
+                    await _staffService.Update(token, current);
+                }
+
+                return Ok(200);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
+        [HttpPost("Account/Referee")]
+        public async Task<IActionResult> Referee([FromBody]Referee referee)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    throw new Exception("the Model is invalid");
+                }
+
+                string token = await GetAccessToken();
+                string userId = GetUserAuth0Id();
+
+                User user = await _usersService.FindUserById(token, userId);
+                Referee current = await _refereeService.GetRefereeByUserId(token, userId);
+                referee.User = user;
+
+                if (current == null)
+                {
+                    await _refereeService.Insert(token, referee);
+                }
+                else
+                {
+                    current.License = referee.License;
+                    await _refereeService.Update(token, referee);
+                }
+
+                return Ok(200);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
+        #endregion
+
+        #region Token
         private async Task<string> GetAccessToken()
         {
             if (User.Identity.IsAuthenticated)
@@ -131,6 +322,8 @@ namespace MyFootballMvc.Controllers
         {
             return User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
         }
+        #endregion
+
 
     }
 }

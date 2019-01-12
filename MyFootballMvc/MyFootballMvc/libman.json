@@ -11,6 +11,22 @@
       "provider": "unpkg",
       "library": "jquery@3.3.1",
       "destination": "wwwroot/lib/jquery/"
+    },
+    {
+      "library": "jquery-validate@1.19.0",
+      "destination": "wwwroot/lib/jquery-validate/"
+    },
+    {
+      "library": "bootstrap-datepicker@1.8.0",
+      "destination": "wwwroot/lib/bootstrap-datepicker/"
+    },
+    {
+      "library": "jquery-validation-unobtrusive@3.2.11",
+      "destination": "wwwroot/lib/jquery-validation-unobtrusive/"
+    },
+    {
+      "library": "bootbox.js@4.4.0",
+      "destination": "wwwroot/lib/bootbox.js/"
     }
   ]
 }

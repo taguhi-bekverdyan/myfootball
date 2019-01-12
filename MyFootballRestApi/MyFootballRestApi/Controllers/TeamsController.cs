@@ -59,6 +59,7 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
+                team.Id = Guid.NewGuid().ToString();
                 var result = await _teamsRepository.Create(team);
                 if (result == null) { return BadRequest(team); }
                 return Created($"/api/Teams/{team.Id}",result);

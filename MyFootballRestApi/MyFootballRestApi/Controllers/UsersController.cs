@@ -19,10 +19,18 @@ namespace MyFootballRestApi.Controllers
     {
 
         private readonly IRepository<User> _usersRepository;
+        private readonly IRepository<Player> _playerRepository;
+        private readonly IRepository<Coach> _coachRepository;
+        private readonly IRepository<Referee> _refereeRepository;
+        private readonly IRepository<Staff> _staffRepository;
 
         public UsersController()
         {
             _usersRepository = new CouchbaseRepository<User>();
+            _playerRepository = new CouchbaseRepository<Player>();
+            _coachRepository = new CouchbaseRepository<Coach>();
+            _refereeRepository = new CouchbaseRepository<Referee>();
+            _staffRepository = new CouchbaseRepository<Staff>();
         }
 
         #region GET
@@ -101,6 +109,38 @@ namespace MyFootballRestApi.Controllers
                 string id = user.Id.ToString();
                 var result = await _usersRepository.Update(user);
                 if (result == null) return BadRequest(user);
+
+                List<Player> players = await _playerRepository.GetAll(typeof(Player));
+                var player = players.FirstOrDefault(p => p.User.Id == user.Id);
+                if (player != null) {
+                    player.User = user;
+                }
+                await _playerRepository.Update(player);
+
+                List<Coach> coaches = await _coachRepository.GetAll(typeof(Coach));
+                var coach = coaches.FirstOrDefault(p => p.User.Id == user.Id);
+                if (coach != null)
+                {
+                    coach.User = user;
+                }
+                await _coachRepository.Update(coach);
+
+                List<Referee> referees = await _refereeRepository.GetAll(typeof(Referee));
+                var referee = referees.FirstOrDefault(p => p.User.Id == user.Id);
+                if (referee != null)
+                {
+                    referee.User = user;
+                }
+                await _refereeRepository.Update(referee);
+
+                List<Staff> staff = await _staffRepository.GetAll(typeof(Staff));
+                var st = staff.FirstOrDefault(p => p.User.Id == user.Id);
+                if (st != null)
+                {
+                    st.User = user;
+                }
+                await _staffRepository.Update(st);
+
                 return Ok(result);
             }
             catch (Exception e)

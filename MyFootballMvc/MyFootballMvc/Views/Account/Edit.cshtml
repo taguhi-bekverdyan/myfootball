@@ -3,6 +3,7 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using MyFootballMvc.Models
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -15,35 +16,256 @@
         border: 2px solid red;
     }
 </style>
-<div class="page-account main-container container">
-    @using (Html.BeginForm("CreateOrUpdate", "Account"))
-    {
-        <div class="form-group">
-            @Html.LabelFor(m => m.User.FirstName)
-            @Html.TextBoxFor(m => m.User.FirstName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.User.FirstName)
+<div class="container">
+    <div class="row">
+        <div class="col">
+            @using (Html.BeginForm("CreateOrUpdate", "Account"))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.User.FirstName)
+                    @Html.TextBoxFor(m => m.User.FirstName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.User.FirstName)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.User.LastName)
+                    @Html.TextBoxFor(m => m.User.LastName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.User.LastName)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.User.FavoriteTeamId)
+                    @Html.DropDownListFor(m => m.User.FavoriteTeamId,
+                        new SelectList(Model.Teams,"Id","Name"),"Select Team",new { @class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.User.FavoriteTeamId)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.User.Birthdate)
+                    <div class="input-group date" data-provide="datepicker">
+                        @Html.TextBoxFor(m => m.User.Birthdate,
+                        string.Format("{0:d}",Model.User.Birthdate.ToShortDateString()),
+                        new { @class= "form-control"})
+                        <div class="input-group-addon glyphicon glyphicon-th"></div>
+                    </div>
+                </div>
+                @Html.HiddenFor(m => m.User.Id)
+                <button type="submit" class="btn btn-primary">Save</button>
+            }
         </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.User.LastName)
-            @Html.TextBoxFor(m => m.User.LastName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.User.LastName)
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.User.FavoriteTeamId)
-            @Html.DropDownListFor(m => m.User.FavoriteTeamId,
-                new SelectList(Model.Teams,"Id","Name"),"Select Team",new { @class = "form-control"})
-            @Html.ValidationMessageFor(m => m.User.FavoriteTeamId)
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.User.Birthdate)
-            @Html.TextBoxFor(m => m.User.Birthdate,
-                string.Format("{0:d}",Model.User.Birthdate.ToShortDateString()),
-                new { @class= "date-picker form-control", type="date" })
-        </div>
-        @Html.HiddenFor(m => m.User.Id)
-        <button type="submit" class="btn btn-primary">Save</button>
-    }
+        @if (Model.IsMember)
+        {
+            <div class="col">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-player-tab"
+                           data-toggle="tab" href="#nav-player" role="tab" aria-controls="nav-player" aria-selected="true">Player</a>
+                        <a class="nav-item nav-link" id="nav-coach-tab"
+                           data-toggle="tab" href="#nav-coach" role="tab" aria-controls="nav-coach" aria-selected="false">Coach</a>
+                        <a class="nav-item nav-link" id="nav-staff-tab"
+                           data-toggle="tab" href="#nav-staff" role="tab" aria-controls="nav-staff" aria-selected="false">Staff</a>
+                        <a class="nav-item nav-link" id="nav-referee-tab"
+                           data-toggle="tab" href="#nav-referee" role="tab" aria-controls="nav-referee" aria-selected="false">Refeere</a>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-player" role="tabpanel" aria-labelledby="nav-player-tab">
+                        @using (Html.BeginForm("Player", "Account", FormMethod.Post, new { id = "js-playerForm" }))
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Player.Position)
+                                @*@Html.DropDownList("SelectPosition", Html.GetEnumSelectList<Position>(),
+                                    "Select your position", new { @class = "form-control" ,id="js-position"})*@
+                                <select id="js-position" class="form-control" asp-for="Player.Position" asp-items="Html.GetEnumSelectList<Position>()">
+                                    <option selected="selected" value="">Please select</option>
+                                </select>
+                                @Html.ValidationMessageFor(m => m.Player.Position)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Player.PhysicalStats.Foot)
+                                @*@Html.DropDownList("SelectFoot", Html.GetEnumSelectList<Foot>(),
+                                    "Select your foot", new { @class = "form-control",id="js-foot" })*@
+                                <select id="js-foot" class="form-control" asp-for="Player.PhysicalStats.Foot" asp-items="Html.GetEnumSelectList<Foot>()">
+                                    <option selected="selected" value="">Please select</option>
+                                </select>
+                                @Html.ValidationMessageFor(m => m.Player.PhysicalStats.Foot)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Player.PhysicalStats.Height)
+                                @Html.TextBoxFor(m => m.Player.PhysicalStats.Height,
+                                    new {@class = "form-control",id="js-height" })
+                                @Html.ValidationMessageFor(m => m.Player.PhysicalStats.Height)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Player.PhysicalStats.Weight)
+                                @Html.TextBoxFor(m => m.Player.PhysicalStats.Weight,
+                                    new {@class="form-control",id="js-weight" })
+                                @Html.ValidationMessageFor(m => m.Player.PhysicalStats.Weight)
+                            </div>
+                            @Html.HiddenFor(m => m.Player.PlayerStatus,new { id="js-player-status-hidden"})
+                            <button type="submit" class="btn btn-primary">Become a Player</button>
+                        }
+                    </div>
+                    <div class="tab-pane fade" id="nav-coach" role="tabpanel" aria-labelledby="nav-coach-tab">
+                        @using (Html.BeginForm("Coach", "Account", FormMethod.Post, new { id = "js-coachForm" }))
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Coach.License)
+                                @Html.TextBoxFor(m => m.Coach.License ,
+                               new {@class = "form-control",id="js-coach-license" })
+                                @Html.ValidationMessageFor(m => m.Coach.License)
+                            </div>
+                            @Html.HiddenFor(m => m.Coach.CoachStatus,new { id = "js-coach-status-hidden"})
+                            <button type="submit" class="btn btn-primary">Become a Coach</button>
+                        }
+                    </div>
+                    <div class="tab-pane fade" id="nav-staff" role="tabpanel" aria-labelledby="nav-staff-tab">
+                        @using (Html.BeginForm("Staff", "Account", FormMethod.Post, new { id = "js-staffForm" }))
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Staff.License)
+                                @Html.TextBoxFor(m => m.Staff.License ,
+                                    new {@class = "form-control",id="js-staff-license" })
+                                @Html.ValidationMessageFor(m => m.Staff.License)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Staff.Occupation)
+                                @Html.TextBoxFor(m => m.Staff.Occupation,
+                                    new {@class="form-control",id="js-staff-occupation" })
+                                @Html.ValidationMessageFor(m => m.Staff.Occupation)
+                            </div>
+                            @Html.HiddenFor(m=>m.Staff.StaffStatus,new {id="js-staff-status-hidden" })
+                            <button type="submit" class="btn btn-primary">Become a Staff</button>
+                        }
+                    </div>
+                    <div class="tab-pane fade" id="nav-referee" role="tabpanel" aria-labelledby="nav-referee-tab">
+                        @using (Html.BeginForm("Referee", "Account", FormMethod.Post, new { id = "js-refereeForm" }))
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Referee.License)
+                                @Html.TextBoxFor(m => m.Referee.License ,
+                               new {@class = "form-control",id="js-referee-license" })
+                                @Html.ValidationMessageFor(m => m.Referee.License)
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Become a Referee</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#js-playerForm").submit(function (e) {
+            e.preventDefault();
+            
+            var position = $("#js-position").val();
+            var foot = $("#js-foot").val();
+            var height = $("#js-height").val();
+            var weight = $("#js-weight").val();
+            var playerStatus = $("#js-player-status-hidden").val();
+
+            var ps = { Foot: foot, Height: height, Weight: weight };
+
+            var player = { Position: position, PhysicalStats: ps, PlayerStatus: playerStatus };
+
+            bootbox.confirm("Do you want to save chages?", function (result) {
+                if (result) {
+                    
+                        $.ajax({
+                            url: "Player/",
+                            method: "POST",
+                            contentType: "application/json",
+                            dataType: "json",
+                            data: JSON.stringify(player)
+                        }).done(function () {
+                            bootbox.alert("The changes have been done");
+                        });
+                    
+                }
+            });
+        });
+
+
+
+        
+
+        $("#js-coachForm").submit(function (e) {
+            e.preventDefault();
+
+
+
+            var license = $("#js-coach-license").val();
+            var coachStatus = $("js-coach-status-hidden").val();
+
+            var coach = { License: license, CoachStatus: coachStatus };
+
+            bootbox.confirm("Do you want to save changes?", function (result) {
+                if (result) {
+                    $.ajax({
+                        url: "Coach/",
+                        method: "POST",
+                        contentType: "application/json",
+                        dataType: "json",
+                        data: JSON.stringify(coach)
+                    }).done(function () {
+                        bootbox.alert("The changes have been done");
+                    });
+                }
+            });
+        });
+
+        $("#js-staffForm").submit(function (e) {
+            e.preventDefault();
+
+            var license = $("#js-staff-license").val();
+            var occupation = $("#js-staff-occupation").val();
+            var staffStatus = $("js-staff-status-hidden").val();
+
+            var staff = { License: license, Occupation: occupation, StaffStatus: staffStatus };
+
+            bootbox.confirm("Do you want to save changes?", function (result) {
+                if (result) {
+                    $.ajax({
+                        url: "Staff/",
+                        method: "POST",
+                        contentType: "application/json",
+                        dataType: "json",
+                        data: JSON.stringify(staff)
+                    }).done(function () {
+                        bootbox.alert("The changes have been done");
+                    });
+                    
+                }
+            });
+        });
+
+        $("#js-refereeForm").submit(function (e) {
+            e.preventDefault();
+
+            var license = $("#js-referee-license").val();
+
+            var referee = { License: license };
+
+            bootbox.confirm("Do you want to save changes?", function (result) {
+                if (result) {
+                    $.ajax({
+                        url: "Referee/",
+                        method: "POST",
+                        contentType: "application/json",
+                        dataType: "json",
+                        data: JSON.stringify(referee)
+                    }).done(function () {
+                        bootbox.alert("The changes have been done");
+                    });
+                }
+            });
+
+            
+        });
+
+    });
+</script>
 
 
