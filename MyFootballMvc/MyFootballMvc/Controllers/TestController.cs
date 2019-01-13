@@ -116,7 +116,7 @@ namespace MyFootballMvc.Controllers
         public async Task<IActionResult> SendEmail(Email email)
         {
             await _enailSender.SendEmailAsync(email.Address,email.Subject,email.Message);
-            return View("Index");
+            return View("Index", new TestViewModel());
         }
 
         public async Task<IActionResult> Claims()
