@@ -156,7 +156,7 @@
               <div class="form-group">
                 @Html.LabelFor(m => m.Landlord.Organization)
                 @Html.TextBoxFor(m => m.Landlord.Organization,
-               new {@class = "form-control",id= "js-landlord-license" })
+               new {@class = "form-control",id = "js-landlord-organization" })
                 @Html.ValidationMessageFor(m => m.Landlord.Organization)
               </div>
 
@@ -202,15 +202,8 @@
       });
     });
 
-
-
-
-
     $("#js-coachForm").submit(function (e) {
       e.preventDefault();
-
-
-
       var license = $("#js-coach-license").val();
       var coachStatus = $("js-coach-status-hidden").val();
 
@@ -276,8 +269,27 @@
           });
         }
       });
+    });
 
+    $("#js-landlordForm").submit(function (e) {
+      e.preventDefault();
 
+      var organization = $("#js-landlord-organization").val();
+      var landlord = { Organization: organization };
+
+      bootbox.confirm("Do you want to save changes?", function (result) {
+        if (result) {
+         $.ajax({
+            url: "Landlord/",
+            method: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(landlord)
+          }).done(function () {
+            bootbox.alert("The changes have been done");
+          });
+        }
+      })
     });
 
   });

@@ -1,10 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MyFootballRestApi.Models;
 
 namespace MyFootballMvc.Models
 {
   public class Landlord : EntityBase<Landlord>
   {
-    [Required(ErrorMessage = "Please enter your Organization name")]
     public string Organization { get; set; }
     public User User { get; set; }
   }

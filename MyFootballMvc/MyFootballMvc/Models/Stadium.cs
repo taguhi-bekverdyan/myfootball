@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MyFootballMvc.Models
 {
-  public class Stadium
+  public class Stadium : EntityBase<Stadium>
   {
     public string Owner { get; set; }
     public double StadiumLength { get; set; }
