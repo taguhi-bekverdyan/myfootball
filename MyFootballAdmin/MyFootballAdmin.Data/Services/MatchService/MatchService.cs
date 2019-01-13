@@ -1,5 +1,7 @@
 ﻿
 using MyFootballAdmin.Data.Models;
+using MyFootballAdmin.Data.Services.Helpers;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -11,96 +13,85 @@ namespace MyFootballAdmin.Data.Services.MatchService
 {
     public class MatchService: IMatchService
     {
-        private const string EndPoint = @"https://localhost:44350/api/";
+        private const string Endpoint = "https://localhost:44350/api";
+        public string Token { get; set; }
+        public DateTime ExpiresAt;
         private readonly RestClient _client;
-
         public MatchService()
         {
-            _client = new RestClient(EndPoint);
+            _client = new RestClient(Endpoint);
+            Token = AccessToken.Token;
+            ExpiresAt = AccessToken.ExpiresAt;
+            if (DateTime.Now > ExpiresAt)
+            {
+                System.Windows.Application.Current.Shutdown();
+            }
         }
 
-        public Task Delete(string id)
+        public async Task Delete(string id)
         {
-            return Task.Factory.StartNew(() => {
-                RestRequest request = new RestRequest("Delete/{id}", Method.DELETE);
+                RestRequest request = new RestRequest("delete/{id}", Method.DELETE);
                 request.AddUrlSegment("id", id.ToString());
                 IRestResponse response = _client.Execute(request);
                 if (!response.IsSuccessful)
                 {
                     throw new Exception(response.ErrorMessage);
                 }
-            });
         }
 
-
-        public Task<List<Match>> FindAll()
+        public async Task<List<Match>> FindAll()
         {
-            return Task<List<Match>>.Factory.StartNew(() => {
-                RestRequest request = new RestRequest("Matches", Method.GET);
-                IRestResponse<List<Match>> response = _client.Execute<List<Match>>(request);
+            var request = new RestRequest("match", Method.GET);
+            request.AddHeader("authorization", $"Bearer {Token}");
 
-                if (response.IsSuccessful)
-                {
-                    return response.Data;
-                }
-                else
-                {
-                    throw new Exception(response.ErrorMessage);
-                }
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
 
-            });
+            List<Match> matches = JsonConvert.DeserializeObject<List<Match>>(response.Content);
+            return matches;
         }
 
-        public Task<Match> FindMatchById(string id)
+        public async Task<Match> FindMatchById(string id)
         {
-            return Task<Match>.Factory.StartNew(() =>
-            {
-                RestRequest request = new RestRequest("Matches/{id}", Method.GET);
-                request.AddUrlSegment("guid", id.ToString());
+            var request = new RestRequest("match/{id}", Method.GET);
+            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddUrlSegment("id", id);
 
-                IRestResponse<Match> response = _client.Execute<Match>(request);
-                if (response.IsSuccessful)
-                {
-                    return response.Data;
-                }
-                else
-                {
-                    throw new Exception(response.ErrorMessage);
-                }
-            });
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
+
+            Match match = JsonConvert.DeserializeObject<Match>(response.Content);
+            return match;
         }
 
+        //public async Task<League> GetLeagueByUserId(string accessToken, string id)
+        //{
+        //    var request = new RestRequest("league/by_user_id/{id}", Method.GET);
+        //    request.AddHeader("authorization", $"Bearer {accessToken}");
+        //    request.AddUrlSegment("id", id);
 
+        //    IRestResponse response = await _client.ExecuteTaskAsync(request);
 
-        public Task Create(Match match)
+        //    League league = JsonConvert.DeserializeObject<League>(response.Content);
+        //    return league;
+
+        //}
+        public async Task Create(Match match)
         {
-            return Task.Factory.StartNew(() =>
-            {
-
-                RestRequest request = new RestRequest(Method.POST);
-                request.RequestFormat = DataFormat.Json;
-                request.AddBody(new { match });
-                IRestResponse response = _client.Execute(request);
-                if (!response.IsSuccessful)
-                {
-                    throw new Exception(response.ErrorMessage);
-                }
-            });
+            var request = new RestRequest("match/create", Method.POST);
+            request.AddHeader("authorization", $"Bearer {Token}");
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(match);
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
         }
 
-        public Task Update(Match match)
+        public async Task Update(Match match)
         {
-            return Task.Factory.StartNew(() => {
-                RestRequest request = new RestRequest(Method.PUT);
-                request.RequestFormat = DataFormat.Json;
-                request.AddBody(match);
-                IRestResponse response = _client.Execute(request);
-                if (!response.IsSuccessful)
-                {
-                    throw new Exception(response.ErrorMessage);
-                }
-            });
+            var request = new RestRequest("match/update", Method.PUT);
+            request.AddHeader("authorization", $"Bearer {Token}");
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(match);
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
         }
+
 
     }
 }

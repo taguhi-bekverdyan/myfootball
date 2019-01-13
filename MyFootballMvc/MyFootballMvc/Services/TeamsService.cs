@@ -27,7 +27,7 @@ namespace MyFootballMvc.Services
             return teams;
         }
 
-        public async Task<Team> FindUserById(string accessToken, Guid guid)
+        public async Task<Team> FindTeamById(string accessToken, Guid guid)
         {
             var request = new RestRequest("teams/{id}", Method.GET);
             request.AddHeader("authorization", $"Bearer {accessToken}");

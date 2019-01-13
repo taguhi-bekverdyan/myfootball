@@ -2,11 +2,13 @@
 using System.Configuration;
 using System.Globalization;
 using System.Reflection;
+using System.Web;
 using System.Windows;
 using Auth0.OidcClient;
 using Microsoft.Practices.Unity;
 using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Common.Views;
+using MyFootballAdmin.Data.Services.Helpers;
 using MyFootballAdmin.Data.Services.LeagueService;
 using MyFootballAdmin.Data.Services.MatchService;
 using MyFootballAdmin.Data.Services.TeamsService;
@@ -95,6 +97,10 @@ namespace MyFootballAdmin
             else
             {
                 App.Current.MainWindow.Show();
+                var accessToken = loginResult.AccessToken;
+                var accessTokenExpiresAt = loginResult.AccessTokenExpiration;
+                AccessToken.Token = accessToken;
+                AccessToken.ExpiresAt = accessTokenExpiresAt;
             }
         }
 

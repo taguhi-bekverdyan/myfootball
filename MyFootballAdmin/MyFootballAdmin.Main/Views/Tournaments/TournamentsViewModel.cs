@@ -2,6 +2,7 @@
 using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Main.Views.AddTournament;
 using MyFootballAdmin.Main.Views.Notifications;
+using MyFootballAdmin.Main.Views.Pauses;
 using MyFootballAdmin.Main.Views.TournamentEdit;
 using Prism.Commands;
 using Prism.Events;
