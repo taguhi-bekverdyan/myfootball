@@ -40,7 +40,7 @@ namespace MyFootballMvc.Controllers
 
     public async Task<IActionResult> Index()
     {
-      return View(new TestViewModel() { ActiveItem = "test" });
+      return View(new TestViewModel() { ActiveMenuItem = "test" });
     }
 
 

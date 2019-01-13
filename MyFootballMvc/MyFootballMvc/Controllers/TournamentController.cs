@@ -19,13 +19,13 @@ namespace MyFootballMvc.Controllers
       {
         case TournamentType.League:
           var leagueViewModel = new LeagueViewModel(tournament.Id);
-          leagueViewModel.ActiveItem = "tournaments";
+          leagueViewModel.ActiveMenuItem = "tournaments";
           return View("~/Views/League/Index.cshtml", leagueViewModel);
         case TournamentType.Cup:
           var cupViewModel = new CupViewModel()
           {
             Tournament = tournament,
-            ActiveItem = "tournaments"
+            ActiveMenuItem = "tournaments"
           };
           return View("~/Views/Cup/Index.cshtml", cupViewModel);
         default:

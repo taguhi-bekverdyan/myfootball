@@ -7,6 +7,6 @@ namespace MyFootballMvc.Interfaces
 {
   public interface IMenuItem
   {
-    string ActiveItem { get; set; }
+    string ActiveMenuItem { get; set; }
   }
 }

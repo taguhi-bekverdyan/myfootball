@@ -14,7 +14,7 @@
 <body>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light container-fluid fixed-top subnav">
-    <a class="navbar-brand" asp-area="" asp-controller="League" asp-action="Index" asp-route-tournamentId="@Model.Tournament.Id">
+    <a class="navbar-brand league-name" asp-area="" asp-controller="League" asp-action="Index" asp-route-tournamentId="@Model.Tournament.Id">
       <img src="@Model.Logo" alt="League logo" />
       @Model.Tournament.Name
     </a>
@@ -24,34 +24,34 @@
 
     <div class="collapse navbar-collapse" id="leagueNavbar">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item @(Model.ActiveItem == "fixtures" ? "active" : "")">
+        <li class="nav-item @(Model.ActiveMenuItem == "fixtures" ? "active" : "")">
           <a class="nav-link" asp-area="" asp-controller="League" asp-action="Fixtures" asp-route-tournamentId="@Model.Tournament.Id">Fixtures</a>
         </li>
-        <li class="nav-item @(Model.ActiveItem == "results" ? "active" : "")">
+        <li class="nav-item @(Model.ActiveMenuItem == "results" ? "active" : "")">
           <a class="nav-link" asp-area="" asp-controller="League" asp-action="Results" asp-route-tournamentId="@Model.Tournament.Id">Results</a>
         </li>
-        <li class="nav-item @(Model.ActiveItem == "tables" ? "active" : "")">
+        <li class="nav-item @(Model.ActiveMenuItem == "tables" ? "active" : "")">
           <a class="nav-link" asp-area="" asp-controller="League" asp-action="Tables" asp-route-tournamentId="@Model.Tournament.Id">Tables</a>
         </li>
-        <li class="nav-item @(Model.ActiveItem == "clubs" ? "active" : "")">
+        <li class="nav-item @(Model.ActiveMenuItem == "clubs" ? "active" : "")">
           <a class="nav-link" asp-area="" asp-controller="League" asp-action="Clubs" asp-route-tournamentId="@Model.Tournament.Id">Clubs</a>
         </li>
-        <li class="nav-item @(Model.ActiveItem == "players" ? "active" : "")">
+        <li class="nav-item @(Model.ActiveMenuItem == "players" ? "active" : "")">
           <a class="nav-link" asp-area="" asp-controller="League" asp-action="Players" asp-route-tournamentId="@Model.Tournament.Id">Players</a>
         </li>
-        <li class="nav-item @(Model.ActiveItem == "managers" ? "active" : "")">
+        <li class="nav-item @(Model.ActiveMenuItem == "managers" ? "active" : "")">
           <a class="nav-link" asp-area="" asp-controller="League" asp-action="Managers" asp-route-tournamentId="@Model.Tournament.Id">Managers</a>
         </li>
-        <li class="nav-item @(Model.ActiveItem == "news" ? "active" : "")">
+        <li class="nav-item @(Model.ActiveMenuItem == "news" ? "active" : "")">
           <a class="nav-link" asp-area="" asp-controller="League" asp-action="News" asp-route-tournamentId="@Model.Tournament.Id">News</a>
         </li>
-        <li class="nav-item @(Model.ActiveItem == "social" ? "active" : "")">
+        <li class="nav-item @(Model.ActiveMenuItem == "social" ? "active" : "")">
           <a class="nav-link" asp-area="" asp-controller="League" asp-action="Social" asp-route-tournamentId="@Model.Tournament.Id">Social</a>
         </li>
-        <li class="nav-item @(Model.ActiveItem == "history" ? "active" : "")">
+        <li class="nav-item @(Model.ActiveMenuItem == "history" ? "active" : "")">
           <a class="nav-link" asp-area="" asp-controller="League" asp-action="History" asp-route-tournamentId="@Model.Tournament.Id">History</a>
         </li>
-        <li class="nav-item @(Model.ActiveItem == "referees" ? "active" : "")">
+        <li class="nav-item @(Model.ActiveMenuItem == "referees" ? "active" : "")">
           <a class="nav-link" asp-area="" asp-controller="League" asp-action="Referees" asp-route-tournamentId="@Model.Tournament.Id">Referees</a>
         </li>
       </ul>
