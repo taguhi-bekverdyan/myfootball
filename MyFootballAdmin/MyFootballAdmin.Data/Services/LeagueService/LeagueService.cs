@@ -21,10 +21,6 @@ namespace MyFootballAdmin.Data.Services.LeagueService
             _client = new RestClient(Endpoint);
             Token = AccessToken.Token;
             ExpiresAt = AccessToken.ExpiresAt;
-            if (DateTime.Now > ExpiresAt)
-            {
-                System.Windows.Application.Current.Shutdown();
-            }
         }
 
         public async Task<List<League>> FindAll()
@@ -84,7 +80,7 @@ namespace MyFootballAdmin.Data.Services.LeagueService
         {
             RestRequest request = new RestRequest("delete/{id}", Method.DELETE);
             request.AddUrlSegment("id", id.ToString());
-            IRestResponse response = _client.Execute(request);
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
             if (!response.IsSuccessful)
             {
                 throw new Exception(response.ErrorMessage);

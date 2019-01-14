@@ -13,25 +13,21 @@ namespace MyFootballAdmin.Data.Services.TeamsService
     public class TeamsService: ITeamsService
     {
         private const string Endpoint = "https://localhost:44350/api";
-        private readonly RestClient _client;
         public string Token { get; set; }
+        private readonly RestClient _client;
         public DateTime ExpiresAt { get; set; }
         public TeamsService()
         {
             _client = new RestClient(Endpoint);
             Token = AccessToken.Token;
             ExpiresAt = AccessToken.ExpiresAt;
-            if (DateTime.Now > ExpiresAt)
-            {
-                System.Windows.Application.Current.Shutdown();
-            }
         }
 
         public async Task Delete(string id)
         {
             RestRequest request = new RestRequest("delete/{id}", Method.DELETE);
             request.AddUrlSegment("id", id.ToString());
-            IRestResponse response = _client.Execute(request);
+            IRestResponse response =await  _client.ExecuteTaskAsync(request);
             if (!response.IsSuccessful)
             {
                 throw new Exception(response.ErrorMessage);
