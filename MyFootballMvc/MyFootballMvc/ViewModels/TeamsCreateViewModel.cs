@@ -7,25 +7,26 @@ using System.Threading.Tasks;
 namespace MyFootballMvc.ViewModels
 {
 
-    public enum ViewType {
-        Create,
-        Update
-    }
+  public enum ViewType
+  {
+    Create,
+    Update
+  }
 
-    public class TeamsCreateViewModel:LayoutViewModel
+  public class TeamsCreateViewModel : LayoutViewModel
+  {
+
+    public Team Team { get; set; }
+    public ViewType ViewType { get; set; }
+
+    public TeamsCreateViewModel()
     {
 
-        public Team Team { get; set; }
-        public ViewType ViewType { get; set; }
-
-        public TeamsCreateViewModel()
-        {
-
-        }
-
-        public TeamsCreateViewModel(string token,string id):base(token,id)
-        {
-            
-        }
     }
+
+    public TeamsCreateViewModel(string token, string id) : base(token, id)
+    {
+
+    }
+  }
 }

@@ -1,0 +1,85 @@
+﻿@model MyFootballMvc.ViewModels.StadiumViewModel
+
+@{
+  ViewData["Title"] = "Index";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add new stadium</h2>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      @using (Html.BeginForm("Create", "Stadium"))
+      {
+        <div class="form-group">
+          @Html.LabelFor(m => m.Stadium.Owner)
+          @Html.TextBoxFor(m => m.Stadium.Owner, new { @class = "form-control" })
+          @Html.ValidationMessageFor(m => m.Stadium.Owner)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Stadium.StadiumLength)
+          @Html.TextBoxFor(m => m.Stadium.StadiumLength, new { @class = "form-control" })
+          @Html.ValidationMessageFor(m => m.Stadium.StadiumLength)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Stadium.StadiumWidth)
+          @Html.TextBoxFor(m => m.Stadium.StadiumWidth, new { @class = "form-control" })
+          @Html.ValidationMessageFor(m => m.Stadium.StadiumWidth)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Stadium.Surface)
+          @Html.DropDownList("surface", new SelectList(Enum.GetValues(typeof(Surface))), "Select", null)
+          @Html.ValidationMessageFor(m => m.Stadium.Surface)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Stadium.AreaType)
+          @Html.DropDownList("area-type", new SelectList(Enum.GetValues(typeof(AreaType))), "Select", null)
+          @Html.ValidationMessageFor(m => m.Stadium.AreaType)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Stadium.HasLigthing)
+          @Html.CheckBoxFor(m => m.Stadium.HasLigthing)
+          @Html.ValidationMessageFor(m => m.Stadium.HasLigthing)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Stadium.HasLockerRoom)
+          @Html.CheckBoxFor(m => m.Stadium.HasLockerRoom)
+          @Html.ValidationMessageFor(m => m.Stadium.HasLockerRoom)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Stadium.HasFieldHeating)
+          @Html.CheckBoxFor(m => m.Stadium.HasFieldHeating)
+          @Html.ValidationMessageFor(m => m.Stadium.HasFieldHeating)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Stadium.HasTribunes)
+          @Html.CheckBoxFor(m => m.Stadium.HasTribunes)
+          @Html.ValidationMessageFor(m => m.Stadium.HasTribunes)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Stadium.PricePerHour)
+          @Html.TextBoxFor(m => m.Stadium.PricePerHour, new { @class = "form-control" })
+          @Html.ValidationMessageFor(m => m.Stadium.PricePerHour)
+        </div>
+        <div class="form-group">
+          <fieldset>
+            <legend>Working hours</legend>
+            <div>
+              @Html.LabelFor(m => m.Stadium.WorkingHours.StartTime)
+              @Html.TextBoxFor(m => m.Stadium.WorkingHours.StartTime, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.Stadium.WorkingHours.StartTime)
+            </div>
+            <div>
+              @Html.LabelFor(m => m.Stadium.WorkingHours.EndTime)
+              @Html.TextBoxFor(m => m.Stadium.WorkingHours.EndTime, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.Stadium.WorkingHours.EndTime)
+            </div>
+          </fieldset>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+      }
+    </div>
+  </div>
+</div>

@@ -80,6 +80,7 @@ namespace MyFootballMvc.Controllers
       Coach coach = await _coachService.GetCoachByUserId(accessToken, id);
       Staff staff = await _staffService.GetStaffByUserId(accessToken, id);
       Referee referee = await _refereeService.GetRefereeByUserId(accessToken, id);
+      Landlord landlord = await _landlordService.GetLandlordByUserId(accessToken, id);
 
       if (player == null)
       {
@@ -98,8 +99,11 @@ namespace MyFootballMvc.Controllers
       }
       if (referee == null)
       {
-
         referee = new Referee();
+      }
+      if (landlord == null)
+      {
+        landlord = new Landlord();
       }
 
       return View(new EditAccountViewModel(accessToken, id)
@@ -107,6 +111,7 @@ namespace MyFootballMvc.Controllers
         User = user,
         Coach = coach,
         Referee = referee,
+        Landlord = landlord,
         Staff = staff,
         Player = player,
         Teams = teams,
@@ -290,7 +295,7 @@ namespace MyFootballMvc.Controllers
         else
         {
           current.License = referee.License;
-          await _refereeService.Update(token, referee);
+          await _refereeService.Update(token, current);
         }
 
         return Ok(200);
@@ -325,7 +330,7 @@ namespace MyFootballMvc.Controllers
         else
         {
           current.Organization = landlord.Organization;
-          await _landlordService.Update(token, landlord);
+          await _landlordService.Update(token, current);
         }
 
         return Ok(200);

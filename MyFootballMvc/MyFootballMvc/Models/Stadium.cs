@@ -1,23 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyFootballMvc.Models
 {
   public class Stadium : EntityBase<Stadium>
   {
+    [Required]
     public string Owner { get; set; }
-    public double StadiumLength { get; set; }
-    public double StadiumWidth { get; set; }
+
+    [Display(Name = "Length")]
+    public double? StadiumLength { get; set; }
+
+    [Display(Name = "Width")]
+    public double? StadiumWidth { get; set; }
+
     public Surface Surface { get; set; }
-    public bool HasLigthing { get; set; }
+
+    [Display(Name = "Area")]
     public AreaType AreaType { get; set; }
+
+    [Display(Name = "Ligthing")]
+    public bool HasLigthing { get; set; }
+
+    [Display(Name = "Locker-room")]
     public bool HasLockerRoom { get; set; }
+
+    [Display(Name = "Field heating")]
     public bool HasFieldHeating { get; set; }
+
+    [Display(Name = "Tribunes")]
     public bool HasTribunes { get; set; }
-    public double PricePerHour { get; set; }
-    public WorkingHours WorkingHours { get; set; }
+
+    [Display(Name = "Price (per hour)")]
+    public double? PricePerHour { get; set; }
+
+    [Display(Name = "Working hours")]
+    public WorkingHours WorkingHours { get; set; } = new WorkingHours();
   }
 
   public enum AreaType
@@ -35,7 +53,10 @@ namespace MyFootballMvc.Models
 
   public class WorkingHours
   {
-    public TimeSpan StartTime { get; set; }
-    public TimeSpan EndTime { get; set; }
+    [Display(Name = "Start time")]
+    public TimeSpan? StartTime { get; set; }
+
+    [Display(Name = "End time")]
+    public TimeSpan? EndTime { get; set; }
   }
 }
