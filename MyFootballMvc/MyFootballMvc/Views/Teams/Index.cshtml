@@ -4,5 +4,160 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="container-fluid border-top">
+
+    @if (Model.Teams.Count != 0)
+    {
+    <div class="container-fluid">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                @for (int i = 0; i < Model.Teams.Count; i++)
+                {
+                    string a;
+                    bool selected;
+                    if (i == 0)
+                    {
+                        a = "nav-item nav-link active";
+                        selected = true;
+                    }
+                    else
+                    {
+                        a = "nav-item nav-link";
+                        selected = false;
+                    }
+                <a class="@a" id="nav-@Model.Teams.ElementAt(i).Id-tab" data-toggle="tab" href="#nav-@Model.Teams.ElementAt(i).Id" role="tab"
+                   aria-controls="nav-@Model.Teams.ElementAt(i).Id" aria-selected=@selected>@Model.Teams.ElementAt(i).Name</a>
+                }
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            @for (int i = 0; i < Model.Teams.Count; i++)
+            {
+                string a;
+                if (i == 0)
+                {
+                    a = "tab-pane fade show active";
+                }
+                else
+                {
+                    a = "tab-pane fade";
+                }
+                <div class="@a" id="nav-@Model.Teams.ElementAt(i).Id" role="tabpanel" aria-labelledby="nav-@Model.Teams.ElementAt(i).Id-tab">
+                    <div class="container">
+                            <h3>Players</h3>
+                            @if (Model.Teams.ElementAt(i).Players != null
+                          && Model.Teams.ElementAt(i).Players.Count != 0)
+                            {
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Birthdate</th>
+                                            <th>Position</th>
+                                            <th>Foot</th>
+                                            <th>Height</th>
+                                            <th>Weight</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Teams.ElementAt(i).Players)
+                                        {
+                                            <tr>
+                                                <td>@item.User.FirstName</td>
+                                                <td>@item.User.LastName</td>
+                                                <td>@item.User.Birthdate</td>
+                                                <td>@item.Position</td>
+                                                <td>@item.PhysicalStats.Foot</td>
+                                                <td>@item.PhysicalStats.Height</td>
+                                                <td>@item.PhysicalStats.Weight</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <h4>this Team has no Players</h4>
+                            }
+                            <button type="button" class="btn btn-primary">Invite a Player</button>
+                        </div>
+
+                        <div class="container">
+                            <h3>Staff Members</h3>
+                            @if (Model.Teams.ElementAt(i).StaffMembers != null
+                            && Model.Teams.ElementAt(i).StaffMembers.Count != 0)
+                            {
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Birthdate</th>
+                                            <th>License</th>
+                                            <th>Occupation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Teams.ElementAt(i).StaffMembers)
+                                        {
+                                            <tr>
+                                                <td>@item.User.FirstName</td>
+                                                <td>@item.User.LastName</td>
+                                                <td>@item.User.Birthdate</td>
+                                                <td>@item.License</td>
+                                                <td>@item.Occupation</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <h4>this Team has no Staff Members</h4>
+                            }
+                                <button type="button" class="btn btn-primary">Invite a Staff Member</button>
+                        </div>
+
+                        <div class="container">
+                            <h3>Managers</h3>
+                            @if (Model.Teams.ElementAt(i).Managers != null
+                           && Model.Teams.ElementAt(i).Managers.Count != 0)
+                            {
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Birthdate</th>
+                                            <th>License</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Teams.ElementAt(i).Managers)
+                                        {
+                                            <tr>
+                                                <td>@item.User.FirstName</td>
+                                                <td>@item.User.LastName</td>
+                                                <td>@item.User.Birthdate</td>
+                                                <td>@item.License</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <h4>this Team has no Managers</h4>
+                            }
+                            <button type="button" class="btn btn-primary">Invite a Manager</button>
+                        </div>
+                </div>
+            }
+        </div>
+    </div>
+        
+    }
+
+</div>
 

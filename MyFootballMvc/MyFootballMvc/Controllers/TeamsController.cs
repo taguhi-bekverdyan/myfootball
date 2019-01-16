@@ -28,13 +28,14 @@ namespace MyFootballMvc.Controllers
         [Route("Teams/Index")]
         public async Task<IActionResult> Index()
         {
-            return View("Index", await GetViewModel());
+            var viewModel = await GetTeamsIndexViewModel();
+            return View("Index", viewModel);
         }
 
-        [Route("Teams/CreateOrUpdate")]
+        [Route("Teams/Create")]
         public async Task<IActionResult> Create()
         {
-            var viewModel = await GetViewModel();
+            var viewModel = await GetTeamsCreateViewModel();
             viewModel.Team = new Team();
             viewModel.ViewType = ViewType.Create;
 
@@ -49,7 +50,7 @@ namespace MyFootballMvc.Controllers
             string id = await GetUserAuth0Id();
 
             if (!ModelState.IsValid) {
-                TeamsCreateViewModel viewModel = await GetViewModel();
+                TeamsCreateViewModel viewModel = await GetTeamsCreateViewModel();
                 viewModel.Team = team;
                 viewModel.ViewType = ViewType.Update;
                 return View("CreateOrUpdate",viewModel);
@@ -70,8 +71,9 @@ namespace MyFootballMvc.Controllers
                 await _teamsService.Update(token,current);
             }
 
-            return RedirectToAction();
+            return RedirectToAction("Index","Teams/Index");
         }
+
 
         #region Token
         private async Task<string> GetAccessToken()
@@ -106,9 +108,17 @@ namespace MyFootballMvc.Controllers
             });
         }
 
-        private async Task<TeamsCreateViewModel> GetViewModel()
+        private async Task<TeamsCreateViewModel> GetTeamsCreateViewModel()
         {
             return new TeamsCreateViewModel(await GetAccessToken(), await GetUserAuth0Id());
+        }
+
+        private async Task<TeamsIndexViewModel> GetTeamsIndexViewModel()
+        {
+            string token = await GetAccessToken();
+            string id = await GetUserAuth0Id();
+            return new TeamsIndexViewModel(token, id,
+                await _teamsService.FindTeamsByUserId(token,id));
         }
 
         #endregion
