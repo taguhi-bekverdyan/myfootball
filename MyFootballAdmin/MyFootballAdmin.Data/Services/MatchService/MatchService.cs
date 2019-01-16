@@ -37,7 +37,7 @@ namespace MyFootballAdmin.Data.Services.MatchService
         public async Task<List<Match>> FindAll()
         {
             var request = new RestRequest("match", Method.GET);
-            request.AddHeader("authorization", $"Bearer {token}");
+            request.AddHeader("authorization", $"Bearer {Token}");
 
             IRestResponse response = await _client.ExecuteTaskAsync(request);
 
@@ -48,7 +48,7 @@ namespace MyFootballAdmin.Data.Services.MatchService
         public async Task<Match> FindMatchById(string id)
         {
             var request = new RestRequest("match/{id}", Method.GET);
-            request.AddHeader("authorization", $"Bearer {token}");
+            request.AddHeader("authorization", $"Bearer {Token}");
             request.AddUrlSegment("id", id);
 
             IRestResponse response = await _client.ExecuteTaskAsync(request);
@@ -72,7 +72,7 @@ namespace MyFootballAdmin.Data.Services.MatchService
         public async Task Create(Match match)
         {
             var request = new RestRequest("match/create", Method.POST);
-            request.AddHeader("authorization", $"Bearer {token}");
+            request.AddHeader("authorization", $"Bearer {Token}");
             request.RequestFormat = DataFormat.Json;
             request.AddBody(match);
             IRestResponse response = await _client.ExecuteTaskAsync(request);
@@ -81,7 +81,7 @@ namespace MyFootballAdmin.Data.Services.MatchService
         public async Task Update(Match match)
         {
             var request = new RestRequest("match/update", Method.PUT);
-            request.AddHeader("authorization", $"Bearer {token}");
+            request.AddHeader("authorization", $"Bearer {Token}");
             request.RequestFormat = DataFormat.Json;
             request.AddBody(match);
             IRestResponse response = await _client.ExecuteTaskAsync(request);
