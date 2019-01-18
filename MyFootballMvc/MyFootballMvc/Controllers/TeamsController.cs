@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using MyFootballMvc.Services;
 using MyFootballMvc.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyFootballMvc.Controllers
 {
@@ -25,12 +26,51 @@ namespace MyFootballMvc.Controllers
             _teamsService = new TeamsService();
         }
 
+        [Authorize]
         [Route("Teams/Index")]
         public async Task<IActionResult> Index()
         {
-            var viewModel = await GetTeamsIndexViewModel();
+            var viewModel = await GetTeamsIndexViewModel(ViewMode.Description);
             return View("Index", viewModel);
         }
+
+        #region TEAM_INFO_ACTIONS
+
+        [Route("Teams/Fixtures")]
+        public async Task<IActionResult> Fixtures()
+        {
+            return View("Index", await GetTeamsIndexViewModel(ViewMode.Fixtures));
+        }
+
+        [Route("Teams/Players")]
+        public async Task<IActionResult> Players()
+        {
+            return View("Index", await GetTeamsIndexViewModel(ViewMode.Players));
+        }
+
+        [Route("Teams/StaffMembers")]
+        public async Task<IActionResult> StaffMembers()
+        {
+            return View("Index", await GetTeamsIndexViewModel(ViewMode.StaffMemebers));
+        }
+
+        [Route("Teams/Coaches")]
+        public async Task<IActionResult> Coaches()
+        {
+            return View("Index", await GetTeamsIndexViewModel(ViewMode.Coaches));
+        }
+
+        [Route("Teams/Invite")]
+        public async Task<IActionResult> Invite()
+        {
+            return View("Index", await GetTeamsIndexViewModel(ViewMode.Description));
+        }
+
+        #endregion
+
+
+
+        #region CREATE_TEAM_ACTIONS
 
         [Route("Teams/Create")]
         public async Task<IActionResult> Create()
@@ -49,14 +89,15 @@ namespace MyFootballMvc.Controllers
             string token = await GetAccessToken();
             string id = await GetUserAuth0Id();
 
-            if (!ModelState.IsValid) {
+            if (!ModelState.IsValid)
+            {
                 TeamsCreateViewModel viewModel = await GetTeamsCreateViewModel();
                 viewModel.Team = team;
                 viewModel.ViewType = ViewType.Update;
-                return View("CreateOrUpdate",viewModel);
+                return View("CreateOrUpdate", viewModel);
             }
 
-            User user = await _usersSevice.FindUserById(token,id);
+            User user = await _usersSevice.FindUserById(token, id);
 
             if (string.IsNullOrEmpty(team.Id))
             {
@@ -65,17 +106,18 @@ namespace MyFootballMvc.Controllers
             }
             else
             {
-                Team current = await _teamsService.FindTeamById(token,team.Id);
+                Team current = await _teamsService.FindTeamById(token, team.Id);
                 current.Name = team.Name;
                 current.ShortName = team.ShortName;
-                await _teamsService.Update(token,current);
+                await _teamsService.Update(token, current);
             }
 
-            return RedirectToAction("Index","Teams/Index");
+            return RedirectToAction("Index", "Teams/Index");
         }
 
+        #endregion
 
-        #region Token
+        #region TOKEN
         private async Task<string> GetAccessToken()
         {
             if (User.Identity.IsAuthenticated)
@@ -108,17 +150,22 @@ namespace MyFootballMvc.Controllers
             });
         }
 
+
+
+        #endregion
+
+        #region GET_METHODS_FOR_VIEW_MODELS
+
         private async Task<TeamsCreateViewModel> GetTeamsCreateViewModel()
         {
             return new TeamsCreateViewModel(await GetAccessToken(), await GetUserAuth0Id());
         }
 
-        private async Task<TeamsIndexViewModel> GetTeamsIndexViewModel()
+        private async Task<MyTeamIndexViewModel> GetTeamsIndexViewModel(ViewMode mode)
         {
             string token = await GetAccessToken();
             string id = await GetUserAuth0Id();
-            return new TeamsIndexViewModel(token, id,
-                await _teamsService.FindTeamsByUserId(token,id));
+            return new MyTeamIndexViewModel(token, id,mode);
         }
 
         #endregion

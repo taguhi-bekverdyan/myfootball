@@ -1,0 +1,58 @@
+﻿@model MyFootballMvc.ViewModels.RequestsIndexViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MyTeamLayout.cshtml";
+}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    @if (Model.Players.Count != 0)
+    {
+
+        <table class="table table-striped" id="js-free-players-table">
+            <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Birthdate</th>
+                    <th scope="col">Height</th>
+                    <th scope="col">Weight</th>
+                    <th scope="col">Foot</th>
+                    <th scope="col">Invite</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var player in Model.Players)
+                {
+                    <tr>
+                        <td>@player.User.FirstName</td>
+                        <td>@player.User.LastName</td>
+                        <td>@player.User.Birthdate</td>
+                        <td>@player.PhysicalStats.Height</td>
+                        <td>@player.PhysicalStats.Weight</td>
+                        <td>@player.PhysicalStats.Foot</td>
+                        <td>
+                            <button class="btn btn-primary players-invite-buttons" id="@player.Id">Invite</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+    else
+    {
+        <h2>There are not free players</h2>
+    }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#js-free-players-table").DataTable();
+
+        $(".players-invite-buttons").click(function () {
+            var playerId = $(this).attr("id");
+            console.log(playerId);
+        });
+
+    });
+</script>

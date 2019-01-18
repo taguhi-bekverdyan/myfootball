@@ -1,0 +1,48 @@
+﻿@model MyFootballMvc.ViewModels.MyTeamViewModel
+@{
+    ViewData["Title"] = "_MyTeamLayout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" asp-area="" asp-controller="Teams" asp-action="Index">@Model.Team.Name</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#leagueNavbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="leagueNavbar">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="Fixtures">Fixtures</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="Players">Players</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="StaffMembers">Staff Members</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="Coaches">Coaches</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Requests" asp-action="Index">Invite</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="body-content">
+        @RenderBody()
+    </div>
+</body>
+</html>
+
