@@ -208,10 +208,15 @@
       <DependentUpon>AddTournamentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AddTournament\AddTournamentViewModel.cs" />
+    <Compile Include="Views\AddTournament\GenerateLeagueView.xaml.cs">
+      <DependentUpon>GenerateLeagueView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddTournament\GenerateLeagueViewModel.cs" />
     <Compile Include="Views\Error\ErrorView.xaml.cs">
       <DependentUpon>ErrorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Error\ErrorViewModel.cs" />
+    <Compile Include="Views\Helpers\BoolInverterConverter.cs" />
     <Compile Include="Views\Helpers\NotificationEvent.cs" />
     <Compile Include="Views\Main\BesidesToolBarView.xaml.cs">
       <DependentUpon>BesidesToolBarView.xaml</DependentUpon>
@@ -287,6 +292,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddTournament\AddTournamentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddTournament\GenerateLeagueView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

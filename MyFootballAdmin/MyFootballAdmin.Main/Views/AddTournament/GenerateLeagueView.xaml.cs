@@ -16,15 +16,13 @@ using System.Windows.Shapes;
 namespace MyFootballAdmin.Main.Views.AddTournament
 {
     /// <summary>
-    /// Interaction logic for AddLeagueView.xaml
+    /// Логика взаимодействия для GenerateLeagueView.xaml
     /// </summary>
-    public partial class AddLeagueView : UserControl
+    public partial class GenerateLeagueView : UserControl
     {
-        public AddLeagueView()
+        public GenerateLeagueView()
         {
             InitializeComponent();
         }
-
-      
     }
 }

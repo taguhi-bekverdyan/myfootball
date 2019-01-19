@@ -47,6 +47,7 @@ namespace MyFootballAdmin.Main
             _unityContainer.RegisterType<object, MatchEditView>(typeof(MatchEditView).FullName);
             _unityContainer.RegisterType<object, TournamentsView>(typeof(TournamentsView).FullName);
             _unityContainer.RegisterType<object, TournamentEditView>(typeof(TournamentEditView).FullName);
+            _unityContainer.RegisterType<object, GenerateLeagueView>(typeof(GenerateLeagueView).FullName);
         }
     }
 }

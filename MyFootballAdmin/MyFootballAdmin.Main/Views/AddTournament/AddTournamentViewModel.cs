@@ -8,15 +8,8 @@ using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using System.Windows.Forms;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
-using System.Drawing;
-using System.IO;
-using System.Drawing.Imaging;
 using MyFootballAdmin.Data.Models;
 
 namespace MyFootballAdmin.Main.Views.AddTournament
@@ -65,13 +58,13 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             set { SetProperty(ref _priority, value); }
         }
 
-        //private string _imagePath;
+        private string _imagePath;
 
-        //public string ImagePath
-        //{
-        //    get { return _imagePath; }
-        //    set { SetProperty(ref _imagePath, value); }
-        //}
+        public string ImagePath
+        {
+            get { return _imagePath; }
+            set { SetProperty(ref _imagePath, value); }
+        }
 
         private TournamentType _tournamentType;
 
@@ -88,9 +81,10 @@ namespace MyFootballAdmin.Main.Views.AddTournament
         #region Commands
 
         private DelegateCommand _nextCommand;
+        private DelegateCommand _chooseCommand;
 
         public DelegateCommand NextCommand => _nextCommand ?? (_nextCommand = new DelegateCommand(NextCommandAction));
-
+        public DelegateCommand ChooseCommand => _chooseCommand ?? (_chooseCommand = new DelegateCommand(ChooseCommandAction));
 
         public void NextCommandAction()
         {
@@ -98,9 +92,13 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             Tournament.Name = Name;
             Tournament.Priority = Priority;
             Tournament.TournamentType = TournamentType;
-            //Tournament.image = GetBytesFromImage(ImagePath);
+            //Tournament.Logo.Link = ImagePath;
             NavigationParameters param;
             param = new NavigationParameters { { "request", Tournament} };
+            MessageBox.Show(Tournament.Name);
+            MessageBox.Show(Tournament.Priority.ToString());
+            MessageBox.Show(Tournament.TournamentType.ToString());
+           // MessageBox.Show(Tournament.Logo.Link);
             if (TournamentType.Equals(TournamentType.League))
             {
                 _regionManager.RequestNavigate(RegionNames.AddTournamentRegion, typeof(AddLeagueView).FullName, param);
@@ -109,6 +107,20 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             {
                 _regionManager.RequestNavigate(RegionNames.AddTournamentRegion, typeof(AddCupView).FullName, param);
             }
+        }
+        private void ChooseCommandAction()
+        {
+            //OpenFileDialog fileChooser = new OpenFileDialog();
+            //fileChooser.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+            //fileChooser.FilterIndex = 1;
+            //fileChooser.Multiselect = true;
+
+            //if (fileChooser.ShowDialog() == DialogResult.OK)
+            //{
+            //    ImagePath = fileChooser.FileName;
+            //}
+
+            MessageBox.Show("IIOJK");
         }
 
         //private DelegateCommand _chooseImageCommand;
