@@ -6,6 +6,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
+    
     @if (Model.Players.Count != 0)
     {
 
@@ -45,14 +46,121 @@
         <h2>There are not free players</h2>
     }
 
+    <br/>
+
+    @if (Model.Staffs.Count != 0)
+    {
+        <table class="table table-striped" id="js-free-staffs-table">
+            <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Birthdate</th>
+                    <th scope="col">Occupation</th>
+                    <th scope="col">Invite</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var staff in Model.Staffs)
+                {
+                    <tr>
+                        <td>@staff.User.FirstName</td>
+                        <td>@staff.User.LastName</td>
+                        <td>@staff.User.Birthdate</td>
+                        <td>@staff.Occupation</td>
+                        
+                        <td>
+                            <button class="btn btn-primary staffs-invite-buttons" id="@staff.Id">Invite</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h2>There are not free staffs</h2>
+    }
+
+    <br/>
+
+
+    @if (Model.Coaches.Count != 0)
+    {
+        <table class="table table-striped" id="js-free-coaches-table">
+            <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Birthdate</th>
+                    <th scope="col">Invite</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var coach in Model.Coaches)
+                {
+                    <tr>
+                        <td>@coach.User.FirstName</td>
+                        <td>@coach.User.LastName</td>
+                        <td>@coach.User.Birthdate</td>
+                        <td>
+                            <button class="btn btn-primary coaches-invite-buttons" id="@coach.Id">Invite</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h2>There are not free staffs</h2>
+    }
+
 <script type="text/javascript">
     $(document).ready(function () {
+        //initeing a player logic
         $("#js-free-players-table").DataTable();
-
         $(".players-invite-buttons").click(function () {
             var playerId = $(this).attr("id");
-            console.log(playerId);
+            var requestTo = 0;
+
+            bootbox.prompt("Message", function (result) {
+                if (result != null) {
+                    console.log(playerId);
+                }
+            });
+
         });
+
+        //inviteing a staff logic
+
+        $("#js-free-staffs-table").DataTable();
+        $(".staffs-invite-button").click(function () {
+            var staffId = $(this).attr("id");
+            var requestTo = 1;
+
+            bootbox.prompt("Message", function (result) {
+                if (result != null) {
+                    console.log(staffId);
+                }
+            });
+
+        });
+
+        //inviteing a coach logic
+        $("#js-free-choaches-table").DataTable();
+        $(".coaches-invite-buttons").click(function () {
+            var coachId = $(this).attr("id");
+            var requestTo = 2;
+
+            bootbox.prompt("Message", function (result) {
+                if (result != null) {
+                    console.log(coachId);
+                }
+            });
+
+        });
+
 
     });
 </script>

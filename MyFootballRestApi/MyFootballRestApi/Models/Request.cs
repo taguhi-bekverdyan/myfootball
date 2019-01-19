@@ -32,5 +32,6 @@ namespace MyFootballRestApi.Models
         public RequestStatus RequestStatus { get; set; }
         [Required]
         public RequestTo RequestTo { get; set; }
+        public string Message { get; set; }
     }
 }
