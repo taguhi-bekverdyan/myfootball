@@ -9,7 +9,8 @@
     
     @if (Model.Players.Count != 0)
     {
-
+        <h3>Players</h3>
+        <br />
         <table class="table table-striped" id="js-free-players-table">
             <thead>
                 <tr>
@@ -50,6 +51,8 @@
 
     @if (Model.Staffs.Count != 0)
     {
+        <h3>Staffs</h3>
+        <br />
         <table class="table table-striped" id="js-free-staffs-table">
             <thead>
                 <tr>
@@ -87,6 +90,8 @@
 
     @if (Model.Coaches.Count != 0)
     {
+        <h3>Coaches</h3>
+        <br />
         <table class="table table-striped" id="js-free-coaches-table">
             <thead>
                 <tr>
@@ -123,10 +128,9 @@
         $(".players-invite-buttons").click(function () {
             var playerId = $(this).attr("id");
             var requestTo = 0;
-
             bootbox.prompt("Message", function (result) {
                 if (result != null) {
-                    console.log(playerId);
+                    inviteAjaxRequest(playerId,requestTo,result);
                 }
             });
 
@@ -135,32 +139,44 @@
         //inviteing a staff logic
 
         $("#js-free-staffs-table").DataTable();
-        $(".staffs-invite-button").click(function () {
+        $(".staffs-invite-buttons").click(function () {
             var staffId = $(this).attr("id");
             var requestTo = 1;
 
             bootbox.prompt("Message", function (result) {
                 if (result != null) {
-                    console.log(staffId);
+                    inviteAjaxRequest(staffId, requestTo, result);
                 }
             });
 
         });
 
         //inviteing a coach logic
-        $("#js-free-choaches-table").DataTable();
+        $("#js-free-coaches-table").DataTable();
         $(".coaches-invite-buttons").click(function () {
             var coachId = $(this).attr("id");
             var requestTo = 2;
 
             bootbox.prompt("Message", function (result) {
                 if (result != null) {
-                    console.log(coachId);
+                    inviteAjaxRequest(coachId, requestTo, result);
                 }
             });
 
         });
 
+        function inviteAjaxRequest(playerId, requestTo, message) {
+            var param = { Id: playerId, RequestTo: requestTo, Message: message };
+            $.ajax({
+                url: "Requests/Invite",
+                method: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(param)
+            }).done(function () {
+                bootbox.alert("The invite message has been sent");
+            });
+        }
 
     });
 </script>
