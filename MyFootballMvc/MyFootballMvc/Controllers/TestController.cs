@@ -13,8 +13,8 @@ using RestSharp;
 
 namespace MyFootballMvc.Controllers
 {
-    public class TestController : Controller
-    {
+  public class TestController : Controller
+  {
 
         private EmailService _emailService { get; set; }
 
@@ -30,24 +30,24 @@ namespace MyFootballMvc.Controllers
             {
                 var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-                // if you need to check the access token expiration time, use this value
-                // provided on the authorization response and stored.
-                // do not attempt to inspect/decode the access token
-                var accessTokenExpiresAt = DateTime.Parse(
-                    await HttpContext.GetTokenAsync("expires_at"),
-                    CultureInfo.InvariantCulture,
-                    DateTimeStyles.RoundtripKind);
+        // if you need to check the access token expiration time, use this value
+        // provided on the authorization response and stored.
+        // do not attempt to inspect/decode the access token
+        var accessTokenExpiresAt = DateTime.Parse(
+            await HttpContext.GetTokenAsync("expires_at"),
+            CultureInfo.InvariantCulture,
+            DateTimeStyles.RoundtripKind);
 
-                var idToken = await HttpContext.GetTokenAsync("id_token");
+        var idToken = await HttpContext.GetTokenAsync("id_token");
 
-                return accessToken;
+        return accessToken;
 
-                // Now you can use them. For more info on when and how to use the 
-                // access_token and id_token, see https://auth0.com/docs/tokens
-            }
-            return string.Empty;
+        // Now you can use them. For more info on when and how to use the 
+        // access_token and id_token, see https://auth0.com/docs/tokens
+      }
+      return string.Empty;
 
-        }
+    }
 
         public async Task<IActionResult> Index()
         {
@@ -57,62 +57,62 @@ namespace MyFootballMvc.Controllers
         }
 
 
-        public async Task<IActionResult> TestPublic()
-        {
-            var client = new RestClient("https://localhost:44350/api/test/public");
-            var request = new RestRequest(Method.GET);
-            //request.AddHeader("authorization", "Bearer YOUR_ACCESS_TOKEN");
-            request.AddHeader("authorization", $"Bearer {await GetAccessToken()}");
-            var response = client.Execute(request);
+    public async Task<IActionResult> TestPublic()
+    {
+      var client = new RestClient("https://localhost:44350/api/test/public");
+      var request = new RestRequest(Method.GET);
+      //request.AddHeader("authorization", "Bearer YOUR_ACCESS_TOKEN");
+      request.AddHeader("authorization", $"Bearer {await GetAccessToken()}");
+      var response = client.Execute(request);
 
-            dynamic json = JsonConvert.DeserializeObject(response.Content);
+      dynamic json = JsonConvert.DeserializeObject(response.Content);
 
-            ViewData["Message"] = json.message;
+      ViewData["Message"] = json.message;
 
-            return View("~/Views/Test/Test.cshtml",new TestViewModel());
-        }
+      return View("~/Views/Test/Test.cshtml", new TestViewModel());
+    }
 
-        public async Task<IActionResult> TestPrivate()
-        {
-            var client = new RestClient("https://localhost:44350/api/test/private");
-            var request = new RestRequest(Method.GET);
-            request.AddHeader("authorization", $"Bearer {await GetAccessToken()}");
-            var response = client.Execute(request);
+    public async Task<IActionResult> TestPrivate()
+    {
+      var client = new RestClient("https://localhost:44350/api/test/private");
+      var request = new RestRequest(Method.GET);
+      request.AddHeader("authorization", $"Bearer {await GetAccessToken()}");
+      var response = client.Execute(request);
 
-            dynamic json = JsonConvert.DeserializeObject(response.Content);
+      dynamic json = JsonConvert.DeserializeObject(response.Content);
 
-            ViewData["Message"] = json.message;
+      ViewData["Message"] = json.message;
 
-            return View("~/Views/Test/Test.cshtml", new TestViewModel());
-        }
+      return View("~/Views/Test/Test.cshtml", new TestViewModel());
+    }
 
-        public async Task<IActionResult> TestUser()
-        {
-            var client = new RestClient("https://localhost:44350/api/test/private-user");
-            var request = new RestRequest(Method.GET);
-            request.AddHeader("authorization", $"Bearer {await GetAccessToken()}");
-            var response = client.Execute(request);
+    public async Task<IActionResult> TestUser()
+    {
+      var client = new RestClient("https://localhost:44350/api/test/private-user");
+      var request = new RestRequest(Method.GET);
+      request.AddHeader("authorization", $"Bearer {await GetAccessToken()}");
+      var response = client.Execute(request);
 
-            dynamic json = JsonConvert.DeserializeObject(response.Content);
+      dynamic json = JsonConvert.DeserializeObject(response.Content);
 
-            ViewData["Message"] = json.message;
+      ViewData["Message"] = json.message;
 
-            return View("~/Views/Test/Test.cshtml", new TestViewModel());
-        }
+      return View("~/Views/Test/Test.cshtml", new TestViewModel());
+    }
 
-        public async Task<IActionResult> TestAdmin()
-        {
-            var client = new RestClient("https://localhost:44350/api/test/private-admin");
-            var request = new RestRequest(Method.GET);
-            request.AddHeader("authorization", $"Bearer {await GetAccessToken()}");
-            var response = client.Execute(request);
+    public async Task<IActionResult> TestAdmin()
+    {
+      var client = new RestClient("https://localhost:44350/api/test/private-admin");
+      var request = new RestRequest(Method.GET);
+      request.AddHeader("authorization", $"Bearer {await GetAccessToken()}");
+      var response = client.Execute(request);
 
-            dynamic json = JsonConvert.DeserializeObject(response.Content);
+      dynamic json = JsonConvert.DeserializeObject(response.Content);
 
-            ViewData["Message"] = json.message;
+      ViewData["Message"] = json.message;
 
-            return View("~/Views/Test/Test.cshtml", new TestViewModel());
-        }
+      return View("~/Views/Test/Test.cshtml", new TestViewModel());
+    }
 
         public async Task<IActionResult> SendEmail(Email email)
         {
@@ -127,12 +127,12 @@ namespace MyFootballMvc.Controllers
             request.AddHeader("authorization", $"Bearer {await GetAccessToken()}");
             var response = client.Execute(request);
 
-            dynamic json = JsonConvert.DeserializeObject(response.Content);
+      dynamic json = JsonConvert.DeserializeObject(response.Content);
 
-            ViewData["Message"] = response.Content;
+      ViewData["Message"] = response.Content;
 
-            return View("~/Views/Test/Test.cshtml", new TestViewModel());
-        }
+      return View("~/Views/Test/Test.cshtml", new TestViewModel());
+    }
 
 
 
@@ -143,4 +143,4 @@ namespace MyFootballMvc.Controllers
         }
 
     }
-}
+  }
