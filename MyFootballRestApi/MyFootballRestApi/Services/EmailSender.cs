@@ -6,9 +6,9 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace MyFootballMvc.Services
+namespace MyFootballRestApi.Services
 {
-    public class EmailSender: IEmailSender
+    public class EmailSender : IEmailSender
     {
         // Our private configuration variables
         private string host;
@@ -39,32 +39,6 @@ namespace MyFootballMvc.Services
             return client.SendMailAsync(
                 new MailMessage(userName, email, subject, htmlMessage) { IsBodyHtml = true }
             );
-
         }
-
-        //public Task SendEmailAsync(string email, string subject, string htmlMessage)
-        //{
-        //    var client = new SmtpClient("smtp.zoho.com", 465)
-        //    {
-        //        //Host = "smtp.zoho.com",
-        //        //Port = 465,
-        //        //EnableSsl = true,
-        //        //DeliveryMethod = SmtpDeliveryMethod.Network,
-        //        UseDefaultCredentials = false,
-        //        Credentials = new NetworkCredential("myfootball.info@soulstudio.club", "WA8r`*@`Y9N6{3x")
-        //    };
-
-        //    var mailMessage = new MailMessage
-        //    {
-        //        From = new MailAddress("myfootball.info@soulstudio.club")
-        //    };
-        //    mailMessage.To.Add("tagnvard@gmail.com");
-        //    mailMessage.Subject = "Hi";
-        //    mailMessage.IsBodyHtml = true;
-        //    mailMessage.Body = "hi";
-        //    mailMessage.Priority = MailPriority.High;
-
-        //    return client.SendMailAsync(mailMessage);
-        //}
     }
 }

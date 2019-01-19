@@ -16,12 +16,13 @@ namespace MyFootballMvc.Controllers
     public class TestController : Controller
     {
 
-        private readonly IEmailSender _enailSender;
+        private EmailService _emailService { get; set; }
 
-        public TestController(IEmailSender emailSender)
+        public TestController()
         {
-            _enailSender = emailSender;
+            _emailService = new EmailService();
         }
+        
 
         private async Task<string> GetAccessToken()
         {
@@ -115,7 +116,7 @@ namespace MyFootballMvc.Controllers
 
         public async Task<IActionResult> SendEmail(Email email)
         {
-            await _enailSender.SendEmailAsync(email.Address,email.Subject,email.Message);
+            await _emailService.Insert(await GetAccessToken(), email);
             return View("Index", new TestViewModel());
         }
 
@@ -133,10 +134,13 @@ namespace MyFootballMvc.Controllers
             return View("~/Views/Test/Test.cshtml", new TestViewModel());
         }
 
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

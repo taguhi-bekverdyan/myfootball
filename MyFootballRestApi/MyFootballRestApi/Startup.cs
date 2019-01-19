@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyFootballRestApi.Configuration;
+using MyFootballRestApi.Services;
 using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -47,6 +49,16 @@ namespace MyFootballRestApi
                 options.AddPolicy("Admin",
                     policy => policy.Requirements.Add(new HasGroupRequirement("Admin", domain)));
             });
+
+            services.AddTransient<IEmailSender, EmailSender>(i =>
+                new EmailSender(
+                    Configuration["EmailSender:Host"],
+                    Configuration.GetValue<int>("EmailSender:Port"),
+                    Configuration.GetValue<bool>("EmailSender:EnableSSL"),
+                    Configuration["EmailSender:UserName"],
+                    Configuration["EmailSender:Password"]
+                )
+            );
 
             // register the scope authorization handler
             services.AddSingleton<IAuthorizationHandler, HasGroupHandler>();
