@@ -1,25 +1,24 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using MyFootballRestApi.Data;
+using MyFootballRestApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using MyFootballRestApi.Data;
-using MyFootballRestApi.Models;
 
 namespace MyFootballRestApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LeagueController : ControllerBase
+    public class CupController : ControllerBase
     {
 
-        private readonly IRepository<League> _leagueRepository;
+        private readonly IRepository<Cup> _cupRepository;
 
-        public LeagueController()
+        public CupController()
         {
-            _leagueRepository = new CouchbaseRepository<League>();
+            _cupRepository = new CouchbaseRepository<Cup>();
         }
 
         #region GET
@@ -28,41 +27,41 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                var leagues = await _leagueRepository.GetAll(typeof(League));
-                return Ok(leagues);
+                var cup = await _cupRepository.GetAll(typeof(Cup));
+                return Ok(cup);
             }
             catch (Exception e)
             {
-                return StatusCode(500,e);
+                return StatusCode(500, e);
             }
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetLeagueById([FromRoute]string id)
+        public async Task<IActionResult> GetCupById([FromRoute]string id)
         {
             try
             {
-                var league = await _leagueRepository.Get(id);
-                return Ok(league);
+                var cup = await _cupRepository.Get(id);
+                return Ok(cup);
             }
             catch (Exception e)
             {
-                return StatusCode(500,e);
+                return StatusCode(500, e);
             }
         }
 
         [HttpGet("{name}")]
-        public async Task<IActionResult> GetLeagueByName([FromRoute]string name)
+        public async Task<IActionResult> GetCupByName([FromRoute]string name)
         {
             try
             {
-                List<League> leagues = await _leagueRepository.GetAll(typeof(League));
-                var  league = leagues.FirstOrDefault(p => p.Tournament.Name == name);
-                if ( league == null )
+                List<Cup> cups = await _cupRepository.GetAll(typeof(Cup));
+                var cup = cups.FirstOrDefault(p => p.Tournament.Name == name);
+                if (cup == null)
                 {
                     return NotFound();
                 }
-                return Ok(league);
+                return Ok(cup);
             }
             catch (Exception e)
             {
@@ -71,13 +70,13 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpGet("{startDate}")]
-        public async Task<IActionResult> GetLeagueByStartDate([FromRoute]string startDate)
+        public async Task<IActionResult> GetCupByStartDate([FromRoute]string startDate)
         {
             try
             {
-                DateTime startdate = DateTime.ParseExact(startDate, "dd-mm-yyyy", CultureInfo.InvariantCulture);
-                List<League> leagues = await _leagueRepository.GetAll(typeof(League));
-                var cup = leagues.FirstOrDefault(p => p.StartDate == startdate);
+                DateTime startdate = DateTime.ParseExact(startDate,"dd-mm-yyyy", CultureInfo.InvariantCulture);
+                List<Cup> cups = await _cupRepository.GetAll(typeof(Cup));
+                var cup = cups.FirstOrDefault(p => p.StartDate == startdate);
                 if (cup == null)
                 {
                     return NotFound();
@@ -95,29 +94,29 @@ namespace MyFootballRestApi.Controllers
         #region POST
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create([FromBody] League league)
+        public async Task<IActionResult> Create([FromBody]Cup cup)
         {
             try
             {
-                league.Id = Guid.NewGuid().ToString();
-                var result = await _leagueRepository.Create(league);
+                cup.Id = Guid.NewGuid().ToString();
+                var result = await _cupRepository.Create(cup);
                 if (result == null) { return BadRequest(result); }
-                return Created(string.Format("/api/Leagues/{0}",league.Id),result);
+                return Created(string.Format("/api/Cups/{0}", cup.Id), result);
             }
             catch (Exception e)
             {
-                return StatusCode(500,e);
+                return StatusCode(500, e);
             }
         }
 
         [HttpPost("Upsert")]
-        public async Task<IActionResult> Upsert([FromBody] League league)
+        public async Task<IActionResult> Upsert([FromBody]Cup cup)
         {
             try
             {
-                var result = await _leagueRepository.Upsert(league);
+                var result = await _cupRepository.Upsert(cup);
                 if (result == null) { return BadRequest(); }
-                return Created(string.Format("/api/Leagues/{0}", league.Id), result);
+                return Created(string.Format("/api/Leagues/{0}", cup.Id), result);
             }
             catch (Exception e)
             {
@@ -130,17 +129,17 @@ namespace MyFootballRestApi.Controllers
         #region PUT
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update([FromBody]League league)
+        public async Task<IActionResult> Update([FromBody]Cup cup)
         {
             try
             {
-                var result = await _leagueRepository.Update(league);
+                var result = await _cupRepository.Update(cup);
                 if (result == null) { return BadRequest(result); }
                 return Ok(result);
             }
             catch (Exception e)
             {
-                return StatusCode(500,e);
+                return StatusCode(500, e);
             }
         }
 
@@ -153,16 +152,15 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                await _leagueRepository.Delete(id);
+                await _cupRepository.Delete(id);
                 return Ok();
             }
             catch (Exception e)
             {
-                return StatusCode(500,e);
+                return StatusCode(500, e);
             }
         }
 
         #endregion
-
     }
 }

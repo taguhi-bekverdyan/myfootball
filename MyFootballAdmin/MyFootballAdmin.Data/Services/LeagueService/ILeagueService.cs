@@ -14,5 +14,7 @@ namespace MyFootballAdmin.Data.Services.LeagueService
         Task Delete(string id);
         Task<List<League>> FindAll();
         Task<League> FindLeagueById(string id);
+        Task<League> FindLeagueByName(string id);
+        Task<League> FindLeagueByStartDate(string startDate);
     }
 }

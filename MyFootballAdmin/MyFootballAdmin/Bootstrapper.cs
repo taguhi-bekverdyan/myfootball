@@ -8,6 +8,7 @@ using Auth0.OidcClient;
 using Microsoft.Practices.Unity;
 using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Common.Views;
+using MyFootballAdmin.Data.Services.CupService;
 using MyFootballAdmin.Data.Services.Helpers;
 using MyFootballAdmin.Data.Services.LeagueService;
 using MyFootballAdmin.Data.Services.MatchService;
@@ -48,7 +49,7 @@ namespace MyFootballAdmin
             Container.RegisterType<ILeagueService, LeagueService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ITeamsService, TeamsService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMatchService, MatchService>(new ContainerControlledLifetimeManager());
-            //Container.RegisterType<ICupService, CupService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ICupService, CupService>(new ContainerControlledLifetimeManager());
         }
 
         protected override DependencyObject CreateShell()

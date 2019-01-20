@@ -12,7 +12,7 @@ namespace MyFootballAdmin.Data.Services.LeagueService
 {
     public class LeagueService : ILeagueService
     {
-        private const string Endpoint = "https://localhost:44350/api";
+        private const string Endpoint = @"https://localhost:44350/api/";
         private readonly RestClient _client;
         public string Token { get; set; }
         public DateTime ExpiresAt { get; set; }
@@ -31,7 +31,14 @@ namespace MyFootballAdmin.Data.Services.LeagueService
             IRestResponse response = await _client.ExecuteTaskAsync(request);
 
             List<League> leagues = JsonConvert.DeserializeObject<List<League>>(response.Content);
-            return leagues;
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+            else
+            {
+                return leagues;
+            }
         }
 
         public async Task<League> FindLeagueById(string id)
@@ -43,7 +50,53 @@ namespace MyFootballAdmin.Data.Services.LeagueService
             IRestResponse response = await _client.ExecuteTaskAsync(request);
 
             League league = JsonConvert.DeserializeObject<League>(response.Content);
-            return league;
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+            else
+            {
+                return league;
+            }
+        }
+
+        public async Task<League> FindLeagueByName(string name)
+        {
+            var request = new RestRequest("league/{name}", Method.GET);
+            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddUrlSegment("name", name);
+
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
+
+            League league = JsonConvert.DeserializeObject<League>(response.Content);
+
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+            else
+            {
+                return league;
+            }
+        }
+
+        public async Task<League> FindLeagueByStartDate(string startDate)
+        {
+            var request = new RestRequest("league/{startDate}", Method.GET);
+            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddUrlSegment("startDate", startDate);
+
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
+
+            League league = JsonConvert.DeserializeObject<League>(response.Content);
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+            else
+            {
+                return league;
+            }
         }
 
         //public async Task<League> GetLeagueByUserId(string accessToken, string id)
@@ -65,6 +118,10 @@ namespace MyFootballAdmin.Data.Services.LeagueService
             request.RequestFormat = DataFormat.Json;
             request.AddBody(league);
             IRestResponse response = await _client.ExecuteTaskAsync(request);
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
         }
 
         public async Task Update(League league)
@@ -74,6 +131,10 @@ namespace MyFootballAdmin.Data.Services.LeagueService
             request.RequestFormat = DataFormat.Json;
             request.AddBody(league);
             IRestResponse response = await _client.ExecuteTaskAsync(request);
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
         }
 
         public async Task Delete(string id)
@@ -86,5 +147,9 @@ namespace MyFootballAdmin.Data.Services.LeagueService
                 throw new Exception(response.ErrorMessage);
             }
         }
+
+
+
     }
 }
+

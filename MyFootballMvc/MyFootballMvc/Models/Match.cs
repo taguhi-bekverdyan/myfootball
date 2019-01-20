@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MyFootballRestApi.Models
+namespace MyFootballMvc.Models
 {
     public class Match:EntityBase<Match>
     {       
@@ -13,6 +13,5 @@ namespace MyFootballRestApi.Models
         public int GoalClub1 { get; set; }
         public int GoalClub2 { get; set; }
         public Guid RefereeId { get; set; }
-        //public Round Round;
     }
 }

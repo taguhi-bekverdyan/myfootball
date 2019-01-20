@@ -23,28 +23,27 @@ namespace MyFootballAdmin.Main.Views.Pauses
             _eventAggregator = eventAggregator;
         }
 
-        //private DateTime _pauseStartDate;
+        private DateTime _startDate;
 
-        //public DateTime PauseStartDate
-        //{
-        //    get { return _pauseStartDate; }
-        //    set
-        //    {
-        //        SetProperty(ref _pauseStartDate, value);
-        //    }
-        //}
+        public DateTime StartDate
+        {
+            get { return _startDate; }
+            set
+            {
+                SetProperty(ref _startDate, value);
+            }
+        }
 
-        //private DateTime _pauseEndDate;
+        private DateTime _endDate;
 
-        //public DateTime PauseEndDate
-        //{
-        //    get { return _pauseEndDate; }
-        //    set
-        //    {
-        //        SetProperty(ref _pauseEndDate, value);
-        //    }
-        //}
-
+        public DateTime EndDate
+        {
+            get { return _endDate; }
+            set
+            {
+                SetProperty(ref _endDate, value);
+            }
+        }
 
         public IRegionManager RegionManager { get; set; }
 

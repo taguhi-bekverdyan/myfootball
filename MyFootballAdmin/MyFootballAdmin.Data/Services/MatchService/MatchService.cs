@@ -13,7 +13,7 @@ namespace MyFootballAdmin.Data.Services.MatchService
 {
     public class MatchService: IMatchService
     {
-        private const string Endpoint = "https://localhost:44350/api";
+        private const string Endpoint = @"https://localhost:44350/api/";
         public string Token { get; set; }
         private readonly RestClient _client;
         public DateTime ExpiresAt { get; set; }
@@ -37,24 +37,38 @@ namespace MyFootballAdmin.Data.Services.MatchService
         public async Task<List<Match>> FindAll()
         {
             var request = new RestRequest("match", Method.GET);
-            request.AddHeader("authorization", $"Bearer {token}");
+            request.AddHeader("authorization", $"Bearer {Token}");
 
             IRestResponse response = await _client.ExecuteTaskAsync(request);
 
             List<Match> matches = JsonConvert.DeserializeObject<List<Match>>(response.Content);
-            return matches;
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+            else
+            {
+                return matches;
+            }
         }
 
         public async Task<Match> FindMatchById(string id)
         {
             var request = new RestRequest("match/{id}", Method.GET);
-            request.AddHeader("authorization", $"Bearer {token}");
+            request.AddHeader("authorization", $"Bearer {Token}");
             request.AddUrlSegment("id", id);
 
             IRestResponse response = await _client.ExecuteTaskAsync(request);
 
             Match match = JsonConvert.DeserializeObject<Match>(response.Content);
-            return match;
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+            else
+            {
+                return match;
+            }
         }
 
         //public async Task<League> GetLeagueByUserId(string accessToken, string id)
@@ -72,19 +86,27 @@ namespace MyFootballAdmin.Data.Services.MatchService
         public async Task Create(Match match)
         {
             var request = new RestRequest("match/create", Method.POST);
-            request.AddHeader("authorization", $"Bearer {token}");
+            request.AddHeader("authorization", $"Bearer {Token}");
             request.RequestFormat = DataFormat.Json;
             request.AddBody(match);
             IRestResponse response = await _client.ExecuteTaskAsync(request);
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
         }
 
         public async Task Update(Match match)
         {
             var request = new RestRequest("match/update", Method.PUT);
-            request.AddHeader("authorization", $"Bearer {token}");
+            request.AddHeader("authorization", $"Bearer {Token}");
             request.RequestFormat = DataFormat.Json;
             request.AddBody(match);
             IRestResponse response = await _client.ExecuteTaskAsync(request);
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
         }
 
 

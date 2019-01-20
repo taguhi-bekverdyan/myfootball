@@ -1,5 +1,6 @@
 ﻿using MyFootballAdmin.Common;
 using MyFootballAdmin.Common.Prism;
+using MyFootballAdmin.Data.Models;
 using MyFootballAdmin.Main.Views.Notifications;
 using MyFootballAdmin.Main.Views.Pauses;
 using Prism.Commands;
@@ -30,6 +31,13 @@ namespace MyFootballAdmin.Main.Views.TournamentEdit
 
         }
 
+        private League _selectedLeague;
+        public League SelectedLeague
+        {
+            get { return _selectedLeague; }
+            set { SetProperty(ref _selectedLeague, value); }
+        }
+
         private DelegateCommand _matchesCommand;
 
         public DelegateCommand MatchesCommand => _matchesCommand ?? (_matchesCommand = new DelegateCommand(MatchesCommandAction));
@@ -47,7 +55,8 @@ namespace MyFootballAdmin.Main.Views.TournamentEdit
         public void PausesCommandAction()
         {
             //_notificationService.ShowNotification(NotificationType, "");
-            _regionManager.RequestNavigate(RegionNames.PausesAndMatchesRegion, typeof(PausesView).FullName);
+            NavigationParameters param = new NavigationParameters { { "request", SelectedLeague.Pauses } };
+            _regionManager.RequestNavigate(RegionNames.PausesAndMatchesRegion, typeof(PausesView).FullName, param);
         }
 
         public IRegionManager RegionManager { get; set; }

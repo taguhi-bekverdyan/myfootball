@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="MyFootballAdmin.Main.Views.AddTournament.GenerateLeagueView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyFootballAdmin.Main.Views.AddTournament"
+             xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:help="clr-namespace:MyFootballAdmin.Main.Views.Helpers"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
+             d:DataContext="{d:DesignInstance local:GenerateLeagueViewModel, IsDesignTimeCreatable=True}"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <help:BoolInverterConverter x:Key="MyConverter"></help:BoolInverterConverter>
+    </UserControl.Resources>
+    <Grid  TextBlock.FontWeight="Thin" TextBlock.TextAlignment="Center" TextBlock.FontSize="18" Background="Gray">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="One Halph Time" Grid.Row="0" Grid.Column="0"></TextBlock>
+        <TextBlock Text="Break Time" Grid.Row="1" Grid.Column="0"></TextBlock>
+        <TextBlock Text="Yello Cards To Disqualification" Grid.Row="2" Grid.Column="0"></TextBlock>
+        <TextBlock Text="Count of Matches" Grid.Row="3" Grid.Column="0"></TextBlock>
+        <TextBlock Text="Players Count" Grid.Row="4" Grid.Column="0"></TextBlock>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding LeagueToGenerate.OneHalphTime}"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LeagueToGenerate.BreakTime}"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding LeagueToGenerate.YelloCardsToDisqualification}"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding LeagueToGenerate.CountOfMatches}"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding LeagueToGenerate.PlayersCount}"></TextBox>
+        <Grid Grid.Row="5" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <DataGrid Grid.RowSpan="3"
+                      ItemsSource="{Binding Rules, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                      AutoGenerateColumns="False"
+                      SelectedItem="{Binding SelectedRule , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Rule Name" Width="*" Binding="{Binding  RuleName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Boolean" Width="*" Binding="{Binding HighLow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <ComboBox  Grid.Row="0" Grid.Column="1" ItemsSource="{Binding RuleString,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedComboBox}"></ComboBox>
+            <RadioButton Content="High" Grid.Row="0" Grid.Column="2" GroupName="group1" IsChecked="{Binding SelectedRedioButton}"></RadioButton>
+            <RadioButton Content="Low" Grid.Row="0" Grid.Column="3" GroupName="group1" IsChecked="{Binding SelectedRedioButton, Converter={StaticResource MyConverter}}"></RadioButton>
+            <Button Content="Add" Command="{Binding AddCommand}" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2"/>
+            <Button Content="Delete" Command="{Binding DeleteCommand}" Grid.Column="3" Grid.Row="5" />
+            <Button Content="Edit" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedRule}" Grid.Column="2" Grid.Row="5" />
+            <Button Content="Save" Command="{Binding SaveCommand}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" />
+        </Grid>
+        <Button Content="Generate" Command="{Binding GenerateCommand}"  Grid.Row="6" Grid.Column="1" Margin="5"/>
+    </Grid>
+</UserControl>

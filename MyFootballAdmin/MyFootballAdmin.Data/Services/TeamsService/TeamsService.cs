@@ -12,7 +12,7 @@ namespace MyFootballAdmin.Data.Services.TeamsService
 {
     public class TeamsService: ITeamsService
     {
-        private const string Endpoint = "https://localhost:44350/api";
+        private const string Endpoint = @"https://localhost:44350/api/";
         public string Token { get; set; }
         private readonly RestClient _client;
         public DateTime ExpiresAt { get; set; }
@@ -42,7 +42,14 @@ namespace MyFootballAdmin.Data.Services.TeamsService
             IRestResponse response = await _client.ExecuteTaskAsync(request);
 
             List<Team> teams = JsonConvert.DeserializeObject<List<Team>>(response.Content);
-            return teams;
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+            else
+            {
+                return teams;
+            }
         }
 
         public async Task<Team> FindTeamById(string id)
@@ -54,7 +61,14 @@ namespace MyFootballAdmin.Data.Services.TeamsService
             IRestResponse response = await _client.ExecuteTaskAsync(request);
 
             Team team = JsonConvert.DeserializeObject<Team>(response.Content);
-            return team;
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+            else
+            {
+                return team;
+            }
         }
 
         //public async Task<League> GetLeagueByUserId(string accessToken, string id)
@@ -76,6 +90,10 @@ namespace MyFootballAdmin.Data.Services.TeamsService
             request.RequestFormat = DataFormat.Json;
             request.AddBody(team);
             IRestResponse response = await _client.ExecuteTaskAsync(request);
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
         }
 
         public async Task Update(Team team)
@@ -85,6 +103,10 @@ namespace MyFootballAdmin.Data.Services.TeamsService
             request.RequestFormat = DataFormat.Json;
             request.AddBody(team);
             IRestResponse response = await _client.ExecuteTaskAsync(request);
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
         }
 
 

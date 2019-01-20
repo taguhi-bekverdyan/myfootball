@@ -16,5 +16,17 @@ namespace MyFootballAdmin.Data.Models
         public List<Player> Players { get; set; }
         public List<Coach> Managers { get; set; }
         public List<string> Stats { get; set; }
+        public Team()
+        {
+            Name = " ";
+            StaffMembers = new List<Staff>();
+            Players = new List<Player>();
+            Managers = new List<Coach>();
+            Stats = new List<string>();
+        }
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

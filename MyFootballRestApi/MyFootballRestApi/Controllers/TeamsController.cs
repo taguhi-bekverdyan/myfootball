@@ -50,6 +50,26 @@ namespace MyFootballRestApi.Controllers
                 return StatusCode(500, e);
             }
         }
+
+        [HttpGet("{name}")]
+        public async Task<IActionResult> GetTeamByName([FromRoute]string name)
+        {
+            try
+            {
+                List<Team> teams = await _teamsRepository.GetAll(typeof(Team));
+                var team = teams.FirstOrDefault(p => p.Name == name);
+                if (team == null)
+                {
+                    return NotFound();
+                }
+                return Ok(team);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
         #endregion
 
         #region POST

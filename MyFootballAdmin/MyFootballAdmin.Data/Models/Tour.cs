@@ -9,5 +9,17 @@ namespace MyFootballAdmin.Data.Models
     {
         public List<Match> Matches { get; set; }
         public bool IsPlayed { get; set; }
+         public Tour()
+        {
+            Matches = new List<Match>();
+        }
+        public override string ToString()
+        {
+            foreach (Match m in Matches)
+            {
+                Console.WriteLine(m.ToString());
+            }
+            return "  ";
+        }
     }
 }

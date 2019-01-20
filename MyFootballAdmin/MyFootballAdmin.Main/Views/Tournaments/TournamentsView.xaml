@@ -23,6 +23,13 @@
         <Button Command="{Binding AddTournamentCommand}" Content="Add" Margin="7"/>
         <Button Command="{Binding DeleteTournamentCommand}" Content="Delete" Grid.Column="1" Margin="7"/>
         <Button Command="{Binding TournamentEditCommand}" Content="Edit" Grid.Column="2" Margin="7"/>
-        <DataGrid SelectedItem="{Binding SelectedTournament}"  ItemsSource="{Binding Tournaments}" Grid.Row="1" Grid.ColumnSpan="4" Margin="7"/>
+        <DataGrid SelectedItem="{Binding SelectedLeague}"  ItemsSource="{Binding Leagues}" Grid.Row="1" Grid.ColumnSpan="4" Margin="7">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Tournament.Name}"  />
+                <DataGridHyperlinkColumn Header="StartDate" Binding="{Binding StartDate}" />
+                <DataGridTextColumn Header="EndDate" Binding="{Binding EndDate}"/>
+                <DataGridTextColumn Header="Players Count" Binding="{Binding PlayersCount}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
