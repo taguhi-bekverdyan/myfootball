@@ -29,38 +29,40 @@ namespace MyFootballMvc.Controllers
       return View("Index", await GetViewModel());
     }
 
+    [HttpGet("Pitch/Create")]
+    public async Task<IActionResult> Create()
+    {
+      return View("Create", await GetViewModel());
+    }
+
     [HttpPost("Pitch/Create")]
-    public async Task<IActionResult> Create([FromBody]Pitch pitch)
+    public async Task<IActionResult> Create(Pitch pitch)
     {
       string token = await GetAccessToken();
       string id = await GetUserAuth0Id();
 
       if (!ModelState.IsValid)
       {
-        throw new Exception("the Model is invalid");
+        PitchViewModel viewModel = await GetViewModel();
+        viewModel.Pitch = pitch;
+        //viewModel.ViewType = ViewType.Update;
+        return View("Create", viewModel);
       }
 
       User user = await _usersService.FindUserById(token, id);
 
-      try
+      if (string.IsNullOrEmpty(pitch.Id))
       {
-        if (string.IsNullOrEmpty(pitch.Id))
-        {
-          pitch.User = user;
-          await _pitchService.Insert(token, pitch);
-        }
-        else
-        {
-          Pitch current = await _pitchService.FindPitchById(token, pitch.Id);
-          await _pitchService.Update(token, current);
-        }
+        pitch.User = user;
+        await _pitchService.Insert(token, pitch);
+      }
+      else
+      {
+        Pitch current = await _pitchService.FindPitchById(token, pitch.Id);
+        await _pitchService.Update(token, current);
+      }
 
-        return Ok(200);
-      }
-      catch (Exception e)
-      {
-        return StatusCode(500, e);
-      }
+      return RedirectToAction("Create");
     }
 
     #region Token

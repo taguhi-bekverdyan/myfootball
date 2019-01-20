@@ -2,97 +2,101 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MyFootballMvc</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] - MyFootballMvc</title>
 
-    <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
-        <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.css"/>
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css."
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>
+  <environment include="Development">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.css" />
+  </environment>
+  <environment exclude="Development">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css."
+          asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+          asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+  </environment>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
     <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Logo</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Tournaments
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @foreach (var tournament in  Model.Tournaments)
-                    {
-                        <a class="dropdown-item" asp-controller="Tournament" asp-action="Index" asp-route-tournamentId="@tournament.Id">@tournament.Name</a>
-                    }
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link" href="#">PitchFinder</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-area="" asp-controller="Test" asp-action="Index">Test</a>
-            </li>
-        </ul>
-
-        <span class="navbar navbar-dark bg-dark">
-            @if (User.Identity.IsAuthenticated)
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Tournaments
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            @foreach (var tournament in Model.Tournaments)
             {
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    @Model.UserName
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="nav-link" asp-controller="Account" asp-action="Edit">My Profile</a>
-                    @if (Model.HasTeams)
-                    {
-                        <a class="nav-link" asp-controller="Teams" asp-action="Index">My Teams</a>
-                    }
-                    <a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-
+              <a class="dropdown-item" asp-controller="Tournament" asp-action="Index" asp-route-tournamentId="@tournament.Id">@tournament.Name</a>
             }
-            else
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">PitchFinder</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" asp-area="" asp-controller="Test" asp-action="Index">Test</a>
+        </li>
+      </ul>
+
+      <span class="navbar navbar-dark bg-dark">
+        @if (User.Identity.IsAuthenticated)
+        {
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @Model.UserName
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="nav-link" asp-controller="Account" asp-action="Edit">My Profile</a>
+            @if (Model.HasTeams)
             {
-                <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+              <a class="nav-link" asp-controller="Teams" asp-action="Index">My Teams</a>
             }
-
-            @if(Model.IsEditPage)
+            @if (Model.HasPitches)
             {
-                <a class="nav-link" asp-controller="Teams" asp-action="Create">Create a Team</a>
+              <a class="nav-link" asp-controller="Pitch" asp-action="Index">My Pitches</a>
             }
+            <a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
 
-        </span>
+        }
+        else
+        {
+          <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+        }
+
+        @if (Model.IsEditPage)
+        {
+          <a class="nav-link" asp-controller="Teams" asp-action="Create">Create a Team</a>
+        }
+
+      </span>
     </div>
-</nav>
+  </nav>
 
 
-<partial name="_CookieConsentPartial"/>
+  <partial name="_CookieConsentPartial" />
 
-<div class="body-content">
+  <div class="body-content">
     @RenderBody()
-    <hr/>
+    <hr />
     <footer>
-        <p>&copy; 2018 - MyFootballMvc</p>
+      <p>&copy; 2018 - MyFootballMvc</p>
     </footer>
-</div>
+  </div>
 
-<environment include="Development">
+  <environment include="Development">
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
@@ -102,8 +106,8 @@
     <script src="~/lib/bootbox.js/bootbox.js"></script>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
-</environment>
-<environment exclude="Development">
+  </environment>
+  <environment exclude="Development">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
             asp-fallback-test="window.jQuery"
@@ -117,8 +121,8 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl">
     </script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
-</environment>
+  </environment>
 
-@RenderSection("Scripts", required: false)
+  @RenderSection("Scripts", required: false)
 </body>
 </html>

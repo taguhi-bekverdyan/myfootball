@@ -167,7 +167,7 @@
               else
               {
                 <button type="submit" class="btn btn-primary">Save</button>
-                @Html.ActionLink("Add new pitch", "Index", "Pitch", null, new { @class = "btn btn-primary add-new-item" })
+                @Html.ActionLink("Add new pitch", "Create", "Pitch", null, new { @class = "btn btn-primary add-new-item" })
               }
             }
 
@@ -194,21 +194,7 @@
 
       var player = { Position: position, PhysicalStats: ps, PlayerStatus: playerStatus };
 
-      bootbox.confirm("Do you want to save chages?", function (result) {
-        if (result) {
-
-          $.ajax({
-            url: "Player/",
-            method: "POST",
-            contentType: "application/json",
-            dataType: "json",
-            data: JSON.stringify(player)
-          }).done(function () {
-            bootbox.alert("The changes have been done");
-          });
-
-        }
-      });
+      AjaxJsonSumbitWithConfirm("Player/", player);
     });
 
     $("#js-coachForm").submit(function (e) {
@@ -218,19 +204,7 @@
 
       var coach = { License: license, CoachStatus: coachStatus };
 
-      bootbox.confirm("Do you want to save changes?", function (result) {
-        if (result) {
-          $.ajax({
-            url: "Coach/",
-            method: "POST",
-            contentType: "application/json",
-            dataType: "json",
-            data: JSON.stringify(coach)
-          }).done(function () {
-            bootbox.alert("The changes have been done");
-          });
-        }
-      });
+      AjaxJsonSumbitWithConfirm("Coach/", coach);
     });
 
     $("#js-staffForm").submit(function (e) {
@@ -242,20 +216,7 @@
 
       var staff = { License: license, Occupation: occupation, StaffStatus: staffStatus };
 
-      bootbox.confirm("Do you want to save changes?", function (result) {
-        if (result) {
-          $.ajax({
-            url: "Staff/",
-            method: "POST",
-            contentType: "application/json",
-            dataType: "json",
-            data: JSON.stringify(staff)
-          }).done(function () {
-            bootbox.alert("The changes have been done");
-          });
-
-        }
-      });
+      AjaxJsonSumbitWithConfirm("Staff/", staff);
     });
 
     $("#js-refereeForm").submit(function (e) {
@@ -265,19 +226,7 @@
 
       var referee = { License: license };
 
-      bootbox.confirm("Do you want to save changes?", function (result) {
-        if (result) {
-          $.ajax({
-            url: "Referee/",
-            method: "POST",
-            contentType: "application/json",
-            dataType: "json",
-            data: JSON.stringify(referee)
-          }).done(function () {
-            bootbox.alert("The changes have been done");
-          });
-        }
-      });
+      AjaxJsonSumbitWithConfirm("Referee/", referee);
     });
 
     $("#js-landlordForm").submit(function (e) {

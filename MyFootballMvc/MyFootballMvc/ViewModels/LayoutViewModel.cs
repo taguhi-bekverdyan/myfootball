@@ -30,6 +30,7 @@ namespace MyFootballMvc.ViewModels
       {
         UserName = "My profile";
         HasTeams = false;
+        HasPitches = false;
       }
       else
       {
