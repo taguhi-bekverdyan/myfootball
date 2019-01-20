@@ -3,16 +3,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MyFootballMvc.Models
 {
-  public class Stadium : EntityBase<Stadium>
+  public class Pitch : EntityBase<Pitch>
   {
+    [Required]
+    public string Name { get; set; }
+
     [Required]
     public string Owner { get; set; }
 
     [Display(Name = "Length")]
-    public double? StadiumLength { get; set; }
+    public double? PitchLength { get; set; }
 
     [Display(Name = "Width")]
-    public double? StadiumWidth { get; set; }
+    public double? PitchWidth { get; set; }
 
     public Surface Surface { get; set; }
 
@@ -34,29 +37,31 @@ namespace MyFootballMvc.Models
     [Display(Name = "Price (per hour)")]
     public double? PricePerHour { get; set; }
 
-    [Display(Name = "Working hours")]
-    public WorkingHours WorkingHours { get; set; } = new WorkingHours();
+    [DataType(DataType.Time)]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
+    [Display(Name = "Start time")]
+    public DateTime? StartTime { get; set; }
+
+    [DataType(DataType.Time)]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
+    [Display(Name = "End time")]
+    public DateTime? EndTime { get; set; }
+
+    public User User { get; set; }
   }
 
   public enum AreaType
   {
+    None,
     Indoor,
     Outdoor
   }
 
   public enum Surface
   {
+    None,
     Ground,
     Floor,
     Grass
-  }
-
-  public class WorkingHours
-  {
-    [Display(Name = "Start time")]
-    public TimeSpan? StartTime { get; set; }
-
-    [Display(Name = "End time")]
-    public TimeSpan? EndTime { get; set; }
   }
 }

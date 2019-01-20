@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace MyFootballMvc.ViewModels
 {
-  public class StadiumViewModel : LayoutViewModel
+  public class PitchViewModel : LayoutViewModel
   {
     public User User { get; set; }
-    public Stadium Stadium { get; set; }
+    public Pitch Pitch { get; set; }
 
-    public StadiumViewModel()
+    public PitchViewModel()
     {
 
     }
 
-    public StadiumViewModel(string token, string id) : base(token, id)
+    public PitchViewModel(string token, string id) : base(token, id)
     {
 
     }

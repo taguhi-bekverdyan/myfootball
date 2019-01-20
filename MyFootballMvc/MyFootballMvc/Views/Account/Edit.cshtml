@@ -167,7 +167,7 @@
               else
               {
                 <button type="submit" class="btn btn-primary">Save</button>
-                @Html.ActionLink("Add new stadium", "Index", "Stadium", null, new { @class = "btn btn-primary add-new-item" })
+                @Html.ActionLink("Add new pitch", "Index", "Pitch", null, new { @class = "btn btn-primary add-new-item" })
               }
             }
 
@@ -286,19 +286,7 @@
       var organization = $("#js-landlord-organization").val();
       var landlord = { Organization: organization };
 
-      bootbox.confirm("Do you want to save changes?", function (result) {
-        if (result) {
-          $.ajax({
-            url: "Landlord/",
-            method: "POST",
-            contentType: "application/json",
-            dataType: "json",
-            data: JSON.stringify(landlord)
-          }).done(function () {
-            bootbox.alert("The changes have been done");
-          });
-        }
-      })
+      AjaxJsonSumbitWithConfirm("Landlord/", landlord);
     });
 
   });
