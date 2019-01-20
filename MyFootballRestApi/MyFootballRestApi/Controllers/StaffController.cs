@@ -70,6 +70,24 @@ namespace MyFootballRestApi.Controllers
             }
         }
 
+        [HttpGet("free_staffs")]
+        public async Task<IActionResult> GetFreeStaffs()
+        {
+            try
+            {
+                List<Staff> all = await _staffRepository.GetAll(typeof(Staff));
+                List<Staff> freeStaffs = (from s in all
+                                          where s.StaffStatus == StaffStatus.FreeWorker
+                                          select s).ToList();
+
+                return Ok(freeStaffs);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }
+        }
+
         #endregion
 
         #region POST

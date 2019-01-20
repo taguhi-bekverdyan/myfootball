@@ -1,8 +1,31 @@
-﻿@model MyFootballMvc.ViewModels.TeamsIndexViewModel
+﻿@model MyFootballMvc.ViewModels.MyTeamIndexViewModel
+@using MyFootballMvc.ViewModels
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_MyTeamLayout.cshtml";
 }
 
-<h2>Index</h2>
-
+@if (Model.ViewMode == ViewMode.Description)
+{
+    @await Html.PartialAsync("~/Views/PartialViews/_Description.cshtml")
+}
+else if (Model.ViewMode == ViewMode.Coaches)
+{
+    @await Html.PartialAsync("~/Views/PartialViews/_Coaches.cshtml")
+}
+else if (Model.ViewMode == ViewMode.Fixtures)
+{
+    @await Html.PartialAsync("~/Views/PartialViews/_Fixtures.cshtml")
+}
+else if (Model.ViewMode == ViewMode.Players)
+{
+    @await Html.PartialAsync("~/Views/PartialViews/_Players.cshtml")
+}
+else if (Model.ViewMode == ViewMode.StaffMemebers)
+{
+    @await Html.PartialAsync("~/Views/PartialViews/_StaffMembers.cshtml")
+}
+else
+{
+    <h2>!!!!</h2>
+}

@@ -52,12 +52,12 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpGet("by_president_id/{id}")]
-        public async Task<IActionResult> GetTeamsByPresidentId([FromRoute]string id) {
+        public async Task<IActionResult> GetTeamByPresidentId([FromRoute]string id) {
             try
             {
                 var teams = await _teamsRepository.GetAll(typeof(Team));
-                var teamsById = (from t in teams where t.President.Id == id select t).ToList();
-                return Ok(teamsById);
+                var team = teams.FirstOrDefault(t => t.President.Id == id);
+                return Ok(team);
             }
             catch (Exception e)
             {

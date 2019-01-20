@@ -38,7 +38,7 @@ namespace MyFootballMvc.ViewModels
       }
 
 
-      if (_teamsService.FindTeamsByUserId(token, userId).Result.Count != 0)
+      if (_teamsService.FindTeamByUserId(token, userId).Result != null)
       {
         HasTeams = true;
       }

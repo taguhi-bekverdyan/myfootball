@@ -66,6 +66,23 @@ namespace MyFootballRestApi.Controllers
             }
         }
 
+        [HttpGet("free_coaches")]
+        public async Task<IActionResult> GetFreeCouches()
+        {
+            try
+            {
+                List<Coach> all = await _coachRepository.GetAll(typeof(Coach));
+                List<Coach> freeCoaches = (from c in all
+                                           where c.CoachStatus == CoachStatus.FreeCoach
+                                           select c).ToList();
+                return Ok(freeCoaches);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }
+        }
+
         #endregion
 
         #region POST

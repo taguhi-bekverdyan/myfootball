@@ -40,6 +40,16 @@ namespace MyFootballMvc.Services
             return staff;
         }
 
+        public async Task<List<Staff>> FindFreeStafs(string accessToken)
+        {
+            var request = new RestRequest("staff/free_staffs", Method.GET);
+            request.AddHeader("authorization", $"Bearer {accessToken}");
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
+
+            List<Staff> staffs = JsonConvert.DeserializeObject<List<Staff>>(response.Content);
+            return staffs;
+        }
+
         public async Task<Staff> GetStaffByUserId(string accessToken, string id)
         {
             var request = new RestRequest("staff/by_user_id/{id}", Method.GET);
