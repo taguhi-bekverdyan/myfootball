@@ -15,5 +15,10 @@ namespace MyFootballAdmin.Data.Models
         public string TeamId { get; set; }
         public User User { get; set; }
 
+        public Staff()
+        {
+            Created = Updated = DateTime.Now;
+        }
+
     }
 }

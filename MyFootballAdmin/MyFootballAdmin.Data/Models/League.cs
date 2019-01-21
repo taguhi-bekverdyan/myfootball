@@ -28,6 +28,7 @@ namespace MyFootballAdmin.Data.Models
             Pauses = new List<Pause>();
             MatchDays = new List<DayOfWeek>();
             Rules = new List<Rule>();
+            Created = Updated = DateTime.Now;
         }
         public League(int count_of_clubs)
         {

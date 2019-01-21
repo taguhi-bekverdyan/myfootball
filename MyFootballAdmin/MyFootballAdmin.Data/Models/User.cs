@@ -12,6 +12,11 @@ namespace MyFootballAdmin.Data.Models
         public string LastName { get; set; }
         public DateTime Birthdate { get; set; }
         public string FavoriteTeamId { get; set; }
+
+      public User()
+      {
+          Created = Updated = DateTime.Now;
+        }
         
 
     }

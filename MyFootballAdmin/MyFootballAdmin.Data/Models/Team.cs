@@ -23,6 +23,8 @@ namespace MyFootballAdmin.Data.Models
             Players = new List<Player>();
             Managers = new List<Coach>();
             Stats = new List<string>();
+
+            Created = Updated = DateTime.Now;
         }
         public override string ToString()
         {

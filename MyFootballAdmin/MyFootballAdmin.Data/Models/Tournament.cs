@@ -11,6 +11,11 @@ namespace MyFootballAdmin.Data.Models
         public int Priority { get; set; }
         public TournamentType TournamentType { get; set; }
         public ImageLink Logo { get; set; }
+
+        public Tournament()
+        {
+            Created = Updated = DateTime.Now;
+        }
     }
 
     public enum TournamentType

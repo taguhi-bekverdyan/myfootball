@@ -22,5 +22,10 @@ namespace MyFootballAdmin.Data.Models
         public int PlayersCount { get; set; }
         public int YelloCardsToDisqualification { get; set; }
         private int[,] Play;
+
+        public Cup()
+        {
+            Created = Updated = DateTime.Now;
+        }
     }
 }

@@ -193,6 +193,8 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             LeagueToGenerate.Teams = Clubs;
             MessageBox.Show(LeagueToGenerate.EndDate.ToShortDateString());
             LeagueToGenerate.Generate();
+            LeagueToGenerate.Created=LeagueToGenerate.Updated=DateTime.Now;
+            LeagueToGenerate.Tournament.Created = LeagueToGenerate.Tournament.Updated = DateTime.Now;
             DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(League));
             using (FileStream fs = new FileStream("league.json", FileMode.OpenOrCreate))
             {

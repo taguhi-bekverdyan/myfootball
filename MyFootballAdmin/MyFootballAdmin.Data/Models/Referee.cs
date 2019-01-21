@@ -11,5 +11,9 @@ namespace MyFootballAdmin.Data.Models
         public string License { get; set; }
         public User User { get; set; }
 
+        public Referee()
+        {
+            Created = Updated = DateTime.Now;
+        }
     }
 }

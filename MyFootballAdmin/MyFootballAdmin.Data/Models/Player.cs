@@ -18,5 +18,11 @@ namespace MyFootballAdmin.Data.Models
         public bool IsCaptain { get; set; }
 
         public User User { get; set; }
+
+        public Player()
+        {
+
+            Created = Updated = DateTime.Now;
+        }
     }
 }

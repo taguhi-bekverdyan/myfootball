@@ -18,6 +18,7 @@ namespace MyFootballAdmin.Data.Models
         public Match()
         {
             Events = new List<MatchEventBase>();
+            Created = Updated = DateTime.Now;
         }
         public override string ToString()
         {
