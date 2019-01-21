@@ -5,11 +5,12 @@
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Add new pitch</h2>
-
-<div class="container">
+<div class="page-add-new-pitch main-container container">
   <div class="row">
     <div class="col">
+      
+      <h2>Add new pitch</h2>
+
       @using (Html.BeginForm("Create", "Pitch", FormMethod.Post, new { id = "js-create-pitch-form" }))
       {
         <div class="form-group">

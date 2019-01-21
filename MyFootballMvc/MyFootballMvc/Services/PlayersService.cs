@@ -24,8 +24,8 @@ namespace MyFootballMvc.Services
 
             IRestResponse response = await _client.ExecuteTaskAsync(request);
 
-            List<Player> plyaers = JsonConvert.DeserializeObject<List<Player>>(response.Content);
-            return plyaers;
+            List<Player> players = JsonConvert.DeserializeObject<List<Player>>(response.Content);
+            return players;
         }
 
         public async Task<Player> FindPlayerById(string accessToken, string id)

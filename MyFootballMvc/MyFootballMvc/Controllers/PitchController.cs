@@ -26,7 +26,9 @@ namespace MyFootballMvc.Controllers
     [Route("Pitch/Index")]
     public async Task<IActionResult> Index()
     {
-      return View("Index", await GetViewModel());
+      PitchViewModel pitchViewModel = await GetViewModel();
+      pitchViewModel.Pitches = await _pitchService.FindAll(await GetAccessToken());
+      return View("Index", pitchViewModel);
     }
 
     [HttpGet("Pitch/Create")]
