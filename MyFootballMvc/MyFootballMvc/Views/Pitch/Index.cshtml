@@ -1,0 +1,25 @@
+﻿@model MyFootballMvc.ViewModels.PitchViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My pitches</h2>
+
+<table id="my-pitches-table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var pitch in Model.Pitches)
+    {
+      <tr>
+        <td>@pitch.Name</td>
+      </tr>
+    }
+  </tbody>
+</table>
+

@@ -45,7 +45,6 @@ namespace MyFootballMvc.Controllers
       {
         PitchViewModel viewModel = await GetViewModel();
         viewModel.Pitch = pitch;
-        //viewModel.ViewType = ViewType.Update;
         return View("Create", viewModel);
       }
 
