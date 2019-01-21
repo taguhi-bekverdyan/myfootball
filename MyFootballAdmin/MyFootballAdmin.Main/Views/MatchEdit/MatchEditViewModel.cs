@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MyFootballAdmin.Main.Views.MatchEdit
 {
-    class MatchEditViewModel
+    public class MatchEditViewModel
     {
+
     }
 }

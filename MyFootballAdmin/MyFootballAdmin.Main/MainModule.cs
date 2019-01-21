@@ -40,6 +40,7 @@ namespace MyFootballAdmin.Main
             _unityContainer.RegisterType<object, AddTournamentStepBarView>(typeof(AddTournamentStepBarView).FullName);
             _unityContainer.RegisterType<object, AddCupView>(typeof(AddCupView).FullName);
             _unityContainer.RegisterType<object, AddLeagueView>(typeof(AddLeagueView).FullName);
+            _unityContainer.RegisterType<object, GenerateLeagueView>(typeof(GenerateLeagueView).FullName);
             _unityContainer.RegisterType<object, ToolBarView>(typeof(ToolBarView).FullName);
             _unityContainer.RegisterType<object, BesidesToolBarView>(typeof(BesidesToolBarView).FullName);
             _unityContainer.RegisterType<object, PausesView>(typeof(PausesView).FullName);

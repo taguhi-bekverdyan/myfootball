@@ -1,6 +1,8 @@
 ﻿
 using MyFootballAdmin.Data.Models;
+using MyFootballAdmin.Data.Services.Helpers;
 using MyFootballAdmin.Data.Services.LeagueService;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -10,95 +12,144 @@ namespace MyFootballAdmin.Data.Services.LeagueService
 {
     public class LeagueService : ILeagueService
     {
-        private const string EndPoint = @"https://localhost:44350/api/";
+        private const string Endpoint = @"https://localhost:44350/api/";
         private readonly RestClient _client;
-
+        public string Token { get; set; }
+        public DateTime ExpiresAt { get; set; }
         public LeagueService()
         {
-            _client = new RestClient(EndPoint);
+            _client = new RestClient(Endpoint);
+            Token = AccessToken.Token;
+            ExpiresAt = AccessToken.ExpiresAt;
         }
 
-        public Task Delete(Guid id)
+        public async Task<List<League>> FindAll()
         {
-            return Task.Factory.StartNew(() => {
-                RestRequest request = new RestRequest("Leagues/{id}", Method.DELETE);
-                request.AddUrlSegment("guid", id.ToString());
-                IRestResponse response = _client.Execute(request);
-                if (!response.IsSuccessful)
-                {
-                    throw new Exception(response.ErrorMessage);
-                }
-            });
-        }
+            var request = new RestRequest("League", Method.GET);
+            request.AddHeader("authorization", $"Bearer {Token}");
 
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
 
-        public Task<List<League>> FindAll()
-        {
-            return Task<List<League>>.Factory.StartNew(()=> {
-                RestRequest request = new RestRequest("Leagues", Method.GET);
-                IRestResponse<List<League>> response = _client.Execute<List<League>>(request);
-
-                if (response.IsSuccessful)
-                {
-                    return response.Data;
-                }
-                else
-                {
-                    throw new Exception(response.ErrorMessage);
-                }
-
-            });               
-        }
-
-        public Task<League> FindLeagueById(Guid id)
-        {
-            return Task<League>.Factory.StartNew(() =>
+            List<League> leagues = JsonConvert.DeserializeObject<List<League>>(response.Content);
+            if (!response.IsSuccessful)
             {
-                RestRequest request = new RestRequest("Leagues/{guid}", Method.GET);
-                request.AddUrlSegment("guid", id.ToString());
-
-                IRestResponse<League> response = _client.Execute<League>(request);
-                if (response.IsSuccessful)
-                {
-                    return response.Data;
-                }
-                else
-                {
-                    throw new Exception(response.ErrorMessage);
-                }
-            });
+                throw new Exception(response.ErrorMessage);
+            }
+            else
+            {
+                return leagues;
+            }
         }
 
-
-
-        //public Task Insert(League league)
-        //{
-        //    return Task.Factory.StartNew(()=> {
-
-        //            RestRequest request = new RestRequest("Leagues", Method.POST);
-        //request.RequestFormat = DataFormat.Json;
-        //            request.AddBody(new { Id = league.Id});
-
-        //            IRestResponse response = _client.Execute(request);
-        //        if (!response.IsSuccessful)
-        //        {
-        //            throw new Exception(response.ErrorMessage);
-        //        }
-        //    });
-        //}
-
-        public Task Update(League league)
+        public async Task<League> FindLeagueById(string id)
         {
-            return Task.Factory.StartNew(()=> {
-                RestRequest request = new RestRequest(Method.PUT);
-                request.RequestFormat = DataFormat.Json;
-                request.AddBody(league);
-                IRestResponse response = _client.Execute(request);
-                if (!response.IsSuccessful)
-                {
-                    throw new Exception(response.ErrorMessage);
-                }
-            });
+            var request = new RestRequest("League/{id}", Method.GET);
+            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddUrlSegment("id", id);
+
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
+
+            League league = JsonConvert.DeserializeObject<League>(response.Content);
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+            else
+            {
+                return league;
+            }
         }
+
+        public async Task<League> FindLeagueByName(string name)
+        {
+            var request = new RestRequest("League/{name}", Method.GET);
+            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddUrlSegment("name", name);
+
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
+
+            League league = JsonConvert.DeserializeObject<League>(response.Content);
+
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+            else
+            {
+                return league;
+            }
+        }
+
+        public async Task<League> FindLeagueByStartDate(string startDate)
+        {
+            var request = new RestRequest("League/{startDate}", Method.GET);
+            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddUrlSegment("startDate", startDate);
+
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
+
+            League league = JsonConvert.DeserializeObject<League>(response.Content);
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+            else
+            {
+                return league;
+            }
+        }
+
+        //public async Task<League> GetLeagueByUserId(string accessToken, string id)
+        //{
+        //    var request = new RestRequest("league/by_user_id/{id}", Method.GET);
+        //    request.AddHeader("authorization", $"Bearer {accessToken}");
+        //    request.AddUrlSegment("id", id);
+
+        //    IRestResponse response = await _client.ExecuteTaskAsync(request);
+
+        //    League league = JsonConvert.DeserializeObject<League>(response.Content);
+        //    return league;
+
+        //}
+        public async Task Create(League league)
+        {
+            var request = new RestRequest("League/create", Method.POST);
+            request.AddHeader("authorization", $"Bearer {Token}");
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(league);
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+        }
+
+        public async Task Update(League league)
+        {
+            var request = new RestRequest("League/update", Method.PUT);
+            request.AddHeader("authorization", $"Bearer {Token}");
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(league);
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+        }
+
+        public async Task Delete(string id)
+        {
+            RestRequest request = new RestRequest("delete/League/{id}", Method.DELETE);
+            request.AddUrlSegment("id", id.ToString());
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+        }
+
+
+
     }
 }
+

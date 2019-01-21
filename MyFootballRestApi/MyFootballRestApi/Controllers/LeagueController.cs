@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -47,6 +48,45 @@ namespace MyFootballRestApi.Controllers
             catch (Exception e)
             {
                 return StatusCode(500,e);
+            }
+        }
+
+        [HttpGet("{name}")]
+        public async Task<IActionResult> GetLeagueByName([FromRoute]string name)
+        {
+            try
+            {
+                List<League> leagues = await _leagueRepository.GetAll(typeof(League));
+                var  league = leagues.FirstOrDefault(p => p.Tournament.Name == name);
+                if ( league == null )
+                {
+                    return NotFound();
+                }
+                return Ok(league);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
+        [HttpGet("{startDate}")]
+        public async Task<IActionResult> GetLeagueByStartDate([FromRoute]string startDate)
+        {
+            try
+            {
+                DateTime startdate = DateTime.ParseExact(startDate, "dd-mm-yyyy", CultureInfo.InvariantCulture);
+                List<League> leagues = await _leagueRepository.GetAll(typeof(League));
+                var cup = leagues.FirstOrDefault(p => p.StartDate == startdate);
+                if (cup == null)
+                {
+                    return NotFound();
+                }
+                return Ok(cup);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
             }
         }
 

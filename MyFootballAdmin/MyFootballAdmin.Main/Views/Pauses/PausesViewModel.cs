@@ -1,5 +1,6 @@
 ﻿using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Main.Views.Notifications;
+using MyFootballAdmin.Main.Views.Tournaments;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -33,7 +34,7 @@ namespace MyFootballAdmin.Main.Views.Pauses
         public void AddPauseCommandAction()
         {
             //_notificationService.ShowNotification(NotificationType, "");
-            _shellService.ShowShell(nameof(AddPauseView));
+            _shellService.ShowShell(typeof(AddPauseView).FullName);
         }
 
         private DelegateCommand _editPauseCommand;
@@ -43,7 +44,7 @@ namespace MyFootballAdmin.Main.Views.Pauses
         public void EditPauseCommandAction()
         {
             //_notificationService.ShowNotification(NotificationType, "");
-            _shellService.ShowShell(nameof(AddPauseView));
+            _shellService.ShowShell(typeof(AddPauseView).FullName);
         }
 
         private DelegateCommand _deletePauseCommand;
@@ -53,7 +54,7 @@ namespace MyFootballAdmin.Main.Views.Pauses
         public void DeletePauseCommandAction()
         {
 
-            _notificationService.ShowNotification(NotificationType.Alert, "Tournament has been deleted.");
+            _notificationService.ShowNotification(NotificationType.Alert, "Pause has been deleted.");
         }
 
 
