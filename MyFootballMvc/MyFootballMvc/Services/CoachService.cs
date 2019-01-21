@@ -68,8 +68,7 @@ namespace MyFootballMvc.Services
         {
             var request = new RestRequest("coach/create", Method.POST);
             request.AddHeader("authorization", $"Bearer {accessToken}");
-            request.RequestFormat = DataFormat.Json;
-            request.AddBody(coach);
+            request.AddJsonBody(coach);
             IRestResponse response = await _client.ExecuteTaskAsync(request);
         }
 
@@ -77,8 +76,7 @@ namespace MyFootballMvc.Services
         {
             var request = new RestRequest("coach/update", Method.PUT);
             request.AddHeader("authorization", $"Bearer {accessToken}");
-            request.RequestFormat = DataFormat.Json;
-            request.AddBody(coach);
+            request.AddJsonBody(coach);
             IRestResponse response = await _client.ExecuteTaskAsync(request);
         }
 

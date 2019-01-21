@@ -67,11 +67,26 @@
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
 
-            }
-            else
+      <span class="navbar navbar-dark bg-dark">
+        @if (User.Identity.IsAuthenticated)
+        {
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @Model.UserName
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="nav-link" asp-controller="Account" asp-action="Edit">My Profile</a>
+            @if (Model.HasTeams)
             {
-                <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+              <a class="nav-link" asp-controller="Teams" asp-action="Index">My Team</a>
             }
+            @if (Model.HasPitches)
+            {
+              <a class="nav-link" asp-controller="Pitch" asp-action="Index">My Pitches</a>
+            }
+            <a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
 
             @if(Model.IsEditPage && !Model.HasTeams)
             {
@@ -84,7 +99,7 @@
 </nav>
 
 
-<partial name="_CookieConsentPartial"/>
+  <partial name="_CookieConsentPartial" />
 
 <div class="body-content">
     @RenderBody()
@@ -125,6 +140,6 @@
 	<script src="~/js/site.min.js" asp-append-version="true"></script>
 </environment>
 
-@RenderSection("Scripts", required: false)
+  @RenderSection("Scripts", required: false)
 </body>
 </html>

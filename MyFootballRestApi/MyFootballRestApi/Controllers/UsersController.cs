@@ -92,7 +92,7 @@ namespace MyFootballRestApi.Controllers
                 string id = user.Id;
                 var result = await _usersRepository.Upsert(user);
                 if (result == null) return BadRequest(user);
-                return Created($"/api/users/{id}", result);
+                return Created($"/api/Users/{id}", result);
             }
             catch (Exception e)
             {

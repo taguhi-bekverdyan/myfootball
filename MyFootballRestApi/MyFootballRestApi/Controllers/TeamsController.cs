@@ -92,7 +92,7 @@ namespace MyFootballRestApi.Controllers
             {
                 var result = await _teamsRepository.Upsert(team);
                 if (result == null) return BadRequest(team);
-                return Created($"/api/teams/{team.Id}", result);
+                return Created($"/api/Teams/{team.Id}", result);
             }
             catch (Exception e)
             {

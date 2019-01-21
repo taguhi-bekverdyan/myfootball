@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyFootballMvc.Models;
 using MyFootballRestApi.Data;
-using MyFootballRestApi.Models;
 
 namespace MyFootballRestApi.Controllers
 {
-    [Route("api/[controller]")]
+  [Route("api/[controller]")]
     [ApiController]
-    public class RefereeController : ControllerBase
+    public class LandlordController : ControllerBase
     {
 
-        private readonly IRepository<Referee> _refereeRepository;
+        private readonly IRepository<Landlord> _landlordRepository;
 
-        public RefereeController()
+        public LandlordController()
         {
-            _refereeRepository = new CouchbaseRepository<Referee>();
+            _landlordRepository = new CouchbaseRepository<Landlord>();
         }
 
 
@@ -29,8 +28,8 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                var referees = await _refereeRepository.GetAll(typeof(Referee));
-                return Ok(referees);
+                var landlords = await _landlordRepository.GetAll(typeof(Landlord));
+                return Ok(landlords);
             }
             catch (Exception e)
             {
@@ -39,12 +38,12 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetrefereeById([FromRoute]string id)
+        public async Task<IActionResult> GetlandlordById([FromRoute]string id)
         {
             try
             {
-                var referee = await _refereeRepository.Get(id);
-                return Ok(referee);
+                var landlord = await _landlordRepository.Get(id);
+                return Ok(landlord);
             }
             catch (Exception e)
             {
@@ -53,12 +52,12 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpGet("by_user_id/{id}")]
-        public async Task<IActionResult> GetRefereeByUserId([FromRoute]string id)
+        public async Task<IActionResult> GetLandlordByUserId([FromRoute]string id)
         {
             try
             {
-                List<Referee> referee = await _refereeRepository.GetAll(typeof(Referee));
-                var r = referee.FirstOrDefault(p => p.User.Id == id);
+                List<Landlord> landlord = await _landlordRepository.GetAll(typeof(Landlord));
+                var r = landlord.FirstOrDefault(p => p.User.Id == id);
                 if (r == null)
                 {
                     return NotFound();
@@ -76,14 +75,14 @@ namespace MyFootballRestApi.Controllers
         #region POST
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create([FromBody] Referee referee)
+        public async Task<IActionResult> Create([FromBody] Landlord landlord)
         {
             try
             {
-                referee.Id = Guid.NewGuid().ToString();
-                var result = await _refereeRepository.Create(referee);
+                landlord.Id = Guid.NewGuid().ToString();
+                var result = await _landlordRepository.Create(landlord);
                 if (result == null) { return BadRequest(result); }
-                return Created(string.Format("/api/Referee/{0}", referee.Id), result);
+                return Created(string.Format("/api/Landlord/{0}", landlord.Id), result);
             }
             catch (Exception e)
             {
@@ -92,13 +91,13 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpPost("Upsert")]
-        public async Task<IActionResult> Upsert([FromBody] Referee referee)
+        public async Task<IActionResult> Upsert([FromBody] Landlord landlord)
         {
             try
             {
-                var result = await _refereeRepository.Upsert(referee);
+                var result = await _landlordRepository.Upsert(landlord);
                 if (result == null) { return BadRequest(); }
-                return Created(string.Format("/api/Referee/{0}", referee.Id), result);
+                return Created(string.Format("/api/Landlord/{0}", landlord.Id), result);
             }
             catch (Exception e)
             {
@@ -111,11 +110,11 @@ namespace MyFootballRestApi.Controllers
         #region PUT
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update([FromBody]Referee referee)
+        public async Task<IActionResult> Update([FromBody]Landlord landlord)
         {
             try
             {
-                var result = await _refereeRepository.Update(referee);
+                var result = await _landlordRepository.Update(landlord);
                 if (result == null) { return BadRequest(result); }
                 return Ok(result);
             }
@@ -134,7 +133,7 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                await _refereeRepository.Delete(id);
+                await _landlordRepository.Delete(id);
                 return Ok();
             }
             catch (Exception e)

@@ -1,16 +1,16 @@
 ﻿@model MyFootballMvc.ViewModels.TeamsCreateViewModel
 @{
-    ViewData["Title"] = "CreateOrUpdate";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+  ViewData["Title"] = "CreateOrUpdate";
+  Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
-    .field-validation-error {
-        color: red;
-    }
+  .field-validation-error {
+    color: red;
+  }
 
-    .input-validation-error {
-        border: 2px solid red;
-    }
+  .input-validation-error {
+    border: 2px solid red;
+  }
 </style>
 <div class="container-fluid">
     @using (Html.BeginForm("CreateOrUpdate", "Teams", FormMethod.Post))

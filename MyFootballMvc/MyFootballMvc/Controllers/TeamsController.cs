@@ -13,18 +13,16 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace MyFootballMvc.Controllers
 {
-    public class TeamsController : Controller
+  public class TeamsController : Controller
+  {
+    private readonly UsersService _usersSevice;
+    private readonly TeamsService _teamsService;
+
+    public TeamsController()
     {
-
-
-        private readonly UsersService _usersSevice;
-        private readonly TeamsService _teamsService;
-
-        public TeamsController()
-        {
-            _usersSevice = new UsersService();
-            _teamsService = new TeamsService();
-        }
+      _usersSevice = new UsersService();
+      _teamsService = new TeamsService();
+    }
 
         [Authorize]
         [Route("Teams/Index")]
@@ -79,15 +77,15 @@ namespace MyFootballMvc.Controllers
             viewModel.Team = new Team();
             viewModel.ViewType = ViewType.Create;
 
-            return View("CreateOrUpdate", viewModel);
-        }
+      return View("CreateOrUpdate", viewModel);
+    }
 
-        [HttpPost("Teams/CreateOrUpdate")]
-        public async Task<IActionResult> CreateOrUpdate(Team team)
-        {
+    [HttpPost("Teams/CreateOrUpdate")]
+    public async Task<IActionResult> CreateOrUpdate(Team team)
+    {
 
-            string token = await GetAccessToken();
-            string id = await GetUserAuth0Id();
+      string token = await GetAccessToken();
+      string id = await GetUserAuth0Id();
 
             if (!ModelState.IsValid)
             {
@@ -124,31 +122,31 @@ namespace MyFootballMvc.Controllers
             {
                 var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-                // if you need to check the access token expiration time, use this value
-                // provided on the authorization response and stored.
-                // do not attempt to inspect/decode the access token
-                var accessTokenExpiresAt = DateTime.Parse(
-                    await HttpContext.GetTokenAsync("expires_at"),
-                    CultureInfo.InvariantCulture,
-                    DateTimeStyles.RoundtripKind);
+        // if you need to check the access token expiration time, use this value
+        // provided on the authorization response and stored.
+        // do not attempt to inspect/decode the access token
+        var accessTokenExpiresAt = DateTime.Parse(
+            await HttpContext.GetTokenAsync("expires_at"),
+            CultureInfo.InvariantCulture,
+            DateTimeStyles.RoundtripKind);
 
-                var idToken = await HttpContext.GetTokenAsync("id_token");
+        var idToken = await HttpContext.GetTokenAsync("id_token");
 
-                return accessToken;
+        return accessToken;
 
-                // Now you can use them. For more info on when and how to use the 
-                // access_token and id_token, see https://auth0.com/docs/tokens
-            }
-            return string.Empty;
+        // Now you can use them. For more info on when and how to use the 
+        // access_token and id_token, see https://auth0.com/docs/tokens
+      }
+      return string.Empty;
 
-        }
-        private Task<string> GetUserAuth0Id()
-        {
-            return Task.Factory.StartNew(() =>
-            {
-                return User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            });
-        }
+    }
+    private Task<string> GetUserAuth0Id()
+    {
+      return Task.Factory.StartNew(() =>
+      {
+        return User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+      });
+    }
 
 
 
@@ -170,6 +168,6 @@ namespace MyFootballMvc.Controllers
 
         #endregion
 
-    }
+  }
 
 }

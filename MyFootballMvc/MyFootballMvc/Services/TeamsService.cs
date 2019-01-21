@@ -53,8 +53,7 @@ namespace MyFootballMvc.Services
         {
             var request = new RestRequest("teams/create", Method.POST);
             request.AddHeader("authorization", $"Bearer {accessToken}");
-            request.RequestFormat = DataFormat.Json;
-            request.AddBody(team);
+            request.AddJsonBody(team);
             IRestResponse response = await _client.ExecuteTaskAsync(request);
 
         }
@@ -63,15 +62,14 @@ namespace MyFootballMvc.Services
         {
             var request = new RestRequest("teams/update", Method.PUT);
             request.AddHeader("authorization", $"Bearer {accessToken}");
-            request.RequestFormat = DataFormat.Json;
-            request.AddBody(team);
+            request.AddJsonBody(team);
             IRestResponse response = await _client.ExecuteTaskAsync(request);
         }
 
         public async Task Delete(string accessToken,Team team)
         {
 
-            var request = new RestRequest("teams/update", Method.DELETE);
+            var request = new RestRequest("teams/delete/{id}", Method.DELETE);
             request.AddHeader("authorization", $"Bearer {accessToken}");
             request.RequestFormat = DataFormat.Json;
             IRestResponse response = await _client.ExecuteTaskAsync(request);
