@@ -7,5 +7,14 @@ namespace MyFootballMvc.ViewModels
 {
     public class CupViewModel : TournamentViewModel
     {
+        public CupViewModel():base()
+        {
+
+        }
+
+        public CupViewModel(string token, string id) : base(token,id)
+        {
+
+        }
     }
 }

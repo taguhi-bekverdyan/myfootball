@@ -11,7 +11,7 @@ namespace MyFootballRestApi.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        public string ShartName { get; set; }
+        public string ShortName { get; set; }
         [Required]
         public User President { get; set; }
         

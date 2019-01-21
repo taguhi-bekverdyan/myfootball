@@ -12,5 +12,16 @@ namespace MyFootballMvc.ViewModels
         public Coach Coach { get; set; }
         public bool IsMember { get; set; }
         public List<Team> Teams { get; set; }
+
+        public EditAccountViewModel():base()
+        {
+
+        }
+
+        public EditAccountViewModel(string token,string id):base(token,id)
+        {
+
+        }
+
     }
 }

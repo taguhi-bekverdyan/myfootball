@@ -23,6 +23,7 @@ namespace MyFootballRestApi.Controllers
         private readonly IRepository<Coach> _coachRepository;
         private readonly IRepository<Referee> _refereeRepository;
         private readonly IRepository<Staff> _staffRepository;
+        private readonly IRepository<Team> _teamRepository;
 
         public UsersController()
         {
@@ -31,6 +32,7 @@ namespace MyFootballRestApi.Controllers
             _coachRepository = new CouchbaseRepository<Coach>();
             _refereeRepository = new CouchbaseRepository<Referee>();
             _staffRepository = new CouchbaseRepository<Staff>();
+            _teamRepository  = new CouchbaseRepository<Team>();
         }
 
         #region GET
@@ -141,6 +143,14 @@ namespace MyFootballRestApi.Controllers
                 }
                 await _staffRepository.Update(st);
 
+                List<Team> teams = await _teamRepository.GetAll(typeof(Team));
+                var team = teams.FirstOrDefault(p => p.President.Id == user.Id);
+                if (team != null)
+                {
+                    team.President = user;
+                }
+                await _teamRepository.Update(team);
+
                 return Ok(result);
             }
             catch (Exception e)
@@ -167,6 +177,8 @@ namespace MyFootballRestApi.Controllers
         }
 
         #endregion
+
+        
 
     }
 }

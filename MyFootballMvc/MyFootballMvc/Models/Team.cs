@@ -9,9 +9,11 @@ namespace MyFootballMvc.Models
     public class Team:EntityBase<Team>
     {
         [Required]
+        [Display(Name="Team full name")]
         public string Name { get; set; }
         [Required]
-        public string ShartName { get; set; }
+        [Display(Name="Team short name")]
+        public string ShortName { get; set; }
         
         public User President { get; set; }
 

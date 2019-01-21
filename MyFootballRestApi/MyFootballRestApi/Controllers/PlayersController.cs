@@ -67,6 +67,23 @@ namespace MyFootballRestApi.Controllers
             }
         }
 
+        [HttpGet("free_players")]
+        public async Task<IActionResult> GetFreePlayers()
+        {
+            try
+            {
+                List<Player> players = await _playerRepository.GetAll(typeof(Player));
+                var freePlayers = (from p in players
+                                   where p.PlayerStatus == PlayerStatus.FreeAgent
+                                   select p).ToList();
+                return Ok(freePlayers);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }
+        }
+
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] Player player)
         {

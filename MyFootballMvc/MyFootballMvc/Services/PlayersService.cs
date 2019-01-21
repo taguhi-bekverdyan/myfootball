@@ -39,6 +39,17 @@ namespace MyFootballMvc.Services
             return player;
         }
 
+        public async Task<List<Player>> FindFreePlayers(string accessToken)
+        {
+            var request = new RestRequest("players/free_players");
+            request.AddHeader("authorization", $"Bearer {accessToken}");
+
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
+
+            List<Player> players = JsonConvert.DeserializeObject<List<Player>>(response.Content);
+            return players;
+        }
+
         public async Task<Player> GetPlayerByUserId(string accessToken,string id)
         {
             var request = new RestRequest("players/by_user_id/{id}", Method.GET);

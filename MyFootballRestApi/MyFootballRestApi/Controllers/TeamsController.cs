@@ -50,6 +50,21 @@ namespace MyFootballRestApi.Controllers
                 return StatusCode(500, e);
             }
         }
+
+        [HttpGet("by_president_id/{id}")]
+        public async Task<IActionResult> GetTeamByPresidentId([FromRoute]string id) {
+            try
+            {
+                var teams = await _teamsRepository.GetAll(typeof(Team));
+                var team = teams.FirstOrDefault(t => t.President.Id == id);
+                return Ok(team);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }
+        }
+
         #endregion
 
         #region POST
