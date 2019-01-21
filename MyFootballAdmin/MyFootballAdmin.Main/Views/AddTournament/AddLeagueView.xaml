@@ -12,26 +12,20 @@
              mc:Ignorable="d"
              d:DesignHeight="305" d:DesignWidth="600">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="weekDays" MethodName="GetValues"
-                        ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="sys:DayOfWeek"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
     </UserControl.Resources>
-    <Grid   TextBlock.FontWeight="Thin" TextBlock.TextAlignment="Center" TextBlock.FontSize="18" Background="Gray" >
+    <Grid   TextBlock.FontWeight="Thin" TextBlock.TextAlignment="Center" TextBlock.FontSize="18" Background="Gray" Margin="0,0,0,-0.2" >
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition ></RowDefinition>
-            <RowDefinition ></RowDefinition>
-            <RowDefinition Height="5*"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="5*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TextBlock Text="DATE" Grid.ColumnSpan="2"></TextBlock>
         <TextBlock Text="Start Date" Grid.Row="1" ></TextBlock>
@@ -48,9 +42,9 @@
         </ComboBox>
         <Grid Grid.Row="5" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>

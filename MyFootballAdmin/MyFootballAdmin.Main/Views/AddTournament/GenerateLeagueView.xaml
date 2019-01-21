@@ -17,21 +17,21 @@
     </UserControl.Resources>
     <Grid  TextBlock.FontWeight="Thin" TextBlock.TextAlignment="Center" TextBlock.FontSize="18" Background="Gray">
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="5*"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="One Halph Time" Grid.Row="0" Grid.Column="0"></TextBlock>
-        <TextBlock Text="Break Time" Grid.Row="1" Grid.Column="0"></TextBlock>
-        <TextBlock Text="Yello Cards To Disqualification" Grid.Row="2" Grid.Column="0"></TextBlock>
+        <TextBlock Text="One Halph Time" Grid.Row="0" Grid.Column="0"/>
+        <TextBlock Text="Break Time" Grid.Row="1" Grid.Column="0"/>
+        <TextBlock Text="Yello Cards To Disqualification" Grid.Row="2" Grid.Column="0"/>
         <TextBlock Text="Count of Matches" Grid.Row="3" Grid.Column="0"></TextBlock>
         <TextBlock Text="Players Count" Grid.Row="4" Grid.Column="0"></TextBlock>
         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding LeagueToGenerate.OneHalphTime}"></TextBox>
