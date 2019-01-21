@@ -3,8 +3,10 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using MyFootballMvc.Models;
+using MyFootballMvc.Services;
 using MyFootballMvc.ViewModels;
 using Newtonsoft.Json;
 using RestSharp;
@@ -13,11 +15,20 @@ namespace MyFootballMvc.Controllers
 {
   public class TestController : Controller
   {
-    private async Task<string> GetAccessToken()
-    {
-      if (User.Identity.IsAuthenticated)
-      {
-        var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+        private EmailService _emailService { get; set; }
+
+        public TestController()
+        {
+            _emailService = new EmailService();
+        }
+        
+
+        private async Task<string> GetAccessToken()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var accessToken = await HttpContext.GetTokenAsync("access_token");
 
         // if you need to check the access token expiration time, use this value
         // provided on the authorization response and stored.
@@ -38,10 +49,12 @@ namespace MyFootballMvc.Controllers
 
     }
 
-    public async Task<IActionResult> Index()
-    {
-      return View(new TestViewModel() { ActiveItem = "test" });
-    }
+        public async Task<IActionResult> Index()
+        {
+            var viewModel = new TestViewModel();
+            viewModel.Email = new Email();
+            return View("Index",viewModel);
+        }
 
 
     public async Task<IActionResult> TestPublic()
@@ -101,12 +114,18 @@ namespace MyFootballMvc.Controllers
       return View("~/Views/Test/Test.cshtml", new TestViewModel());
     }
 
-    public async Task<IActionResult> Claims()
-    {
-      var client = new RestClient("https://localhost:44350/api/test/claims");
-      var request = new RestRequest(Method.GET);
-      request.AddHeader("authorization", $"Bearer {await GetAccessToken()}");
-      var response = client.Execute(request);
+        public async Task<IActionResult> SendEmail(Email email)
+        {
+            await _emailService.Insert(await GetAccessToken(), email);
+            return View("Index", new TestViewModel());
+        }
+
+        public async Task<IActionResult> Claims()
+        {
+            var client = new RestClient("https://localhost:44350/api/test/claims");
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("authorization", $"Bearer {await GetAccessToken()}");
+            var response = client.Execute(request);
 
       dynamic json = JsonConvert.DeserializeObject(response.Content);
 
@@ -115,10 +134,13 @@ namespace MyFootballMvc.Controllers
       return View("~/Views/Test/Test.cshtml", new TestViewModel());
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-      return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
     }
   }
-}

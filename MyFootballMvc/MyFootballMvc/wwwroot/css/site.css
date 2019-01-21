@@ -38,10 +38,10 @@ for details on configuring this project to bundle and minify static web assets. 
   .main-nav .dropdown-menu:before {
     content: "";
     display: block;
-    border: 8px solid transparent;
+    border: 6px solid transparent;
     border-bottom-color: #a557ab;
     position: absolute;
-    top: -1rem;
+    top: -0.75rem;
     left: 50%;
     margin-left: -0.5rem;
   }

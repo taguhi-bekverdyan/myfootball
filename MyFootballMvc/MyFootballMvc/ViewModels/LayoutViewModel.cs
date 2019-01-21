@@ -10,7 +10,7 @@ namespace MyFootballMvc.ViewModels
   public class LayoutViewModel : IMenuItem
   {
     public List<Tournament> Tournaments { get; set; }
-    public string ActiveItem { get; set; }
+    public string ActiveMenuItem { get; set; }
 
     public LayoutViewModel()
     {

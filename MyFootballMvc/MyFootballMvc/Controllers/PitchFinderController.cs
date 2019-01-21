@@ -11,7 +11,7 @@ namespace MyFootballMvc.Controllers
   {
     public IActionResult Index()
     {
-      return View(new PitchFinderViewModel { ActiveItem = "pitchfinder" });
+      return View(new PitchFinderViewModel { ActiveMenuItem = "pitchfinder" });
     }
   }
 }
