@@ -38,7 +38,7 @@ namespace MyFootballMvc.Services
             return team;
         }
 
-        public async Task<List<Team>> FindTeamsByUserId(string accessToken,string id)
+        public async Task<Team> FindTeamByUserId(string accessToken,string id)
         {
             var request = new RestRequest("teams/by_president_id/{id}", Method.GET);
             request.AddHeader("authorization", $"Bearer {accessToken}");
@@ -46,7 +46,7 @@ namespace MyFootballMvc.Services
 
             IRestResponse response = await _client.ExecuteTaskAsync(request);
 
-            return JsonConvert.DeserializeObject<List<Team>>(response.Content);
+            return JsonConvert.DeserializeObject<Team>(response.Content);
         }
 
         public async Task Insert(string accessToken, Team team)
