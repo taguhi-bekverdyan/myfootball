@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 
 namespace MyFootballMvc.Controllers
 {
-  public class LeagueController : Controller
-  {
-    public IActionResult Index(string tournamentId)
+    public class LeagueController : Controller
     {
         public async Task<IActionResult> Index(string tournamentId)
         {
-            LeagueViewModel leagueViewModel = await GetViewModel(tournamentId);           
+            LeagueViewModel leagueViewModel = await GetViewModel(tournamentId);
             return View("~/Views/League/Index.cshtml", leagueViewModel);
         }
 
@@ -24,6 +22,7 @@ namespace MyFootballMvc.Controllers
             LeagueViewModel leagueViewModel = await GetViewModel(tournamentId);
             return View("~/Views/League/Fixtures.cshtml", leagueViewModel);
         }
+
         public async Task<IActionResult> Results(string tournamentId)
         {
             LeagueViewModel leagueViewModel = await GetViewModel(tournamentId);
@@ -79,6 +78,7 @@ namespace MyFootballMvc.Controllers
         }
 
         #region Token
+
         private async Task<string> GetAccessToken()
         {
             if (User.Identity.IsAuthenticated)
@@ -100,15 +100,19 @@ namespace MyFootballMvc.Controllers
                 // Now you can use them. For more info on when and how to use the 
                 // access_token and id_token, see https://auth0.com/docs/tokens
             }
+
             return string.Empty;
 
         }
+
         private Task<string> GetUserAuth0Id()
         {
-            return Task.Factory.StartNew(() => {
+            return Task.Factory.StartNew(() =>
+            {
                 return User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
             });
         }
+
         #endregion
 
         private async Task<LeagueViewModel> GetViewModel(string tournamentId)
@@ -123,13 +127,6 @@ namespace MyFootballMvc.Controllers
             }
         }
 
-    }
 
-    public IActionResult Referees(string tournamentId)
-    {
-      var leagueViewModel = new LeagueViewModel(tournamentId);
-      leagueViewModel.ActiveMenuItem = "referees";
-      return View("~/Views/League/Referees.cshtml", leagueViewModel);
     }
-  }
 }

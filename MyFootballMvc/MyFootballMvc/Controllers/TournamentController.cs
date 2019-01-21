@@ -15,8 +15,6 @@ namespace MyFootballMvc.Controllers
 {
   public class TournamentController : Controller
   {
-    public IActionResult Index(string tournamentId)
-    {
         public async Task<IActionResult> Index(string tournamentId)
         {
             var client = new RestClient($@"https://localhost:44350/api/Tournament/{tournamentId}");
@@ -113,4 +111,3 @@ namespace MyFootballMvc.Controllers
         }
     }
   }
-}

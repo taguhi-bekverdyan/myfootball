@@ -13,8 +13,6 @@ namespace MyFootballMvc.ViewModels
     public byte[] Logo { get; set; }
     public byte[] Banner { get; set; }
 
-    public LeagueViewModel(string leagueId)
-    {
         public LeagueViewModel(string leagueId)
         {
             Ctor(leagueId);
@@ -35,4 +33,4 @@ namespace MyFootballMvc.ViewModels
 
     }
   }
-}
+

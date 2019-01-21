@@ -10,11 +10,8 @@ namespace MyFootballMvc.ViewModels
 {
   public class LayoutViewModel : IMenuItem
   {
-    public List<Tournament> Tournaments { get; set; }
     public string ActiveMenuItem { get; set; }
 
-    public LayoutViewModel()
-    {
         public List<Tournament> Tournaments { get; set; }
         public string UserName { get; set; }
         public bool HasTeams { get; set; }
@@ -58,4 +55,3 @@ namespace MyFootballMvc.ViewModels
         }
     }
   }
-}
