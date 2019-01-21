@@ -1,31 +1,33 @@
 ﻿@model MyFootballMvc.ViewModels.MyTeamIndexViewModel
 @using MyFootballMvc.ViewModels
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_MyTeamLayout.cshtml";
+  ViewData["Title"] = "Index";
+  Layout = "~/Views/Shared/_MyTeamLayout.cshtml";
 }
 
-@if (Model.ViewMode == ViewMode.Description)
-{
+<div class="page-my-team main-container container">
+  @if (Model.ViewMode == ViewMode.Description)
+  {
     @await Html.PartialAsync("~/Views/PartialViews/_Description.cshtml")
-}
-else if (Model.ViewMode == ViewMode.Coaches)
-{
+  }
+  else if (Model.ViewMode == ViewMode.Coaches)
+  {
     @await Html.PartialAsync("~/Views/PartialViews/_Coaches.cshtml")
-}
-else if (Model.ViewMode == ViewMode.Fixtures)
-{
+  }
+  else if (Model.ViewMode == ViewMode.Fixtures)
+  {
     @await Html.PartialAsync("~/Views/PartialViews/_Fixtures.cshtml")
-}
-else if (Model.ViewMode == ViewMode.Players)
-{
+  }
+  else if (Model.ViewMode == ViewMode.Players)
+  {
     @await Html.PartialAsync("~/Views/PartialViews/_Players.cshtml")
-}
-else if (Model.ViewMode == ViewMode.StaffMemebers)
-{
+  }
+  else if (Model.ViewMode == ViewMode.StaffMemebers)
+  {
     @await Html.PartialAsync("~/Views/PartialViews/_StaffMembers.cshtml")
-}
-else
-{
+  }
+  else
+  {
     <h2>!!!!</h2>
-}
+  }
+</div>
