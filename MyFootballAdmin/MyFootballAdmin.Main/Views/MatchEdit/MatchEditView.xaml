@@ -4,13 +4,45 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyFootballAdmin.Main.Views.MatchEdit"
-                 xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:mvvm="http://prismlibrary.com/"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              d:DataContext="{d:DesignInstance local:MatchEditViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d" 
-                xmlns:common="clr-namespace:MyFootballAdmin.Common;assembly=MyFootballAdmin.Common"
+             xmlns:common="clr-namespace:MyFootballAdmin.Common;assembly=MyFootballAdmin.Common"
              d:DesignHeight="405" d:DesignWidth="750">
-    <Grid>
-            
+    <Grid Background="Gray">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Grid.ColumnSpan="4">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ComboBox Grid.Column="3" Grid.Row="0"/>
+            <Image Grid.Column="0" Grid.RowSpan="3" Width="90" Height="100" Margin="15"/>
+            <TextBlock Text="{Binding SelectedTeam.Name}" Grid.Column="1" Grid.Row="0"/>
+            <TextBlock Text="{Binding SelectedTeam.}"  Grid.Row="0" Grid.Column="1"/>
+            <TextBlock Text="{Binding SelectedTeam.}" Grid.Row="1" Grid.Column="1"/>
+            <TextBlock Text="{Binding SelectedTeam.}" Grid.Row="1" Grid.Column="2"/>
+            <TextBlock Text="{Binding SelectedTeam.}" Grid.Row="2" Grid.Column="1"/>
+            <TextBlock Text="{Binding SelectedTeam.}" Grid.Row="2" Grid.Column="2"/>
+            <TextBlock Text="{Binding SelectedTeam.}" Grid.Row="0" Grid.Column="2"/>
+            <Button Grid.Column="3" Grid.Row="2"/>
+            <TextBlock/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <DataGrid Margin="5">
+                
+            </DataGrid>
+        </Grid>
     </Grid>
 </UserControl>

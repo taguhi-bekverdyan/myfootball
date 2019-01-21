@@ -25,7 +25,7 @@ namespace MyFootballAdmin.Data.Services.MatchService
         }
         public async Task Delete(string id)
         {
-                RestRequest request = new RestRequest("delete/{id}", Method.DELETE);
+                RestRequest request = new RestRequest("delete/Match/{id}", Method.DELETE);
                 request.AddUrlSegment("id", id.ToString());
             IRestResponse response = await _client.ExecuteTaskAsync(request);
             if (!response.IsSuccessful)
@@ -36,7 +36,7 @@ namespace MyFootballAdmin.Data.Services.MatchService
 
         public async Task<List<Match>> FindAll()
         {
-            var request = new RestRequest("match", Method.GET);
+            var request = new RestRequest("Match", Method.GET);
             request.AddHeader("authorization", $"Bearer {Token}");
 
             IRestResponse response = await _client.ExecuteTaskAsync(request);
@@ -54,7 +54,7 @@ namespace MyFootballAdmin.Data.Services.MatchService
 
         public async Task<Match> FindMatchById(string id)
         {
-            var request = new RestRequest("match/{id}", Method.GET);
+            var request = new RestRequest("Match/{id}", Method.GET);
             request.AddHeader("authorization", $"Bearer {Token}");
             request.AddUrlSegment("id", id);
 
@@ -85,7 +85,7 @@ namespace MyFootballAdmin.Data.Services.MatchService
         //}
         public async Task Create(Match match)
         {
-            var request = new RestRequest("match/create", Method.POST);
+            var request = new RestRequest("Match/create", Method.POST);
             request.AddHeader("authorization", $"Bearer {Token}");
             request.RequestFormat = DataFormat.Json;
             request.AddBody(match);
@@ -98,7 +98,7 @@ namespace MyFootballAdmin.Data.Services.MatchService
 
         public async Task Update(Match match)
         {
-            var request = new RestRequest("match/update", Method.PUT);
+            var request = new RestRequest("Match/update", Method.PUT);
             request.AddHeader("authorization", $"Bearer {Token}");
             request.RequestFormat = DataFormat.Json;
             request.AddBody(match);

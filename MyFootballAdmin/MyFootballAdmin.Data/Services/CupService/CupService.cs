@@ -25,7 +25,7 @@ namespace MyFootballAdmin.Data.Services.CupService
 
         public async Task<List<Cup>> FindAll()
         {
-            var request = new RestRequest("cup", Method.GET);
+            var request = new RestRequest("Cup", Method.GET);
             request.AddHeader("authorization", $"Bearer {Token}");
 
             IRestResponse response = await _client.ExecuteTaskAsync(request);
@@ -43,7 +43,7 @@ namespace MyFootballAdmin.Data.Services.CupService
 
         public async Task<Cup> FindCupById(string id)
         {
-            var request = new RestRequest("cup/{id}", Method.GET);
+            var request = new RestRequest("Cup/{id}", Method.GET);
             request.AddHeader("authorization", $"Bearer {Token}");
             request.AddUrlSegment("id", id);
 
@@ -62,7 +62,7 @@ namespace MyFootballAdmin.Data.Services.CupService
 
         public async Task<Cup> FindCupByName(string name)
         {
-            var request = new RestRequest("cup/{name}", Method.GET);
+            var request = new RestRequest("Cup/{name}", Method.GET);
             request.AddHeader("authorization", $"Bearer {Token}");
             request.AddUrlSegment("name", name);
 
@@ -81,7 +81,7 @@ namespace MyFootballAdmin.Data.Services.CupService
 
         public async Task<Cup> FindCupByStartDate(string startDate)
         {
-            var request = new RestRequest("cup/{startDate}", Method.GET);
+            var request = new RestRequest("Cup/{startDate}", Method.GET);
             request.AddHeader("authorization", $"Bearer {Token}");
             request.AddUrlSegment("startDate", startDate);
 
@@ -112,7 +112,7 @@ namespace MyFootballAdmin.Data.Services.CupService
         //}
         public async Task Create(Cup cup)
         {
-            var request = new RestRequest("cup/create", Method.POST);
+            var request = new RestRequest("Cup/create", Method.POST);
             request.AddHeader("authorization", $"Bearer {Token}");
             request.RequestFormat = DataFormat.Json;
             request.AddBody(cup);
@@ -125,7 +125,7 @@ namespace MyFootballAdmin.Data.Services.CupService
 
         public async Task Update(Cup cup)
         {
-            var request = new RestRequest("cup/update", Method.PUT);
+            var request = new RestRequest("Cup/update", Method.PUT);
             request.AddHeader("authorization", $"Bearer {Token}");
             request.RequestFormat = DataFormat.Json;
             request.AddBody(cup);
@@ -138,7 +138,7 @@ namespace MyFootballAdmin.Data.Services.CupService
 
         public async Task Delete(string id)
         {
-            RestRequest request = new RestRequest("delete/{id}", Method.DELETE);
+            RestRequest request = new RestRequest("delete/Cup/{id}", Method.DELETE);
             request.AddUrlSegment("id", id.ToString());
             IRestResponse response = await _client.ExecuteTaskAsync(request);
             if (!response.IsSuccessful)

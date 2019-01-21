@@ -25,7 +25,7 @@ namespace MyFootballAdmin.Data.Services.TeamsService
 
         public async Task Delete(string id)
         {
-            RestRequest request = new RestRequest("delete/{id}", Method.DELETE);
+            RestRequest request = new RestRequest("delete/Team/{id}", Method.DELETE);
             request.AddUrlSegment("id", id.ToString());
             IRestResponse response =await  _client.ExecuteTaskAsync(request);
             if (!response.IsSuccessful)
@@ -36,7 +36,7 @@ namespace MyFootballAdmin.Data.Services.TeamsService
 
         public async Task<List<Team>> FindAll()
         {
-            var request = new RestRequest("match", Method.GET);
+            var request = new RestRequest("Team", Method.GET);
             request.AddHeader("authorization", $"Bearer {Token}");
 
             IRestResponse response = await _client.ExecuteTaskAsync(request);
@@ -54,7 +54,7 @@ namespace MyFootballAdmin.Data.Services.TeamsService
 
         public async Task<Team> FindTeamById(string id)
         {
-            var request = new RestRequest("team/{id}", Method.GET);
+            var request = new RestRequest("Team/{id}", Method.GET);
             request.AddHeader("authorization", $"Bearer {Token}");
             request.AddUrlSegment("id", id);
 
@@ -85,7 +85,7 @@ namespace MyFootballAdmin.Data.Services.TeamsService
         //}
         public async Task Create(Team team)
         {
-            var request = new RestRequest("match/create", Method.POST);
+            var request = new RestRequest("Team/create", Method.POST);
             request.AddHeader("authorization", $"Bearer {Token}");
             request.RequestFormat = DataFormat.Json;
             request.AddBody(team);
@@ -98,7 +98,7 @@ namespace MyFootballAdmin.Data.Services.TeamsService
 
         public async Task Update(Team team)
         {
-            var request = new RestRequest("team/update", Method.PUT);
+            var request = new RestRequest("Team/update", Method.PUT);
             request.AddHeader("authorization", $"Bearer {Token}");
             request.RequestFormat = DataFormat.Json;
             request.AddBody(team);

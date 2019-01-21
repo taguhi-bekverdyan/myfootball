@@ -25,7 +25,7 @@ namespace MyFootballAdmin.Data.Services.LeagueService
 
         public async Task<List<League>> FindAll()
         {
-            var request = new RestRequest("league", Method.GET);
+            var request = new RestRequest("League", Method.GET);
             request.AddHeader("authorization", $"Bearer {Token}");
 
             IRestResponse response = await _client.ExecuteTaskAsync(request);
@@ -43,7 +43,7 @@ namespace MyFootballAdmin.Data.Services.LeagueService
 
         public async Task<League> FindLeagueById(string id)
         {
-            var request = new RestRequest("league/{id}", Method.GET);
+            var request = new RestRequest("League/{id}", Method.GET);
             request.AddHeader("authorization", $"Bearer {Token}");
             request.AddUrlSegment("id", id);
 
@@ -62,7 +62,7 @@ namespace MyFootballAdmin.Data.Services.LeagueService
 
         public async Task<League> FindLeagueByName(string name)
         {
-            var request = new RestRequest("league/{name}", Method.GET);
+            var request = new RestRequest("League/{name}", Method.GET);
             request.AddHeader("authorization", $"Bearer {Token}");
             request.AddUrlSegment("name", name);
 
@@ -82,7 +82,7 @@ namespace MyFootballAdmin.Data.Services.LeagueService
 
         public async Task<League> FindLeagueByStartDate(string startDate)
         {
-            var request = new RestRequest("league/{startDate}", Method.GET);
+            var request = new RestRequest("League/{startDate}", Method.GET);
             request.AddHeader("authorization", $"Bearer {Token}");
             request.AddUrlSegment("startDate", startDate);
 
@@ -113,7 +113,7 @@ namespace MyFootballAdmin.Data.Services.LeagueService
         //}
         public async Task Create(League league)
         {
-            var request = new RestRequest("league/create", Method.POST);
+            var request = new RestRequest("League/create", Method.POST);
             request.AddHeader("authorization", $"Bearer {Token}");
             request.RequestFormat = DataFormat.Json;
             request.AddBody(league);
@@ -126,7 +126,7 @@ namespace MyFootballAdmin.Data.Services.LeagueService
 
         public async Task Update(League league)
         {
-            var request = new RestRequest("league/update", Method.PUT);
+            var request = new RestRequest("League/update", Method.PUT);
             request.AddHeader("authorization", $"Bearer {Token}");
             request.RequestFormat = DataFormat.Json;
             request.AddBody(league);
@@ -139,7 +139,7 @@ namespace MyFootballAdmin.Data.Services.LeagueService
 
         public async Task Delete(string id)
         {
-            RestRequest request = new RestRequest("delete/{id}", Method.DELETE);
+            RestRequest request = new RestRequest("delete/League/{id}", Method.DELETE);
             request.AddUrlSegment("id", id.ToString());
             IRestResponse response = await _client.ExecuteTaskAsync(request);
             if (!response.IsSuccessful)
