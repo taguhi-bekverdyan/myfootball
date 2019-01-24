@@ -113,7 +113,7 @@ namespace MyFootballAdmin.Data.Services.LeagueService
         //}
         public async Task Create(League league)
         {
-            var request = new RestRequest("League/create", Method.POST);
+            var request = new RestRequest("League/Create", Method.POST);
             request.AddHeader("authorization", $"Bearer {Token}");
             request.RequestFormat = DataFormat.Json;
             request.AddBody(league);

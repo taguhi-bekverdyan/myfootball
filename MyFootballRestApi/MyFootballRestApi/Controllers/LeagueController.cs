@@ -102,7 +102,7 @@ namespace MyFootballRestApi.Controllers
                 league.Id = Guid.NewGuid().ToString();
                 var result = await _leagueRepository.Create(league);
                 if (result == null) { return BadRequest(result); }
-                return Created(string.Format("/api/Leagues/{0}",league.Id),result);
+                return Created($"/api/Leagues/{league.Id}",result);
             }
             catch (Exception e)
             {

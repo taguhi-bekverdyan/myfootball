@@ -9,7 +9,7 @@ namespace MyFootballAdmin.Data.Models
     public class Team:EntityBase<Team>
     {
         public string Name { get; set; }
-        public string ShartName { get; set; }
+        public string ShortName { get; set; }
         public User President { get; set; }
         
         public List<Staff> StaffMembers { get; set; }

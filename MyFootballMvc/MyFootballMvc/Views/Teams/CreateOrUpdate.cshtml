@@ -12,7 +12,7 @@
     border: 2px solid red;
   }
 </style>
-<div class="container-fluid">
+<div class="main-container container">
     @using (Html.BeginForm("CreateOrUpdate", "Teams", FormMethod.Post))
     {
         <div class="form-group">
@@ -26,7 +26,7 @@
             @Html.ValidationMessageFor(m => m.Team.ShortName)
         </div>
         @Html.HiddenFor(m => m.Team.Id)
-        @if (Model.ViewType == MyFootballMvc.ViewModels.ViewType.Create)
+        if (Model.ViewType == MyFootballMvc.ViewModels.ViewType.Create)
         {
             <button type="submit" class="btn btn-primary">Create</button>
         }

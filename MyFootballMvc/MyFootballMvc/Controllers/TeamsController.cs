@@ -110,7 +110,7 @@ namespace MyFootballMvc.Controllers
                 await _teamsService.Update(token, current);
             }
 
-            return RedirectToAction("Index", "Teams/Index");
+            return RedirectToAction("Index");
         }
 
         #endregion

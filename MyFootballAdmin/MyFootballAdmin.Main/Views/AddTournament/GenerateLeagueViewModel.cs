@@ -15,6 +15,8 @@ using System.Windows;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using MyFootballAdmin.Data.Services.LeagueService;
+
 namespace MyFootballAdmin.Main.Views.AddTournament
 {
     public class GenerateLeagueViewModel: BindableBase, INavigationAware, IRegionManagerAware
@@ -23,13 +25,15 @@ namespace MyFootballAdmin.Main.Views.AddTournament
         private readonly INotificationService _notificationService;
         private readonly IShellService _shellService;
         private readonly IRegionManager _regionManager;
+        private readonly ILeagueService _leagueService;
 
-        public GenerateLeagueViewModel(IShellService shellService, IRegionManager regionManager, IEventAggregator eventAggregator, INotificationService notificationService)
+        public GenerateLeagueViewModel(IShellService shellService, IRegionManager regionManager, IEventAggregator eventAggregator, INotificationService notificationService, ILeagueService leagueService)
         {
             _shellService = shellService;
             _regionManager = regionManager;
             _eventAggregator = eventAggregator;
             _notificationService = notificationService;
+            _leagueService = leagueService;
             SelectedRule = new Rule();
             Rules = new ObservableCollection<Rule>();
             RuleString = new ObservableCollection<string>();
@@ -82,6 +86,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             set { SetProperty(ref _selectedRule, value); }
         }
         #endregion
+
         #region Commands
         private DelegateCommand _generateCommand;
         public DelegateCommand GenerateCommand => _generateCommand ?? (_generateCommand = new DelegateCommand(GenerateCommandAction));
@@ -195,10 +200,12 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             LeagueToGenerate.Generate();
             LeagueToGenerate.Created=LeagueToGenerate.Updated=DateTime.Now;
             LeagueToGenerate.Tournament.Created = LeagueToGenerate.Tournament.Updated = DateTime.Now;
+
+            _leagueService.Create(LeagueToGenerate);
             DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(League));
             using (FileStream fs = new FileStream("league.json", FileMode.OpenOrCreate))
             {
-                jsonFormatter.WriteObject(fs,LeagueToGenerate);
+                jsonFormatter.WriteObject(fs, LeagueToGenerate);
             }
         }
 
