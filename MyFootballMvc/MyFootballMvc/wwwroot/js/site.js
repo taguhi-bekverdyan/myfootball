@@ -7,6 +7,7 @@ if ($('.league-name').length > 0 && !$tournamentMenuItem.hasClass('active')) {
   $tournamentMenuItem.addClass('active');
 }
 
+// Common ajax submit function for MyProfiles tabs
 function AjaxJsonSumbitWithConfirm(url, object) {
   bootbox.confirm("Do you want to save changes?", function (result) {
     if (result) {
@@ -22,3 +23,7 @@ function AjaxJsonSumbitWithConfirm(url, object) {
     }
   });
 }
+
+$(document).ready(function () {
+  $('#my-pitches-table').DataTable();
+});

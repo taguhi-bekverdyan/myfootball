@@ -27,12 +27,11 @@
     {
       "library": "bootbox.js@4.4.0",
       "destination": "wwwroot/lib/bootbox.js/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "datatables@1.10.19",
+      "destination": "wwwroot/lib/datatables/"
     }
-  ,
-{
-  "provider": "cdnjs",
-  "library": "datatables@1.10.19",
-  "destination": "wwwroot/lib/datatables/"
-}
-]
+  ]
 }

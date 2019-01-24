@@ -10,6 +10,7 @@ namespace MyFootballMvc.ViewModels
   {
     public User User { get; set; }
     public Pitch Pitch { get; set; }
+    public List<Pitch> Pitches { get; set; }
 
     public PitchViewModel()
     {
