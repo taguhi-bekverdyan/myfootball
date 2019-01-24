@@ -16,10 +16,4 @@
     <Folder Include="Views\Tournament\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Update="Views\PitchFinder\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-  </ItemGroup>
-
 </Project>

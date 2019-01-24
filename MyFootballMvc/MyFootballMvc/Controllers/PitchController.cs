@@ -27,7 +27,7 @@ namespace MyFootballMvc.Controllers
     public async Task<IActionResult> Index()
     {
       PitchViewModel pitchViewModel = await GetViewModel();
-      pitchViewModel.Pitches = await _pitchService.FindAll(await GetAccessToken());
+      pitchViewModel.MyPitches = await _pitchService.FindPitchesByUserId(await GetAccessToken(), await GetUserAuth0Id());
       return View("Index", pitchViewModel);
     }
 
@@ -64,6 +64,14 @@ namespace MyFootballMvc.Controllers
       }
 
       return RedirectToAction("Create");
+    }
+
+
+    public async Task<IActionResult> PitchFinder()
+    {
+      PitchViewModel pitchViewModel = await GetViewModel();
+      pitchViewModel.AllPitches = await _pitchService.FindAll(await GetAccessToken());
+      return View("PitchFinder", pitchViewModel);
     }
 
     #region Token
