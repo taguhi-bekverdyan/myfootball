@@ -1,0 +1,39 @@
+﻿@model MyFootballMvc.ViewModels.MyTeamIndexViewModel
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="main-container container">
+    @if (Model.SentRequests.Count != 0)
+    {
+        <div class="container">
+            <h2>Sent Requests</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Request To</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Birthdate</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @*<td>@Html.ActionLink(item.Name, "Details", "Leagues", 
+                    null, null, null, new { id = item.Id }, null)</td>*@
+                @foreach (var item in Model.SentRequests)
+                {
+                    <tr>
+                        <th>@item.Request.RequestTo</th>
+                        @*<th>@item.User.FirstName</th>*@
+                        <th>@Html.ActionLink(item.User.FirstName,"RequestDetails","Details",null,null,null,
+                                new { id=item.Request.Id},null)</th>
+                        <th>@item.User.LastName</th>
+                        <th>@item.User.Birthdate</th>
+                        <th>@item.Request.Message</th>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

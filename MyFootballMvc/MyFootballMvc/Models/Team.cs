@@ -21,5 +21,8 @@ namespace MyFootballMvc.Models
         public List<Player> Players { get; set; }
         public List<Coach> Managers { get; set; }
         public List<string> Stats { get; set; }
+
+        public List<String> SentRequestsId { get; set; }
+
     }
 }

@@ -6,7 +6,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-    
+<div class="main-container container">
     @if (Model.Players.Count != 0)
     {
         <h3>Players</h3>
@@ -47,7 +47,7 @@
         <h2>There are not free players</h2>
     }
 
-    <br/>
+    <br />
 
     @if (Model.Staffs.Count != 0)
     {
@@ -71,7 +71,7 @@
                         <td>@staff.User.LastName</td>
                         <td>@staff.User.Birthdate</td>
                         <td>@staff.Occupation</td>
-                        
+
                         <td>
                             <button class="btn btn-primary staffs-invite-buttons" id="@staff.Id">Invite</button>
                         </td>
@@ -85,7 +85,7 @@
         <h2>There are not free staffs</h2>
     }
 
-    <br/>
+    <br />
 
 
     @if (Model.Coaches.Count != 0)
@@ -120,6 +120,8 @@
     {
         <h2>There are not free staffs</h2>
     }
+</div>
+    
 
 <script type="text/javascript">
     $(document).ready(function () {

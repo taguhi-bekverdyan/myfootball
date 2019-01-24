@@ -64,6 +64,12 @@ namespace MyFootballMvc.Controllers
             return View("Index", await GetTeamsIndexViewModel(ViewMode.Description));
         }
 
+        [Route("Teams/SentRequests")]
+        public async Task<IActionResult> SentRequests()
+        {
+            return View("Index",await GetTeamsIndexViewModel(ViewMode.SentRequests));
+        }
+
         #endregion
 
 

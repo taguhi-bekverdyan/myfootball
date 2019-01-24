@@ -41,6 +41,17 @@ namespace MyFootballMvc.Services
 
         }
 
+        public async Task<List<Request>> FindRequestsByTeamId(string accessToken, string id)
+        {
+            var request = new RestRequest("requests/by_team_id/{id}", Method.GET);
+            request.AddHeader("authorization", $"Bearer {accessToken}");
+            request.AddUrlSegment("id", id);
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
+
+            List<Request> requests = JsonConvert.DeserializeObject<List<Request>>(response.Content);
+            return requests;
+        }
+
         public async Task<Request> GetRequestByUserId(string accessToken, string id)
         {
             var request = new RestRequest("requests/by_user_id/{id}", Method.GET);
@@ -58,7 +69,7 @@ namespace MyFootballMvc.Services
             var request = new RestRequest("requests/create", Method.POST);
             request.AddHeader("authorization", $"Bearer {accessToken}");
             request.RequestFormat = DataFormat.Json;
-            request.AddBody(req);
+            request.AddJsonBody(req);
             IRestResponse response = await _client.ExecuteTaskAsync(request);
         }
 
@@ -67,9 +78,11 @@ namespace MyFootballMvc.Services
             var request = new RestRequest("requests/update", Method.PUT);
             request.AddHeader("authorization", $"Bearer {accessToken}");
             request.RequestFormat = DataFormat.Json;
-            request.AddBody(req);
+            request.AddJsonBody(req);
             IRestResponse response = await _client.ExecuteTaskAsync(request);
         }
+
+
 
     }
 }

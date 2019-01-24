@@ -64,6 +64,21 @@ namespace MyFootballRestApi.Controllers
             }
         }
 
+        [HttpGet("by_team_id/{id}")]
+        public async Task<IActionResult> GetRequestsByTeamId([FromRoute]string id)
+        {
+            try
+            {
+                List<Request> requests = await _requestsRepository.GetAll(typeof(Request));
+                var result = (from r in requests where r.Team.Id == id select r).ToList();
+                return Ok(requests);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }
+        }
+
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] Request request)
         {
