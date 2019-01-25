@@ -3,6 +3,8 @@ using MyFootballRestApi.Data;
 using MyFootballRestApi.Models;
 using System.Threading.Tasks;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MyFootballRestApi.Controllers
 {
@@ -42,6 +44,27 @@ namespace MyFootballRestApi.Controllers
                 return StatusCode(500,e);
             }
         }
+
+
+        [HttpGet("Get/{name}")]
+        public async Task<IActionResult> GetTournamentByName(string name)
+        {
+            try
+            {
+                List<Tournament> tournaments = await _tournamentRepository.GetAll(typeof(Tournament));
+                var tournament = tournaments.FirstOrDefault(p => p.Name == name);
+                if (tournament == null)
+                {
+                    return NotFound();
+                }
+                return Ok(tournament);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
 
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] Tournament tournament)

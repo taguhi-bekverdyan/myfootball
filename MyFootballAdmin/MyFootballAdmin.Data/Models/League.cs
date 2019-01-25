@@ -19,11 +19,13 @@ namespace MyFootballAdmin.Data.Models
         public int BreakTime { get; set; }
         public int PlayersCount { get; set; }
         public int YelloCardsToDisqualification { get; set; }
+
         private int[,] Play;
         private int l;
 
         public League()
         {
+            Teams=new List<Team>();
             Tour = new List<Tour>();
             Pauses = new List<Pause>();
             MatchDays = new List<DayOfWeek>();

@@ -127,6 +127,8 @@
     <Compile Include="Services\MatchService\MatchService.cs" />
     <Compile Include="Services\TeamsService\ITeamsService.cs" />
     <Compile Include="Services\TeamsService\TeamsService.cs" />
+    <Compile Include="Services\TournamentService\ITournamentService.cs" />
+    <Compile Include="Services\TournamentService\TournamentService.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

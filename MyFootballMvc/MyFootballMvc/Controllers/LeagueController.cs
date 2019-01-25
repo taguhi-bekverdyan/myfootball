@@ -1,80 +1,111 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
-using MyFootballMvc.ViewModels;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
+using MyFootballMvc.Services;
+using MyFootballMvc.ViewModels;
 
 namespace MyFootballMvc.Controllers
 {
     public class LeagueController : Controller
     {
+        public LeagueController()
+        {
+            _teamsService = new TeamsService();
+            _leaguesService = new LeaguesService();
+        }
+
+        private TeamsService _teamsService { get; }
+        private LeaguesService _leaguesService { get; }
+
         public async Task<IActionResult> Index(string tournamentId)
         {
-            LeagueViewModel leagueViewModel = await GetViewModel(tournamentId);
+            var leagueViewModel = await GetViewModel(tournamentId);
             return View("~/Views/League/Index.cshtml", leagueViewModel);
         }
 
         public async Task<IActionResult> Fixtures(string tournamentId)
         {
-            LeagueViewModel leagueViewModel = await GetViewModel(tournamentId);
+            var leagueViewModel = await GetViewModel(tournamentId);
             return View("~/Views/League/Fixtures.cshtml", leagueViewModel);
         }
 
         public async Task<IActionResult> Results(string tournamentId)
         {
-            LeagueViewModel leagueViewModel = await GetViewModel(tournamentId);
+            var leagueViewModel = await GetViewModel(tournamentId);
             return View("~/Views/League/Results.cshtml", leagueViewModel);
         }
 
         public async Task<IActionResult> Tables(string tournamentId)
         {
-            LeagueViewModel leagueViewModel = await GetViewModel(tournamentId);
+            var leagueViewModel = await GetViewModel(tournamentId);
             return View("~/Views/League/Tables.cshtml", leagueViewModel);
         }
 
         public async Task<IActionResult> Clubs(string tournamentId)
         {
-            LeagueViewModel leagueViewModel = await GetViewModel(tournamentId);
+            var leagueViewModel = await GetViewModel(tournamentId);
             return View("~/Views/League/Clubs.cshtml", leagueViewModel);
         }
 
         public async Task<IActionResult> Players(string tournamentId)
         {
-            LeagueViewModel leagueViewModel = await GetViewModel(tournamentId);
+            var leagueViewModel = await GetViewModel(tournamentId);
             return View("~/Views/League/Players.cshtml", leagueViewModel);
         }
 
         public async Task<IActionResult> Managers(string tournamentId)
         {
-            LeagueViewModel leagueViewModel = await GetViewModel(tournamentId);
+            var leagueViewModel = await GetViewModel(tournamentId);
             return View("~/Views/League/Managers.cshtml", leagueViewModel);
         }
 
         public async Task<IActionResult> News(string tournamentId)
         {
-            LeagueViewModel leagueViewModel = await GetViewModel(tournamentId);
+            var leagueViewModel = await GetViewModel(tournamentId);
             return View("~/Views/League/News.cshtml", leagueViewModel);
         }
 
         public async Task<IActionResult> Social(string tournamentId)
         {
-            LeagueViewModel leagueViewModel = await GetViewModel(tournamentId);
+            var leagueViewModel = await GetViewModel(tournamentId);
             return View("~/Views/League/Social.cshtml", leagueViewModel);
         }
 
         public async Task<IActionResult> History(string tournamentId)
         {
-            LeagueViewModel leagueViewModel = await GetViewModel(tournamentId);
+            var leagueViewModel = await GetViewModel(tournamentId);
             return View("~/Views/League/History.cshtml", leagueViewModel);
         }
 
         public async Task<IActionResult> Referees(string tournamentId)
         {
-            LeagueViewModel leagueViewModel = await GetViewModel(tournamentId);
+            var leagueViewModel = await GetViewModel(tournamentId);
             return View("~/Views/League/Referees.cshtml", leagueViewModel);
+        }
+
+
+        public async Task<IActionResult> Join(string tournamentId)
+        {
+            var token = await GetAccessToken();
+            var id = await GetUserAuth0Id();
+
+            var leagueViewModel = await GetViewModel(tournamentId);
+            var team = await _teamsService.FindTeamByUserId(token, id);
+            leagueViewModel.League.Teams.Add(team);
+            await _leaguesService.Update(token, leagueViewModel.League);
+
+            return View("~/Views/League/Index.cshtml", leagueViewModel);
+        }
+
+        private async Task<LeagueViewModel> GetViewModel(string tournamentId)
+        {
+            if (User.Identity.IsAuthenticated)
+                return new LeagueViewModel(tournamentId, await GetAccessToken(), await GetUserAuth0Id());
+            return new LeagueViewModel(tournamentId);
         }
 
         #region Token
@@ -102,7 +133,6 @@ namespace MyFootballMvc.Controllers
             }
 
             return string.Empty;
-
         }
 
         private Task<string> GetUserAuth0Id()
@@ -114,19 +144,5 @@ namespace MyFootballMvc.Controllers
         }
 
         #endregion
-
-        private async Task<LeagueViewModel> GetViewModel(string tournamentId)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return new LeagueViewModel(tournamentId, await GetAccessToken(), await GetUserAuth0Id());
-            }
-            else
-            {
-                return new LeagueViewModel(tournamentId);
-            }
-        }
-
-
     }
 }

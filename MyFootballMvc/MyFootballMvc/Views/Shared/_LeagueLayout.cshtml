@@ -23,38 +23,47 @@
     </button>
 
     <div class="collapse navbar-collapse" id="leagueNavbar">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item @(Model.ActiveMenuItem == "fixtures" ? "active" : "")">
-          <a class="nav-link" asp-area="" asp-controller="League" asp-action="Fixtures" asp-route-tournamentId="@Model.Tournament.Id">Fixtures</a>
-        </li>
-        <li class="nav-item @(Model.ActiveMenuItem == "results" ? "active" : "")">
-          <a class="nav-link" asp-area="" asp-controller="League" asp-action="Results" asp-route-tournamentId="@Model.Tournament.Id">Results</a>
-        </li>
-        <li class="nav-item @(Model.ActiveMenuItem == "tables" ? "active" : "")">
-          <a class="nav-link" asp-area="" asp-controller="League" asp-action="Tables" asp-route-tournamentId="@Model.Tournament.Id">Tables</a>
-        </li>
-        <li class="nav-item @(Model.ActiveMenuItem == "clubs" ? "active" : "")">
-          <a class="nav-link" asp-area="" asp-controller="League" asp-action="Clubs" asp-route-tournamentId="@Model.Tournament.Id">Clubs</a>
-        </li>
-        <li class="nav-item @(Model.ActiveMenuItem == "players" ? "active" : "")">
-          <a class="nav-link" asp-area="" asp-controller="League" asp-action="Players" asp-route-tournamentId="@Model.Tournament.Id">Players</a>
-        </li>
-        <li class="nav-item @(Model.ActiveMenuItem == "managers" ? "active" : "")">
-          <a class="nav-link" asp-area="" asp-controller="League" asp-action="Managers" asp-route-tournamentId="@Model.Tournament.Id">Managers</a>
-        </li>
-        <li class="nav-item @(Model.ActiveMenuItem == "news" ? "active" : "")">
-          <a class="nav-link" asp-area="" asp-controller="League" asp-action="News" asp-route-tournamentId="@Model.Tournament.Id">News</a>
-        </li>
-        <li class="nav-item @(Model.ActiveMenuItem == "social" ? "active" : "")">
-          <a class="nav-link" asp-area="" asp-controller="League" asp-action="Social" asp-route-tournamentId="@Model.Tournament.Id">Social</a>
-        </li>
-        <li class="nav-item @(Model.ActiveMenuItem == "history" ? "active" : "")">
-          <a class="nav-link" asp-area="" asp-controller="League" asp-action="History" asp-route-tournamentId="@Model.Tournament.Id">History</a>
-        </li>
-        <li class="nav-item @(Model.ActiveMenuItem == "referees" ? "active" : "")">
-          <a class="nav-link" asp-area="" asp-controller="League" asp-action="Referees" asp-route-tournamentId="@Model.Tournament.Id">Referees</a>
-        </li>
-      </ul>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item @(Model.ActiveMenuItem == "fixtures" ? "active" : "")">
+                <a class="nav-link" asp-area="" asp-controller="League" asp-action="Fixtures" asp-route-tournamentId="@Model.Tournament.Id">Fixtures</a>
+            </li>
+            <li class="nav-item @(Model.ActiveMenuItem == "results" ? "active" : "")">
+                <a class="nav-link" asp-area="" asp-controller="League" asp-action="Results" asp-route-tournamentId="@Model.Tournament.Id">Results</a>
+            </li>
+            <li class="nav-item @(Model.ActiveMenuItem == "tables" ? "active" : "")">
+                <a class="nav-link" asp-area="" asp-controller="League" asp-action="Tables" asp-route-tournamentId="@Model.Tournament.Id">Tables</a>
+            </li>
+            <li class="nav-item @(Model.ActiveMenuItem == "clubs" ? "active" : "")">
+                <a class="nav-link" asp-area="" asp-controller="League" asp-action="Clubs" asp-route-tournamentId="@Model.Tournament.Id">Clubs</a>
+            </li>
+            <li class="nav-item @(Model.ActiveMenuItem == "players" ? "active" : "")">
+                <a class="nav-link" asp-area="" asp-controller="League" asp-action="Players" asp-route-tournamentId="@Model.Tournament.Id">Players</a>
+            </li>
+            <li class="nav-item @(Model.ActiveMenuItem == "managers" ? "active" : "")">
+                <a class="nav-link" asp-area="" asp-controller="League" asp-action="Managers" asp-route-tournamentId="@Model.Tournament.Id">Managers</a>
+            </li>
+            <li class="nav-item @(Model.ActiveMenuItem == "news" ? "active" : "")">
+                <a class="nav-link" asp-area="" asp-controller="League" asp-action="News" asp-route-tournamentId="@Model.Tournament.Id">News</a>
+            </li>
+            <li class="nav-item @(Model.ActiveMenuItem == "social" ? "active" : "")">
+                <a class="nav-link" asp-area="" asp-controller="League" asp-action="Social" asp-route-tournamentId="@Model.Tournament.Id">Social</a>
+            </li>
+            <li class="nav-item @(Model.ActiveMenuItem == "history" ? "active" : "")">
+                <a class="nav-link" asp-area="" asp-controller="League" asp-action="History" asp-route-tournamentId="@Model.Tournament.Id">History</a>
+            </li>
+            <li class="nav-item @(Model.ActiveMenuItem == "referees" ? "active" : "")">
+                <a class="nav-link" asp-area="" asp-controller="League" asp-action="Referees" asp-route-tournamentId="@Model.Tournament.Id">Referees</a>
+            </li>
+        </ul>
+        
+        
+        <span class="navbar navbar-dark">
+            @if (User.Identity.IsAuthenticated && Model.HasTeams && !Model.Tournament.IsGenerated)
+            {
+                <a class="nav-link" asp-controller="League" asp-action="Join" asp-route-tournamentId="@Model.Tournament.Id">Join the Tournament</a>
+            }
+        </span>
+
     </div>
   </nav>
 

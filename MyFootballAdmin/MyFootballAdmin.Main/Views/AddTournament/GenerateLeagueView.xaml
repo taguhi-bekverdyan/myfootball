@@ -69,6 +69,6 @@
             <Button Content="Edit" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedRule}" Grid.Column="2" Grid.Row="5" />
             <Button Content="Save" Command="{Binding SaveCommand}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" />
         </Grid>
-        <Button Content="Generate" Command="{Binding GenerateCommand}"  Grid.Row="6" Grid.Column="1" Margin="5"/>
+        <Button Content="Save" Command="{Binding GenerateCommand}"  Grid.Row="6" Grid.Column="1" Margin="5"/>
     </Grid>
 </UserControl>

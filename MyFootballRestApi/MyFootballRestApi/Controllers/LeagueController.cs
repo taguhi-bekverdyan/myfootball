@@ -38,7 +38,7 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetLeagueById([FromRoute]string id)
+        public async Task<IActionResult> GetLeagueById(string id)
         {
             try
             {
@@ -51,8 +51,8 @@ namespace MyFootballRestApi.Controllers
             }
         }
 
-        [HttpGet("{name}")]
-        public async Task<IActionResult> GetLeagueByName([FromRoute]string name)
+        [HttpGet("Get/{name}")]
+        public async Task<IActionResult> GetLeagueByName(string name)
         {
             try
             {
