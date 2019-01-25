@@ -60,7 +60,7 @@
         <span class="navbar navbar-dark">
             @if (User.Identity.IsAuthenticated && Model.HasTeams && !Model.Tournament.IsGenerated)
             {
-                <a class="nav-link" asp-controller="League" asp-action="Join" asp-route-tournamentId="@Model.Tournament.Id">Join the Tournament</a>
+                <a class="nav-link join-the-tournament" asp-controller="League" asp-action="Join" asp-route-tournamentId="@Model.Tournament.Id">Join the Tournament</a>
             }
         </span>
 

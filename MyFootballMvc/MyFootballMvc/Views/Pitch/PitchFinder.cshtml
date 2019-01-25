@@ -1,50 +1,51 @@
 ﻿@model MyFootballMvc.ViewModels.PitchViewModel
 
 @{
-  ViewData["Title"] = "PitchFinder";
+  ViewData["Title"] = "Pitch finder";
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="page-pitchfinder main-container container">
-  <h2>PitchFinder</h2>
-  <table id="pitch-table">
-    <thead>
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Owner</th>
-        <th scope="col">Length</th>
-        <th scope="col">Width</th>
-        <th scope="col">Surface</th>
-        <th scope="col">AreaType</th>
-        <th scope="col">Ligthing</th>
-        <th scope="col">Locker-room</th>
-        <th scope="col">Field heating</th>
-        <th scope="col">Tribunes</th>
-        <th scope="col">Price (per hour)</th>
-        <th scope="col">Start Time</th>
-        <th scope="col">End Time</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach (var pitch in Model.AllPitches)
-      {
+  <h2>Pitch finder</h2>
+  <div class="main-content">
+    <table id="pitch-table">
+      <thead>
         <tr>
-          <td>@pitch.Name</td>
-          <td>@pitch.Owner</td>
-          <td>@pitch.PitchLength</td>
-          <td>@pitch.PitchWidth</td>
-          <td>@pitch.Surface</td>
-          <td>@pitch.AreaType</td>
-          <td>@pitch.HasLigthing</td>
-          <td>@pitch.HasLockerRoom</td>
-          <td>@pitch.HasFieldHeating</td>
-          <td>@pitch.HasTribunes</td>
-          <td>@pitch.PricePerHour</td>
-          <td>@pitch.StartTime</td>
-          <td>@pitch.EndTime</td>
+          <th scope="col">Name</th>
+          <th scope="col">Owner</th>
+          <th scope="col">Length</th>
+          <th scope="col">Width</th>
+          <th scope="col">Surface</th>
+          <th scope="col">AreaType</th>
+          <th scope="col">Ligthing</th>
+          <th scope="col">Locker-room</th>
+          <th scope="col">Field heating</th>
+          <th scope="col">Tribunes</th>
+          <th scope="col">Price (per hour)</th>
+          <th scope="col">Start Time</th>
+          <th scope="col">End Time</th>
         </tr>
-      }
-    </tbody>
-  </table>
-
+      </thead>
+      <tbody>
+        @foreach (var pitch in Model.AllPitches)
+        {
+          <tr>
+            <td>@pitch.Name</td>
+            <td>@pitch.Owner</td>
+            <td>@pitch.PitchLength</td>
+            <td>@pitch.PitchWidth</td>
+            <td>@pitch.Surface</td>
+            <td>@pitch.AreaType</td>
+            <td>@pitch.HasLigthing</td>
+            <td>@pitch.HasLockerRoom</td>
+            <td>@pitch.HasFieldHeating</td>
+            <td>@pitch.HasTribunes</td>
+            <td>@pitch.PricePerHour</td>
+            <td>@pitch.StartTime</td>
+            <td>@pitch.EndTime</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 </div>
