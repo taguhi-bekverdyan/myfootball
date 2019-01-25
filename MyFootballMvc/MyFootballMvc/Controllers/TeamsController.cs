@@ -28,7 +28,7 @@ namespace MyFootballMvc.Controllers
         [Route("Teams/Index")]
         public async Task<IActionResult> Index()
         {
-            var viewModel = await GetTeamsIndexViewModel(ViewMode.Description);
+            var viewModel = await GetTeamsIndexViewModel();
             return View("Index", viewModel);
         }
 
@@ -37,37 +37,31 @@ namespace MyFootballMvc.Controllers
         [Route("Teams/Fixtures")]
         public async Task<IActionResult> Fixtures()
         {
-            return View("Index", await GetTeamsIndexViewModel(ViewMode.Fixtures));
+            return View("Fixtures");
         }
 
         [Route("Teams/Players")]
         public async Task<IActionResult> Players()
         {
-            return View("Index", await GetTeamsIndexViewModel(ViewMode.Players));
+            return View("Players");
         }
 
         [Route("Teams/StaffMembers")]
         public async Task<IActionResult> StaffMembers()
         {
-            return View("Index", await GetTeamsIndexViewModel(ViewMode.StaffMemebers));
+            return View("StaffMembers");
         }
 
         [Route("Teams/Coaches")]
         public async Task<IActionResult> Coaches()
         {
-            return View("Index", await GetTeamsIndexViewModel(ViewMode.Coaches));
-        }
-
-        [Route("Teams/Invite")]
-        public async Task<IActionResult> Invite()
-        {
-            return View("Index", await GetTeamsIndexViewModel(ViewMode.Description));
+            return View("Coaches");
         }
 
         [Route("Teams/SentRequests")]
         public async Task<IActionResult> SentRequests()
         {
-            return View("Index",await GetTeamsIndexViewModel(ViewMode.SentRequests));
+            return View("SentRequests",await GetSentRequestsViewModel());
         }
 
         #endregion
@@ -165,11 +159,18 @@ namespace MyFootballMvc.Controllers
             return new TeamsCreateViewModel(await GetAccessToken(), await GetUserAuth0Id());
         }
 
-        private async Task<MyTeamIndexViewModel> GetTeamsIndexViewModel(ViewMode mode)
+        private async Task<MyTeamIndexViewModel> GetTeamsIndexViewModel()
         {
             string token = await GetAccessToken();
             string id = await GetUserAuth0Id();
-            return new MyTeamIndexViewModel(token, id,mode);
+            return new MyTeamIndexViewModel(token, id);
+        }
+
+        private async Task<SentRequestsViewModel> GetSentRequestsViewModel()
+        {
+            string token = await GetAccessToken();
+            string id = await GetUserAuth0Id();
+            return new SentRequestsViewModel(token,id);
         }
 
         #endregion

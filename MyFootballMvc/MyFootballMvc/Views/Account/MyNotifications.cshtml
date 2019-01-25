@@ -1,10 +1,69 @@
-﻿@model MyFootballMvc.ViewModels.MyRequestsViewModel
+﻿@model MyFootballMvc.ViewModels.MyNotificationsViewModel
+@using System
 @{
     ViewData["Title"] = "MyRequests";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 <div class="main-container container">
-    <h2>MyRequests</h2>
+    @if (Model.Requests.Count != 0)
+    {
+        foreach (var item in Model.Requests)
+        {
+
+            string header = item.Team.Name+" ";
+            if (item.RequestTo == RequestTo.Coach)
+            {
+                header += "invites you to become their Coach";
+            }
+            else if (item.RequestTo == RequestTo.Player)
+            {
+                header += "invites you to become their Player";
+            }
+            else if (item.RequestTo == RequestTo.Staff)
+            {
+                header += "invites you to become their Staff Member";
+            }
+
+                <br />
+                <div class="card">
+                    <h4 class="card-header">@header</h4>
+                    <div class="card-body">
+                        <h5 class="card-title">Message</h5>
+                        <p class="card-text">@item.Message</p>
+                        <a class="btn btn-primary js-accept-button" id="@item.Id">Accept</a>
+                        <a class="btn btn-danger js-dont-accept" id="@item.Id">Don't accept</a>
+                    </div>
+                </div>
+                <br />
+        }
+    }
 </div>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+        $(".js-accept-button").click(function () {
+            bootbox.confirm("Are you sure", function (result) {
+                if (result) {
+                    window.location.href = "MyNotifications";
+                }             
+            });
+        });
+
+        $(".js-dont-accept").click(function () {
+            bootbox.confirm("Are you sure", function (result) {
+                if (result) {
+                    window.location.href = "MyNotifications";
+                } 
+            });
+        });
+
+    });
+
+</script>

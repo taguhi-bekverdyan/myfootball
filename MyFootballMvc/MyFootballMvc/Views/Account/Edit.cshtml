@@ -73,8 +73,7 @@
             {
               <div class="form-group">
                 @Html.LabelFor(m => m.Player.Position)
-                @*@Html.DropDownList("SelectPosition", Html.GetEnumSelectList<Position>(),
-                  "Select your position", new { @class = "form-control" ,id="js-position"})*@
+                
                 <select id="js-position" class="form-control" asp-for="Player.Position" asp-items="Html.GetEnumSelectList<Position>()">
                   <option selected="selected" value="">Please select</option>
                 </select>
@@ -82,8 +81,7 @@
               </div>
               <div class="form-group">
                 @Html.LabelFor(m => m.Player.PhysicalStats.Foot)
-                @*@Html.DropDownList("SelectFoot", Html.GetEnumSelectList<Foot>(),
-                  "Select your foot", new { @class = "form-control",id="js-foot" })*@
+                
                 <select id="js-foot" class="form-control" asp-for="Player.PhysicalStats.Foot" asp-items="Html.GetEnumSelectList<Foot>()">
                   <option selected="selected" value="">Please select</option>
                 </select>

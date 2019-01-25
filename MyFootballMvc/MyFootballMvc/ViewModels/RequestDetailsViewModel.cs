@@ -7,12 +7,12 @@ namespace MyFootballMvc.ViewModels
 {
     public class RequestDetailsViewModel:MyTeamIndexViewModel
     {
-        public RequestDetailsViewModel(ViewMode mode):base(mode)
+        public RequestDetailsViewModel():base()
         {
 
         }
 
-        public RequestDetailsViewModel(string token,string id,ViewMode mode):base(token,id,mode)
+        public RequestDetailsViewModel(string token,string id):base(token,id)
         {
 
         }

@@ -52,7 +52,7 @@ namespace MyFootballMvc.Services
             return requests;
         }
 
-        public async Task<Request> GetRequestByUserId(string accessToken, string id)
+        public async Task<List<Request>> GetRequestsByUserId(string accessToken, string id)
         {
             var request = new RestRequest("requests/by_user_id/{id}", Method.GET);
             request.AddHeader("authorization", $"Bearer {accessToken}");
@@ -60,7 +60,7 @@ namespace MyFootballMvc.Services
 
             IRestResponse response = await _client.ExecuteTaskAsync(request);
 
-            Request req = JsonConvert.DeserializeObject<Request>(response.Content);
+            List<Request> req = JsonConvert.DeserializeObject<List<Request>>(response.Content);
             return req;
         }
 

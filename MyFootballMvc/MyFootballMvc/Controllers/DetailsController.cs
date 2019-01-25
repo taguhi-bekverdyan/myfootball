@@ -60,7 +60,7 @@ namespace MyFootballMvc.Controllers
         private async Task<RequestDetailsViewModel> GetRequestDetailsViewModel()
         {
             return new RequestDetailsViewModel(await GetAccessToken()
-                ,await GetUserAuth0Id(),ViewMode.Other);
+                ,await GetUserAuth0Id());
         }
 
         #endregion

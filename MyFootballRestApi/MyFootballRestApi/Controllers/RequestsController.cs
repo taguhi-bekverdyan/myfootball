@@ -46,17 +46,17 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpGet("by_user_id/{id}")]
-        public async Task<IActionResult> GetRequestByUserId([FromRoute]string id)
+        public async Task<IActionResult> GetRequestsByUserId([FromRoute]string id)
         {
             try
             {
                 List<Request> requests = await _requestsRepository.GetAll(typeof(Request));
-                var request = requests.FirstOrDefault(p => p.UserId == id);
-                if (request == null)
+                var result = from r in requests where r.UserId == id select r;               
+                if (result == null)
                 {
                     return NotFound();
                 }
-                return Ok(request);
+                return Ok(result);
             }
             catch (Exception e)
             {

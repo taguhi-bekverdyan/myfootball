@@ -60,6 +60,7 @@ namespace MyFootballMvc.Controllers
             string accessToken = await GetAccessToken();
             string id = await GetUserAuth0Id();
             List<Team> teams = await _teamsService.FindAll(accessToken);
+            teams.Add(new Team() { Name="None",Id=Guid.NewGuid().ToString()});
             User user = await _usersService.FindUserById(accessToken, id);
 
             if (user == null)
@@ -385,9 +386,9 @@ namespace MyFootballMvc.Controllers
 
         #region HELPERS
 
-        private async Task<MyRequestsViewModel> GetMyRequestsViewModel()
+        private async Task<MyNotificationsViewModel> GetMyRequestsViewModel()
         {
-            return new MyRequestsViewModel(await GetAccessToken(),await GetUserAuth0Id());
+            return new MyNotificationsViewModel(await GetAccessToken(),await GetUserAuth0Id());
         }
 
         #endregion
