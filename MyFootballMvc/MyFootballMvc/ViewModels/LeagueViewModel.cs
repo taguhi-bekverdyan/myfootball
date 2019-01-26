@@ -27,7 +27,7 @@ namespace MyFootballMvc.ViewModels
 
 
 
-        private async void Ctor(string tournamentId)
+        private void Ctor(string tournamentId)
         {
 
             var client = new RestClient($@"https://localhost:44350/api/Tournament/{tournamentId}");
@@ -39,7 +39,7 @@ namespace MyFootballMvc.ViewModels
                 Tournament = JsonConvert.DeserializeObject<Tournament>(response.Content);
             }
 
-            League= await _leaguesService.FindLeagueByTournamentId(tournamentId);
+            League = _leaguesService.FindLeagueByTournamentId(tournamentId).Result;
 
         }
 

@@ -60,8 +60,17 @@
         <span class="navbar navbar-dark">
             @if (User.Identity.IsAuthenticated && Model.HasTeams && !Model.Tournament.IsGenerated)
             {
-                <a class="nav-link" asp-controller="League" asp-action="Join" asp-route-tournamentId="@Model.Tournament.Id">Join the Tournament</a>
+                @if (User.Identity.IsAuthenticated && Model.HasTeams && !Model.Tournament.IsGenerated && Model.League.Teams.Any(x=>x.President.Id==Model.UserId))
+                 {
+                     <b>Joined</b>
+                }
+                else
+                {
+                    <a class="nav-link" asp-controller="League" asp-action="Join" asp-route-tournamentId="@Model.Tournament.Id">Join the Tournament</a>
+                }
+
             }
+
         </span>
 
     </div>

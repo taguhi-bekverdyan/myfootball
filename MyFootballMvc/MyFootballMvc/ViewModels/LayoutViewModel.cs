@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MyFootballMvc.Interfaces;
 using MyFootballMvc.Models;
@@ -13,6 +14,7 @@ namespace MyFootballMvc.ViewModels
         public string ActiveMenuItem { get; set; }
         public List<Tournament> Tournaments { get; set; }
         public string UserName { get; set; }
+        public string UserId { get; set; }
         public bool HasTeams { get; set; }
         public bool HasPitches { get; set; }
         public bool IsEditPage { get; set; }
@@ -37,6 +39,7 @@ namespace MyFootballMvc.ViewModels
             else
             {
                 UserName = "Hi " + user.FirstName;
+                UserId = user.Id;
             }
 
 
