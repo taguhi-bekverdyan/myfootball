@@ -2,7 +2,7 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 .main-container {
-  margin-top: 4.5rem;
+  margin-top: 3rem;
 }
 
 /* Main navbar */
@@ -88,6 +88,10 @@ for details on configuring this project to bundle and minify static web assets. 
   background-color: #a557ab;
 }
 
+.main-nav .nav-item.active a:hover:before {
+  display: none;
+}
+
 /* Subnav*/
 .subnav {
   top: 4.5rem;
@@ -112,14 +116,9 @@ for details on configuring this project to bundle and minify static web assets. 
   line-height: 1.4;
 }
 
-/* Home page */
-.page-home {
-  padding-top: 1rem;
-}
-
 /* Tournaments page */
 .page-tournaments {
-  margin-top: 9rem;
+  margin-top: 6.5rem;
 }
 
 .banner {
@@ -134,6 +133,14 @@ for details on configuring this project to bundle and minify static web assets. 
 .main-content {
   margin-top: 2rem;
   margin-bottom: 2rem;
+}
+
+.subnav-team {
+  top: 2rem;
+}
+
+.join-the-tournament {
+  padding: 0;
 }
 
 /* Make .svg files in the carousel display properly in older browsers */

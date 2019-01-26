@@ -1,56 +1,57 @@
 ﻿@model MyFootballMvc.ViewModels.TestViewModel
 @{
-    //Layout = null;
-    ViewData["Title"] = "Home Page";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+  ViewData["Title"] = "Home Page";
 }
 
 <div class="page-test main-container container">
-    <h2>Test area</h2>
+  <h2>Test area</h2>
+
+  <div class="main-content">
     <div class="row">
-        <div class="col-md-2">
-            <a asp-controller="Test" asp-action="TestPublic">Test unauthorized</a>
-        </div>
-        <div class="col-md-2">
-            <a asp-controller="Test" asp-action="TestPrivate">Test authorized</a>
-        </div>
-        <div class="col-md-2">
-            <a asp-controller="Test" asp-action="TestUser">Test user</a>
-        </div>
-        <div class="col-md-2">
-            <a asp-controller="Test" asp-action="TestAdmin">Test admin</a>
-        </div>
-        <div class="col-md-2">
-            <a asp-controller="Test" asp-action="Claims">Claims</a>
-        </div>
-        <div class="container-fluid">
-            @using (@Html.BeginForm("SendEmail", "Test", FormMethod.Post))
-            {
-                <div class="form-group">
-                    <label>Address</label>
-                    @*@Html.LabelFor(m => m.Email.Address, new { @class = "form-control" })*@
-                    @Html.TextBoxFor(m => m.Email.Address, new { @class = "form-control", placeholder = "Email address", required = "", autofocus = "" })
-                </div>
-                <div class="form-group">
-                    <label>Subject</label>
-                    @*@Html.LabelFor(m => m.Email.Subject, new { @class = "form-control" })*@
-                    @Html.TextBoxFor(m => m.Email.Subject, new { @class = "form-control", placeholder = "Email Subject", required = "", autofocus = "" })
-                </div>
-                <div class="form-group">
-                    <label>Message</label>
-                    @*@Html.LabelFor(m => m.Email.Message, new { @class = "form-control" })*@
-                    @Html.TextBoxFor(m => m.Email.Message, new { @class = "form-control", placeholder = "Email Message", required = "", autofocus = "" })
-                </div>
+      <div class="col-md-2">
+        <a asp-controller="Test" asp-action="TestPublic">Test unauthorized</a>
+      </div>
+      <div class="col-md-2">
+        <a asp-controller="Test" asp-action="TestPrivate">Test authorized</a>
+      </div>
+      <div class="col-md-2">
+        <a asp-controller="Test" asp-action="TestUser">Test user</a>
+      </div>
+      <div class="col-md-2">
+        <a asp-controller="Test" asp-action="TestAdmin">Test admin</a>
+      </div>
+      <div class="col-md-2">
+        <a asp-controller="Test" asp-action="Claims">Claims</a>
+      </div>
+      <div class="container-fluid">
+        @using (@Html.BeginForm("SendEmail", "Test", FormMethod.Post))
+        {
+          <div class="form-group">
+            <label>Address</label>
+            @*@Html.LabelFor(m => m.Email.Address, new { @class = "form-control" })*@
+            @Html.TextBoxFor(m => m.Email.Address, new { @class = "form-control", placeholder = "Email address", required = "", autofocus = "" })
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            @*@Html.LabelFor(m => m.Email.Subject, new { @class = "form-control" })*@
+            @Html.TextBoxFor(m => m.Email.Subject, new { @class = "form-control", placeholder = "Email Subject", required = "", autofocus = "" })
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            @*@Html.LabelFor(m => m.Email.Message, new { @class = "form-control" })*@
+            @Html.TextBoxFor(m => m.Email.Message, new { @class = "form-control", placeholder = "Email Message", required = "", autofocus = "" })
+          </div>
 
-                <div class="[ col-lg-2 col-sm-offset-4 col-sm-4 ]">
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
-                    @*<div class="alert alert-success alert-dismissible">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Success!</strong> Indicates a successful or positive action.
-                    </div>*@
-                </div>
-
-            }
-
-        </div>
+          <div class="[ col-lg-2 col-sm-offset-4 col-sm-4 ]">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
+            @*<div class="alert alert-success alert-dismissible">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>Success!</strong> Indicates a successful or positive action.
+              </div>*@
+          </div>
+        }
+      </div>
     </div>
+  </div>
 </div>

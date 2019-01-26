@@ -71,6 +71,7 @@ namespace MyFootballMvc.Controllers
     {
       PitchViewModel pitchViewModel = await GetViewModel();
       pitchViewModel.AllPitches = await _pitchService.FindAll(await GetAccessToken());
+      pitchViewModel.ActiveMenuItem = "pitchfinder";
       return View("PitchFinder", pitchViewModel);
     }
 

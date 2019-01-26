@@ -7,29 +7,29 @@ using System.Threading.Tasks;
 namespace MyFootballMvc.ViewModels
 {
 
-    public enum ViewMode
+  public enum ViewMode
+  {
+    Coaches,
+    Players,
+    StaffMemebers,
+    Fixtures,
+    Description
+  }
+
+  public class MyTeamIndexViewModel : MyTeamViewModel
+  {
+
+    public ViewMode ViewMode { get; set; }
+
+    public MyTeamIndexViewModel(ViewMode mode) : base()
     {
-        Coaches,
-        Players,
-        StaffMemebers,
-        Fixtures,
-        Description
+      ViewMode = mode;
     }
 
-    public class MyTeamIndexViewModel:MyTeamViewModel
+    public MyTeamIndexViewModel(string token, string id, ViewMode mode) : base(token, id)
     {
-
-        public ViewMode ViewMode { get; set; }
-
-        public MyTeamIndexViewModel(ViewMode mode):base()
-        {
-            ViewMode = mode;
-        }
-
-        public MyTeamIndexViewModel(string token ,string id, ViewMode mode) :base(token,id)
-        {
-            ViewMode = mode;
-        }
-
+      ViewMode = mode;
     }
+
+  }
 }
