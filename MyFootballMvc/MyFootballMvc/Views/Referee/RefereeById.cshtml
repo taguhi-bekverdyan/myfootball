@@ -1,0 +1,19 @@
+﻿@model MyFootballMvc.ViewModels.RefereeViewModel
+
+@{
+  ViewData["Title"] = "Referee";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-referee-by-id main-container container">
+  <h2>Referee</h2>
+
+  <div class="main-content">
+    <ul>
+      <li>@Html.LabelFor(r => r.Referee.User.FirstName): @Model.Referee.User.FirstName</li>
+      <li>@Html.LabelFor(r => r.Referee.User.LastName): @Model.Referee.User.LastName</li>
+      <li>@Html.LabelFor(r => r.Referee.License): @Model.Referee.License</li>
+    </ul>
+  </div>
+</div>
+

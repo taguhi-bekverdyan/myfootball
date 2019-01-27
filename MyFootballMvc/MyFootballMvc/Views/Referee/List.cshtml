@@ -1,0 +1,34 @@
+﻿@model MyFootballMvc.ViewModels.RefereeViewModel
+
+@{
+  ViewData["Title"] = "Referees";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-referees main-container container">
+  <h2>Referees</h2>
+
+  <div class="main-content">
+    <table id="referees-table">
+      <thead>
+        <tr>
+          <th scope="col">First name</th>
+          <th scope="col">Lats name</th>
+          <th scope="col">License</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var referee in Model.Referees)
+        {
+          <tr>
+            <td>@Html.ActionLink(@referee.User.FirstName, "Id", new { referee.Id })</td>
+            <td>@referee.User.LastName</td>
+            <td>@referee.License</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

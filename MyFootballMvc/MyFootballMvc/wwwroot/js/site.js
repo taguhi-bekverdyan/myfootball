@@ -25,5 +25,5 @@ function AjaxJsonSumbitWithConfirm(url, object) {
 }
 
 $(document).ready(function () {
-  $('#pitch-table').DataTable();
+  $('#pitch-table, #referees-table').DataTable();
 });
