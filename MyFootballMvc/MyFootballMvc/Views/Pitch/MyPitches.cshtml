@@ -1,12 +1,13 @@
 ﻿@model MyFootballMvc.ViewModels.PitchViewModel
 
 @{
-  ViewData["Title"] = "PitchFinder";
+  ViewData["Title"] = "My pitches";
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="page-pitchfinder main-container container">
-  <h2>Pitch finder</h2>
+<div class="page-my-pitches main-container container">
+  <h2>My pitches</h2>
+
   <div class="main-content">
     <table id="pitch-table">
       <thead>
@@ -27,7 +28,7 @@
         </tr>
       </thead>
       <tbody>
-        @foreach (var pitch in Model.AllPitches)
+        @foreach (var pitch in Model.MyPitches)
         {
           <tr>
             <td>@Html.ActionLink(@pitch.Name, "Id", new { pitch.Id })</td>
@@ -49,3 +50,5 @@
     </table>
   </div>
 </div>
+
+

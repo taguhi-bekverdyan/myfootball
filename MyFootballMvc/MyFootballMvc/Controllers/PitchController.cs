@@ -23,12 +23,12 @@ namespace MyFootballMvc.Controllers
       _pitchService = new PitchService();
     }
 
-    [Route("Pitch/Index")]
-    public async Task<IActionResult> Index()
+    [Route("Pitch/MyPitches")]
+    public async Task<IActionResult> MyPitches()
     {
       PitchViewModel pitchViewModel = await GetViewModel();
       pitchViewModel.MyPitches = await _pitchService.FindPitchesByUserId(await GetAccessToken(), await GetUserAuth0Id());
-      return View("Index", pitchViewModel);
+      return View("MyPitches", pitchViewModel);
     }
 
     [HttpGet("Pitch/Create")]
@@ -72,6 +72,14 @@ namespace MyFootballMvc.Controllers
       PitchViewModel pitchViewModel = await GetViewModel();
       pitchViewModel.AllPitches = await _pitchService.FindAll(await GetAccessToken());
       return View("PitchFinder", pitchViewModel);
+    }
+
+    [HttpGet("Pitch/Id/{id}")]  
+    public async Task<ActionResult> GetPitchById(string id)
+    {
+      PitchViewModel pitchViewModel = await GetViewModel();
+      pitchViewModel.Pitch = await _pitchService.FindPitchById(await GetAccessToken(), id);
+      return View("Pitch", pitchViewModel);
     }
 
     #region Token
