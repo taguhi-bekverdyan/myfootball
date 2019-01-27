@@ -1,0 +1,28 @@
+﻿@model MyFootballMvc.ViewModels.PitchViewModel
+
+@{
+  ViewData["Title"] = "Pitch";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-pitch-by-id main-container container">
+  <h2>Pitch</h2>
+
+  <div class="main-content">
+    <ul>
+      <li>@Html.LabelFor(p => p.Pitch.Name): @Model.Pitch.Name</li>
+      <li>@Html.LabelFor(p => p.Pitch.Owner): @Model.Pitch.Owner</li>
+      <li>@Html.LabelFor(p => p.Pitch.PitchLength): @Model.Pitch.PitchLength</li>
+      <li>@Html.LabelFor(p => p.Pitch.PitchWidth): @Model.Pitch.PitchWidth</li>
+      <li>@Html.LabelFor(p => p.Pitch.Surface): @Model.Pitch.Surface</li>
+      <li>@Html.LabelFor(p => p.Pitch.AreaType): @Model.Pitch.AreaType</li>
+      <li>@Html.LabelFor(p => p.Pitch.HasFieldHeating): @Model.Pitch.HasFieldHeating</li>
+      <li>@Html.LabelFor(p => p.Pitch.HasLigthing): @Model.Pitch.HasLigthing</li>
+      <li>@Html.LabelFor(p => p.Pitch.HasLockerRoom): @Model.Pitch.HasLockerRoom</li>
+      <li>@Html.LabelFor(p => p.Pitch.PricePerHour): @Model.Pitch.PricePerHour</li>
+      <li>@Html.LabelFor(p => p.Pitch.StartTime): @Model.Pitch.StartTime</li>
+      <li>@Html.LabelFor(p => p.Pitch.EndTime): @Model.Pitch.EndTime</li>
+    </ul>
+  </div>
+</div>
+

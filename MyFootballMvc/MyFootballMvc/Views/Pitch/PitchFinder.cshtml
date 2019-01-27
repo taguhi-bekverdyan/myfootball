@@ -30,7 +30,7 @@
         @foreach (var pitch in Model.AllPitches)
         {
           <tr>
-            <td>@pitch.Name</td>
+            <td>@Html.ActionLink(@pitch.Name, "Id", new { pitch.Id })</td>
             <td>@pitch.Owner</td>
             <td>@pitch.PitchLength</td>
             <td>@pitch.PitchWidth</td>

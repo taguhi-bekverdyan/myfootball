@@ -1,7 +1,7 @@
 ﻿@model MyFootballMvc.ViewModels.PitchViewModel
 
 @{
-  ViewData["Title"] = "Index";
+  ViewData["Title"] = "My pitches";
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -31,7 +31,7 @@
         @foreach (var pitch in Model.MyPitches)
         {
           <tr>
-            <td>@pitch.Name</td>
+            <td>@Html.ActionLink(@pitch.Name, "Id", new { pitch.Id })</td>
             <td>@pitch.Owner</td>
             <td>@pitch.PitchLength</td>
             <td>@pitch.PitchWidth</td>
