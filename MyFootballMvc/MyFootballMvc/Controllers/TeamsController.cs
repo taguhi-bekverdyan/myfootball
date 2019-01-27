@@ -77,15 +77,15 @@ namespace MyFootballMvc.Controllers
             viewModel.Team = new Team();
             viewModel.ViewType = ViewType.Create;
 
-      return View("CreateOrUpdate", viewModel);
-    }
+            return View("CreateOrUpdate", viewModel);
+        }
 
-    [HttpPost("Teams/CreateOrUpdate")]
-    public async Task<IActionResult> CreateOrUpdate(Team team)
-    {
+        [HttpPost("Teams/CreateOrUpdate")]
+        public async Task<IActionResult> CreateOrUpdate(Team team)
+        {
 
-      string token = await GetAccessToken();
-      string id = await GetUserAuth0Id();
+            string token = await GetAccessToken();
+            string id = await GetUserAuth0Id();
 
             if (!ModelState.IsValid)
             {
@@ -100,6 +100,7 @@ namespace MyFootballMvc.Controllers
             if (string.IsNullOrEmpty(team.Id))
             {
                 team.President = user;
+                team.SentRequests = new List<string>();
                 await _teamsService.Insert(token, team);
             }
             else

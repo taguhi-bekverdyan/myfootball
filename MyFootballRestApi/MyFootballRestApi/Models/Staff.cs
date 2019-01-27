@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyFootballRestApi.Models
 {
-    public class Staff:EntityBase<Staff>
+    public class Staff:EntityBase<Staff>,IEquatable<Staff>
     {
         
         public string Occupation { get; set; }
@@ -19,5 +19,9 @@ namespace MyFootballRestApi.Models
         [Required]
         public User User { get; set; }
 
+        public bool Equals(Staff other)
+        {
+            return Id == other.Id;
+        }
     }
 }

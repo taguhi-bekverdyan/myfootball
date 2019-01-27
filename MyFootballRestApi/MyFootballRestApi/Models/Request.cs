@@ -17,7 +17,6 @@ namespace MyFootballRestApi.Models
     public enum RequestTo
     {
         Player,
-        Referee,
         Staff,
         Coach
     }

@@ -14,6 +14,7 @@ namespace MyFootballRestApi.Controllers
     public class RequestsController : ControllerBase
     {
         private readonly IRepository<Request> _requestsRepository = new CouchbaseRepository<Request>();
+        private readonly IRepository<Team> _teamsRepository = new CouchbaseRepository<Team>();
 
         // GET: api/Player
         [HttpGet]
@@ -51,7 +52,11 @@ namespace MyFootballRestApi.Controllers
             try
             {
                 List<Request> requests = await _requestsRepository.GetAll(typeof(Request));
-                var result = from r in requests where r.UserId == id select r;               
+                var result = from r 
+                             in requests
+                             where r.UserId == id && r.RequestStatus == RequestStatus.InProgress
+                             select r;   
+                
                 if (result == null)
                 {
                     return NotFound();
@@ -70,8 +75,9 @@ namespace MyFootballRestApi.Controllers
             try
             {
                 List<Request> requests = await _requestsRepository.GetAll(typeof(Request));
-                var result = (from r in requests where r.Team.Id == id select r).ToList();
-                return Ok(requests);
+                var set = (from r in requests where r.Team.Id == id select r).ToList();
+
+                return Ok(set);
             }
             catch (Exception e)
             {
@@ -85,6 +91,15 @@ namespace MyFootballRestApi.Controllers
             try
             {
                 request.Id = Guid.NewGuid().ToString();
+
+                Team team = await _teamsRepository.Get(request.Team.Id);
+                if (team.SentRequests == null) {
+                    team.SentRequests = new List<string>();
+                }
+                team.SentRequests.Add(request.Id);
+
+                await _teamsRepository.Update(team);
+
                 var result = await _requestsRepository.Create(request);
                 if (result == null) return BadRequest(request);
                 return Created($"/api/Player/{request.Id}", result);

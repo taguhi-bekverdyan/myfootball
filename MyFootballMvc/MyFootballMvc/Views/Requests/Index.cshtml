@@ -176,7 +176,9 @@
                 dataType: "json",
                 data: JSON.stringify(param)
             }).done(function () {
-                bootbox.alert("The invite message has been sent");
+                bootbox.alert("The invite message has been sent", function () {
+                    window.location.href = "Requests";
+                });
             });
         }
 

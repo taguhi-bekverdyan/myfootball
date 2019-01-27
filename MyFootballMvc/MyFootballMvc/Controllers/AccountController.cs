@@ -24,6 +24,7 @@ namespace MyFootballMvc.Controllers
         private RefereeService _refereeService { get; set; }
         private LandlordService _landlordService { get; set; }
         private CoachService _coachService { get; set; }
+        private RequestsService _requestsService { get; set; }
 
         public AccountController()
         {
@@ -34,6 +35,7 @@ namespace MyFootballMvc.Controllers
             _refereeService = new RefereeService();
             _landlordService = new LandlordService();
             _coachService = new CoachService();
+            _requestsService = new RequestsService();
         }
 
         public async Task Login(string returnUrl = "/")
@@ -347,6 +349,75 @@ namespace MyFootballMvc.Controllers
                 return StatusCode(500, e);
             }
         }
+
+        [HttpPost("Account/SendResponse")]
+        public async Task<IActionResult> SendResponse([FromBody]Response response)
+        {
+            try
+            {
+                string token = await GetAccessToken();
+                string id = await GetUserAuth0Id();
+
+                Request request = await _requestsService.FindRequestById(token,response.RequestId);
+                Team team = await _teamsService.FindTeamById(token,request.Team.Id);
+
+                if (response.ResponseParam == ResponseParam.Accept)
+                {
+                    request.RequestStatus = RequestStatus.Accepted;
+
+                    switch (request.RequestTo)
+                    {
+                        case RequestTo.Player:
+                            Player player = await _playerService.GetPlayerByUserId(token, request.UserId);
+                            player.PlayerStatus = PlayerStatus.ActivePlayer;
+                            if (team.Players == null) {
+                                team.Players = new List<Player>();
+                            }
+                            team.Players.Add(player);
+                            await _playerService.Update(token,player);                           
+                            break;
+                        case RequestTo.Staff:
+                            Staff staff = await _staffService.GetStaffByUserId(token, request.UserId);
+                            staff.StaffStatus = StaffStatus.ActiveWorker;
+                            if (team.Players == null)
+                            {
+                                team.StaffMembers = new List<Staff>();
+                            }
+                            team.StaffMembers.Add(staff);
+                            await _staffService.Update(token, staff);
+                            break;
+                        case RequestTo.Coach:
+                            Coach coach = await _coachService.GetCoachByUserId(token, request.UserId);
+                            coach.CoachStatus = CoachStatus.ActiveCoach;
+                            if (team.Managers == null)
+                            {
+                                team.Managers = new List<Coach>();
+                            }
+                            team.Managers.Add(coach);
+                            await _coachService.Update(token,coach);
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                }
+                else
+                {
+                    request.RequestStatus = RequestStatus.Canceled;
+                }
+                team.SentRequests.RemoveAll(x => x == request.Id);
+                await _teamsService.Update(token, team);
+
+                request.Team = team;
+                await _requestsService.Update(token,request);
+                return Ok(200);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
         #endregion
 
         #region Token

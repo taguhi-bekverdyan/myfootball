@@ -16,10 +16,14 @@ namespace MyFootballRestApi.Controllers
 
 
         private readonly IRepository<Staff> _staffRepository;
+        private readonly IRepository<Team> _teamsRepository;
+        private readonly IRepository<Request> _requestsRepository;
 
         public StaffController()
         {
             _staffRepository = new CouchbaseRepository<Staff>();
+            _teamsRepository = new CouchbaseRepository<Team>();
+            _requestsRepository = new CouchbaseRepository<Request>();
         }
 
         #region GET
@@ -70,8 +74,8 @@ namespace MyFootballRestApi.Controllers
             }
         }
 
-        [HttpGet("free_staffs")]
-        public async Task<IActionResult> GetFreeStaffs()
+        [HttpGet("free_staffs/{id}")]
+        public async Task<IActionResult> GetFreeStaffs([FromRoute]string id)
         {
             try
             {
@@ -79,6 +83,20 @@ namespace MyFootballRestApi.Controllers
                 List<Staff> freeStaffs = (from s in all
                                           where s.StaffStatus == StaffStatus.FreeWorker
                                           select s).ToList();
+
+                Team team = await _teamsRepository.Get(id);
+                if (team.SentRequests != null) {
+                    foreach (var item in team.SentRequests)
+                    {
+                        Request req = await _requestsRepository.Get(item);
+                        if (req.RequestTo == RequestTo.Staff &&
+                            req.RequestStatus == RequestStatus.InProgress)
+                        {
+                            freeStaffs.RemoveAll(x => x.User.Id == req.UserId);
+                        }
+                    }
+                }
+                
 
                 return Ok(freeStaffs);
             }

@@ -24,7 +24,8 @@ namespace MyFootballMvc.ViewModels
         public MyNotificationsViewModel(string token,string id):base(token,id)
         {
             _requestsService = new RequestsService();
-            Requests = _requestsService.GetRequestsByUserId(token, id).Result;
+             Requests = _requestsService.GetRequestsByUserId(token, id).Result;
+            
         }
 
     }

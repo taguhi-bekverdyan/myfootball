@@ -48,22 +48,45 @@
 
     $(document).ready(function () {
 
+        var paramAccept = 0;
+        var paramDontAccept = 1;
+
         $(".js-accept-button").click(function () {
+            var id = $(this).attr("id");
+            var card = $(this).parent().parent();
             bootbox.confirm("Are you sure", function (result) {
                 if (result) {
-                    window.location.href = "MyNotifications";
+                    ajaxQuery(paramAccept, id);
+                    card.hide();
                 }             
             });
         });
 
         $(".js-dont-accept").click(function () {
+            var id = $(this).attr("id");
+            var card = $(this).parent().parent();
             bootbox.confirm("Are you sure", function (result) {
                 if (result) {
-                    window.location.href = "MyNotifications";
+                    ajaxQuery(paramDontAccept, id);
+                    card.hide();
                 } 
             });
         });
 
     });
+
+    function ajaxQuery(param, id) {
+        var obj = { ResponseParam: param, RequestId:id };
+        $.ajax({
+            url: "SendResponse",
+            method: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(obj)
+        }).done(function () {
+            bootbox.alert("The changes have been done");
+            
+        });
+    }
 
 </script>

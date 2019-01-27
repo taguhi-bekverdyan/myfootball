@@ -22,7 +22,7 @@ namespace MyFootballMvc.Models
         public List<Coach> Managers { get; set; }
         public List<string> Stats { get; set; }
 
-        public List<String> SentRequestsId { get; set; }
+        public List<String> SentRequests { get; set; }
 
     }
 }
