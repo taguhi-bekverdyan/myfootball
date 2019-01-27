@@ -1,0 +1,33 @@
+﻿@model MyFootballMvc.ViewModels.ClubViewModel
+
+@{
+    ViewData["Title"] = "Clubs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-clubs main-container container">
+    <h2>Clubs</h2><br/>
+
+    <div class="main-content">
+        <table class="table table-striped" id="clubs-table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Short name</th>
+                    <th scope="col">President</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var club in Model.Clubs)
+                {
+                    <tr>
+                        <td>@Html.ActionLink(@club.Name, "Id", new { club.Id })</td>
+                        <td>@club.ShortName</td>
+                        <td>@club.President.LastName @club.President.FirstName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+        </div>
+

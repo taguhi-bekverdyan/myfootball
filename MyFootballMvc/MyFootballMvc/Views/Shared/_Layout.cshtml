@@ -46,7 +46,7 @@
           <a class="nav-link" asp-area="" asp-controller="Pitch" asp-action="List">Pitch finder</a>
         </li>
         <li class="nav-item @(Model.ActiveMenuItem == "clubs" ? "active" : "")">
-          <a class="nav-link" asp-area="" asp-controller="Club" asp-action="List">Clubs</a>
+          <a class="nav-link" asp-area="" asp-controller="Club" asp-action="ClubsList">Clubs</a>
         </li>
         <li class="nav-item @(Model.ActiveMenuItem == "players" ? "active" : "")">
           <a class="nav-link" asp-area="" asp-controller="Player" asp-action="List">Players</a>

@@ -1,0 +1,16 @@
+﻿@model MyFootballMvc.ViewModels.ClubViewModel
+
+@{
+    ViewData["Title"] ="Club";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-club-by-id main-container container">
+    <h2>@Model.Club.Name.</h2>
+
+    <div class="main-content">
+            <h3>@Html.LabelFor(r => r.Club.Name): @Model.Club.Name</h3>
+            <h3>@Html.LabelFor(r => r.Club.ShortName): @Model.Club.ShortName</h3>
+            <h3>@Html.LabelFor(r => r.Club.President): @Model.Club.President.FirstName @Model.Club.President.LastName</h3>
+    </div>
+</div>
