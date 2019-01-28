@@ -51,7 +51,7 @@ namespace MyFootballMvc.Controllers
     public async Task<IActionResult> Clubs(string tournamentId)
     {
       var leagueViewModel = await GetViewModel(tournamentId);
-      leagueViewModel.ActiveMenuItem = "clubs";
+      leagueViewModel.ActiveMenuItem = "leagueClubs";
       return View("~/Views/League/Clubs.cshtml", leagueViewModel);
     }
 

@@ -17,10 +17,10 @@ namespace MyFootballMvc.Models
         
         public User President { get; set; }
 
-        public List<Staff> StaffMembers { get; set; }
-        public List<Player> Players { get; set; }
-        public List<Coach> Managers { get; set; }
-        public List<string> Stats { get; set; }
+        public List<Staff> StaffMembers { get; set; } = new List<Staff>();
+        public List<Player> Players { get; set; } = new List<Player>();
+        public List<Coach> Managers { get; set; } = new List<Coach>();
+        public List<string> Stats { get; set; } = new List<string>();
 
         public List<String> SentRequests { get; set; }
 
