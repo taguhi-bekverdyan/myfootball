@@ -28,7 +28,7 @@ namespace MyFootballMvc.Controllers
             return View("List", viewModel);
         }
 
-        [HttpGet("Players/Id/{id}")]
+        [HttpGet("Player/Id/{id}")]
         public async Task<ActionResult> GetPlayerById(string id)
         {
             PlayerViewModel viewModel = await GetViewModel();
