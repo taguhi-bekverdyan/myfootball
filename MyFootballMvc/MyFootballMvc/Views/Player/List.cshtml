@@ -1,0 +1,49 @@
+﻿@model MyFootballMvc.ViewModels.PlayerViewModel
+
+@{
+    ViewData["Title"] = "Players";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-players main-container container">
+    <h2>Players</h2>
+
+    <div class="main-content">
+        <table id="players-table">
+            <thead>
+                <tr>
+                    <th scope="col">First name</th>
+                    <th scope="col">Lats name</th>
+
+                    <th scope="col">Position</th>
+                    <th scope="col">Avatar</th>
+                    <th scope="col">Physical Stats</th>
+                    <th scope="col">Has Trained</th>
+                    <th scope="col">Team Id</th>
+                    <th scope="col">Player Status</th>
+                    <th scope="col">Number</th>
+                    <th scope="col">Is Captain</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var player in Model.Players)
+                {
+                    <tr>
+                        <td>@Html.ActionLink(player.User.FirstName, "Id", new { player.Id })</td>
+                        <td>@player.User.LastName</td>
+
+                        <td>@player.Position</td>
+                        <td>@player.Avatar</td>
+                        <td>@player.PhysicalStats</td>
+                        <td>@player.HasTrained</td>
+                        <td>@player.TeamId</td>
+                        <td>@player.PlayerStatus</td>
+                        <td>@player.Number</td>
+                        <td>@player.IsCaptain</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
