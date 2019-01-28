@@ -5,6 +5,10 @@ for details on configuring this project to bundle and minify static web assets. 
   margin-top: 3rem;
 }
 
+.body-content {
+    margin-top: 6rem;
+}
+
 /* Main navbar */
 .main-nav {
   padding: 0 1rem;
