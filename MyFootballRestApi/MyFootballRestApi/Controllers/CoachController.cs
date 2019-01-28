@@ -15,9 +15,13 @@ namespace MyFootballRestApi.Controllers
     {
 
         private readonly IRepository<Coach> _coachRepository;
+        private readonly IRepository<Team> _teamsRepository;
+        private readonly IRepository<Request> _requestsRepository;
         public CoachController()
         {
             _coachRepository = new CouchbaseRepository<Coach>();
+            _teamsRepository = new CouchbaseRepository<Team>();
+            _requestsRepository = new CouchbaseRepository<Request>();
         }
 
         #region GET
@@ -66,8 +70,8 @@ namespace MyFootballRestApi.Controllers
             }
         }
 
-        [HttpGet("free_coaches")]
-        public async Task<IActionResult> GetFreeCouches()
+        [HttpGet("free_coaches/{id}")]
+        public async Task<IActionResult> GetFreeCouches([FromRoute]string id)
         {
             try
             {
@@ -75,6 +79,23 @@ namespace MyFootballRestApi.Controllers
                 List<Coach> freeCoaches = (from c in all
                                            where c.CoachStatus == CoachStatus.FreeCoach
                                            select c).ToList();
+
+                Team team = await _teamsRepository.Get(id);
+                if (team.SentRequests != null) {
+                    foreach (var item in team.SentRequests)
+                    {
+                        Request req = await _requestsRepository.Get(item);
+                        if (req.RequestTo == RequestTo.Coach &&
+                            req.RequestStatus == RequestStatus.InProgress)
+                        {
+
+                            freeCoaches.RemoveAll(x => x.User.Id == req.UserId);
+
+                        }
+                    }
+                }
+                
+
                 return Ok(freeCoaches);
             }
             catch (Exception e)

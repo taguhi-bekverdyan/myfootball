@@ -24,54 +24,45 @@ namespace MyFootballMvc.Controllers
       _teamsService = new TeamsService();
     }
 
-    [Authorize]
-    [Route("Teams/Index")]
-    public async Task<IActionResult> Index()
-    {
-      var viewModel = await GetTeamsIndexViewModel(ViewMode.Description);
-      return View("Index", viewModel);
-    }
+        [Authorize]
+        [Route("Teams/Index")]
+        public async Task<IActionResult> Index()
+        {
+            var viewModel = await GetTeamsIndexViewModel();
+            return View("Index", viewModel);
+        }
 
     #region TEAM_INFO_ACTIONS
 
-    [Route("Teams/Fixtures")]
-    public async Task<IActionResult> Fixtures()
-    {
-      MyTeamViewModel viewModel = await GetTeamsIndexViewModel(ViewMode.Fixtures);
-      viewModel.ActiveMenuItem = "fixtures";
-      return View("Index", viewModel);
-    }
+        [Route("Teams/Fixtures")]
+        public async Task<IActionResult> Fixtures()
+        {
+            return View("Fixtures");
+        }
 
-    [Route("Teams/Players")]
-    public async Task<IActionResult> Players()
-    {
-      MyTeamViewModel viewModel = await GetTeamsIndexViewModel(ViewMode.Players);
-      viewModel.ActiveMenuItem = "players";
-      return View("Index", viewModel);
-    }
+        [Route("Teams/Players")]
+        public async Task<IActionResult> Players()
+        {
+            return View("Players");
+        }
 
-    [Route("Teams/StaffMembers")]
-    public async Task<IActionResult> StaffMembers()
-    {
-      MyTeamViewModel viewModel = await GetTeamsIndexViewModel(ViewMode.StaffMemebers);
-      viewModel.ActiveMenuItem = "staff-members";
-      return View("Index", viewModel);
-    }
+        [Route("Teams/StaffMembers")]
+        public async Task<IActionResult> StaffMembers()
+        {
+            return View("StaffMembers");
+        }
 
-    [Route("Teams/Coaches")]
-    public async Task<IActionResult> Coaches()
-    {
-      MyTeamViewModel viewModel = await GetTeamsIndexViewModel(ViewMode.Coaches);
-      viewModel.ActiveMenuItem = "coaches";
-      return View("Index", viewModel);
-    }
+        [Route("Teams/Coaches")]
+        public async Task<IActionResult> Coaches()
+        {
+            return View("Coaches");
+        }
 
-    [Route("Teams/Invite")]
-    public async Task<IActionResult> Invite()
-    {
-      MyTeamViewModel viewModel = await GetTeamsIndexViewModel(ViewMode.Description);
-      return View("Index", viewModel);
-    }
+        [Route("Teams/SentRequests")]
+        public async Task<IActionResult> SentRequests()
+        {
+            return View("SentRequests",await GetSentRequestsViewModel());
+        }
 
     #endregion
 
@@ -86,15 +77,15 @@ namespace MyFootballMvc.Controllers
       viewModel.Team = new Team();
       viewModel.ViewType = ViewType.Create;
 
-      return View("CreateOrUpdate", viewModel);
-    }
+            return View("CreateOrUpdate", viewModel);
+        }
 
-    [HttpPost("Teams/CreateOrUpdate")]
-    public async Task<IActionResult> CreateOrUpdate(Team team)
-    {
+        [HttpPost("Teams/CreateOrUpdate")]
+        public async Task<IActionResult> CreateOrUpdate(Team team)
+        {
 
-      string token = await GetAccessToken();
-      string id = await GetUserAuth0Id();
+            string token = await GetAccessToken();
+            string id = await GetUserAuth0Id();
 
       if (!ModelState.IsValid)
       {
@@ -106,18 +97,19 @@ namespace MyFootballMvc.Controllers
 
       User user = await _usersSevice.FindUserById(token, id);
 
-      if (string.IsNullOrEmpty(team.Id))
-      {
-        team.President = user;
-        await _teamsService.Insert(token, team);
-      }
-      else
-      {
-        Team current = await _teamsService.FindTeamById(token, team.Id);
-        current.Name = team.Name;
-        current.ShortName = team.ShortName;
-        await _teamsService.Update(token, current);
-      }
+            if (string.IsNullOrEmpty(team.Id))
+            {
+                team.President = user;
+                team.SentRequests = new List<string>();
+                await _teamsService.Insert(token, team);
+            }
+            else
+            {
+                Team current = await _teamsService.FindTeamById(token, team.Id);
+                current.Name = team.Name;
+                current.ShortName = team.ShortName;
+                await _teamsService.Update(token, current);
+            }
 
       return RedirectToAction("Index");
     }
@@ -168,14 +160,21 @@ namespace MyFootballMvc.Controllers
       return new TeamsCreateViewModel(await GetAccessToken(), await GetUserAuth0Id());
     }
 
-    private async Task<MyTeamIndexViewModel> GetTeamsIndexViewModel(ViewMode mode)
-    {
-      string token = await GetAccessToken();
-      string id = await GetUserAuth0Id();
-      return new MyTeamIndexViewModel(token, id, mode);
-    }
+        private async Task<MyTeamIndexViewModel> GetTeamsIndexViewModel()
+        {
+            string token = await GetAccessToken();
+            string id = await GetUserAuth0Id();
+            return new MyTeamIndexViewModel(token, id);
+        }
 
-    #endregion
+        private async Task<SentRequestsViewModel> GetSentRequestsViewModel()
+        {
+            string token = await GetAccessToken();
+            string id = await GetUserAuth0Id();
+            return new SentRequestsViewModel(token,id);
+        }
+
+        #endregion
 
   }
 

@@ -50,12 +50,14 @@ namespace MyFootballMvc.Controllers
         string token = await GetAccessToken();
         string id = await GetUserAuth0Id();
 
-        Request request = new Request();
-        request.RequestTo = param.RequestTo;
-        request.UserId = await GetInvitedUserId(param.Id, param.RequestTo, token);
-        request.RequestStatus = RequestStatus.InProgress;
-        request.Team = await _teamsService.FindTeamByUserId(token, id);
-        request.Message = param.Message;
+                Team team = await _teamsService.FindTeamByUserId(token, id);
+
+                Request request = new Request();
+                request.RequestTo = param.RequestTo;
+                request.UserId = await GetInvitedUserId(param.Id,param.RequestTo,token);
+                request.RequestStatus = RequestStatus.InProgress;
+                request.Team = team;
+                request.Message = param.Message;
 
         await _requestsService.Insert(token, request);
         return Ok(200);
@@ -66,7 +68,9 @@ namespace MyFootballMvc.Controllers
       }
     }
 
-    #endregion
+        
+
+        #endregion
 
     #region HELPERS
 

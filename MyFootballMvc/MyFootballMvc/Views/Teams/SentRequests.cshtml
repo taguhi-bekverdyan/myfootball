@@ -1,0 +1,46 @@
+﻿@model MyFootballMvc.ViewModels.SentRequestsViewModel
+@{
+    ViewData["Title"] = "SentRequests";
+    Layout = "~/Views/Shared/_MyTeamLayout.cshtml";
+}
+
+<div class="main-container container">
+    @if (Model.SentRequests.Count != 0)
+    {
+        <div class="container">
+            <h2>Sent Requests</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Request To</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Birthdate</th>
+                        <th>Message</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.SentRequests)
+                    {
+                        <tr>
+                            <th>@item.Request.RequestTo</th>
+                            @*<th>@item.User.FirstName</th>*@
+                            <th>
+                                @Html.ActionLink(item.User.FirstName,"RequestDetails","Details",null,null,null,
+                                new { id=item.Request.Id},null)
+                        </th>
+                        <th>@item.User.LastName</th>
+                        <th>@item.User.Birthdate</th>
+                        <th>@item.Request.Message</th>
+                            <th>@item.Request.Created</th>
+                            <th>@item.Request.RequestStatus</th>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+

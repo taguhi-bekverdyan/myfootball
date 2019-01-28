@@ -6,9 +6,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-
-<div class="page-invite main-container container">
-  <div class="main-content">
+<div class="main-container container">
     @if (Model.Players.Count != 0)
     {
       <h3>Players</h3>
@@ -53,34 +51,34 @@
 
     @if (Model.Staffs.Count != 0)
     {
-      <h3>Staffs</h3>
-      <br />
-      <table class="table table-striped" id="js-free-staffs-table">
-        <thead>
-          <tr>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Birthdate</th>
-            <th scope="col">Occupation</th>
-            <th scope="col">Invite</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach (var staff in Model.Staffs)
-          {
-            <tr>
-              <td>@staff.User.FirstName</td>
-              <td>@staff.User.LastName</td>
-              <td>@staff.User.Birthdate</td>
-              <td>@staff.Occupation</td>
+        <h3>Staffs</h3>
+        <br />
+        <table class="table table-striped" id="js-free-staffs-table">
+            <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Birthdate</th>
+                    <th scope="col">Occupation</th>
+                    <th scope="col">Invite</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var staff in Model.Staffs)
+                {
+                    <tr>
+                        <td>@staff.User.FirstName</td>
+                        <td>@staff.User.LastName</td>
+                        <td>@staff.User.Birthdate</td>
+                        <td>@staff.Occupation</td>
 
-              <td>
-                <button class="btn btn-primary staffs-invite-buttons" id="@staff.Id">Invite</button>
-              </td>
-            </tr>
-          }
-        </tbody>
-      </table>
+                        <td>
+                            <button class="btn btn-primary staffs-invite-buttons" id="@staff.Id">Invite</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     }
     else
     {
@@ -122,6 +120,8 @@
     {
       <h2>There are not free staffs</h2>
     }
+</div>
+    
 
     <script type="text/javascript">
       $(document).ready(function () {
@@ -168,16 +168,18 @@
         });
 
         function inviteAjaxRequest(playerId, requestTo, message) {
-          var param = { Id: playerId, RequestTo: requestTo, Message: message };
-          $.ajax({
-            url: "Requests/Invite",
-            method: "POST",
-            contentType: "application/json",
-            dataType: "json",
-            data: JSON.stringify(param)
-          }).done(function () {
-            bootbox.alert("The invite message has been sent");
-          });
+            var param = { Id: playerId, RequestTo: requestTo, Message: message };
+            $.ajax({
+                url: "Requests/Invite",
+                method: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(param)
+            }).done(function () {
+                bootbox.alert("The invite message has been sent", function () {
+                    window.location.href = "Requests";
+                });
+            });
         }
       });
     </script>

@@ -5,32 +5,47 @@
 }
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light subnav subnav-team">
-  <a class="navbar-brand" asp-area="" asp-controller="Teams" asp-action="Index">@Model.Team.Name</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#leagueNavbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    @*class="navbar navbar-expand-lg navbar-light bg-light container-fluid fixed-top subnav"*@
+    @*class="navbar navbar-expand-lg navbar-light bg-light"*@
+    <nav class="navbar navbar-expand-lg navbar-light bg-light container-fluid fixed-top subnav">
+        <a class="navbar-brand" asp-area="" asp-controller="Teams" asp-action="Index">@Model.Team.Name</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#leagueNavbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-  <div class="collapse navbar-collapse" id="leagueNavbar">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item @(Model.ActiveMenuItem == "fixtures" ? "active" : "")">
-        <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="Fixtures">Fixtures</a>
-      </li>
-      <li class="nav-item @(Model.ActiveMenuItem == "players" ? "active" : "")">
-        <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="Players">Players</a>
-      </li>
-      <li class="nav-item @(Model.ActiveMenuItem == "staff-members" ? "active" : "")">
-        <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="StaffMembers">Staff Members</a>
-      </li>
-      <li class="nav-item @(Model.ActiveMenuItem == "coaches" ? "active" : "")">
-        <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="Coaches">Coaches</a>
-      </li>
-      <li class="nav-item @(Model.ActiveMenuItem == "invite" ? "active" : "")">
-        <a class="nav-link" asp-area="" asp-controller="Requests" asp-action="Index">Invite</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+        <div class="collapse navbar-collapse" id="leagueNavbar">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="Fixtures">Fixtures</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="Players">Players</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="StaffMembers">Staff Members</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="Coaches">Coaches</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Requests" asp-action="Index">Invite</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="SentRequests">Sent Requests</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-@RenderBody()
+
+    <div class="page-tournaments main-container">
+        @RenderBody()
+    </div>
+</body>
+</html>
 

@@ -41,10 +41,11 @@ namespace MyFootballMvc.Services
             return coach;
         }
 
-        public async Task<List<Coach>> FindFreeCoaches(string accessToken)
+        public async Task<List<Coach>> FindFreeCoaches(string accessToken,string id)
         {
-            var request = new RestRequest("coach/free_coaches", Method.GET);
+            var request = new RestRequest("coach/free_coaches/{id}", Method.GET);
             request.AddHeader("authorization", $"Bearer {accessToken}");
+            request.AddUrlSegment("id", id);
 
             IRestResponse response = await _client.ExecuteTaskAsync(request);
 

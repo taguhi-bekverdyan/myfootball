@@ -7,30 +7,6 @@
 
 <div class="page-my-team main-container container">
 
-  <div class="main-content">
-    @if (Model.ViewMode == ViewMode.Description)
-    {
-      @await Html.PartialAsync("~/Views/PartialViews/_Description.cshtml")
-    }
-    else if (Model.ViewMode == ViewMode.Coaches)
-    {
-      @await Html.PartialAsync("~/Views/PartialViews/_Coaches.cshtml")
-    }
-    else if (Model.ViewMode == ViewMode.Fixtures)
-    {
-      @await Html.PartialAsync("~/Views/PartialViews/_Fixtures.cshtml")
-    }
-    else if (Model.ViewMode == ViewMode.Players)
-    {
-      @await Html.PartialAsync("~/Views/PartialViews/_Players.cshtml")
-    }
-    else if (Model.ViewMode == ViewMode.StaffMemebers)
-    {
-      @await Html.PartialAsync("~/Views/PartialViews/_StaffMembers.cshtml")
-    }
-    else
-    {
-      <h2>!!!!</h2>
-    }
-  </div>
+    <h2>Index</h2>
+
 </div>

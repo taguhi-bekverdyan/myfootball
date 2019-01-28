@@ -1,9 +1,6 @@
 ﻿using MyFootballMvc.Models;
 using MyFootballMvc.Services;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MyFootballMvc.ViewModels
 {
@@ -28,11 +25,11 @@ namespace MyFootballMvc.ViewModels
         public RequestsIndexViewModel(string token, string id) : base(token,id)
         {
             _playersService = new PlayersService();
-            Players = _playersService.FindFreePlayers(token).Result;
+            Players = _playersService.FindFreePlayers(token,Team.Id).Result;
             _staffService = new StaffService();
-            Staffs = _staffService.FindFreeStafs(token).Result;
+            Staffs = _staffService.FindFreeStafs(token, Team.Id).Result;
             _coachService = new CoachService();
-            Coaches = _coachService.FindFreeCoaches(token).Result;
+            Coaches = _coachService.FindFreeCoaches(token, Team.Id).Result;
         }
 
     }

@@ -14,6 +14,7 @@ namespace MyFootballRestApi.Controllers
     public class RequestsController : ControllerBase
     {
         private readonly IRepository<Request> _requestsRepository = new CouchbaseRepository<Request>();
+        private readonly IRepository<Team> _teamsRepository = new CouchbaseRepository<Team>();
 
         // GET: api/Player
         [HttpGet]
@@ -46,21 +47,41 @@ namespace MyFootballRestApi.Controllers
         }
 
         [HttpGet("by_user_id/{id}")]
-        public async Task<IActionResult> GetRequestByUserId([FromRoute]string id)
+        public async Task<IActionResult> GetRequestsByUserId([FromRoute]string id)
         {
             try
             {
                 List<Request> requests = await _requestsRepository.GetAll(typeof(Request));
-                var request = requests.FirstOrDefault(p => p.UserId == id);
-                if (request == null)
+                var result = from r 
+                             in requests
+                             where r.UserId == id && r.RequestStatus == RequestStatus.InProgress
+                             select r;   
+                
+                if (result == null)
                 {
                     return NotFound();
                 }
-                return Ok(request);
+                return Ok(result);
             }
             catch (Exception e)
             {
                 return StatusCode(500, e);
+            }
+        }
+
+        [HttpGet("by_team_id/{id}")]
+        public async Task<IActionResult> GetRequestsByTeamId([FromRoute]string id)
+        {
+            try
+            {
+                List<Request> requests = await _requestsRepository.GetAll(typeof(Request));
+                var set = (from r in requests where r.Team.Id == id select r).ToList();
+
+                return Ok(set);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
             }
         }
 
@@ -70,6 +91,15 @@ namespace MyFootballRestApi.Controllers
             try
             {
                 request.Id = Guid.NewGuid().ToString();
+
+                Team team = await _teamsRepository.Get(request.Team.Id);
+                if (team.SentRequests == null) {
+                    team.SentRequests = new List<string>();
+                }
+                team.SentRequests.Add(request.Id);
+
+                await _teamsRepository.Update(team);
+
                 var result = await _requestsRepository.Create(request);
                 if (result == null) return BadRequest(request);
                 return Created($"/api/Player/{request.Id}", result);

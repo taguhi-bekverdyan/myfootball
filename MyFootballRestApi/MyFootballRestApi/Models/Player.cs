@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MyFootballRestApi.Models
 {
-    public class Player : EntityBase<Player>
+    public class Player : EntityBase<Player>,IEquatable<Player>
     {
         
         public Position Position { get; set; }
@@ -22,5 +22,10 @@ namespace MyFootballRestApi.Models
 
         [Required]
         public User User { get; set; }
+
+        public bool Equals(Player other)
+        {
+            return Id == other.Id;
+        }
     }
 }
