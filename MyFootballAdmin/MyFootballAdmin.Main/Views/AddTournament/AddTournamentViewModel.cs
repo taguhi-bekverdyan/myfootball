@@ -22,6 +22,8 @@ using System.Collections.ObjectModel;
 using MyFootballAdmin.Data.Services.TournamentService;
 using System.Runtime.Serialization.Json;
 using MyFootballAdmin.Data.Services.LeagueService;
+using System.ComponentModel;
+using System.Windows.Data;
 
 namespace MyFootballAdmin.Main.Views.AddTournament
 {
@@ -34,6 +36,8 @@ namespace MyFootballAdmin.Main.Views.AddTournament
         private readonly IRegionManager _regionManager;
         private readonly ITournamentService _tournamentService;
         private readonly ILeagueService _leagueService;
+
+        private ObservableCollection<Pause> Pauses;
 
         public AddTournamentViewModel(IShellService shellService, 
                                       IEventAggregator eventAggregator, 
@@ -61,7 +65,17 @@ namespace MyFootballAdmin.Main.Views.AddTournament
                 DaysOfWeek.Add(new DayOfWeekCheked() { DayOfWeek = (DayOfWeek)dayNumber });
             }
 
-            Pauses = new ObservableCollection<Pause>() { new Pause() };
+            var initialPause = new Pause();
+            initialPause.Updated += RefreshPauses;
+            Pauses = new ObservableCollection<Pause>() { initialPause };
+
+            PauseCollectionView = CollectionViewSource.GetDefaultView(Pauses);
+            PauseCollectionView.SortDescriptions.Add(new SortDescription("PauseStart", ListSortDirection.Ascending));
+        }
+
+        private void RefreshPauses(object sender, EventArgs e)
+        {
+            PauseCollectionView.Refresh();
         }
 
         #region Types
@@ -106,17 +120,17 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             set { SetProperty(ref _tournamentType, value); }
         }
 
-        private DateTime? startDate;
+        private DateTime startDate;
 
-        public DateTime? StartDate
+        public DateTime StartDate
         {
             get { return startDate; }
             set { SetProperty(ref startDate, value); }
         }
 
-        private DateTime? endDate;
+        private DateTime endDate;
 
-        public DateTime? EndDate
+        public DateTime EndDate
         {
             get { return endDate; }
             set { SetProperty(ref endDate, value); }
@@ -124,7 +138,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
 
         public ObservableCollection<DayOfWeekCheked> DaysOfWeek { get; set; }
 
-        public ObservableCollection<Pause> Pauses { get; set; }
+        public ICollectionView PauseCollectionView { get; set; }
 
         public ObservableCollection<Rule> Rules { get; set; }
 
@@ -191,7 +205,9 @@ namespace MyFootballAdmin.Main.Views.AddTournament
 
         private void AddPauseCommandAction()
         {
-            Pauses.Add(new Pause());
+            var newPause = new Pause();
+            newPause.Updated += RefreshPauses;
+            Pauses.Add(newPause);
         }
 
         private DelegateCommand<object> deletePauseCommand;
@@ -235,6 +251,8 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             {
                 var League = new League();
                 League.Tournament = Tournament;
+                League.StartDate = StartDate;
+                League.EndDate = EndDate;
                 League.MatchDays = DaysOfWeek.Where(d => d.IsCheked).Select(d => d.DayOfWeek).ToList();
                 League.Pauses = Pauses.ToList();
 

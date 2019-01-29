@@ -9,7 +9,7 @@
              d:DataContext="{d:DesignInstance local:AddTournamentViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="600">
-    
+
     <Grid TextBlock.TextAlignment="Center" TextBlock.FontSize="14">
         <Grid.Resources>
             <Style TargetType="Label">
@@ -112,7 +112,7 @@
                 <Label Content="Pause End:" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="1"/>
 
                 <ScrollViewer MaxHeight="105" VerticalScrollBarVisibility="Auto"  Grid.Row="1" Grid.ColumnSpan="2">
-                    <ItemsControl ItemsSource="{Binding Pauses}">
+                    <ItemsControl ItemsSource="{Binding PauseCollectionView}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
