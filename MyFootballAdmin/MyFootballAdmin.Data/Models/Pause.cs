@@ -14,7 +14,7 @@ namespace MyFootballAdmin.Data.Models
             set
             {
                 SetProperty(ref _startPause, value);
-                Updated(this, null);
+                Updated?.Invoke(this, null);
             }
         }
 
@@ -25,7 +25,7 @@ namespace MyFootballAdmin.Data.Models
             set
             {
                 SetProperty(ref _endPause, value);
-                Updated(this, null);
+                Updated?.Invoke(this, null);
             }
         }
     }

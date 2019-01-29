@@ -91,8 +91,6 @@ namespace MyFootballAdmin.Main.Views.AddTournament
         #endregion
 
         #region Commands
-        private DelegateCommand _generateCommand;
-        public DelegateCommand GenerateCommand => _generateCommand ?? (_generateCommand = new DelegateCommand(GenerateCommandAction));
         private DelegateCommand<Rule> _editCommand;
         private DelegateCommand _addCommand;
         private DelegateCommand _deleteCommand;
@@ -135,84 +133,6 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             SelectedRedioButton = SelectedRule.HighLow;
             SelectedComboBox = SelectedRule.RuleName;
         }
-        public async void GenerateCommandAction()
-        {
-            //List<Team> Clubs = new List<Team>();
-            //Team club = new Team();
-            //club.Name = "LIV";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "MCI";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "TOT";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "CHE";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "ARS";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "MUN";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "EVE";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "BOU";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "LEI";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "WOL";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "WHU";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "WAT";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "BHA";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "CAR";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "NEW";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "CRY";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "BUR";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "HUD";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "SOU";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "FUL";
-            //Clubs.Add(club);
-            //LeagueToGenerate.Teams = Clubs;
-            //LeagueToGenerate.Generate();
-            LeagueToGenerate.Tournament.Created = LeagueToGenerate.Tournament.Updated = DateTime.Now;
-            await _tournamentService.Create(LeagueToGenerate.Tournament);
-            var vle = await _tournamentService.FindAll();
-            LeagueToGenerate.Tournament = await _tournamentService.FindTournamentByName(LeagueToGenerate.Tournament.Name);
-            await _leagueService.Create(LeagueToGenerate);
-            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(League));
-            using (FileStream fs = new FileStream("league.json", FileMode.OpenOrCreate))
-            {
-                jsonFormatter.WriteObject(fs, LeagueToGenerate);
-            }
-        }
-
-
 
         #endregion
         public IRegionManager RegionManager { get; set; }
