@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using MyFootballMvc.Models;
 using MyFootballMvc.Services;
 using MyFootballMvc.ViewModels;
 
@@ -14,10 +15,12 @@ namespace MyFootballMvc.Controllers
     public class PlayerController : Controller
     {
         private readonly PlayersService _playersService;
+        private readonly TeamsService _teamsService;
 
         public PlayerController()
         {
             _playersService = new PlayersService();
+            _teamsService = new TeamsService();
         }
 
         public async Task<ActionResult> List()
@@ -34,6 +37,35 @@ namespace MyFootballMvc.Controllers
             PlayerViewModel viewModel = await GetViewModel();
             viewModel.Player = await _playersService.FindPlayerById(await GetAccessToken(), id);
             return View("PlayerById", viewModel);
+        }
+
+        [HttpPost("Player/set_number")]
+        public async Task<IActionResult> SetPlayerNumber([FromBody]SetPlayerNumberActionArg arg)
+        {
+            try
+            {
+                string token = await GetAccessToken();
+                string id = await GetUserAuth0Id();
+
+                Team team = await _teamsService.FindTeamByUserId(token,id);
+                Player player = team.Players.FirstOrDefault(p => p.Id == arg.PlayerId);
+
+                if (!(team.Players.Any(p => p.Number == arg.Number)))
+                {
+                    player.Number = arg.Number;
+                    await _playersService.Update(token, player);
+                    await _teamsService.Update(token,team);
+                    return Ok(200);                   
+                }
+                else {
+                    return StatusCode(500);
+                }
+                
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500,e);
+            }
         }
 
         #region Token

@@ -37,10 +37,12 @@
                         <td>
                             @if (player.Number == 0 || player.Number == null)
                             {
-                                <butt class="btn btn-primary js-set-numer-buttons" id="@player.Id">Set Number</butt>
+                                <button class="btn btn-primary js-set-numer-buttons" id="@player.Id">Set a Number</button>
                             }
-                            else {
+                            else
+                            {
                                 @player.Number
+                                <button class="btn btn-xs btn-danger js-set-numer-buttons" id="@player.Id">Change</button>
                             }
                         </td>
                     </tr>
@@ -56,10 +58,42 @@
         $(".js-set-numer-buttons").click(function () {
             var playerId = $(this).attr("id");
             bootbox.prompt("Enter a number between 0 and 100.", function (result) {
-                console.log(result);
+                var number;
+                try {
+                    number = JSON.parse(result);
+                    if (!(number > 0 && number < 100)) {
+                        throw "invalid number";
+                    }
+                } catch (e) {
+                    bootbox.alert("Please write a valid number");
+                    return;
+                }
+                console.log(number);
+
+                var obj = { PlayerId: playerId, Number: number };
+
+                $.ajax({
+                    url: "/Player/set_number",
+                    method: "POST",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: JSON.stringify(obj),
+                    statusCode: {
+                        500: function () {
+                            bootbox.alert("Sorry but that number already belongs to other player");
+                        }
+                    }
+                }).done(function () {
+                    bootbox.alert("The changes have been done", function () {
+                        window.location.href = "/Teams/Players";
+                    });
+                });
+
             });
         });
 
     });
+
+
 
 </script>
