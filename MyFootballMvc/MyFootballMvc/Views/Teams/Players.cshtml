@@ -1,8 +1,65 @@
-﻿
+﻿@model MyFootballMvc.ViewModels.MyTeamPlayersViewModel
 @{
     ViewData["Title"] = "Players";
     Layout = "~/Views/Shared/_MyTeamLayout.cshtml";
 }
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 
-<h2>Players</h2>
 
+<div class="main-container container">
+    <h2>Players</h2>
+    @if (Model.MyPlayers != null && Model.MyPlayers.Count != 0)
+    {
+        <table class="table table-striped" id="js-my-players-table">
+            <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Birthdate</th>
+                    <th scope="col">Height</th>
+                    <th scope="col">Weight</th>
+                    <th scope="col">Foot</th>
+                    <th scope="col">Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var player in Model.MyPlayers)
+                {
+                    <tr>
+                        <td>@player.User.FirstName</td>
+                        <td>@player.User.LastName</td>
+                        <td>@player.User.Birthdate</td>
+                        <td>@player.PhysicalStats.Height</td>
+                        <td>@player.PhysicalStats.Weight</td>
+                        <td>@player.PhysicalStats.Foot</td>
+                        <td>
+                            @if (player.Number == 0 || player.Number == null)
+                            {
+                                <butt class="btn btn-primary js-set-numer-buttons" id="@player.Id">Set Number</butt>
+                            }
+                            else {
+                                @player.Number
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#js-my-players-table").DataTable();
+
+        $(".js-set-numer-buttons").click(function () {
+            var playerId = $(this).attr("id");
+            bootbox.prompt("Enter a number between 0 and 100.", function (result) {
+                console.log(result);
+            });
+        });
+
+    });
+
+</script>
