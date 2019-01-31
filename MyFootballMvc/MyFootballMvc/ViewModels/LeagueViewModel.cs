@@ -8,7 +8,8 @@ namespace MyFootballMvc.ViewModels
     public class LeagueViewModel : TournamentViewModel
     {
         private LeaguesService _leaguesService { get; }
-        public League League { get; set; }
+        public League League { get; set; } = new League();
+        public FixtureViewItem FixtureViewItem { get; set; } = new FixtureViewItem();
 
         public LeagueViewModel(string leagueId)
         {

@@ -4,7 +4,7 @@ namespace MyFootballMvc.ViewModels
 {
     public class TournamentViewModel : LayoutViewModel
     {
-        public Tournament Tournament { get; set; }
+        public Tournament Tournament { get; set; } = new Tournament();
 
         public TournamentViewModel():base()
         {
