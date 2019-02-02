@@ -172,6 +172,27 @@ footer {
   float: right;
 }
 
+#div-fixture {
+    background-color: black;
+    width: 500px;
+    text-align: center;
+    display: inline-block;
+    border: 1px white;
+    border-radius: 25px;
+}
+
+#a-fixture {
+    margin-left: 50%;
+    margin-right: 50%;
+    font-size: 25px;
+}
+
+#p-fixture {
+    color: white;
+    font-size: 25px;
+    font-family: verdana;
+}
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
   /* Hide captions */

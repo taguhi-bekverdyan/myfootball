@@ -5,26 +5,7 @@
 }
 <head>
     <style>
-        #div-fixture {
-            background-color: black;
-            width: 500px;
-            text-align: center;
-            display: inline-block;
-            border: 1px white;
-            border-radius: 25px;
-        }
 
-        a {
-            margin-left: 50%;
-            margin-right: 50%;
-            font-size: 25px;
-        }
-
-        #p-fixture {
-            color: white;
-            font-size: 25px;
-            font-family: verdana;
-        }
     </style>
 </head>
 <body>
@@ -51,7 +32,7 @@
                     {
                         <div id="div-fixture">
                             <p id="p-fixture" style="float:left;">@Html.ActionLink(@match.Team1.Name, "Id", "Club", new { match.Team1.Id }, null)</p> 
-                            <a href="@Html.ActionLink(null, "Id","Match", new { match.Id})" class="badge badge-primary">@match.MatchDateTime</a>
+                            <a id="a-fixture" href="@Html.ActionLink(null, "Id","Match", new { match.Id})" class="badge badge-primary">@match.MatchDateTime</a>
                             <p id="p-fixture" style="float:right;">@Html.ActionLink(@match.Team2.Name,"Id", "Club", new { match.Team2.Id })</p>
                         </div>
                     }
