@@ -1,8 +1,99 @@
-﻿
+﻿@model MyFootballMvc.ViewModels.MyTeamPlayersViewModel
 @{
     ViewData["Title"] = "Players";
     Layout = "~/Views/Shared/_MyTeamLayout.cshtml";
 }
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 
-<h2>Players</h2>
 
+<div class="main-container container">
+    <h2>Players</h2>
+    @if (Model.MyPlayers != null && Model.MyPlayers.Count != 0)
+    {
+        <table class="table table-striped" id="js-my-players-table">
+            <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Birthdate</th>
+                    <th scope="col">Height</th>
+                    <th scope="col">Weight</th>
+                    <th scope="col">Foot</th>
+                    <th scope="col">Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var player in Model.MyPlayers)
+                {
+                    <tr>
+                        <td>@player.User.FirstName</td>
+                        <td>@player.User.LastName</td>
+                        <td>@player.User.Birthdate</td>
+                        <td>@player.PhysicalStats.Height</td>
+                        <td>@player.PhysicalStats.Weight</td>
+                        <td>@player.PhysicalStats.Foot</td>
+                        <td>
+                            @if (player.Number == 0 || player.Number == null)
+                            {
+                                <button class="btn btn-primary js-set-numer-buttons" id="@player.Id">Set a Number</button>
+                            }
+                            else
+                            {
+                                @player.Number
+                                <button class="btn btn-xs btn-danger js-set-numer-buttons" id="@player.Id">Change</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#js-my-players-table").DataTable();
+
+        $(".js-set-numer-buttons").click(function () {
+            var playerId = $(this).attr("id");
+            bootbox.prompt("Enter a number between 0 and 100.", function (result) {
+                var number;
+                try {
+                    number = JSON.parse(result);
+                    if (!(number > 0 && number < 100)) {
+                        throw "invalid number";
+                    }
+                } catch (e) {
+                    bootbox.alert("Please write a valid number");
+                    return;
+                }
+                console.log(number);
+
+                var obj = { PlayerId: playerId, Number: number };
+
+                $.ajax({
+                    url: "/Player/set_number",
+                    method: "POST",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: JSON.stringify(obj),
+                    statusCode: {
+                        500: function () {
+                            bootbox.alert("Sorry but that number already belongs to other player");
+                        }
+                    }
+                }).done(function () {
+                    bootbox.alert("The changes have been done", function () {
+                        window.location.href = "/Teams/Players";
+                    });
+                });
+
+            });
+        });
+
+    });
+
+
+
+</script>

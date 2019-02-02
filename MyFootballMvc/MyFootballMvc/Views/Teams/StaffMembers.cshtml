@@ -1,8 +1,43 @@
-﻿
+﻿@model MyFootballMvc.ViewModels.MyTeamStaffMembersViewModel
 @{
     ViewData["Title"] = "StaffMembers";
     Layout = "~/Views/Shared/_MyTeamLayout.cshtml";
 }
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 
-<h2>StaffMembers</h2>
-
+<div class="main-container container">
+    <h2>Staff Members</h2>
+    @if (Model.MyStaffMembers != null && Model.MyStaffMembers.Count != 0)
+    {
+        <table class="table table-striped" id="js-my-staff-table">
+            <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Birthdate</th>
+                    <th scope="col">License</th>
+                    <th scope="col">Occupation</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var staff in Model.MyStaffMembers)
+                {
+                    <tr>
+                        <th>@staff.User.FirstName</th>
+                        <th>@staff.User.LastName</th>
+                        <th>@staff.User.Birthdate</th>
+                        <th>@staff.License</th>
+                        <th>@staff.Occupation</th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        $("#js-my-staff-table").DataTable();
+    });
+</script>

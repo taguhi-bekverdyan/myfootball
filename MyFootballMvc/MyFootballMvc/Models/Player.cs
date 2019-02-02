@@ -21,7 +21,8 @@ namespace MyFootballMvc.Models
         public PlayerStatus PlayerStatus { get; set; }
 
         // if has teamId
-        public int Number { get; set; }
+        [Range(0,99)]
+        public int? Number { get; set; }
 
         // if has teamId
         public bool IsCaptain { get; set; }
