@@ -36,10 +36,10 @@
             <li class="nav-item @(Model.ActiveMenuItem == "leagueClubs" ? "active" : "")">
                 <a class="nav-link" asp-area="" asp-controller="League" asp-action="Clubs" asp-route-tournamentId="@Model.Tournament.Id">Clubs</a>
             </li>
-            <li class="nav-item @(Model.ActiveMenuItem == "players" ? "active" : "")">
+            <li class="nav-item @(Model.ActiveMenuItem == "leaguePlayers" ? "active" : "")">
                 <a class="nav-link" asp-area="" asp-controller="League" asp-action="Players" asp-route-tournamentId="@Model.Tournament.Id">Players</a>
             </li>
-            <li class="nav-item @(Model.ActiveMenuItem == "managers" ? "active" : "")">
+            <li class="nav-item @(Model.ActiveMenuItem == "leagueManagers" ? "active" : "")">
                 <a class="nav-link" asp-area="" asp-controller="League" asp-action="Managers" asp-route-tournamentId="@Model.Tournament.Id">Managers</a>
             </li>
             <li class="nav-item @(Model.ActiveMenuItem == "news" ? "active" : "")">
@@ -51,7 +51,7 @@
             <li class="nav-item @(Model.ActiveMenuItem == "history" ? "active" : "")">
                 <a class="nav-link" asp-area="" asp-controller="League" asp-action="History" asp-route-tournamentId="@Model.Tournament.Id">History</a>
             </li>
-            <li class="nav-item @(Model.ActiveMenuItem == "referees" ? "active" : "")">
+            <li class="nav-item @(Model.ActiveMenuItem == "leagueReferees" ? "active" : "")">
                 <a class="nav-link" asp-area="" asp-controller="League" asp-action="Referees" asp-route-tournamentId="@Model.Tournament.Id">Referees</a>
             </li>
         </ul>

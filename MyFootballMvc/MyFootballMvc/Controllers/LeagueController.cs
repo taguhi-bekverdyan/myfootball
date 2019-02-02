@@ -63,14 +63,14 @@ namespace MyFootballMvc.Controllers
         public async Task<IActionResult> Players(string tournamentId)
         {
             var leagueViewModel = await GetViewModel(tournamentId);
-            leagueViewModel.ActiveMenuItem = "players";
+            leagueViewModel.ActiveMenuItem = "leaguePlayers";
             return View("~/Views/League/Players.cshtml", leagueViewModel);
         }
 
     public async Task<IActionResult> Managers(string tournamentId)
     {
       var leagueViewModel = await GetViewModel(tournamentId);
-      leagueViewModel.ActiveMenuItem = "managers";
+      leagueViewModel.ActiveMenuItem = "leagueManagers";
       return View("~/Views/League/Managers.cshtml", leagueViewModel);
     }
 
@@ -98,7 +98,7 @@ namespace MyFootballMvc.Controllers
     public async Task<IActionResult> Referees(string tournamentId)
     {
       var leagueViewModel = await GetViewModel(tournamentId);
-      leagueViewModel.ActiveMenuItem = "referees";
+      leagueViewModel.ActiveMenuItem = "leagueReferees";
       return View("~/Views/League/Referees.cshtml", leagueViewModel);
     }
 
