@@ -1,0 +1,23 @@
+﻿@model MyFootballMvc.ViewModels.MatchViewModel
+
+@{
+    ViewData["Title"] = "Club";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-club-by-id main-container container">
+    <h2>Match</h2>
+    <div class="main-content">
+        <div id="div-fixture">
+            <p id="p-fixture" style="float:left;">@Model.Match.Team1</p>
+            <p class="badge badge-primary">@Model.Match.MatchDateTime</p>
+            @if (Model.Match.MatchDateTime < DateTime.Now)
+            {
+                <p class="badge badge-primary">@Model.Match.GoalClub1 - @Model.Match.GoalClub2</p>
+            }
+            <p id="p-fixture" style="float:right;">@Model.Match.Team2.Name</p>
+        </div>
+
+        <h3>@Html.LabelFor(r => r.Match.RefereeId)</h3>
+    </div>
+</div>

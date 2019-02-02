@@ -13,7 +13,7 @@
         <thead>
             <tr>
                 <th scope="col">Club</th>
-                <th scope="col">Name</th>
+                <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
                 <th scope="col">Position</th>
                 <th scope="col">Number</th>
@@ -26,8 +26,8 @@
                  {
             <tr>
                 <td>@Html.ActionLink(@team.Name, "Id", "Club", new { player.Id })</td>
-                <td>@Html.ActionLink(@team.Name, "Id", "Player", new { player.Id })</td>
-                <td>@Html.ActionLink(@team.Name, "Id", "Player", new { player.Id })</td>
+                <td>@Html.ActionLink(@player.User.FirstName, "Id", "Player", new { player.Id })</td>
+                <td>@Html.ActionLink(@player.User.LastName, "Id", "Player", new { player.Id })</td>
                 <td>@player.Position</td>
                 <td>@player.Number</td>
             </tr>
