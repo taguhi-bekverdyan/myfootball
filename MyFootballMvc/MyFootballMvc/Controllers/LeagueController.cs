@@ -27,14 +27,18 @@ namespace MyFootballMvc.Controllers
       return View("~/Views/League/Index.cshtml", leagueViewModel);
     }
 
-    public async Task<IActionResult> Fixtures(string tournamentId)
-    {
-      var leagueViewModel = await GetViewModel(tournamentId);
-      leagueViewModel.ActiveMenuItem = "fixtures";
-      return View("~/Views/League/Fixtures.cshtml", leagueViewModel);
-    }
+        public async Task<IActionResult> Fixtures(string tournamentId)
+        {
+            var leagueViewModel = await GetViewModel(tournamentId);
+            var league = await _leaguesService.FindLeagueByTournamentId(tournamentId);
+            leagueViewModel.FixtureViewItem.IsGenerated = league.Tournament.IsGenerated;
+                if(league.Tournament.IsGenerated)
+            leagueViewModel.FixtureViewItem.Tours = league.Tour;
+            leagueViewModel.ActiveMenuItem = "fixtures";
+            return View("~/Views/League/Fixtures.cshtml", leagueViewModel);
+        }
 
-    public async Task<IActionResult> Results(string tournamentId)
+        public async Task<IActionResult> Results(string tournamentId)
     {
       var leagueViewModel = await GetViewModel(tournamentId);
       leagueViewModel.ActiveMenuItem = "results";
@@ -55,17 +59,18 @@ namespace MyFootballMvc.Controllers
       return View("~/Views/League/Clubs.cshtml", leagueViewModel);
     }
 
-    public async Task<IActionResult> Players(string tournamentId)
-    {
-      var leagueViewModel = await GetViewModel(tournamentId);
-      leagueViewModel.ActiveMenuItem = "players";
-      return View("~/Views/League/Players.cshtml", leagueViewModel);
-    }
+
+        public async Task<IActionResult> Players(string tournamentId)
+        {
+            var leagueViewModel = await GetViewModel(tournamentId);
+            leagueViewModel.ActiveMenuItem = "leaguePlayers";
+            return View("~/Views/League/Players.cshtml", leagueViewModel);
+        }
 
     public async Task<IActionResult> Managers(string tournamentId)
     {
       var leagueViewModel = await GetViewModel(tournamentId);
-      leagueViewModel.ActiveMenuItem = "managers";
+      leagueViewModel.ActiveMenuItem = "leagueManagers";
       return View("~/Views/League/Managers.cshtml", leagueViewModel);
     }
 
@@ -93,7 +98,7 @@ namespace MyFootballMvc.Controllers
     public async Task<IActionResult> Referees(string tournamentId)
     {
       var leagueViewModel = await GetViewModel(tournamentId);
-      leagueViewModel.ActiveMenuItem = "referees";
+      leagueViewModel.ActiveMenuItem = "leagueReferees";
       return View("~/Views/League/Referees.cshtml", leagueViewModel);
     }
 
@@ -117,17 +122,15 @@ namespace MyFootballMvc.Controllers
       return new LeagueViewModel(tournamentId);
     }
 
-    #region Token
+     
 
-    private async Task<string> GetAccessToken()
+        #region Token
+
+        private async Task<string> GetAccessToken()
     {
       if (User.Identity.IsAuthenticated)
       {
         var accessToken = await HttpContext.GetTokenAsync("access_token");
-
-        // if you need to check the access token expiration time, use this value
-        // provided on the authorization response and stored.
-        // do not attempt to inspect/decode the access token
         var accessTokenExpiresAt = DateTime.Parse(
             await HttpContext.GetTokenAsync("expires_at"),
             CultureInfo.InvariantCulture,
@@ -136,11 +139,7 @@ namespace MyFootballMvc.Controllers
         var idToken = await HttpContext.GetTokenAsync("id_token");
 
         return accessToken;
-
-        // Now you can use them. For more info on when and how to use the 
-        // access_token and id_token, see https://auth0.com/docs/tokens
       }
-
       return string.Empty;
     }
 

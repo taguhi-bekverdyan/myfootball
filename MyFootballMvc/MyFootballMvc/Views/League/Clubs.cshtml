@@ -21,16 +21,11 @@
         @foreach (var team in Model.League.Teams)
         {
             <tr>
-                <td>@team.Name</td>
+                <td>@Html.ActionLink(@team.Name, "Id","Club", new { team.Id }, null)</td>
                 <td>@team.ShortName</td>
                 <td>@team.President.FirstName @team.President.LastName</td>
             </tr>
         }
         </tbody>
     </table>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#clubs-table').DataTable();
-        });
-    </script>
 </div>

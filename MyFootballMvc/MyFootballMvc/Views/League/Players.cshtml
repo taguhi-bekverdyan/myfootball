@@ -12,6 +12,7 @@
     <table class="table table-striped" id="players-table">
         <thead>
             <tr>
+                <th scope="col">Club</th>
                 <th scope="col">Name</th>
                 <th scope="col">Position</th>
                 <th scope="col">Number</th>
@@ -22,11 +23,12 @@
             {
                 foreach (var player in team.Players)
                  {
-                     <tr>
-                         <td>@player.User.FirstName @player.User.LastName</td>
-                         <td>@player.Position</td>
-                         <td>@player.Number</td>
-                     </tr>
+            <tr>
+                <td>@Html.ActionLink(@team.Name, "Id", "Club", new { team.Id })</td>
+                <td>@Html.ActionLink(@player.User.FirstName, "Id", "Player", new { player.Id }) @Html.ActionLink(@player.User.LastName, "Id", "Player", new { player.Id })</td>
+                <td>@player.Position</td>
+                <td>@player.Number</td>
+            </tr>
                  }
             }
         </tbody>
