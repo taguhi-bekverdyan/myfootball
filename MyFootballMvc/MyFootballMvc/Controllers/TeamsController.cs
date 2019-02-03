@@ -32,6 +32,8 @@ namespace MyFootballMvc.Controllers
       return View("Index", viewModel);
     }
 
+    #region Validation actions
+
     public async Task<JsonResult> CheckName([Bind(Prefix = "Team.Name")]string name)
     {
       var result = await _teamsService.FindTeamByName(await GetAccessToken(), name);
@@ -42,6 +44,18 @@ namespace MyFootballMvc.Controllers
       }
       else return Json(true);
     }
+
+    public async Task<JsonResult> CheckShortName([Bind(Prefix = "Team.ShortName")]string shortName, [Bind(Prefix = "Team.Name")]string name)
+    {
+      var team = await _teamsService.FindTeamByShortName(await GetAccessToken(), shortName);
+      bool condition1, condition2;
+
+      condition1 = team is Team ? false : true;
+      condition2 = shortName[0] == name[0] ? true : false;
+
+      return condition1 && condition2 ? Json(true) : Json(false);
+    }
+    #endregion    
 
     #region TEAM_INFO_ACTIONS
 
@@ -76,8 +90,6 @@ namespace MyFootballMvc.Controllers
     }
 
     #endregion
-
-
 
     #region CREATE_TEAM_ACTIONS
 

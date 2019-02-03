@@ -86,6 +86,25 @@ namespace MyFootballRestApi.Controllers
       }
     }
 
+    [HttpGet("by_short_name/{name}")]
+    public async Task<IActionResult> GetTeamByShortName([FromRoute]string name)
+    {
+      try
+      {
+        List<Team> teams = await _teamsRepository.GetAll(typeof(Team));
+        var team = teams.FirstOrDefault(p => p.ShortName == name);
+        if (team == null)
+        {
+          return NotFound();
+        }
+        return Ok(team);
+      }
+      catch (Exception e)
+      {
+        return StatusCode(500, e);
+      }
+    }
+
     #endregion
 
     #region POST

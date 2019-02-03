@@ -60,6 +60,17 @@ namespace MyFootballMvc.Services
       return JsonConvert.DeserializeObject<Team>(response.Content);
     }
 
+    public async Task<Team> FindTeamByShortName(string accessToken, string name)
+    {
+      var request = new RestRequest("teams/by_short_name/{name}", Method.GET);
+      request.AddHeader("authorization", $"Bearer {accessToken}");
+      request.AddUrlSegment("name", name);
+
+      IRestResponse response = await _client.ExecuteTaskAsync(request);
+
+      return JsonConvert.DeserializeObject<Team>(response.Content);
+    }
+
     public async Task Insert(string accessToken, Team team)
     {
       var request = new RestRequest("teams/create", Method.POST);

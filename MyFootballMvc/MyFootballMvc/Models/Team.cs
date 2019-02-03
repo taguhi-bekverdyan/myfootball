@@ -13,7 +13,10 @@ namespace MyFootballMvc.Models
     [Remote("CheckName", "Teams", ErrorMessage = "Name is not valid.")]
     [Display(Name = "Team full name")]
     public string Name { get; set; }
+
     [Required]
+    [StringLength(3, MinimumLength = 3, ErrorMessage = "Short name must have 3 letters.")]
+    [Remote("CheckShortName", "Teams", ErrorMessage = "Short name must be unique and start with the same letter as full name.", AdditionalFields = "Name")]
     [Display(Name = "Team short name")]
     public string ShortName { get; set; }
     
