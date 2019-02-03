@@ -193,6 +193,15 @@ footer {
     font-family: verdana;
 }
 
+/* Validation */
+.field-validation-error {
+  color: red;
+}
+
+.input-validation-error {
+  border: 2px solid red;
+}
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
   /* Hide captions */
