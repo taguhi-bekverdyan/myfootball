@@ -256,14 +256,9 @@ namespace MyFootballAdmin.Main.Views.AddTournament
                 League.MatchDays = DaysOfWeek.Where(d => d.IsCheked).Select(d => d.DayOfWeek).ToList();
                 League.Pauses = Pauses.ToList();
 
+                await _tournamentService.Create(League.Tournament);
+                League.Tournament = await _tournamentService.FindTournamentByName(League.Tournament.Name);
                 await _leagueService.Create(League);
-
-                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(League));
-                using (FileStream fs = new FileStream("league.json", FileMode.OpenOrCreate))
-                {
-                    jsonFormatter.WriteObject(fs, League);
-                }
-
                 _regionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, typeof(BesidesToolBarView).FullName);
             }
             else

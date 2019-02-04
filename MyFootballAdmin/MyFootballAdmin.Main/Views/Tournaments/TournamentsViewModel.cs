@@ -166,16 +166,10 @@ namespace MyFootballAdmin.Main.Views.Tournaments
 
             if (league is League leagueToGenerate && leagueToGenerate.Teams?.Any() == true)
             {
-                await _tournamentService.Create(leagueToGenerate.Tournament);
+                //LeagueToGenerate.Generate();
+                await _tournamentService.Update(leagueToGenerate.Tournament);
                 leagueToGenerate.Tournament = await _tournamentService.FindTournamentByName(leagueToGenerate.Tournament.Name);
-
-                await _leagueService.Create(leagueToGenerate);
-
-                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(League));
-                using (FileStream fs = new FileStream("league.json", FileMode.OpenOrCreate))
-                {
-                    jsonFormatter.WriteObject(fs, leagueToGenerate);
-                }
+                await _leagueService.Update(leagueToGenerate);
             }
         }
 

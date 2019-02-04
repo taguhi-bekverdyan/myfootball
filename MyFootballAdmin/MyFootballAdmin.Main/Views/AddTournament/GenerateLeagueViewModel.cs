@@ -47,7 +47,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             RuleString.Add("GOALS AGAINST");
             RuleString.Add("GOALS DIFFERENCE");
             RuleString.Add("POINTS");
-            RuleString.Add("YELLO CARDS");
+            RuleString.Add("YELLOW CARDS");
             RuleString.Add("RED CARDS");
         }
         #region Types
