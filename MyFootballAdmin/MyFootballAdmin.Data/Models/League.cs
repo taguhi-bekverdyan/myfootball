@@ -180,6 +180,8 @@ namespace MyFootballAdmin.Data.Models
                     ++index;
                 }
             }
+
+            Tournament.IsGenerated = true;
             return true;
         }
     }

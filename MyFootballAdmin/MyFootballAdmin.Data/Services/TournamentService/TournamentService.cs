@@ -36,9 +36,17 @@ namespace MyFootballAdmin.Data.Services.TournamentService
             }
         }
 
-        public Task Update(Tournament tournament)
+        public async Task Update(Tournament tournament)
         {
-            throw new NotImplementedException();
+            var request = new RestRequest("Tournament/update", Method.PUT);
+            request.AddHeader("authorization", $"Bearer {Token}");
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(tournament);
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
+            if (!response.IsSuccessful)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
         }
 
         public Task Delete(string id)

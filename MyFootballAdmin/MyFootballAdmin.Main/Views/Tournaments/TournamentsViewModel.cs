@@ -100,71 +100,9 @@ namespace MyFootballAdmin.Main.Views.Tournaments
 
         public async void GenerateCommandAction(object league)
         {
-            //List<Team> Clubs = new List<Team>();
-            //Team club = new Team();
-            //club.Name = "LIV";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "MCI";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "TOT";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "CHE";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "ARS";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "MUN";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "EVE";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "BOU";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "LEI";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "WOL";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "WHU";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "WAT";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "BHA";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "CAR";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "NEW";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "CRY";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "BUR";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "HUD";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "SOU";
-            //Clubs.Add(club);
-            //club = new Team();
-            //club.Name = "FUL";
-            //Clubs.Add(club);
-            //LeagueToGenerate.Teams = Clubs;
-            //LeagueToGenerate.Generate();
 
-            if (league is League leagueToGenerate && leagueToGenerate.Teams?.Any() == true)
+
+            if (league is League leagueToGenerate && leagueToGenerate.Teams?.Any() == true && leagueToGenerate.Tournament.IsGenerated==false)
             {
                 leagueToGenerate.Generate();
                 await _tournamentService.Update(leagueToGenerate.Tournament);

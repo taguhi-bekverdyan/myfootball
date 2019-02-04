@@ -10,7 +10,8 @@ namespace MyFootballAdmin.Data.Models
         public string Name { get; set; }
         public int Priority { get; set; }
         public TournamentType TournamentType { get; set; }
-        public ImageLink Logo { get; set; }
+        //public ImageLink Logo { get; set; }
+        public bool IsGenerated { get; set; }
 
         public Tournament()
         {

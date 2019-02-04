@@ -245,6 +245,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             if(existingTournaments.Any(t => t.Name == Tournament.Name))
             {
                 //todo show validation or message box
+                MessageBox.Show("League name is already in use!");
                 return;
             }
 

@@ -16,23 +16,24 @@
     <div class="main-content container">
         @if (Model.FixtureViewItem.IsGenerated)
         {
-            @foreach (var tour in Model.FixtureViewItem.Tours)
+            var i = 1;
+            foreach (var tour in Model.FixtureViewItem.Tours)
             {
-                var i = 1;
+
                 <br />
                 if (!tour.IsPlayed)
                 {
                     <h2><i>Tour @i</i></h2><br /><hr />
                 }
 
-                ++i;
-                @foreach (var match in tour.Matches)
+                i++;
+                foreach (var match in tour.Matches)
                 {
                     if (match.MatchDateTime > DateTime.Now)
                     {
                         <div id="div-fixture">
                             <p id="p-fixture" style="float:left;">@Html.ActionLink(@match.Team1.Name, "Id", "Club", new { match.Team1.Id }, null)</p> 
-                            <a id="a-fixture" href="@Html.ActionLink(null, "Id","Match", new { match.Id})" class="badge badge-primary">@match.MatchDateTime</a>
+                            <a class="badge badge-primary" id="a-fixture" href="@Html.ActionLink(match.MatchDateTime.ToString(), "Id","Match", new { match.Id})"></a>
                             <p id="p-fixture" style="float:right;">@Html.ActionLink(@match.Team2.Name,"Id", "Club", new { match.Team2.Id })</p>
                         </div>
                         <br/>
