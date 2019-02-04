@@ -166,7 +166,7 @@ namespace MyFootballAdmin.Main.Views.Tournaments
 
             if (league is League leagueToGenerate && leagueToGenerate.Teams?.Any() == true)
             {
-                //LeagueToGenerate.Generate();
+                leagueToGenerate.Generate();
                 await _tournamentService.Update(leagueToGenerate.Tournament);
                 leagueToGenerate.Tournament = await _tournamentService.FindTournamentByName(leagueToGenerate.Tournament.Name);
                 await _leagueService.Update(leagueToGenerate);

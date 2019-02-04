@@ -65,12 +65,12 @@ namespace MyFootballAdmin.Main.Views.AddTournament
                 DaysOfWeek.Add(new DayOfWeekCheked() { DayOfWeek = (DayOfWeek)dayNumber });
             }
 
-            var initialPause = new PauseUIModel();
-            initialPause.Updated += RefreshPauses;
-            Pauses = new ObservableCollection<PauseUIModel>() { initialPause };
+            Pauses = new ObservableCollection<PauseUIModel>();
 
             PauseCollectionView = CollectionViewSource.GetDefaultView(Pauses);
             PauseCollectionView.SortDescriptions.Add(new SortDescription("PauseStart", ListSortDirection.Ascending));
+
+            Rules = new ObservableCollection<Rule>();
         }
 
         private void RefreshPauses(object sender, EventArgs e)
@@ -250,14 +250,21 @@ namespace MyFootballAdmin.Main.Views.AddTournament
 
             if (TournamentType == TournamentType.League)
             {
-                await _tournamentService.Create(Tournament);
-
                 var League = new League();
+
+                await _tournamentService.Create(Tournament);
+                League.Tournament = await _tournamentService.FindTournamentByName(Tournament.Name);
+
                 League.StartDate = StartDate;
                 League.EndDate = EndDate;
+                League.CountOfMatches = CountOfMatches;
+                League.PlayersCount = PlayersCount;
+                League.OneHalfTime = OneHalfTime;
+                League.BreakTime = BreakTime;
+                League.YelloCardsToDisqualification = YelloCardsToDisqualification;
+
                 League.MatchDays = DaysOfWeek.Where(d => d.IsCheked).Select(d => d.DayOfWeek).ToList();
                 League.Pauses = Pauses.Select(p => new Pause() { PauseStart = p.PauseStart, PauseEnd = p.PauseEnd }).ToList();
-                League.Tournament = await _tournamentService.FindTournamentByName(Tournament.Name);
 
                 await _leagueService.Create(League);
 
