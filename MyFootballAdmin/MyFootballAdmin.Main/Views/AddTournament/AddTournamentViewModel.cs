@@ -244,6 +244,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
 
             if(existingTournaments.Any(t => t.Name == Tournament.Name))
             {
+                //todo show validation or message box
                 return;
             }
 
@@ -258,7 +259,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
 
                 await _tournamentService.Create(League.Tournament);
                 League.Tournament = await _tournamentService.FindTournamentByName(League.Tournament.Name);
-                await _leagueService.Create(League);
+                await _leagueService.Create(League); //todo fix error here
                 _regionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, typeof(BesidesToolBarView).FullName);
             }
             else
