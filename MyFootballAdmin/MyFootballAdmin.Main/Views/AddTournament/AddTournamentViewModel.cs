@@ -120,7 +120,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             set { SetProperty(ref _tournamentType, value); }
         }
 
-        private DateTime startDate;
+        private DateTime startDate = DateTime.Now;
 
         public DateTime StartDate
         {
@@ -128,7 +128,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             set { SetProperty(ref startDate, value); }
         }
 
-        private DateTime endDate;
+        private DateTime endDate = DateTime.Now;
 
         public DateTime EndDate
         {
@@ -250,16 +250,17 @@ namespace MyFootballAdmin.Main.Views.AddTournament
 
             if (TournamentType == TournamentType.League)
             {
+                await _tournamentService.Create(Tournament);
+
                 var League = new League();
-                League.Tournament = Tournament;
                 League.StartDate = StartDate;
                 League.EndDate = EndDate;
                 League.MatchDays = DaysOfWeek.Where(d => d.IsCheked).Select(d => d.DayOfWeek).ToList();
                 League.Pauses = Pauses.ToList();
+                League.Tournament = await _tournamentService.FindTournamentByName(Tournament.Name);
 
-                await _tournamentService.Create(League.Tournament);
-                League.Tournament = await _tournamentService.FindTournamentByName(League.Tournament.Name);
-                await _leagueService.Create(League); //todo fix error here
+                await _leagueService.Create(League);
+
                 _regionManager.RequestNavigate(RegionNames.BesidesToolBarRegion, typeof(BesidesToolBarView).FullName);
             }
             else

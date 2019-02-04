@@ -7,7 +7,7 @@ namespace MyFootballAdmin.Data.Models
     {
         public EventHandler Updated;
 
-        private DateTime _startPause;
+        private DateTime _startPause = DateTime.Now;
         public DateTime PauseStart
             {
             get { return _startPause; }
@@ -18,7 +18,7 @@ namespace MyFootballAdmin.Data.Models
             }
         }
 
-        private DateTime _endPause;
+        private DateTime _endPause = DateTime.Now;
         public DateTime PauseEnd
             {
             get { return _endPause; }
