@@ -37,7 +37,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
         private readonly ITournamentService _tournamentService;
         private readonly ILeagueService _leagueService;
 
-        private ObservableCollection<Pause> Pauses;
+        private ObservableCollection<PauseUIModel> Pauses;
 
         public AddTournamentViewModel(IShellService shellService, 
                                       IEventAggregator eventAggregator, 
@@ -65,9 +65,9 @@ namespace MyFootballAdmin.Main.Views.AddTournament
                 DaysOfWeek.Add(new DayOfWeekCheked() { DayOfWeek = (DayOfWeek)dayNumber });
             }
 
-            var initialPause = new Pause();
+            var initialPause = new PauseUIModel();
             initialPause.Updated += RefreshPauses;
-            Pauses = new ObservableCollection<Pause>() { initialPause };
+            Pauses = new ObservableCollection<PauseUIModel>() { initialPause };
 
             PauseCollectionView = CollectionViewSource.GetDefaultView(Pauses);
             PauseCollectionView.SortDescriptions.Add(new SortDescription("PauseStart", ListSortDirection.Ascending));
@@ -205,7 +205,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
 
         private void AddPauseCommandAction()
         {
-            var newPause = new Pause();
+            var newPause = new PauseUIModel();
             newPause.Updated += RefreshPauses;
             Pauses.Add(newPause);
         }
@@ -216,7 +216,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
 
         private void DeletePauseCommandAction(object pause)
         {
-            Pauses.Remove(pause as Pause);
+            Pauses.Remove(pause as PauseUIModel);
         }
 
         private DelegateCommand cancelCommand;
@@ -256,7 +256,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
                 League.StartDate = StartDate;
                 League.EndDate = EndDate;
                 League.MatchDays = DaysOfWeek.Where(d => d.IsCheked).Select(d => d.DayOfWeek).ToList();
-                League.Pauses = Pauses.ToList();
+                League.Pauses = Pauses.Select(p => new Pause() { PauseStart = p.PauseStart, PauseEnd = p.PauseEnd }).ToList();
                 League.Tournament = await _tournamentService.FindTournamentByName(Tournament.Name);
 
                 await _leagueService.Create(League);
@@ -326,5 +326,32 @@ namespace MyFootballAdmin.Main.Views.AddTournament
         }
 
         #endregion
+    }
+
+    public class PauseUIModel : BindableBase
+    {
+        public EventHandler Updated;
+
+        private DateTime _startPause = DateTime.Now;
+        public DateTime PauseStart
+        {
+            get { return _startPause; }
+            set
+            {
+                SetProperty(ref _startPause, value);
+                Updated?.Invoke(this, null);
+            }
+        }
+
+        private DateTime _endPause = DateTime.Now;
+        public DateTime PauseEnd
+        {
+            get { return _endPause; }
+            set
+            {
+                SetProperty(ref _endPause, value);
+                Updated?.Invoke(this, null);
+            }
+        }
     }
 }

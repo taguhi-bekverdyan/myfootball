@@ -3,30 +3,10 @@ using Prism.Mvvm;
 
 namespace MyFootballAdmin.Data.Models
 {
-    public class Pause : BindableBase
+    public class Pause
     {
-        public EventHandler Updated;
+        public DateTime PauseStart { get; set; }
 
-        private DateTime _startPause = DateTime.Now;
-        public DateTime PauseStart
-            {
-            get { return _startPause; }
-            set
-            {
-                SetProperty(ref _startPause, value);
-                Updated?.Invoke(this, null);
-            }
-        }
-
-        private DateTime _endPause = DateTime.Now;
-        public DateTime PauseEnd
-            {
-            get { return _endPause; }
-            set
-            {
-                SetProperty(ref _endPause, value);
-                Updated?.Invoke(this, null);
-            }
-        }
+        public DateTime PauseEnd { get; set; }
     }
 }
