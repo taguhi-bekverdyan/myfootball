@@ -11,12 +11,7 @@
              d:DataContext="{d:DesignInstance local:AddTournamentStepBarViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="700">
-    <Grid Background="Gray">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="6*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="Black"/>
-        <ContentControl Grid.Row="1" Grid.Column="0"  mvvm:RegionManager.RegionName="{x:Static common:RegionNames.AddTournamentRegion}" />
+    <Grid>
+        <ContentControl mvvm:RegionManager.RegionName="{x:Static common:RegionNames.AddTournamentRegion}" Margin="0 15 0 0"/>
     </Grid>
 </UserControl>

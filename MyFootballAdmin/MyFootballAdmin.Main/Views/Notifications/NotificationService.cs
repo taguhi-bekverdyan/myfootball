@@ -32,11 +32,11 @@ namespace MyFootballAdmin.Main.Views.Notifications
       }
       else if (notificationType.Equals(NotificationType.Info))
       {
-        Notification.Colour = "Blue";
+        Notification.Colour = "#0060FC";
       }
       else if (notificationType.Equals(NotificationType.Warning))
       {
-        Notification.Colour = "Red";
+        Notification.Colour = "#D81E1E";
       }
       _eventAggregator.GetEvent<NotificationEvent>().Publish(new NotificationEventArgs(Notification));
     }

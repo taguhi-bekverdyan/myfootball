@@ -10,31 +10,13 @@
              mc:Ignorable="d" 
                xmlns:common="clr-namespace:MyFootballAdmin.Common;assembly=MyFootballAdmin.Common"
              d:DesignHeight="450" d:DesignWidth="80">
-    <Grid>
+    <Grid Background="#FF464242">
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="11*"/>
+            <RowDefinition/>
+            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid Grid.RowSpan="2" Grid.Column="0"  Background='#FF464242'>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition Height="4*"/>
-            </Grid.RowDefinitions>
-            <Button BorderThickness="0"  Command="{Binding MainViewCommand}" Content="Main View" Grid.Row="1" Background='#FF464242' FontSize="12"/>
-            <Button BorderThickness="0"  Command="{Binding TournamentsCommand}" Content="Tournaments" Grid.Row="2" Background='#FF464242' FontFamily="12"/>
-        </Grid>
-        <Grid Grid.Column="1" Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-        </Grid>
+        <Button Command="{Binding MainViewCommand}" Content="Main View" Background="#FF464242" BorderBrush="#FF464242" Foreground="White" FontSize="13" Cursor="Hand"/>
+        <Button Command="{Binding TournamentsCommand}" Content="Tournaments" Grid.Row="1" Background="#FF464242" BorderBrush="#FF464242" Foreground="White" FontSize="13" Cursor="Hand"/>
     </Grid>
 </UserControl>

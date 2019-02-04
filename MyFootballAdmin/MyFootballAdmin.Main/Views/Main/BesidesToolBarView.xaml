@@ -4,25 +4,36 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyFootballAdmin.Main.Views.Main"
-                         xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:mvvm="http://prismlibrary.com/"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              d:DataContext="{d:DesignInstance local:BesidesToolBarViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d" 
-              xmlns:common="clr-namespace:MyFootballAdmin.Common;assembly=MyFootballAdmin.Common"
+             xmlns:common="clr-namespace:MyFootballAdmin.Common;assembly=MyFootballAdmin.Common"
              d:DesignHeight="450" d:DesignWidth="800">
+    
     <Grid>
-        <Grid Background="Gray" Grid.Column="1" Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="8*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Button  Grid.Row="0" Grid.Column="0"  Content="Add Tournament"  Command="{Binding AddTournamentCommand}" Margin="5"/>
-        </Grid>
+        <Button Command="{Binding AddTournamentCommand}" Margin="20" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border"
+                            Background="White" 
+                            BorderBrush="Black" 
+                            BorderThickness="1" 
+                            Width="180" 
+                            Height="40"
+                            Cursor="Hand">
+                        <TextBlock Text="Add Tournament" 
+                                   FontSize="13" 
+                                   VerticalAlignment="Center" 
+                                   HorizontalAlignment="Center"/>
+                    </Border>
+                    <!--<ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#EDEDED"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>-->
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </UserControl>
