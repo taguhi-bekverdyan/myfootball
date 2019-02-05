@@ -56,19 +56,20 @@ namespace MyFootballMvc.Controllers
       }
 
       User user = await _usersService.FindUserById(token, id);
+      Pitch current = new Pitch();
 
       if (string.IsNullOrEmpty(pitch.Id))
       {
         pitch.User = user;
-        await _pitchService.Insert(token, pitch);
+        current = await _pitchService.Insert(token, pitch);
       }
       else
       {
-        Pitch current = await _pitchService.FindPitchById(token, pitch.Id);
+        current = await _pitchService.FindPitchById(token, pitch.Id);
         await _pitchService.Update(token, current);
       }
-
-      return RedirectToAction("Create");
+      
+      return RedirectToAction("Id", new { id = current.Id});
     }
 
 

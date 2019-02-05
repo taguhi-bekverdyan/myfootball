@@ -56,13 +56,18 @@ namespace MyFootballMvc.Services
       return new List<Pitch>();
     }
 
-    public async Task Insert(string accessToken, Pitch pitch)
+    public async Task<Pitch> Insert(string accessToken, Pitch pitch)
     {
       var request = new RestRequest("pitch/create", Method.POST);
       request.AddHeader("authorization", $"Bearer {accessToken}");
       request.AddJsonBody(pitch);
       IRestResponse response = await _client.ExecuteTaskAsync(request);
 
+      if (response.StatusCode == HttpStatusCode.Created)
+      {
+        return JsonConvert.DeserializeObject<Pitch>(response.Content);
+      }
+      return new Pitch();
     }
 
     public async Task Update(string accessToken, Pitch pitch)
