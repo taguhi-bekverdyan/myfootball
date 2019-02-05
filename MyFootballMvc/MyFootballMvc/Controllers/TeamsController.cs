@@ -51,7 +51,7 @@ namespace MyFootballMvc.Controllers
       bool condition1, condition2;
 
       condition1 = team is Team ? false : true;
-      condition2 = shortName[0] == name[0] ? true : false;
+      condition2 = shortName.ToLower()[0] == name.ToLower()[0] ? true : false;
 
       return condition1 && condition2 ? Json(true) : Json(false);
     }

@@ -92,7 +92,7 @@ namespace MyFootballRestApi.Controllers
       try
       {
         List<Team> teams = await _teamsRepository.GetAll(typeof(Team));
-        var team = teams.FirstOrDefault(p => p.ShortName == name);
+        var team = teams.FirstOrDefault(p => p.ShortName.ToLower() == name.ToLower());
         if (team == null)
         {
           return NotFound();
