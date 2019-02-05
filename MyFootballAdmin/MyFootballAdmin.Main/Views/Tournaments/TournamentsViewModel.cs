@@ -100,8 +100,6 @@ namespace MyFootballAdmin.Main.Views.Tournaments
 
         public async void GenerateCommandAction(object league)
         {
-
-
             if (league is League leagueToGenerate && leagueToGenerate.Teams?.Any() == true && leagueToGenerate.Tournament.IsGenerated==false)
             {
                 leagueToGenerate.Generate();

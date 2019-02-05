@@ -7,7 +7,6 @@ using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
-using System.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +22,12 @@ using MyFootballAdmin.Data.Services.TournamentService;
 using System.Runtime.Serialization.Json;
 using MyFootballAdmin.Data.Services.LeagueService;
 using System.ComponentModel;
+using System.Net.Http;
+using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media.Imaging;
+using MyFootballAdmin.Data.Services.ImageService;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace MyFootballAdmin.Main.Views.AddTournament
 {
@@ -36,6 +40,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
         private readonly IRegionManager _regionManager;
         private readonly ITournamentService _tournamentService;
         private readonly ILeagueService _leagueService;
+        private readonly IImageService _imageService;
 
         private ObservableCollection<PauseUIModel> Pauses;
 
@@ -44,7 +49,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
                                       INotificationService notificationService, 
                                       IRegionManager regionManager,
                                       ITournamentService tournamentService,
-                                      ILeagueService leagueService)
+                                      ILeagueService leagueService, IImageService imageService)
         {
             _shellService = shellService;
             _eventAggregator = eventAggregator;
@@ -52,6 +57,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             _regionManager = regionManager;
             _tournamentService = tournamentService;
             _leagueService = leagueService;
+            _imageService = imageService;
 
             Initialize();
         }
@@ -80,6 +86,11 @@ namespace MyFootballAdmin.Main.Views.AddTournament
 
         #region Types
 
+        public BitmapImage Logo { get; set; }
+
+        public string LogoFileName { get; set; }
+
+
         private List<Tournament> _tournaments;
 
         public List<Tournament> Tournaments
@@ -103,14 +114,6 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             get { return _priority; }
             set { SetProperty(ref _priority, value); }
         }
-
-        //private string _imagePath;
-
-        //public string ImagePath
-        //{
-        //    get { return _imagePath; }
-        //    set { SetProperty(ref _imagePath, value); }
-        //}
 
         private TournamentType _tournamentType;
 
@@ -185,6 +188,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
         #endregion
 
 
+
         public IRegionManager RegionManager { get; set; }
 
         #region Commands
@@ -238,6 +242,22 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             Tournament.Name = Name;
             Tournament.Priority = Priority;
             Tournament.TournamentType = TournamentType;
+            if (Logo != null && LogoFileName != string.Empty)
+            {
+                
+                using (var stream = new MemoryStream(MyFootballAdmin.Main.Helpers.BitmapImageToByteArray(Logo)))
+                {
+                    Tournament.ImagePath = await _imageService.UploadImageAsync(stream, LogoFileName);
+                }
+
+
+            }
+            else
+            {
+                MessageBox.Show("League Logo is needed!");
+                return;
+            }
+
             //todo: add logo uploading
 
             var existingTournaments = await _tournamentService.FindAll();
