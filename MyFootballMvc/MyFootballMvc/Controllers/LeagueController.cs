@@ -88,7 +88,7 @@ namespace MyFootballMvc.Controllers
             var teams = league.Teams;
             foreach (var team in teams)
             {
-                if (team.Managers.Count != 0 || team.Managers != null)
+                if(team.Managers!=null && team.Managers.Count!=0)
                 {
                     leagueViewModel.Managers.AddRange(team.Managers);
                 }

@@ -21,13 +21,11 @@
         </thead>
         <tbody>
             <tr>
-                @foreach (var team in Model.League.Teams)
+                @foreach (var manager in Model.Managers)
                 {
-                    @foreach (var manager in team.Managers)
-                    {
-                        <td>@Html.ActionLink(@team.Name, "Id", "Club", new { team.Id })</td>
+
+                        <td>@Html.ActionLink(manager.TeamId, "Id", "Club", new { manager.TeamId })</td>
                         <td>@Html.ActionLink(manager.User.FirstName, "Id", "Manager", new { manager.Id }) @Html.ActionLink(manager.User.LastName, "Id", "Manager", new { manager.Id })</td>
-                    }
                 }
                 </tr>
             }
