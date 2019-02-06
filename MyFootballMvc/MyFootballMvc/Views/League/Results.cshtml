@@ -30,11 +30,9 @@
                 {
                     if (match.MatchDateTime < DateTime.Now)
                     {
-                        <div id="div-fixture">
-                            <p id="p-fixture" style="float:left;">@Html.ActionLink(match.Team1.Name, "Id","Club", new { match.Team1.Id })</p>
-                            <a id="a-fixture" href="@Html.ActionLink(null,"Id", "Match", new { match.Id})" class="badge badge-primary">@match.MatchDateTime</a>
-                            <p id="p-fixture" style="float:right;">@Html.ActionLink(match.Team2.Name,"Id", "Club", new { match.Team2.Id })</p>
-                        </div>
+                                                 <div id="div-fixture">
+                                                     <span id="span-fixture" style="float:left;margin-left:3%;">@Html.ActionLink(@match.Team1.Name, "Id", "Club", new { match.Team1.Id }, null)</span> <a id="a-fixture" href="@Url.Action("Id","Match", new { id = match.Id.ToString()})">@match.GoalClub1 - @match.GoalClub2</a><span id="span-fixture" style="float:right;margin-right:3%;">@Html.ActionLink(@match.Team2.Name, "Id", "Club", new { match.Team2.Id })</span>
+                                                 </div>
                         <br/>
                     }
                     else
@@ -46,7 +44,7 @@
         }
         else
         {
-            <h3>@Model.Tournament.Name hasn't generated yet.</h3>
+            <p id="none">@Model.Tournament.Name hasn't started yet.</p>
         }
     </div>
 </body>

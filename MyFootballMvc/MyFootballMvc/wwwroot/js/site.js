@@ -25,5 +25,5 @@ function AjaxJsonSumbitWithConfirm(url, object) {
 }
 
 $(document).ready(function () {
-    $('#pitch-table, #referees-table, #players-table,#clubs-table, #managers-table').DataTable();
+    $('#all-clubs-table, #all-managers-table, #all-players-table, #pitch-table, #referees-table, #all-referees-table, #players-table,#clubs-table, #managers-table').DataTable();
 });

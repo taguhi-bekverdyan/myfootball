@@ -9,6 +9,16 @@ for details on configuring this project to bundle and minify static web assets. 
     padding-top: 6rem;
 }
 
+#none {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    font-size: 40px;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
 /* Main navbar */
 .main-nav {
   padding: 0 1rem;
@@ -174,22 +184,29 @@ footer {
 
 #div-fixture {
     background-color: black;
-    width: 500px;
-    text-align: center;
+    width: 65%;
     display: inline-block;
+    position:relative;
     border: 1px white;
-    border-radius: 25px;
+    margin: auto;
+    padding: 3px;
+    border-radius: 20px;
 }
 
 #a-fixture {
-    margin-left: 50%;
-    margin-right: 50%;
-    font-size: 25px;
+    background-color: #38003c;
+    text-align: center;
+    color: white;
+    margin-left: 23%;
+    font-family: verdana;
+    position: absolute;
+    font-size: 18px;
 }
 
-#p-fixture {
+#span-fixture {
     color: white;
-    font-size: 25px;
+    font-size: 18px;
+    vertical-align:central;
     font-family: verdana;
 }
 

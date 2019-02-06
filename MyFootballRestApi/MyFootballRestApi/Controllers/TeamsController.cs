@@ -36,6 +36,28 @@ namespace MyFootballRestApi.Controllers
             }
         }
 
+        [HttpGet("managers")]
+        public async Task<IActionResult> GetAllManagers()
+        {
+            try
+            {
+                var teams = await _teamsRepository.GetAll(typeof(Team));
+                List<Coach> managers = new List<Coach>();
+                foreach (var team in teams)
+                {
+                    if (team.Managers != null)
+                    {
+                        managers.AddRange(team.Managers);
+                    }
+                }
+                return Ok(managers);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTeamById([FromRoute]string id)
         {
