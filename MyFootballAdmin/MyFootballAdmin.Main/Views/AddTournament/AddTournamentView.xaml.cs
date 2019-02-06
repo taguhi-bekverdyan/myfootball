@@ -42,7 +42,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
                 var bitmapImage = Image.FromFile(op.FileName);
                 var viewModel = (AddTournamentViewModel)DataContext;
                 viewModel.LogoFileName = op.FileName;
-                ImgLogo.Source = MyFootballAdmin.Main.Helpers.ResizeImage(bitmapImage, 140, 70).ToBitmapImage();
+                ImgLogo.Source = MyFootballAdmin.Main.Helpers.ToBitmap(bitmapImage).ToBitmapImage();
             }
         }
     }

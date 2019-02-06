@@ -38,6 +38,12 @@ namespace MyFootballAdmin.Main
             return destImage;
         }
 
+        public static Bitmap ToBitmap(Image image)
+        {
+            return (Bitmap) image;
+        }
+
+
         public static BitmapImage ToBitmapImage(this Bitmap bitmap)
         {
             using (var memory = new MemoryStream())

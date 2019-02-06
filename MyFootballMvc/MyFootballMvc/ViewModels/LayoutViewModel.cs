@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CloudinaryDotNet;
 using MyFootballMvc.Interfaces;
 using MyFootballMvc.Models;
 using MyFootballMvc.Services;
@@ -11,6 +12,10 @@ namespace MyFootballMvc.ViewModels
 {
     public class LayoutViewModel : IMenuItem
     {
+
+
+        public Cloudinary Cloudinary { get; set; }
+
         public string ActiveMenuItem { get; set; }
         public List<Tournament> Tournaments { get; set; }
         public string UserName { get; set; }
@@ -69,6 +74,13 @@ namespace MyFootballMvc.ViewModels
             var response = client.Execute(request);
 
             Tournaments = JsonConvert.DeserializeObject<List<Tournament>>(response.Content).OrderBy(x => x.Priority).ToList();
+
+            var account = new Account(
+                "myfootball-am",
+                "146315763856442",
+                "39tiuvYatl-1kXLVIMifY1nfSuQ");
+
+            Cloudinary = new Cloudinary(account);
         }
     }
 }

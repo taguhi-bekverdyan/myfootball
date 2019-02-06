@@ -242,30 +242,28 @@ namespace MyFootballAdmin.Main.Views.AddTournament
             Tournament.Name = Name;
             Tournament.Priority = Priority;
             Tournament.TournamentType = TournamentType;
+
+
+            var existingTournaments = await _tournamentService.FindAll();
+
+            if (existingTournaments.Any(t => t.Name == Tournament.Name))
+            {
+                //todo show validation or message box
+                MessageBox.Show("League name is already in use!");
+                return;
+            }
+
+
             if (Logo != null && LogoFileName != string.Empty)
             {
-                
                 using (var stream = new MemoryStream(MyFootballAdmin.Main.Helpers.BitmapImageToByteArray(Logo)))
                 {
                     Tournament.ImagePath = await _imageService.UploadImageAsync(stream, LogoFileName);
                 }
-
-
             }
             else
             {
                 MessageBox.Show("League Logo is needed!");
-                return;
-            }
-
-            //todo: add logo uploading
-
-            var existingTournaments = await _tournamentService.FindAll();
-
-            if(existingTournaments.Any(t => t.Name == Tournament.Name))
-            {
-                //todo show validation or message box
-                MessageBox.Show("League name is already in use!");
                 return;
             }
 
