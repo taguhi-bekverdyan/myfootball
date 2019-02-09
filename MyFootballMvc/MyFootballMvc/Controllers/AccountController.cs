@@ -374,7 +374,8 @@ namespace MyFootballMvc.Controllers
                                 team.Players = new List<Player>();
                             }
                             team.Players.Add(player);
-                            await _playerService.Update(token,player);                           
+                            player.TeamId = team.Id;
+                            await _playerService.Update(token,player);
                             break;
                         case RequestTo.Staff:
                             Staff staff = await _staffService.GetStaffByUserId(token, request.UserId);
@@ -384,6 +385,7 @@ namespace MyFootballMvc.Controllers
                                 team.StaffMembers = new List<Staff>();
                             }
                             team.StaffMembers.Add(staff);
+                            staff.TeamId = team.Id;
                             await _staffService.Update(token, staff);
                             break;
                         case RequestTo.Coach:
@@ -394,6 +396,7 @@ namespace MyFootballMvc.Controllers
                                 team.Managers = new List<Coach>();
                             }
                             team.Managers.Add(coach);
+                            coach.TeamId = team.Id;
                             await _coachService.Update(token,coach);
                             break;
                         default:

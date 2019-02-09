@@ -25,7 +25,7 @@
                         <td>@Html.ActionLink(@manager.User.FirstName, "Id", new { manager.Id }) @Html.ActionLink(@manager.User.LastName, "Id", new { manager.Id })</td>
                         @if (manager.TeamId != null)
                         {
-                       <td>@Html.ActionLink(Model.Teams.Find(i => i.Id == manager.TeamId).Name, "Id", new { manager.TeamId })</td>
+                       <td>@Html.ActionLink(Model.Teams.Find(i => i.Id == manager.TeamId).Name, "Id", "Club", new { manager.TeamId })</td>
                         }
                         else
                         {

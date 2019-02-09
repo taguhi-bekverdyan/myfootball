@@ -22,17 +22,23 @@
                 <br />
                 if (!tour.IsPlayed)
                 {
-                    <h2><i>Tour @i</i></h2><hr />
+                    <h2><i>Tour @i</i></h2><hr style="border-width: 1px;"/>
                 }
 
                 ++i;
                 @foreach (var match in tour.Matches)
                 {
                     if (match.MatchDateTime > DateTime.Now)
-                    {
-                        <div id="div-fixture">
-                            <span id="span-fixture" style="float:left;margin-left:3%;">@Html.ActionLink(@match.Team1.Name, "Id", "Club", new { match.Team1.Id }, null)</span> <a id="a-fixture" asp-area="" asp-controller="Match" asp-action="Id" asp-route-matchId="@match.Id">@match.MatchDateTime</a><span id="span-fixture" style="float:right;margin-right:3%;">@Html.ActionLink(@match.Team2.Name,"Id", "Club", new { match.Team2.Id })</span>
-                        </div>
+                    {<div id="div-fixture">
+                                               <div style="margin-left:3%;float:left;" id="div-teams-fixture"><a id="teams-link" style="float:right;">@Html.ActionLink(@match.Team1.Name, "Id", "Club", new { match.Team1.Id }, new { @style = "color:white;" })</a> </div>
+                                               <div style="float:left;margin-left:1%;margin-right:1%;"><image style="float:right;width:20px;height:20px;" src="/images/arsenal.png"></image></div>
+                                               <div style="" id="div-match-fixture"><a style="color:black;">@Html.ActionLink(@match.MatchDateTime.ToShortDateString(), "Id", "Match", new { match.Id }, new { @style = "color:black;" })</a></div>
+                                               <div style="float:left;margin-left:1%;margin-right:1%;"><image style="width:20px;height:20px;" src="/images/arsenal.png"></image></div>
+                                               <div style="float:left;" id="div-teams-fixture"><a id="teams-link" style="float:left;">@Html.ActionLink(@match.Team2.Name, "Id", "Club", new { match.Team2.Id }, new { @style = "color:white;" })</a></div>
+                                               <div style="float:right;margin-right:3%;"><image style="width:20px;height:20px;float:right;margin-right:15%;" src="/images/arsenal.png" ></image></div>
+                                               <div style="margin-right:3%;" id="div-teams-fixture"><span style="float:right;color:white;margin-right:3%;">Stadium</span></div>
+                                           </div>
+                                           
                         <br/>
                     }
                     else

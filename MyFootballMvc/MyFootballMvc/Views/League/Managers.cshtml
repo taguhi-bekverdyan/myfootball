@@ -15,19 +15,18 @@
         <thead>
             <tr>
 
-                <th scope="col">Name</th>
                 <th scope="col">Club</th>
+                <th scope="col">Name</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 @foreach (var manager in Model.Managers)
                 {
-
-                        <td>@Html.ActionLink(manager.TeamId, "Id", "Club", new { manager.TeamId })</td>
-                        <td>@Html.ActionLink(manager.User.FirstName, "Id", "Manager", new { manager.Id }) @Html.ActionLink(manager.User.LastName, "Id", "Manager", new { manager.Id })</td>
+                    <td>@Html.ActionLink(Model.League.Teams.Find(i => i.Id == manager.TeamId).Name, "Id", "Club", new { manager.TeamId })</td>
+                    <td>@Html.ActionLink(manager.User.FirstName, "Id", "Manager", new { manager.Id }) @Html.ActionLink(manager.User.LastName, "Id", "Manager", new { manager.Id })</td>
                 }
-                </tr>
+            </tr>
             }
         </tbody>
     </table>

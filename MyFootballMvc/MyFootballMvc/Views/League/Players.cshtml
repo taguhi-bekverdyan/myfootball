@@ -21,17 +21,14 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var team in Model.League.Teams)
+                @foreach (var player in Model.Players)
                 {
-                    foreach (var player in team.Players)
-                    {
                         <tr>
-                            <td>@Html.ActionLink(@team.Name, "Id", "Club", new { team.Id })</td>
+                            <td>@Html.ActionLink(Model.League.Teams.Find(i => i.Id == player.TeamId).Name, "Id", "Club", new { player.TeamId })</td>
                             <td>@Html.ActionLink(@player.User.FirstName, "Id", "Player", new { player.Id }) @Html.ActionLink(@player.User.LastName, "Id", "Player", new { player.Id })</td>
                             <td>@player.Position</td>
                             <td>@player.Number</td>
                         </tr>
-                    }
                 }
             </tbody>
         </table>
