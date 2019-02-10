@@ -19,7 +19,16 @@ namespace MyFootballMvc.Models
     [Remote("CheckShortName", "Teams", ErrorMessage = "Short name must be unique and start with the same letter as full name.", AdditionalFields = "Name")]
     [Display(Name = "Team short name")]
     public string ShortName { get; set; }
-    
+
+    [Display(Name = "Color 1")]
+    public string Color1 { get; set; } = "#ff0000";
+
+    [Display(Name = "Color 2")]
+    public string Color2 { get; set; } = "#ff0000";
+
+    [Display(Name = "Color 3")]
+    public string Color3 { get; set; } = "#ff0000";
+
     public User President { get; set; }
 
     public List<Staff> StaffMembers { get; set; } = new List<Staff>();

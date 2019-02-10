@@ -193,8 +193,29 @@ footer {
     font-family: verdana;
 }
 
+/*.colorpicker-component input {
+  display: none;
+}*/
+
+.input-group-addon {  
+  padding: .25rem;
+  color: #555;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  border-left: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.colorpicker-element .add-on i, .colorpicker-element .input-group-addon i {
+  width: 2rem;
+  height: 2rem;
+  vertical-align: middle;
+}
+
 /* Validation */
-.field-validation-error {
+  .field-validation-error {
   color: red;
 }
 
