@@ -169,6 +169,15 @@
                       new {@class = "form-control", id = "js-landlord-organization"})
                   @Html.ValidationMessageFor(m => m.Landlord.Organization)
                 </div>
+                <div class="form-group">
+                  @Html.LabelFor(m => m.Landlord.PhoneNumber)
+                  <div class="landlord-phone-number-wrapper">
+                    <span class="landlord-phone-number-prefix">+374</span>
+                    @Html.TextBoxFor(m => m.Landlord.PhoneNumber,
+            new { @class = "form-control landlord-phone-number", id = "js-landlord-phone-number" })
+                  </div>
+                  @Html.ValidationMessageFor(m => m.Landlord.PhoneNumber)
+                </div>
 
                 @if (Model.Landlord.Organization == null)
                 {
@@ -244,7 +253,11 @@
       e.preventDefault();
 
       var organization = $("#js-landlord-organization").val();
-      var landlord = { Organization: organization };
+      var phoneNumber = $("#js-landlord-phone-number").val();
+      var landlord = {
+        Organization: organization,
+        PhoneNumber: phoneNumber
+      };
 
       AjaxJsonSumbitWithConfirm("Landlord/", landlord);
     });
