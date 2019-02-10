@@ -47,6 +47,9 @@ namespace MyFootballMvc.Models
     [Display(Name = "End time")]
     public DateTime? EndTime { get; set; }
 
+    public double GeoLong { get; set; }
+    public double GeoLat { get; set; }
+
     public User User { get; set; }
   }
 
