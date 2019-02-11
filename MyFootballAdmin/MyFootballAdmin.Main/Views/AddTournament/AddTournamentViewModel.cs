@@ -253,7 +253,7 @@ namespace MyFootballAdmin.Main.Views.AddTournament
                 return;
             }
 
-
+            //image uploading
             if (Logo != null && LogoFileName != string.Empty)
             {
                 using (var stream = new MemoryStream(MyFootballAdmin.Main.Helpers.BitmapImageToByteArray(Logo)))
