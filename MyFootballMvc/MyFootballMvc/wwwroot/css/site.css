@@ -126,9 +126,41 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 .banner {
-  padding: 0.25rem 0;
-  background-color: #38003c;
+  padding: 1rem 0;
 }
+
+.banner-header {
+    padding: 0 15%;
+}
+
+.bcolor-1 {
+    background-color: #38003c;
+}
+
+.bcolor-2 {
+    background-color: #003c38;
+}
+
+.bcolor-3 {
+    background-color: #00223c;
+}
+
+.bcolor-4 {
+    background-color: #003c1a;
+}
+
+.bcolor-5 {
+    background-color: #60000c;
+}
+
+.bcolor-6 {
+    background-color: #89004e;
+}
+
+.bcolor-7 {
+    background-color: #008980;
+}
+
 
   .banner h2 {
     color: #fff;
@@ -159,8 +191,9 @@ for details on configuring this project to bundle and minify static web assets. 
 
 /* Footer */
 footer {
-  background-color: #38003c;
-  color: #fff;
+    background-color: #212529;
+    color: #fff;
+    padding: 0.30rem 0;
 }
 
   footer p {
