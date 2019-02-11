@@ -15,7 +15,8 @@
                 <thead>
                     <tr>
                         <th scope="col">Name</th>
-                        <th scope="col">Team</th>
+                        <th scope="col">Club </th>
+                        <th scope="col">License </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,12 +26,13 @@
                         <td>@Html.ActionLink(@manager.User.FirstName, "Id", new { manager.Id }) @Html.ActionLink(@manager.User.LastName, "Id", new { manager.Id })</td>
                         @if (manager.TeamId != null)
                         {
-                       <td>@Html.ActionLink(Model.Teams.Find(i => i.Id == manager.TeamId).Name, "Id", "Club", new { manager.TeamId })</td>
+                       <td>@Html.ActionLink(Model.Teams.Find(i => i.Id == manager.TeamId).Name, "Id", "Club", new { Id = manager.TeamId })</td>
                         }
                         else
                         {
                             <td>None</td>
                         }
+                        <td>@manager.License</td>
                     </tr>
                     }
                 </tbody>

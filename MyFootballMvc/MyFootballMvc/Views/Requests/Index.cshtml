@@ -95,8 +95,7 @@
       <table class="table table-striped" id="js-free-coaches-table">
         <thead>
           <tr>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
+            <th scope="col">Name</th>
             <th scope="col">Birthdate</th>
             <th scope="col">Invite</th>
           </tr>
@@ -105,8 +104,7 @@
           @foreach (var coach in Model.Coaches)
           {
             <tr>
-              <td>@coach.User.FirstName</td>
-              <td>@coach.User.LastName</td>
+              <td>@coach.User.FirstName @coach.User.LastName</td>
               <td>@coach.User.Birthdate</td>
               <td>
                 <button class="btn btn-primary coaches-invite-buttons" id="@coach.Id">Invite</button>

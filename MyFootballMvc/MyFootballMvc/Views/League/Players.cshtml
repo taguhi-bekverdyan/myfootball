@@ -26,7 +26,7 @@
                         <tr>
                             <td>@Html.ActionLink(Model.League.Teams.Find(i => i.Id == player.TeamId).Name, "Id", "Club", new { player.TeamId })</td>
                             <td>@Html.ActionLink(@player.User.FirstName, "Id", "Player", new { player.Id }) @Html.ActionLink(@player.User.LastName, "Id", "Player", new { player.Id })</td>
-                            <td>@player.Position</td>
+                            <td>@Html.DisplayFor(model => player.Position)</td>
                             <td>@player.Number</td>
                         </tr>
                 }

@@ -13,6 +13,5 @@ namespace MyFootballRestApi.Models
         public int GoalClub1 { get; set; }
         public int GoalClub2 { get; set; }
         public Guid RefereeId { get; set; }
-        //public Round Round;
     }
 }

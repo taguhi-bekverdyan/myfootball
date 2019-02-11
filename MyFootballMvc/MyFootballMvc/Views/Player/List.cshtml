@@ -19,6 +19,9 @@
                         <th scope="col">Position</th>
                         <th scope="col">Number</th>
                         <th scope="col">Is Captain</th>
+                        <th scope="col">Height</th>
+                        <th scope="col">Weight</th>
+                        <th scope="col">Foot</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,18 +29,28 @@
                     @foreach (var player in Model.Players)
                     {
                     <tr>
-                        @if (player.TeamId != null)
+                        @if (player.TeamId != null && player.TeamId != "")
                         {
-                        <td>@Html.ActionLink(Model.Teams.Find(i => i.Id == player.TeamId).Name, "Id", new { player.TeamId })</td>
+                            <td>@Html.ActionLink(Model.Teams.Find(i => i.Id == player.TeamId).Name, "Id", "Club", new { Id = player.TeamId })</td>
                         }
                         else
                         {
-                        <td>None</td>
+                            <td>None</td>
                         }
                         <td>@Html.ActionLink(player.User.FirstName, "Id", new { player.Id }) @Html.ActionLink(player.User.LastName, "Id", new { player.Id })</td>
                         <td>@Html.DisplayFor(model => player.Position)</td>
                         <td>@player.Number</td>
-                        <td>@player.IsCaptain</td>
+                        @if (player.IsCaptain)
+                        {
+                        <td>Captain</td>
+                        }
+                        else
+                        {
+                            <td>Not Captain</td>
+                        }
+                        <td>@player.PhysicalStats.Height</td>
+                        <td>@player.PhysicalStats.Weight</td>
+                        <td>@player.PhysicalStats.Foot</td>
                     </tr>
                     }
      

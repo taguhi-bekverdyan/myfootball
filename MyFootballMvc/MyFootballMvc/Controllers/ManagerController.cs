@@ -35,6 +35,7 @@ namespace MyFootballMvc.Controllers
         public async Task<ActionResult> GetManagerById(string id)
         {
             ManagerViewModel viewModel = await GetViewModel();
+            viewModel.Teams = await _teamsService.FindAll(await GetAccessToken());
             viewModel.Manager = await _coachService.FindCoachById(await GetAccessToken(), id);
             return View("ManagerById", viewModel);
         }

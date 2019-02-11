@@ -13,8 +13,7 @@
                 <thead>
                     <tr>
                         <th>Request To</th>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
+                        <th>Name</th>
                         <th>Birthdate</th>
                         <th>Message</th>
                         <th>Date</th>
@@ -26,13 +25,11 @@
                     {
                         <tr>
                             <th>@item.Request.RequestTo</th>
-                            @*<th>@item.User.FirstName</th>*@
                             <th>
                                 @Html.ActionLink(item.User.FirstName,"RequestDetails","Details",null,null,null,
-                                new { id=item.Request.Id},null)
-                        </th>
-                        <th>@item.User.LastName</th>
-                        <th>@item.User.Birthdate</th>
+                                new { id=item.Request.Id},null)  @Html.ActionLink(item.User.LastName,"RequestDetails","Details",null,null,null,new { id=item.Request.Id},null)
+                            </th>
+                            <th>@item.User.Birthdate</th>
                         <th>@item.Request.Message</th>
                             <th>@item.Request.Created</th>
                             <th>@item.Request.RequestStatus</th>

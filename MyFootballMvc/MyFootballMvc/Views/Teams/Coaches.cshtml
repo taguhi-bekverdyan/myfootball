@@ -14,8 +14,7 @@
         <table class="table table-striped" id="js-my-coaches-table">
             <thead>
                 <tr>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
+                    <th scope="col">Name</th>
                     <th scope="col">Birthdate</th>
                     <th scope="col">License</th>
                 </tr>
@@ -24,8 +23,7 @@
                 @foreach (var coach in Model.MyCoaches)
                 {
                     <tr>
-                        <th>@coach.User.FirstName</th>
-                        <th>@coach.User.LastName</th>
+                        <th>@Html.ActionLink(@coach.User.FirstName, "Id", "Manager", new { coach.Id }) @Html.ActionLink(@coach.User.LastName, "Id", "Manager", new { coach.Id })</th>
                         <th>@coach.User.Birthdate</th>
                         <th>@coach.License</th>
                     </tr>

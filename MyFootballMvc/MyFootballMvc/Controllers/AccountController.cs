@@ -375,6 +375,15 @@ namespace MyFootballMvc.Controllers
                             }
                             team.Players.Add(player);
                             player.TeamId = team.Id;
+                            for(int i = 1; i < 100; ++i)
+                            {
+                                var z = team.Players.Find(j => j.Number == i);
+                                if (z == null)
+                                {
+                                    player.Number = i;
+                                    break;
+                                }
+                            }
                             await _playerService.Update(token,player);
                             break;
                         case RequestTo.Staff:
