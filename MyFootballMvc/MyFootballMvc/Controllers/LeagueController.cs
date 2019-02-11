@@ -32,7 +32,6 @@ namespace MyFootballMvc.Controllers
             var leagueViewModel = await GetViewModel(tournamentId);
             var league = await _leaguesService.FindLeagueByTournamentId(tournamentId);
             leagueViewModel.FixtureViewItem.IsGenerated = league.Tournament.IsGenerated;
-                if(league.Tournament.IsGenerated)
             leagueViewModel.FixtureViewItem.Tours = league.Tour;
             leagueViewModel.ActiveMenuItem = "fixtures";
             return View("~/Views/League/Fixtures.cshtml", leagueViewModel);
@@ -56,22 +55,45 @@ namespace MyFootballMvc.Controllers
     {
       var leagueViewModel = await GetViewModel(tournamentId);
       leagueViewModel.ActiveMenuItem = "leagueClubs";
+
       return View("~/Views/League/Clubs.cshtml", leagueViewModel);
     }
+
+        
+
+
 
 
         public async Task<IActionResult> Players(string tournamentId)
         {
             var leagueViewModel = await GetViewModel(tournamentId);
             leagueViewModel.ActiveMenuItem = "leaguePlayers";
+            var league = await _leaguesService.FindLeagueByTournamentId(tournamentId);
+            var teams = league.Teams;
+            foreach(var team in teams)
+            {
+                if(team.Players != null &&  team.Players .Count != 0)
+                {
+                    leagueViewModel.Players.AddRange(team.Players);
+                }
+            }
             return View("~/Views/League/Players.cshtml", leagueViewModel);
         }
 
     public async Task<IActionResult> Managers(string tournamentId)
     {
       var leagueViewModel = await GetViewModel(tournamentId);
-      leagueViewModel.ActiveMenuItem = "leagueManagers";
-      return View("~/Views/League/Managers.cshtml", leagueViewModel);
+            leagueViewModel.ActiveMenuItem = "leagueManagers";
+            var league = await _leaguesService.FindLeagueByTournamentId(tournamentId);
+            var teams = league.Teams;
+            foreach (var team in teams)
+            {
+                if(team.Managers!=null && team.Managers.Count!=0)
+                {
+                    leagueViewModel.Managers.AddRange(team.Managers);
+                }
+            }
+            return View("~/Views/League/Managers.cshtml", leagueViewModel);
     }
 
     public async Task<IActionResult> News(string tournamentId)

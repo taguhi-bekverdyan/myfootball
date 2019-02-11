@@ -2,6 +2,7 @@
 using MyFootballMvc.Services;
 using Newtonsoft.Json;
 using RestSharp;
+using System.Collections.Generic;
 
 namespace MyFootballMvc.ViewModels
 {
@@ -9,6 +10,8 @@ namespace MyFootballMvc.ViewModels
     {
         private LeaguesService _leaguesService { get; }
         public League League { get; set; } = new League();
+        public List<Player> Players { get; set; } = new List<Player>();
+        public List<Coach> Managers { get; set; } = new List<Coach>();
         public FixtureViewItem FixtureViewItem { get; set; } = new FixtureViewItem();
 
         public LeagueViewModel(string leagueId)

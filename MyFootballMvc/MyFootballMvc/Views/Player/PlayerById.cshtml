@@ -12,12 +12,15 @@
         <ul>
             <li>@Html.LabelFor(p => p.Player.User.FirstName): @Model.Player.User.FirstName</li>
             <li>@Html.LabelFor(p => p.Player.User.LastName): @Model.Player.User.LastName</li>
-
             <li>@Html.LabelFor(p => p.Player.Position): @Model.Player.Position</li>
-            <li>@Html.LabelFor(p => p.Player.Avatar): @Model.Player.Avatar</li>
-            <li>@Html.LabelFor(p => p.Player.PhysicalStats): @Model.Player.PhysicalStats</li>
-            <li>@Html.LabelFor(p => p.Player.HasTrained): @Model.Player.HasTrained</li>
-            <li>@Html.LabelFor(p => p.Player.TeamId): @Model.Player.TeamId</li>
+            @if (Model.Player.TeamId != null)
+            {
+            <li> Club: @Model.Teams.Find(i => i.Id == Model.Player.TeamId)</li>
+            }
+            else
+            {
+                <li>Club: None</li>
+            }
             <li>@Html.LabelFor(p => p.Player.PlayerStatus): @Model.Player.PlayerStatus</li>
             <li>@Html.LabelFor(p => p.Player.Number): @Model.Player.Number</li>
             <li>@Html.LabelFor(p => p.Player.IsCaptain): @Model.Player.IsCaptain</li>
