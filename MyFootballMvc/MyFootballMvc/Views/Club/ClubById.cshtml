@@ -5,8 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="banner bcolor-4">
+    <h2 class="banner-header">@Model.Club.Name</h2>
+</div>
+
 <div class="page-club-by-id main-container container">
-    <h2>@Model.Club.Name.</h2>
 
     <div class="main-content">
             <h3>@Html.LabelFor(r => r.Club.Name): @Model.Club.Name</h3>

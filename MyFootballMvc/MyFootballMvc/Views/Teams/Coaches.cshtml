@@ -3,12 +3,15 @@
     ViewData["Title"] = "Coaches";
     Layout = "~/Views/Shared/_MyTeamLayout.cshtml";
 }
+
+<div class="banner bcolor-1">
+    <h2 class="banner-header">Managers</h2>
+</div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 
 <div class="main-container container">
-    <h2>Managers</h2>
     @if (Model.MyCoaches != null && Model.MyCoaches.Count != 0)
     {
         <table class="table table-striped" id="js-my-coaches-table">
