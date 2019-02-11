@@ -8,7 +8,7 @@ if ($('.league-name').length > 0 && !$tournamentMenuItem.hasClass('active')) {
 }
 
 // Common ajax submit function for MyProfiles tabs
-function AjaxJsonSumbitWithConfirm(url, object) {
+function AjaxJsonSumbitWithConfirm(url, object, form) {
   bootbox.confirm("Do you want to save changes?", function (result) {
     if (result) {
       $.ajax({
@@ -16,14 +16,26 @@ function AjaxJsonSumbitWithConfirm(url, object) {
         method: "POST",
         contentType: "application/json",
         dataType: "json",
-        data: JSON.stringify(object)
-      }).done(function () {
-        bootbox.alert("The changes have been done");
+        data: JSON.stringify(object),
+        success: function () {
+          var newTxt = 'Save';
+          var btn = $(form).find('button[type="submit"]');
+          if (btn.text() !== newTxt) {
+
+            // Change submit button text to 'Save'
+            btn.replaceWith(btn.text(newTxt));
+
+            // Add 'Add new pitch' button
+            $(form).append('<a class="btn btn-primary add-new-item" href="/Pitch/Create">Add new pitch</a>');
+          }
+
+          bootbox.alert("The changes have been done");
+        }
       });
     }
   });
 }
 
 $(document).ready(function () {
-    $('#pitch-table, #referees-table, #players-table,#clubs-table, #managers-table').DataTable();
+  $('#pitch-table, #referees-table, #players-table,#clubs-table, #managers-table').DataTable();
 });

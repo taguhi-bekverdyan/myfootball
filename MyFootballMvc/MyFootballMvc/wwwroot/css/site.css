@@ -193,6 +193,19 @@ footer {
     font-family: verdana;
 }
 
+.landlord-phone-number-wrapper {
+  display: flex;
+  text-align: center;
+}
+
+.landlord-phone-number-prefix {
+  flex-basis: 15%;
+  margin: auto 0.5rem;
+}
+
+.landlord-phone-number {
+}
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
   /* Hide captions */
