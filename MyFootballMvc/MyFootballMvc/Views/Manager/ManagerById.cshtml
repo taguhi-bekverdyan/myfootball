@@ -9,11 +9,11 @@
     <h2>@Model.Manager.User.FirstName @Model.Manager.User.LastName</h2>
 
     <div class="main-content">
-        <p>Name:@Html.LabelFor(r => r.Manager.User.FirstName) @Model.Manager.User.LastName</p>
+        <p>Name:@Model.Manager.User.FirstName @Model.Manager.User.LastName</p>
         <p>Club:</p>
         @if (Model.Manager.TeamId != null && Model.Manager.TeamId != "")
         {
-        <p>@Model.Teams.Find(i => i.Id == Model.Manager.TeamId).Name</p>
+            <p>@Model.Teams.Find(i => i.Id == Model.Manager.TeamId).Name</p>
         }
         else
         {

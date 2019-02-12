@@ -103,7 +103,7 @@
                     <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
                 }
 
-                @if (Model.IsEditPage && !Model.HasTeams)
+                @if (Model.IsEditPage && !Model.HasTeams && Model.UserId != null)
                 {
                     <a class="nav-link" asp-controller="Teams" asp-action="Create">Create a Team</a>
                 }

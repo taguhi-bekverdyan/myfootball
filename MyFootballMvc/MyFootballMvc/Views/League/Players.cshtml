@@ -1,34 +1,51 @@
 ﻿@model MyFootballMvc.ViewModels.LeagueViewModel
 @{
-  ViewData["Title"] = "Players";
-  Layout = "~/Views/Shared/_LeagueLayout.cshtml";
+    ViewData["Title"] = "Players";
+    Layout = "~/Views/Shared/_LeagueLayout.cshtml";
 }
 
-<div class="banner bcolor-2">
-  <h2 class="banner-header">Players</h2>
+<div class="banner">
+    <h2 class="col-10 offset-1">Players</h2>
 </div>
 
 <div class="main-content container">
-    @if(Model.Players.Count != 0)
-    { 
-    <table class="table table-striped" id="players-table">
+    @if (Model.Players.Count != 0)
+    {
+        <table class="table table-striped" id="players-table">
             <thead>
                 <tr>
                     <th scope="col">Club</th>
                     <th scope="col">Name</th>
                     <th scope="col">Position</th>
                     <th scope="col">Number</th>
+                    <th scope="col">Is Captain</th>
+                    <th scope="col">Height</th>
+                    <th scope="col">Weight</th>
+                    <th scope="col">Foot</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var player in Model.Players)
                 {
-                        <tr>
-                            <td>@Html.ActionLink(Model.League.Teams.Find(i => i.Id == player.TeamId).Name, "Id", "Club", new { player.TeamId })</td>
-                            <td>@Html.ActionLink(@player.User.FirstName, "Id", "Player", new { player.Id }) @Html.ActionLink(@player.User.LastName, "Id", "Player", new { player.Id })</td>
-                            <td>@Html.DisplayFor(model => player.Position)</td>
-                            <td>@player.Number</td>
-                        </tr>
+                    string name = player.User.FirstName + " " + player.User.LastName;
+                    <tr>
+                        <td>@Html.ActionLink(Model.League.Teams.Find(i => i.Id == player.TeamId).Name, "Id", "Club", new { Id = player.TeamId })</td>
+
+                        <td>@Html.ActionLink(name, "Id", "Player", new { Id = player.Id })</td>
+                        <td>@Html.DisplayFor(model => player.Position)</td>
+                        <td>@player.Number</td>
+                        @if (player.IsCaptain)
+                        {
+                            <td>Captain</td>
+                        }
+                        else
+                        {
+                            <td>Not Captain</td>
+                        }
+                        <td>@player.PhysicalStats.Height</td>
+                        <td>@player.PhysicalStats.Weight</td>
+                        <td>@player.PhysicalStats.Foot</td>
+                    </tr>
                 }
             </tbody>
         </table>
