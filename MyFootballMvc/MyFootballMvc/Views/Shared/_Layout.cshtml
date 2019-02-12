@@ -11,6 +11,12 @@
         position: absolute;
         bottom: 0;
     }
+    .avatar {
+        vertical-align: middle;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
 </style>
 <html>
 
@@ -81,6 +87,11 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @Model.UserName
                     </a>
+                    @if (Model.UserImage != null)
+                    {
+                        <img src="@Model.UserImage" alt="Avatar" class="avatar" />
+                    }
+
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="nav-link" asp-controller="Account" asp-action="Edit">My Profile</a>
                         @if (Model.HasTeams)

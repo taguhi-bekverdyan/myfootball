@@ -23,6 +23,7 @@ namespace MyFootballMvc.ViewModels
         public bool HasTeams { get; set; }
         public bool HasPitches { get; set; }
         public bool IsEditPage { get; set; }
+        public string UserImage { get; set; }
 
         protected readonly UsersService _userSevice;
         protected readonly TeamsService _teamsService;
@@ -35,15 +36,18 @@ namespace MyFootballMvc.ViewModels
             _pitchService = new PitchService();
 
             User user = _userSevice.FindUserById(token, userId).Result;
+            
             if (user == null)
             {
                 UserName = "My profile";
                 HasTeams = false;
                 HasPitches = false;
+                UserImage = null;
             }
             else
             {
                 UserName = "Hi " + user.FirstName;
+                UserImage = user.Image;
                 UserId = user.Id;
             }
 

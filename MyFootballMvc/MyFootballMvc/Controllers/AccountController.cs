@@ -61,14 +61,23 @@ namespace MyFootballMvc.Controllers
         {
             string accessToken = await GetAccessToken();
             string id = await GetUserAuth0Id();
+
             List<Team> teams = await _teamsService.FindAll(accessToken);
             teams.Add(new Team() { Name="None",Id=Guid.NewGuid().ToString()});
             User user = await _usersService.FindUserById(accessToken, id);
+
+            UserAuth0Info auth0Info = new UserAuth0Info()
+            {
+                EmailAddress = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value,
+                ProfileImage = User.Claims.FirstOrDefault(c => c.Type == "picture")?.Value
+            };
 
             if (user == null)
             {
                 User u = new User();
                 u.Id = string.Empty;
+                u.Email = auth0Info.EmailAddress;
+                u.Image = auth0Info.ProfileImage;
 
                 return View(new EditAccountViewModel(accessToken, id)
                 {
@@ -128,6 +137,7 @@ namespace MyFootballMvc.Controllers
         {
             string accessToken = await GetAccessToken();
             string id = await GetUserAuth0Id();
+
             if (!ModelState.IsValid)
             {
                 return View("Edit", new EditAccountViewModel(accessToken, id)

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using MyFootballMvc.Models;
 using MyFootballMvc.Services;
 using Newtonsoft.Json;
@@ -60,6 +61,13 @@ namespace MyFootballMvc
                     // Configure the scope
                     options.Scope.Clear();
                     options.Scope.Add("openid");
+                    options.Scope.Add("profile");
+                    options.Scope.Add("email");
+                    // Set the correct name claim type
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        NameClaimType = "name"
+                    };
 
                     // Saves tokens to the AuthenticationProperties
                     options.SaveTokens = true;
