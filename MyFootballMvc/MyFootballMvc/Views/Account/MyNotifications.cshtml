@@ -5,13 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="banner bcolor-1">
+    <h2 class="banner-header">My Notifications</h2>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-
-<div class="banner bcolor-7">
-    <h2 class="banner-header">My Notifications</h2>
-</div>
 
 <div class="main-container container">
     @if (Model.Requests.Count != 0)
@@ -19,7 +19,7 @@
         foreach (var item in Model.Requests)
         {
 
-            string header = item.Team.Name+" ";
+            string header = item.Team.Name + " ";
             if (item.RequestTo == RequestTo.Coach)
             {
                 header += "invites you to become their Coach";
@@ -33,17 +33,17 @@
                 header += "invites you to become their Staff Member";
             }
 
-                <br />
-                <div class="card">
-                    <h4 class="card-header">@header</h4>
-                    <div class="card-body">
-                        <h5 class="card-title">Message</h5>
-                        <p class="card-text">@item.Message</p>
-                        <a class="btn btn-primary js-accept-button" id="@item.Id">Accept</a>
-                        <a class="btn btn-danger js-dont-accept" id="@item.Id">Don't accept</a>
-                    </div>
+            <br />
+            <div class="card">
+                <h4 class="card-header">@header</h4>
+                <div class="card-body">
+                    <h5 class="card-title">Message</h5>
+                    <p class="card-text">@item.Message</p>
+                    <a class="btn btn-primary js-accept-button" id="@item.Id">Accept</a>
+                    <a class="btn btn-danger js-dont-accept" id="@item.Id">Don't accept</a>
                 </div>
-                <br />
+            </div>
+            <br />
         }
     }
 </div>
@@ -63,7 +63,7 @@
                 if (result) {
                     ajaxQuery(paramAccept, id);
                     card.hide();
-                }             
+                }
             });
         });
 
@@ -74,14 +74,14 @@
                 if (result) {
                     ajaxQuery(paramDontAccept, id);
                     card.hide();
-                } 
+                }
             });
         });
 
     });
 
     function ajaxQuery(param, id) {
-        var obj = { ResponseParam: param, RequestId:id };
+        var obj = { ResponseParam: param, RequestId: id };
         $.ajax({
             url: "SendResponse",
             method: "POST",
@@ -90,7 +90,7 @@
             data: JSON.stringify(obj)
         }).done(function () {
             bootbox.alert("The changes have been done");
-            
+
         });
     }
 
