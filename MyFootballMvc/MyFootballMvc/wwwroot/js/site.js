@@ -26,6 +26,10 @@ function AjaxJsonSumbitWithConfirm(url, object) {
 
 $(document).ready(function () {
   $('#pitch-table, #referees-table, #players-table,#clubs-table, #managers-table').DataTable();
-  $('#pitchfinder-map').googleMap();
+  $('#pitchfinder-map').googleMap().addMarker({
+    coords: [48.895651, 2.290569], // GPS coords
+    url: 'http://www.tiloweb.com', // Link to redirect onclick (optional)
+    id: 'marker1' // Unique ID for your marker
+  });
 });
 
