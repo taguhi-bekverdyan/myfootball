@@ -26,10 +26,11 @@
                 <tbody>
                     @foreach (var item in Model.SentRequests)
                     {
+                        string name = item.User.FirstName + " " + item.User.LastName;
                         <tr>
                             <th>@item.Request.RequestTo</th>
                             <th>
-                                @Html.ActionLink(item.User.FirstName,"RequestDetails","Details",null,null,null,
+                                @Html.ActionLink(name,"RequestDetails","Details",null,null,null,
                                 new { id=item.Request.Id},null)  @Html.ActionLink(item.User.LastName,"RequestDetails","Details",null,null,null,new { id=item.Request.Id},null)
                             </th>
                             <th>@item.User.Birthdate</th>

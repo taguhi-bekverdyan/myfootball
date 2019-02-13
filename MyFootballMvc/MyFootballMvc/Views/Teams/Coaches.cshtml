@@ -25,8 +25,9 @@
             <tbody>
                 @foreach (var coach in Model.MyCoaches)
                 {
+                    string name = coach.User.FirstName + " " + coach.User.LastName;
                     <tr>
-                        <th>@Html.ActionLink(@coach.User.FirstName, "Id", "Manager", new { coach.Id }) @Html.ActionLink(@coach.User.LastName, "Id", "Manager", new { coach.Id })</th>
+                        <th>@Html.ActionLink(@name, "Id", "Manager", new { Id = coach.Id })</th>
                         <th>@coach.User.Birthdate</th>
                         <th>@coach.License</th>
                     </tr>

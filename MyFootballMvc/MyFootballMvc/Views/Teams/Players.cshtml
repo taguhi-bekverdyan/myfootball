@@ -30,8 +30,9 @@
             <tbody>
                 @foreach (var player in Model.MyPlayers)
                 {
+                    string name = player.User.FirstName + " " + player.User.LastName;
                 <tr>
-                    <td>@Html.ActionLink(player.User.FirstName, "Id", "Player", new { player.Id }) @Html.ActionLink(player.User.LastName, "Id", "Player", new { player.Id })</td>
+                    <td>@Html.ActionLink(name, "Id", "Player", new { Id = player.Id })</td>
                     <td>@player.User.Birthdate</td>
                     @if (player.IsCaptain)
                     {
