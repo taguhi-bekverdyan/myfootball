@@ -10,7 +10,7 @@ namespace MyFootballMvc.Models
     {
         [Required(ErrorMessage = "Please enter your License")]
         public string License { get; set; }
-
+        public string Avatar { get; set; }
         public User User { get; set; }
     }
 }
