@@ -16,11 +16,13 @@ namespace MyFootballMvc.Controllers
   {
     private readonly UsersService _usersService;
     private readonly PitchService _pitchService;
+    private readonly LandlordService _landlordService;
 
     public PitchController()
     {
       _usersService = new UsersService();
       _pitchService = new PitchService();
+      _landlordService = new LandlordService();
     }
 
     [Route("Pitch/MyPitches")]
@@ -34,7 +36,10 @@ namespace MyFootballMvc.Controllers
     [HttpGet("Pitch/Create")]
     public async Task<IActionResult> Create()
     {
-      return View("Create", await GetViewModel());
+      PitchViewModel viewModel = await GetViewModel();
+      Landlord landlord = await _landlordService.GetLandlordByUserId(await GetAccessToken(), await GetUserAuth0Id());
+      viewModel.Pitch = landlord != null ? new Pitch { Owner = landlord.Organization } : new Pitch();
+      return View("Create", viewModel);
     }
 
     [HttpPost("Pitch/Create")]
@@ -51,19 +56,20 @@ namespace MyFootballMvc.Controllers
       }
 
       User user = await _usersService.FindUserById(token, id);
+      Pitch current = new Pitch();
 
       if (string.IsNullOrEmpty(pitch.Id))
       {
         pitch.User = user;
-        await _pitchService.Insert(token, pitch);
+        current = await _pitchService.Insert(token, pitch);
       }
       else
       {
-        Pitch current = await _pitchService.FindPitchById(token, pitch.Id);
+        current = await _pitchService.FindPitchById(token, pitch.Id);
         await _pitchService.Update(token, current);
       }
-
-      return RedirectToAction("Create");
+      
+      return RedirectToAction("Id", new { id = current.Id});
     }
 
 

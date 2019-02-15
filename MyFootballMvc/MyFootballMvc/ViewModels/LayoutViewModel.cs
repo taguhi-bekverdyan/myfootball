@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CloudinaryDotNet;
 using MyFootballMvc.Interfaces;
 using MyFootballMvc.Models;
 using MyFootballMvc.Services;
@@ -11,6 +12,10 @@ namespace MyFootballMvc.ViewModels
 {
     public class LayoutViewModel : IMenuItem
     {
+
+
+        public Cloudinary Cloudinary { get; set; }
+
         public string ActiveMenuItem { get; set; }
         public List<Tournament> Tournaments { get; set; }
         public string UserName { get; set; }
@@ -18,6 +23,7 @@ namespace MyFootballMvc.ViewModels
         public bool HasTeams { get; set; }
         public bool HasPitches { get; set; }
         public bool IsEditPage { get; set; }
+        public string UserImage { get; set; }
 
         protected readonly UsersService _userSevice;
         protected readonly TeamsService _teamsService;
@@ -30,15 +36,18 @@ namespace MyFootballMvc.ViewModels
             _pitchService = new PitchService();
 
             User user = _userSevice.FindUserById(token, userId).Result;
+            
             if (user == null)
             {
                 UserName = "My profile";
                 HasTeams = false;
                 HasPitches = false;
+                UserImage = null;
             }
             else
             {
                 UserName = "Hi " + user.FirstName;
+                UserImage = user.Image;
                 UserId = user.Id;
             }
 
@@ -69,6 +78,13 @@ namespace MyFootballMvc.ViewModels
             var response = client.Execute(request);
 
             Tournaments = JsonConvert.DeserializeObject<List<Tournament>>(response.Content).OrderBy(x => x.Priority).ToList();
+
+            var account = new Account(
+                "myfootball-am",
+                "146315763856442",
+                "39tiuvYatl-1kXLVIMifY1nfSuQ");
+
+            Cloudinary = new Cloudinary(account);
         }
     }
 }

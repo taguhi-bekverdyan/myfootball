@@ -3,6 +3,7 @@ using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Data.Models;
 using MyFootballAdmin.Data.Services.CupService;
 using MyFootballAdmin.Data.Services.LeagueService;
+using MyFootballAdmin.Data.Services.TournamentService;
 using MyFootballAdmin.Main.Views.AddTournament;
 using MyFootballAdmin.Main.Views.Notifications;
 using MyFootballAdmin.Main.Views.Pauses;
@@ -13,7 +14,9 @@ using Prism.Mvvm;
 using Prism.Regions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,8 +30,15 @@ namespace MyFootballAdmin.Main.Views.Tournaments
         private readonly INotificationService _notificationService;
         private readonly ILeagueService _leagueService;
         private readonly ICupService _cupService;
+        private readonly ITournamentService _tournamentService;
 
-        public TournamentsViewModel(IShellService shellService, IEventAggregator eventAggregator, IRegionManager regionManager, INotificationService notificationService, ICupService cupService, ILeagueService leagueService)
+        public TournamentsViewModel(IShellService shellService, 
+                                    IEventAggregator eventAggregator, 
+                                    IRegionManager regionManager, 
+                                    INotificationService notificationService, 
+                                    ICupService cupService, 
+                                    ILeagueService leagueService,
+                                    ITournamentService tournamentService)
         {
             _shellService = shellService;
             _eventAggregator = eventAggregator;
@@ -36,6 +46,7 @@ namespace MyFootballAdmin.Main.Views.Tournaments
             _notificationService = notificationService;
             _leagueService = leagueService;
             _cupService = cupService;
+            _tournamentService = tournamentService;
         }
 
         private List<League> _leagues;
@@ -77,19 +88,28 @@ namespace MyFootballAdmin.Main.Views.Tournaments
 
         public DelegateCommand DeleteTournamentCommand => _deleteTournamentCommand ?? (_deleteTournamentCommand = new DelegateCommand(DeleteTournamentCommandAction));
 
-        public IRegionManager RegionManager { get; set ; }
-
         public void DeleteTournamentCommandAction()
         {
             _leagueService.Delete(SelectedLeague.Id);
             _notificationService.ShowNotification(NotificationType.Alert, "Tournament has been deleted.");
         }
 
-        public async void FindTournaments()
+        private DelegateCommand<object> _generateCommand;
+
+        public DelegateCommand<object> GenerateCommand => _generateCommand ?? (_generateCommand = new DelegateCommand<object>(GenerateCommandAction));
+
+        public async void GenerateCommandAction(object league)
         {
-            List<League> Leagues = new List<League>();
-            Leagues = await _leagueService.FindAll();
+            if (league is League leagueToGenerate && leagueToGenerate.Teams?.Any() == true && leagueToGenerate.Tournament.IsGenerated==false)
+            {
+                leagueToGenerate.Generate();
+                await _tournamentService.Update(leagueToGenerate.Tournament);
+                leagueToGenerate.Tournament = await _tournamentService.FindTournamentByName(leagueToGenerate.Tournament.Name);
+                await _leagueService.Update(leagueToGenerate);
+            }
         }
+
+        public IRegionManager RegionManager { get; set ; }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
@@ -104,6 +124,11 @@ namespace MyFootballAdmin.Main.Views.Tournaments
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
             
+        }
+
+        public async void FindTournaments()
+        {
+            Leagues = await _leagueService.FindAll();
         }
     }
 }

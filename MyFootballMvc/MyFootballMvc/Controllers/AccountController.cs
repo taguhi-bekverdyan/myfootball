@@ -61,14 +61,23 @@ namespace MyFootballMvc.Controllers
         {
             string accessToken = await GetAccessToken();
             string id = await GetUserAuth0Id();
+
             List<Team> teams = await _teamsService.FindAll(accessToken);
             teams.Add(new Team() { Name="None",Id=Guid.NewGuid().ToString()});
             User user = await _usersService.FindUserById(accessToken, id);
+
+            UserAuth0Info auth0Info = new UserAuth0Info()
+            {
+                EmailAddress = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value,
+                ProfileImage = User.Claims.FirstOrDefault(c => c.Type == "picture")?.Value
+            };
 
             if (user == null)
             {
                 User u = new User();
                 u.Id = string.Empty;
+                u.Email = auth0Info.EmailAddress;
+                u.Image = auth0Info.ProfileImage;
 
                 return View(new EditAccountViewModel(accessToken, id)
                 {
@@ -128,6 +137,7 @@ namespace MyFootballMvc.Controllers
         {
             string accessToken = await GetAccessToken();
             string id = await GetUserAuth0Id();
+
             if (!ModelState.IsValid)
             {
                 return View("Edit", new EditAccountViewModel(accessToken, id)
@@ -374,7 +384,17 @@ namespace MyFootballMvc.Controllers
                                 team.Players = new List<Player>();
                             }
                             team.Players.Add(player);
-                            await _playerService.Update(token,player);                           
+                            player.TeamId = team.Id;
+                            for(int i = 1; i < 100; ++i)
+                            {
+                                var z = team.Players.Find(j => j.Number == i);
+                                if (z == null)
+                                {
+                                    player.Number = i;
+                                    break;
+                                }
+                            }
+                            await _playerService.Update(token,player);
                             break;
                         case RequestTo.Staff:
                             Staff staff = await _staffService.GetStaffByUserId(token, request.UserId);
@@ -384,6 +404,7 @@ namespace MyFootballMvc.Controllers
                                 team.StaffMembers = new List<Staff>();
                             }
                             team.StaffMembers.Add(staff);
+                            staff.TeamId = team.Id;
                             await _staffService.Update(token, staff);
                             break;
                         case RequestTo.Coach:
@@ -394,6 +415,7 @@ namespace MyFootballMvc.Controllers
                                 team.Managers = new List<Coach>();
                             }
                             team.Managers.Add(coach);
+                            coach.TeamId = team.Id;
                             await _coachService.Update(token,coach);
                             break;
                         default:

@@ -27,18 +27,17 @@ namespace MyFootballMvc.Controllers
       return View("~/Views/League/Index.cshtml", leagueViewModel);
     }
 
-        public async Task<IActionResult> Fixtures(string tournamentId)
-        {
-            var leagueViewModel = await GetViewModel(tournamentId);
-            var league = await _leaguesService.FindLeagueByTournamentId(tournamentId);
-            leagueViewModel.FixtureViewItem.IsGenerated = league.Tournament.IsGenerated;
-                if(league.Tournament.IsGenerated)
-            leagueViewModel.FixtureViewItem.Tours = league.Tour;
-            leagueViewModel.ActiveMenuItem = "fixtures";
-            return View("~/Views/League/Fixtures.cshtml", leagueViewModel);
-        }
+    public async Task<IActionResult> Fixtures(string tournamentId)
+    {
+      var leagueViewModel = await GetViewModel(tournamentId);
+      var league = await _leaguesService.FindLeagueByTournamentId(tournamentId);
+      leagueViewModel.FixtureViewItem.IsGenerated = league.Tournament.IsGenerated;
+      leagueViewModel.FixtureViewItem.Tours = league.Tour;
+      leagueViewModel.ActiveMenuItem = "fixtures";
+      return View("~/Views/League/Fixtures.cshtml", leagueViewModel);
+    }
 
-        public async Task<IActionResult> Results(string tournamentId)
+    public async Task<IActionResult> Results(string tournamentId)
     {
       var leagueViewModel = await GetViewModel(tournamentId);
       leagueViewModel.ActiveMenuItem = "results";
@@ -56,21 +55,41 @@ namespace MyFootballMvc.Controllers
     {
       var leagueViewModel = await GetViewModel(tournamentId);
       leagueViewModel.ActiveMenuItem = "leagueClubs";
+
       return View("~/Views/League/Clubs.cshtml", leagueViewModel);
     }
 
+    public async Task<IActionResult> Players(string tournamentId)
+    {
+      var leagueViewModel = await GetViewModel(tournamentId);
+      leagueViewModel.ActiveMenuItem = "leaguePlayers";
 
-        public async Task<IActionResult> Players(string tournamentId)
+      var league = await _leaguesService.FindLeagueByTournamentId(tournamentId);
+      var teams = league.Teams;
+
+      foreach (var team in teams)
+      {
+        if (team.Players != null && team.Players.Count != 0)
         {
-            var leagueViewModel = await GetViewModel(tournamentId);
-            leagueViewModel.ActiveMenuItem = "leaguePlayers";
-            return View("~/Views/League/Players.cshtml", leagueViewModel);
+          leagueViewModel.Players.AddRange(team.Players);
         }
+      }
+      return View("~/Views/League/Players.cshtml", leagueViewModel);
+    }
 
     public async Task<IActionResult> Managers(string tournamentId)
     {
       var leagueViewModel = await GetViewModel(tournamentId);
       leagueViewModel.ActiveMenuItem = "leagueManagers";
+      var league = await _leaguesService.FindLeagueByTournamentId(tournamentId);
+      var teams = league.Teams;
+      foreach (var team in teams)
+      {
+        if (team.Managers != null && team.Managers.Count != 0)
+        {
+          leagueViewModel.Managers.AddRange(team.Managers);
+        }
+      }
       return View("~/Views/League/Managers.cshtml", leagueViewModel);
     }
 
@@ -122,11 +141,11 @@ namespace MyFootballMvc.Controllers
       return new LeagueViewModel(tournamentId);
     }
 
-     
 
-        #region Token
 
-        private async Task<string> GetAccessToken()
+    #region Token
+
+    private async Task<string> GetAccessToken()
     {
       if (User.Identity.IsAuthenticated)
       {

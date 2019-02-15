@@ -10,6 +10,7 @@ namespace MyFootballMvc.ViewModels
     {
 
         public List<Staff> MyStaffMembers { get; set; }
+        public Staff SelectedStaff { get; set; } = new Staff();
 
         public MyTeamStaffMembersViewModel():base()
         {

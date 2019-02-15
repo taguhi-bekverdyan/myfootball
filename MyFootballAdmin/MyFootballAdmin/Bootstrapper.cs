@@ -10,6 +10,7 @@ using MyFootballAdmin.Common.Prism;
 using MyFootballAdmin.Common.Views;
 using MyFootballAdmin.Data.Services.CupService;
 using MyFootballAdmin.Data.Services.Helpers;
+using MyFootballAdmin.Data.Services.ImageService;
 using MyFootballAdmin.Data.Services.LeagueService;
 using MyFootballAdmin.Data.Services.MatchService;
 using MyFootballAdmin.Data.Services.TeamsService;
@@ -48,6 +49,7 @@ namespace MyFootballAdmin
             Container.RegisterType<IShellService, ShellService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<INotificationService, NotificationService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ILeagueService, LeagueService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IImageService, ImageService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ITournamentService, TournamentService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ITeamsService, TeamsService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMatchService, MatchService>(new ContainerControlledLifetimeManager());

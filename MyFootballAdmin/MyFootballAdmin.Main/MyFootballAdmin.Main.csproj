@@ -177,6 +177,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers.cs" />
     <Compile Include="MainModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -196,10 +197,6 @@
       <DependentUpon>AddCupView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AddTournament\AddCupViewModel.cs" />
-    <Compile Include="Views\AddTournament\AddLeagueView.xaml.cs">
-      <DependentUpon>AddLeagueView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AddTournament\AddLeagueViewModel.cs" />
     <Compile Include="Views\AddTournament\AddTournamentStepBarView.xaml.cs">
       <DependentUpon>AddTournamentStepBarView.xaml</DependentUpon>
     </Compile>
@@ -280,10 +277,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\AddTournament\AddCupView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\AddTournament\AddLeagueView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

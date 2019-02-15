@@ -5,15 +5,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="banner bcolor-4">
+    <h2 class="banner-header">Clubs</h2>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 
 <div class="page-clubs main-container container">
-    <h2>Clubs</h2><br />
 
     <div class="main-content">
-        <table class="table table-striped table-bordered" id="js-clubs-table">
+        @if (Model.Clubs.Count != 0)
+        {
+        <table class="table table-striped table-bordered" id="all-clubs-table">
             <thead>
                 <tr>
                     <th scope="col">Full Name</th>
@@ -32,13 +37,12 @@
                 }
             </tbody>
         </table>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#js-clubs-table').DataTable();
-            });
-        </script>
+        }
+        else
+        {
+            <p> Sorry, There isn't any club...></p>
+        }
     </div>
 </div>
-
 
 

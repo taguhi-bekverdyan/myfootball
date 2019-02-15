@@ -4,22 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyFootballAdmin.Main.Views.Main"
-                 xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:mvvm="http://prismlibrary.com/"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              d:DataContext="{d:DesignInstance local:MainViewModel, IsDesignTimeCreatable=True}"
-             mc:Ignorable="d" 
-              xmlns:common="clr-namespace:MyFootballAdmin.Common;assembly=MyFootballAdmin.Common"
+             mc:Ignorable="d"
+             xmlns:common="clr-namespace:MyFootballAdmin.Common;assembly=MyFootballAdmin.Common"
              d:DesignHeight="405" d:DesignWidth="800">
-    <Grid >
-        <!--<Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="11*"/>
-        </Grid.RowDefinitions>-->
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
-        <ContentControl Grid.RowSpan="2" Grid.Column="0" mvvm:RegionManager.RegionName="{x:Static common:RegionNames.ToolBarRegion}" />
-        <ContentControl Grid.RowSpan="2" Grid.Column="1" mvvm:RegionManager.RegionName="{x:Static common:RegionNames.BesidesToolBarRegion}" />
+        <ContentControl Grid.Column="0" mvvm:RegionManager.RegionName="{x:Static common:RegionNames.ToolBarRegion}" />
+        <ContentControl Grid.Column="1" mvvm:RegionManager.RegionName="{x:Static common:RegionNames.BesidesToolBarRegion}" />
     </Grid>
 </UserControl>

@@ -5,30 +5,37 @@
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="page-referees main-container container">
-  <h2>Referees</h2>
-
-  <div class="main-content">
-    <table class="table table-striped table-bordered" id="referees-table">
-      <thead>
-        <tr>
-          <th scope="col">First name</th>
-          <th scope="col">Lats name</th>
-          <th scope="col">License</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach (var referee in Model.Referees)
-        {
-          <tr>
-            <td>@Html.ActionLink(@referee.User.FirstName, "Id", new { referee.Id })</td>
-            <td>@referee.User.LastName</td>
-            <td>@referee.License</td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  </div>
+<div class="banner bcolor-6">
+    <h2 class="banner-header">Referees</h2>
 </div>
 
+<div class="page-referees main-container container">
+
+  <div class="main-content">
+      @if (Model.Referees.Count != 0)
+      {
+          <table class="table table-striped table-bordered" id="all-referees-table">
+              <thead>
+                  <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">License</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  @foreach (var referee in Model.Referees)
+                  {
+                      <tr>
+                          <td>@Html.ActionLink(@referee.User.FirstName, "Id", new { referee.Id }) @Html.ActionLink(@referee.User.LastName, "Id", new { referee.Id })</td>
+                          <td>@referee.License</td>
+                      </tr>
+                  }
+              </tbody>
+          </table>
+      }
+      else
+      {
+          <p id = "none" > There isn't any referee...</p>
+      }
+          </div>
+</div>
 

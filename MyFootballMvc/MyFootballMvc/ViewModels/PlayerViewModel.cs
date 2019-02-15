@@ -8,8 +8,9 @@ namespace MyFootballMvc.ViewModels
 {
     public class PlayerViewModel:LayoutViewModel
     {
-        public List<Player> Players { get; set; }
-        public Player Player { get; set; }
+        public List<Player> Players { get; set; } = new List<Player>();
+        public Player Player { get; set; } = new Player();
+        public List<Team> Teams { get; set; } = new List<Team>();
 
         public PlayerViewModel()
         {

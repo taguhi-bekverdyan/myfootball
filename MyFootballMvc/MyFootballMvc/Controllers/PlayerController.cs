@@ -16,17 +16,20 @@ namespace MyFootballMvc.Controllers
     {
         private readonly PlayersService _playersService;
         private readonly TeamsService _teamsService;
+        private readonly LeaguesService _leagueService;
 
         public PlayerController()
         {
             _playersService = new PlayersService();
             _teamsService = new TeamsService();
+            _leagueService = new LeaguesService();
         }
 
         public async Task<ActionResult> List()
         {
             PlayerViewModel viewModel = await GetViewModel();
             viewModel.ActiveMenuItem = "players";
+            viewModel.Teams = await _teamsService.FindAll(await GetAccessToken());
             viewModel.Players = await _playersService.FindAll(await GetAccessToken());
             return View("List", viewModel);
         }
@@ -55,6 +58,21 @@ namespace MyFootballMvc.Controllers
                     player.Number = arg.Number;
                     await _playersService.Update(token, player);
                     await _teamsService.Update(token,team);
+                    List<League> leagues = await _leagueService.FindAll();
+
+                    foreach (var league in leagues)
+                    {
+                        for (int i = 0; i < league.Teams.Count; i++)
+                        {
+                            if (league.Teams.ElementAt(i).Id == team.Id) {
+                                league.Teams[i] = team;
+                            }
+                        }
+                        await _leagueService.Update(token,league);
+                    }
+
+                   
+
                     return Ok(200);                   
                 }
                 else {

@@ -5,19 +5,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="banner bcolor-1">
+    <h2 class="banner-header">>Match</h2>
+</div>
+
 <div class="page-club-by-id main-container container">
-    <h2>Match</h2>
     <div class="main-content">
         <div>
-            <p  style="float:left;">@Model.Match.Team1</p>
+            <p  style="float:left;">@Model.Match.Team1.Name</p>
             <p class="badge badge-primary">@Model.Match.MatchDateTime</p>
             @if (Model.Match.MatchDateTime < DateTime.Now)
             {
                 <p class="badge badge-primary">@Model.Match.GoalClub1 - @Model.Match.GoalClub2</p>
             }
             <p  style="float:right;">@Model.Match.Team2.Name</p>
+            <br/>
         </div>
-
-        <h3>@Html.LabelFor(r => r.Match.RefereeId)</h3>
+        @if (Model.Match.RefereeId != null)
+        {
+        <p>@Html.LabelFor(r => r.Match.RefereeId)</p>
+        }
     </div>
 </div>

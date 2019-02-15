@@ -38,11 +38,21 @@ namespace MyFootballMvc.Services
       return team;
     }
 
-    public async Task<Team> FindTeamByUserId(string accessToken, string id)
-    {
-      var request = new RestRequest("teams/by_president_id/{id}", Method.GET);
-      request.AddHeader("authorization", $"Bearer {accessToken}");
-      request.AddUrlSegment("id", id);
+        public async Task<List<Coach>> FindAllManagers()
+        {
+            var request = new RestRequest("teams/managers", Method.GET);
+
+            IRestResponse response = await _client.ExecuteTaskAsync(request);
+
+            List<Coach> managers = JsonConvert.DeserializeObject<List<Coach>>(response.Content);
+            return managers;
+        }
+
+        public async Task<Team> FindTeamByUserId(string accessToken,string id)
+        {
+            var request = new RestRequest("teams/by_president_id/{id}", Method.GET);
+            request.AddHeader("authorization", $"Bearer {accessToken}");
+            request.AddUrlSegment("id", id);
 
       IRestResponse response = await _client.ExecuteTaskAsync(request);
 

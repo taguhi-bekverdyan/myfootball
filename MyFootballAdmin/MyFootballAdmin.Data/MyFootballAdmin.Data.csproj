@@ -121,6 +121,8 @@
     <Compile Include="Services\CupService\CupService.cs" />
     <Compile Include="Services\CupService\ICupService.cs" />
     <Compile Include="Services\Helpers\AccessToken.cs" />
+    <Compile Include="Services\ImageService\IImageService.cs" />
+    <Compile Include="Services\ImageService\ImageService.cs" />
     <Compile Include="Services\LeagueService\ILeagueService.cs" />
     <Compile Include="Services\LeagueService\LeagueService.cs" />
     <Compile Include="Services\MatchService\IMatchService.cs" />
