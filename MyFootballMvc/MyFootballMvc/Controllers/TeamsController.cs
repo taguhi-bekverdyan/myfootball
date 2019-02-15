@@ -62,7 +62,7 @@ namespace MyFootballMvc.Controllers
     [Route("Teams/Fixtures")]
     public async Task<IActionResult> Fixtures()
     {
-      return View("Fixtures");
+      return View("Fixtures", await GetMyTeamPlayersViewModel());
     }
 
     [Route("Teams/Players")]

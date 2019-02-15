@@ -232,8 +232,14 @@ footer {
   vertical-align: middle;
 }
 
+.colorpicker-element label {
+  line-height: 42px;
+  margin-bottom: 0;
+  margin-right: 40px;
+}
+
 /* Validation */
-  .field-validation-error {
+.field-validation-error {
   color: red;
 }
 
