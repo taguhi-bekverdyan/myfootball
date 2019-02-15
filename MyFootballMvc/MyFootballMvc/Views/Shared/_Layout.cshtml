@@ -1,6 +1,26 @@
 ﻿@model MyFootballMvc.ViewModels.LayoutViewModel
 <!DOCTYPE html>
+<style>
+  body {
+    min-height: 100vh;
+    position: relative;
+    margin: 0;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+  }
+
+  .avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+</style>
 <html>
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +28,6 @@
 
   <environment include="Development">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.css" />
     <link rel="stylesheet" href="~/lib/datatables/css/dataTables.bootstrap4.min.css" />
   </environment>
@@ -16,8 +35,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css."
           asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
           asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
   </environment>
+
+  @RenderSection("Styles", required: false)
+  <link rel="stylesheet" href="~/css/site.css" />
+
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top main-nav">
@@ -52,7 +74,7 @@
           <a class="nav-link" asp-area="" asp-controller="Player" asp-action="List">Players</a>
         </li>
         <li class="nav-item @(Model.ActiveMenuItem == "managers" ? "active" : "")">
-          <a class="nav-link" asp-area="" asp-controller="Manager" asp-action="List">Managers</a>
+          <a class="nav-link" asp-area="" asp-controller="Manager" asp-action="ManagersList">Managers</a>
         </li>
         <li class="nav-item @(Model.ActiveMenuItem == "referees" ? "active" : "")">
           <a class="nav-link" asp-area="" asp-controller="Referee" asp-action="List">Referees</a>
@@ -68,6 +90,8 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             @Model.UserName
           </a>
+          
+
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="nav-link" asp-controller="Account" asp-action="Edit">My Profile</a>
             @if (Model.HasTeams)
@@ -78,7 +102,7 @@
             {
               <a class="nav-link" asp-controller="Pitch" asp-action="MyPitches">My Pitches</a>
             }
-              <a class="nav-link" asp-controller="Account" asp-action="MyNotifications">My notifications</a>
+            <a class="nav-link" asp-controller="Account" asp-action="MyNotifications">My notifications</a>
             <a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Something else here</a>
@@ -90,7 +114,7 @@
           <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
         }
 
-        @if (Model.IsEditPage && !Model.HasTeams)
+        @if (Model.IsEditPage && !Model.HasTeams && Model.UserId != null)
         {
           <a class="nav-link" asp-controller="Teams" asp-action="Create">Create a Team</a>
         }
@@ -106,7 +130,7 @@
     @RenderBody()
   </div>
 
-  <footer>
+  <footer style="position: absolute;bottom:0;width:100%;">
     <p>&copy; 2018 - MyFootballMvc</p>
   </footer>
 
@@ -114,7 +138,6 @@
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-
     <script src="~/lib/jquery-validate/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script src="~/lib/bootbox.js/bootbox.js"></script>
@@ -136,10 +159,10 @@
             crossorigin="anonymous"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl">
     </script>
-    
   </environment>
 
   @RenderSection("Scripts", required: false)
+
   <script src="~/js/site.js" asp-append-version="true"></script>
 
 </body>

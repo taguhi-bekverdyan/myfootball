@@ -9,83 +9,97 @@
   <h2>Add new pitch</h2>
 
   <div class="main-content">
-    <div class="row">
-      <div class="col">
-       
-        @using (Html.BeginForm("Create", "Pitch", FormMethod.Post, new { id = "js-create-pitch-form" }))
-        {
-          <div class="form-group">
-            @Html.LabelFor(m => m.Pitch.Name)
-            @Html.TextBoxFor(m => m.Pitch.Name, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Pitch.Name)
-          </div>
-          <div class="form-group">
-            @Html.LabelFor(m => m.Pitch.Owner)
-            @Html.TextBoxFor(m => m.Pitch.Owner, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Pitch.Owner)
-          </div>
-          <div class="form-group">
-            @Html.LabelFor(m => m.Pitch.PitchLength)
-            @Html.TextBoxFor(m => m.Pitch.PitchLength, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Pitch.PitchLength)
-          </div>
-          <div class="form-group">
-            @Html.LabelFor(m => m.Pitch.PitchWidth)
-            @Html.TextBoxFor(m => m.Pitch.PitchWidth, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Pitch.PitchWidth)
-          </div>
-          <div class="form-group">
-            @Html.LabelFor(m => m.Pitch.Surface)
-            @Html.DropDownList("surface", new SelectList(Enum.GetValues(typeof(Surface))), "Select", null)
-            @Html.ValidationMessageFor(m => m.Pitch.Surface)
-          </div>
-          <div class="form-group">
-            @Html.LabelFor(m => m.Pitch.AreaType)
-            @Html.DropDownList("area-type", new SelectList(Enum.GetValues(typeof(AreaType))), "Select", null)
-            @Html.ValidationMessageFor(m => m.Pitch.AreaType)
-          </div>
-          <div class="form-group">
-            @Html.LabelFor(m => m.Pitch.HasLigthing)
-            @Html.CheckBoxFor(m => m.Pitch.HasLigthing)
-            @Html.ValidationMessageFor(m => m.Pitch.HasLigthing)
-          </div>
-          <div class="form-group">
-            @Html.LabelFor(m => m.Pitch.HasLockerRoom)
-            @Html.CheckBoxFor(m => m.Pitch.HasLockerRoom)
-            @Html.ValidationMessageFor(m => m.Pitch.HasLockerRoom)
-          </div>
-          <div class="form-group">
-            @Html.LabelFor(m => m.Pitch.HasFieldHeating)
-            @Html.CheckBoxFor(m => m.Pitch.HasFieldHeating)
-            @Html.ValidationMessageFor(m => m.Pitch.HasFieldHeating)
-          </div>
-          <div class="form-group">
-            @Html.LabelFor(m => m.Pitch.HasTribunes)
-            @Html.CheckBoxFor(m => m.Pitch.HasTribunes)
-            @Html.ValidationMessageFor(m => m.Pitch.HasTribunes)
-          </div>
-          <div class="form-group">
-            @Html.LabelFor(m => m.Pitch.PricePerHour)
-            @Html.TextBoxFor(m => m.Pitch.PricePerHour, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Pitch.PricePerHour)
-          </div>
-          <div class="form-group">
-            <fieldset>
-              <legend>Working hours</legend>
-              <div>
-                @Html.EditorFor(m => m.Pitch.StartTime, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Pitch.StartTime)
-              </div>
-              <div>
-                @Html.EditorFor(m => m.Pitch.EndTime, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Pitch.EndTime)
-              </div>
-            </fieldset>
-          </div>
 
-          <button type="submit" class="btn btn-primary">Save</button>
-        }
-      </div>
+    <div class="map-wrapper">
+      <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+      <div id="map"></div>
     </div>
+
+    <div class="form-wrapper">
+
+      @using (Html.BeginForm("Create", "Pitch", FormMethod.Post, new { id = "js-create-pitch-form" }))
+      {
+        <div class="form-group">
+          @Html.LabelFor(m => m.Pitch.Name)
+          @Html.TextBoxFor(m => m.Pitch.Name, new { @class = "form-control" })
+          @Html.ValidationMessageFor(m => m.Pitch.Name)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Pitch.Owner)
+          @Html.TextBoxFor(m => m.Pitch.Owner, new { @class = "form-control" })
+          @Html.ValidationMessageFor(m => m.Pitch.Owner)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Pitch.PitchLength)
+          @Html.TextBoxFor(m => m.Pitch.PitchLength, new { @class = "form-control" })
+          @Html.ValidationMessageFor(m => m.Pitch.PitchLength)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Pitch.PitchWidth)
+          @Html.TextBoxFor(m => m.Pitch.PitchWidth, new { @class = "form-control" })
+          @Html.ValidationMessageFor(m => m.Pitch.PitchWidth)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Pitch.Surface)
+          @Html.DropDownList("surface", new SelectList(Enum.GetValues(typeof(Surface))), "Select", null)
+          @Html.ValidationMessageFor(m => m.Pitch.Surface)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Pitch.AreaType)
+          @Html.DropDownList("area-type", new SelectList(Enum.GetValues(typeof(AreaType))), "Select", null)
+          @Html.ValidationMessageFor(m => m.Pitch.AreaType)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Pitch.HasLigthing)
+          @Html.CheckBoxFor(m => m.Pitch.HasLigthing)
+          @Html.ValidationMessageFor(m => m.Pitch.HasLigthing)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Pitch.HasLockerRoom)
+          @Html.CheckBoxFor(m => m.Pitch.HasLockerRoom)
+          @Html.ValidationMessageFor(m => m.Pitch.HasLockerRoom)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Pitch.HasFieldHeating)
+          @Html.CheckBoxFor(m => m.Pitch.HasFieldHeating)
+          @Html.ValidationMessageFor(m => m.Pitch.HasFieldHeating)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Pitch.HasTribunes)
+          @Html.CheckBoxFor(m => m.Pitch.HasTribunes)
+          @Html.ValidationMessageFor(m => m.Pitch.HasTribunes)
+        </div>
+        <div class="form-group">
+          @Html.LabelFor(m => m.Pitch.PricePerHour)
+          @Html.TextBoxFor(m => m.Pitch.PricePerHour, new { @class = "form-control" })
+          @Html.ValidationMessageFor(m => m.Pitch.PricePerHour)
+        </div>
+        <div class="form-group">
+          <fieldset>
+            <legend>Working hours</legend>
+            <div>
+              @Html.EditorFor(m => m.Pitch.StartTime, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.Pitch.StartTime)
+            </div>
+            <div>
+              @Html.EditorFor(m => m.Pitch.EndTime, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.Pitch.EndTime)
+            </div>
+          </fieldset>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+      }
+    </div>
+
   </div>
 </div>
+
+@section Styles {
+  <link href="~/css/map.css" rel="stylesheet" />
+}
+
+@section Scripts {
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJ7Z7BTT3qc3OKHAklScK4hPjYHzUWNJ0&libraries=places&callback=initAutocomplete"
+          async defer></script>
+}
