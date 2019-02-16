@@ -13,7 +13,7 @@ namespace MyFootballRestApi.Models
         [Required]
         public CoachStatus CoachStatus { get; set; }
         public string TeamId { get; set; }
-
+        public string Avatar { get; set; }
         [Required]
         public User User { get; set; }
 

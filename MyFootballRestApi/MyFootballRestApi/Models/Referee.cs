@@ -12,6 +12,7 @@ namespace MyFootballRestApi.Models
         public string License { get; set; }
         [Required]
         public User User { get; set; }
+        public string Avatar { get; set; }
 
     }
 }

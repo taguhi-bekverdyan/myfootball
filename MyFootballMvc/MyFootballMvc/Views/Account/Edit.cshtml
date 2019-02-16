@@ -89,12 +89,18 @@
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-player" role="tabpanel" aria-labelledby="nav-player-tab">
+                            <br />
                             @using (Html.BeginForm("Player", "Account", FormMethod.Post, new { id = "js-playerForm" }))
                             {
                                 <div class="form-group">
+                                    <img src="@Model.Player.Avatar" alt="Avatar" class="avatar-my-profile" id="js-player-image" />
+                                    <input type="file" name="player image" id="js-player-image-button" />
+                                    
+                                </div>
+                                <div class="form-group">
                                     @Html.LabelFor(m => m.Player.Position)
                                     @*@Html.DropDownList("SelectPosition", Html.GetEnumSelectList<Position>(),
-                                    "Select your position", new { @class = "form-control" ,id="js-position"})*@
+                "Select your position", new { @class = "form-control" ,id="js-position"})*@
                                     <select id="js-position" class="form-control" asp-for="Player.Position" asp-items="Html.GetEnumSelectList<Position>()">
                                         <option selected="selected" value="">Please select</option>
                                     </select>
@@ -103,7 +109,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Player.PhysicalStats.Foot)
                                     @*@Html.DropDownList("SelectFoot", Html.GetEnumSelectList<Foot>(),
-                                    "Select your foot", new { @class = "form-control",id="js-foot" })*@
+                "Select your foot", new { @class = "form-control",id="js-foot" })*@
                                     <select id="js-foot" class="form-control" asp-for="Player.PhysicalStats.Foot" asp-items="Html.GetEnumSelectList<Foot>()">
                                         <option selected="selected" value="">Please select</option>
                                     </select>
@@ -121,13 +127,21 @@
                                         new {@class = "form-control", id = "js-weight"})
                                     @Html.ValidationMessageFor(m => m.Player.PhysicalStats.Weight)
                                 </div>
-                                @Html.HiddenFor(m => m.Player.PlayerStatus, new { id = "js-player-status-hidden" })
+                                @Html.HiddenFor(m => m.Player.PlayerStatus, new { id = "js-player-status-hidden" })                           
+                                @Html.HiddenFor(m => m.Player.Avatar, new { id = "js-hidden-for-player-image" })
                                 <button type="submit" class="btn btn-primary">Become a Player</button>
                             }
                         </div>
                         <div class="tab-pane fade" id="nav-coach" role="tabpanel" aria-labelledby="nav-coach-tab">
+                            <br />
+                            @*<img src="@Model.Coach.Avatar" alt="Avatar" class="avatar-my-profile" />*@
                             @using (Html.BeginForm("Coach", "Account", FormMethod.Post, new { id = "js-coachForm" }))
                             {
+                                <div class="form-group">
+                                    <img src="@Model.Coach.Avatar" alt="Avatar" class="avatar-my-profile" id="js-coach-image" />
+                                    <input type="file" name="coach image" id="js-coach-image-button" />
+
+                                </div>
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Coach.License)
                                     @Html.TextBoxFor(m => m.Coach.License,
@@ -135,12 +149,20 @@
                                     @Html.ValidationMessageFor(m => m.Coach.License)
                                 </div>
                                 @Html.HiddenFor(m => m.Coach.CoachStatus, new { id = "js-coach-status-hidden" })
+                                @Html.HiddenFor(m => m.Coach.Avatar, new { id = "js-hidden-for-coach-image" })
                                 <button type="submit" class="btn btn-primary">Become a Coach</button>
                             }
                         </div>
                         <div class="tab-pane fade" id="nav-staff" role="tabpanel" aria-labelledby="nav-staff-tab">
+                            <br />
+                            @*<img src="@Model.Staff.Avatar" alt="Avatar" class="avatar-my-profile" />*@
                             @using (Html.BeginForm("Staff", "Account", FormMethod.Post, new { id = "js-staffForm" }))
                             {
+                                <div class="form-group">
+                                    <img src="@Model.Staff.Avatar" alt="Avatar" class="avatar-my-profile" id="js-staff-image" />
+                                    <input type="file" name="staff image" id="js-staff-image-button" />
+
+                                </div>
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Staff.License)
                                     @Html.TextBoxFor(m => m.Staff.License,
@@ -154,19 +176,28 @@
                                     @Html.ValidationMessageFor(m => m.Staff.Occupation)
                                 </div>
                                 @Html.HiddenFor(m => m.Staff.StaffStatus, new { id = "js-staff-status-hidden" })
+                                @Html.HiddenFor(m => m.Staff.Avatar, new { id = "js-hidden-for-staff-image" })
                                 <button type="submit" class="btn btn-primary">Become a Staff</button>
                             }
                         </div>
                         <div class="tab-pane fade" id="nav-referee" role="tabpanel" aria-labelledby="nav-referee-tab">
+                            <br />
+                            @*<img src="@Model.Referee.Avatar" alt="Avatar" class="avatar-my-profile" />*@
                             @using (Html.BeginForm("Referee", "Account", FormMethod.Post, new { id = "js-refereeForm" }))
                             {
+                                <div class="form-group">
+                                    <img src="@Model.Referee.Avatar" alt="Avatar" class="avatar-my-profile" id="js-referee-image" />
+                                    <input type="file" name="staff image" id="js-referee-image-button" />
+
+                                </div>
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Referee.License)
                                     @Html.TextBoxFor(m => m.Referee.License,
                                         new {@class = "form-control", id = "js-referee-license"})
                                     @Html.ValidationMessageFor(m => m.Referee.License)
                                 </div>
-
+                                
+                                @Html.HiddenFor(m => m.Referee.Avatar, new { id = "js-hidden-for-referee-image" })
                                 <button type="submit" class="btn btn-primary">Become a Referee</button>
                             }
                         </div>
@@ -219,10 +250,11 @@
             var height = $("#js-height").val();
             var weight = $("#js-weight").val();
             var playerStatus = $("#js-player-status-hidden").val();
+            var playerAvatarImagePath = $("#js-hidden-for-player-image").val();
 
             var ps = { Foot: foot, Height: height, Weight: weight };
 
-            var player = { Position: position, PhysicalStats: ps, PlayerStatus: playerStatus };
+            var player = { Position: position, PhysicalStats: ps, PlayerStatus: playerStatus, Avatar : playerAvatarImagePath};
 
             AjaxJsonSumbitWithConfirm("Player/", player);
         });
@@ -231,8 +263,9 @@
             e.preventDefault();
             var license = $("#js-coach-license").val();
             var coachStatus = $("js-coach-status-hidden").val();
+            var coachAvatarImagePath = $("#js-hidden-for-coach-image").val();
 
-            var coach = { License: license, CoachStatus: coachStatus };
+            var coach = { License: license, CoachStatus: coachStatus, Avatar: coachAvatarImagePath };
 
             AjaxJsonSumbitWithConfirm("Coach/", coach);
         });
@@ -243,8 +276,9 @@
             var license = $("#js-staff-license").val();
             var occupation = $("#js-staff-occupation").val();
             var staffStatus = $("js-staff-status-hidden").val();
+            var staffAvatarImagePath = $("#js-hidden-for-staff-image").val();
 
-            var staff = { License: license, Occupation: occupation, StaffStatus: staffStatus };
+            var staff = { License: license, Occupation: occupation, StaffStatus: staffStatus, Avatar: staffAvatarImagePath };
 
             AjaxJsonSumbitWithConfirm("Staff/", staff);
         });
@@ -253,8 +287,9 @@
             e.preventDefault();
 
             var license = $("#js-referee-license").val();
+            var refereeAvatarImagePath = $("#js-hidden-for-referee-image").val();
 
-            var referee = { License: license };
+            var referee = { License: license, Avatar: refereeAvatarImagePath};
 
             AjaxJsonSumbitWithConfirm("Referee/", referee);
         });
@@ -271,6 +306,33 @@
 
             AjaxJsonSumbitWithConfirm("Landlord/", landlord, this);
         });
+
+        function filePreview(input,owner) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#js-" + owner + "-image").attr("src", e.target.result);
+                    $("#js-hidden-for-" + owner + "-image").val(e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#js-player-image-button").change(function () {
+            filePreview(this,"player");
+        });
+        $("#js-coach-image-button").change(function () {
+            filePreview(this,"coach");
+        });
+        $("#js-staff-image-button").change(function () {
+            filePreview(this, "staff");
+        });
+        $("#js-referee-image-button").change(function () {
+            filePreview(this, "referee");
+        });
+
+        
+
 
     });
 </script>
