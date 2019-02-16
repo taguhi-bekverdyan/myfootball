@@ -16,6 +16,7 @@ namespace MyFootballMvc.Services
         private const string ManagerDefaultAvatar = "https://res.cloudinary.com/myfootball-am/image/upload/v1550074965/default_manager.png";
         private const string RefereeDefaultAvatar = "https://res.cloudinary.com/myfootball-am/image/upload/v1550074965/default_referee.png";
         private const string StaffDefaultAvatar = "https://res.cloudinary.com/myfootball-am/image/upload/v1550074965/default_staff.png";
+        private const string TeamDefaultAvatar = "https://res.cloudinary.com/myfootball-am/image/upload/v1550074965/default_club.png";
 
         public async Task<string> UploadImageAsync(Stream image, string fileName)
         {
@@ -68,6 +69,12 @@ namespace MyFootballMvc.Services
         {
             return Task.Factory.StartNew(() => {
                 return StaffDefaultAvatar;
+            });
+        }
+
+        public Task<string> GetTeamDefaultAvatarAsync() {
+            return Task.Factory.StartNew(()=> {
+                return TeamDefaultAvatar;
             });
         }
 
