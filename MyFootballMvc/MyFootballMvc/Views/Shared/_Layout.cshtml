@@ -1,32 +1,33 @@
 ﻿@model MyFootballMvc.ViewModels.LayoutViewModel
 <!DOCTYPE html>
 <style>
-    body {
-        min-height: 100vh;
-        position: relative;
-        margin: 0;
-    }
+  body {
+    min-height: 100vh;
+    position: relative;
+    margin: 0;
+  }
 
-    footer {
-        position: absolute;
-        bottom: 0;
-    }
-    .avatar {
-        vertical-align: middle;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-    }
+  footer {
+    position: absolute;
+    bottom: 0;
+  }
+
+  .avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
 </style>
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MyFootballMvc</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] - MyFootballMvc</title>
 
   <environment include="Development">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />    
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.css" />
     <link rel="stylesheet" href="~/lib/datatables/css/dataTables.bootstrap4.min.css" />
   </environment>
@@ -41,105 +42,119 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top main-nav">
-        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Logo</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top main-nav">
+    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Logo</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown tournament-menu-item @(Model.ActiveMenuItem == "tournaments" ? "active" : "")">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Tournaments
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <ul role="menu">
-                            @foreach (var tournament in Model.Tournaments)
-                            {
-                                <li><a class="dropdown-item" asp-controller="Tournament" asp-action="Index" asp-route-tournamentId="@tournament.Id">@tournament.Name</a></li>
-                            }
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item @(Model.ActiveMenuItem == "pitchfinder" ? "active" : "")">
-                    <a class="nav-link" asp-area="" asp-controller="Pitch" asp-action="PitchFinder">Pitch finder</a>
-                </li>
-                <li class="nav-item @(Model.ActiveMenuItem == "clubs" ? "active" : "")">
-                    <a class="nav-link" asp-area="" asp-controller="Club" asp-action="ClubsList">Clubs</a>
-                </li>
-                <li class="nav-item @(Model.ActiveMenuItem == "players" ? "active" : "")">
-                    <a class="nav-link" asp-area="" asp-controller="Player" asp-action="List">Players</a>
-                </li>
-                <li class="nav-item @(Model.ActiveMenuItem == "managers" ? "active" : "")">
-                    <a class="nav-link" asp-area="" asp-controller="Manager" asp-action="ManagersList">Managers</a>
-                </li>
-                <li class="nav-item @(Model.ActiveMenuItem == "referees" ? "active" : "")">
-                    <a class="nav-link" asp-area="" asp-controller="Referee" asp-action="List">Referees</a>
-                </li>
-                <li class="nav-item @(Model.ActiveMenuItem == "test" ? "active" : "")">
-                    <a class="nav-link" asp-area="" asp-controller="Test" asp-action="Index">Test</a>
-                </li>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown tournament-menu-item @(Model.ActiveMenuItem == "tournaments" ? "active" : "")">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Tournaments
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul role="menu">
+              @foreach (var tournament in Model.Tournaments)
+              {
+                <li><a class="dropdown-item" asp-controller="Tournament" asp-action="Index" asp-route-tournamentId="@tournament.Id">@tournament.Name</a></li>
+              }
             </ul>
+          </div>
+        </li>
 
-            <div class="navbar navbar-dark bg-dark">
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @Model.UserName
-                    </a>
-                    @if (Model.UserImage != null)
-                    {
-                        <img src="@Model.UserImage" alt="Avatar" class="avatar" />
-                    }
+        <li class="nav-item @(Model.ActiveMenuItem == "pitchfinder" ? "active" : "")">
+          <a class="nav-link" asp-area="" asp-controller="Pitch" asp-action="PitchFinder">Pitch finder</a>
+        </li>
+        <li class="nav-item @(Model.ActiveMenuItem == "clubs" ? "active" : "")">
+          <a class="nav-link" asp-area="" asp-controller="Club" asp-action="ClubsList">Clubs</a>
+        </li>
+        <li class="nav-item @(Model.ActiveMenuItem == "players" ? "active" : "")">
+          <a class="nav-link" asp-area="" asp-controller="Player" asp-action="List">Players</a>
+        </li>
+        <li class="nav-item @(Model.ActiveMenuItem == "managers" ? "active" : "")">
+          <a class="nav-link" asp-area="" asp-controller="Manager" asp-action="ManagersList">Managers</a>
+        </li>
+        <li class="nav-item @(Model.ActiveMenuItem == "referees" ? "active" : "")">
+          <a class="nav-link" asp-area="" asp-controller="Referee" asp-action="List">Referees</a>
+        </li>
+        <li class="nav-item @(Model.ActiveMenuItem == "test" ? "active" : "")">
+          <a class="nav-link" asp-area="" asp-controller="Test" asp-action="Index">Test</a>
+        </li>
+      </ul>
 
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="nav-link" asp-controller="Account" asp-action="Edit">My Profile</a>
-                        @if (Model.HasTeams)
-                        {
-                            <a class="nav-link" asp-controller="Teams" asp-action="Index">My Team</a>
-                        }
-                        @if (Model.HasPitches)
-                        {
-                            <a class="nav-link" asp-controller="Pitch" asp-action="MyPitches">My Pitches</a>
-                        }
-                        <a class="nav-link" asp-controller="Account" asp-action="MyNotifications">My notifications</a>
-                        <a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
+      <div class="navbar navbar-dark bg-dark">
+        @if (User.Identity.IsAuthenticated)
+        {
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @Model.UserName
+          </a>
+          @if (Model.UserImage != null)
+          {
+            <img src="@Model.UserImage" alt="Avatar" class="avatar" />
+          }
 
-                }
-                else
-                {
-                    <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
-                }
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="nav-link" asp-controller="Account" asp-action="Edit">My Profile</a>
+            @if (Model.HasTeams)
+            {
+              <a class="nav-link" asp-controller="Teams" asp-action="Index">My Team</a>
+            }
+            @if (Model.HasPitches)
+            {
+              <a class="nav-link" asp-controller="Pitch" asp-action="MyPitches">My Pitches</a>
+            }
+            <a class="nav-link" asp-controller="Account" asp-action="MyNotifications">My notifications</a>
+            <a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
 
-                @if (Model.IsEditPage && !Model.HasTeams && Model.UserId != null)
-                {
-                    <a class="nav-link" asp-controller="Teams" asp-action="Create">Create a Team</a>
-                }
+        }
+        else
+        {
+          <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+        }
 
-            </div>
-        </div>
-    </nav>
+        @if (Model.IsEditPage && !Model.HasTeams && Model.UserId != null)
+        {
+          <a class="nav-link" asp-controller="Teams" asp-action="Create">Create a Team</a>
+        }
 
-
-    @*<partial name="_CookieConsentPartial" />*@
-
-    <div class="body-content">
-        @RenderBody()
+      </div>
     </div>
+  </nav>
+
+
+  @*<partial name="_CookieConsentPartial" />*@
+
+  <div class="body-content">
+    @RenderBody()
+  </div>
 
   <footer class="fixed-bottom">
     <p>&copy; 2018 - MyFootballMvc</p>
   </footer>
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+  <environment include="Development">
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/bootbox.js/bootbox.js"></script>
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.min.js"></script>
+  </environment>
+
+  <environment exclude="Development">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery"
+            crossorigin="anonymous"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN">
+    </script>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
@@ -150,7 +165,7 @@
   </environment>
 
   @RenderSection("Scripts", required: false)
-  
+
   <script src="~/js/site.js" asp-append-version="true"></script>
 
 </body>
