@@ -8,11 +8,14 @@
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
 function initAutocomplete() {
+  var origin = { lat: 40.177, lng: 44.513 }; 
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: { lat: -33.8688, lng: 151.2195 },
+    center: origin,
     zoom: 13,
     mapTypeId: 'roadmap'
   });
+
+  // #region SEARCH
 
   // Create the search box and link it to the UI element.
   var input = document.getElementById('pac-input');
@@ -72,4 +75,41 @@ function initAutocomplete() {
     });
     map.fitBounds(bounds);
   });
+
+  // #endregion
+
+  // #region ADD MARKER
+
+  google.maps.event.addListener(map, 'click', function (event) {
+    placeMarker(event.latLng);
+  });
+
+  // Place a marker on map click
+  function placeMarker(location) {
+
+    cleanMarkers();
+
+    markers.push(new google.maps.Marker({
+      position: location,
+      map: map
+    }));
+
+    fillLongLatField(location);
+  }
+  
+  // Clean all markers
+  function cleanMarkers() {
+    markers.forEach(function (marker) {
+      marker.setMap(null);
+    });
+  }
+
+  // Set longitude and latitude field values
+  function fillLongLatField(location) {
+    $('.pitch-longitude').val(location.lng);
+    $('.pitch-latitude').val(location.lat);
+  }
+
+  // #endregion
 }
+

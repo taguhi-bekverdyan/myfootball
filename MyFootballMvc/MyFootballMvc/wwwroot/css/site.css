@@ -284,6 +284,10 @@ for details on configuring this project to bundle and minify static web assets. 
   height: 400px;
 }
 
+.map-wrapper {
+  margin-bottom: 50px;
+}
+
 /* Make .svg files in the carousel display properly in older browsers */
 .carousel-inner .item img[src$=".svg"] {
   width: 100%;

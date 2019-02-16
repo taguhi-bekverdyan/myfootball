@@ -22,6 +22,8 @@ namespace MyFootballRestApi.Models
     public bool HasFieldHeating { get; set; }
     public bool HasTribunes { get; set; }
     public double? PricePerHour { get; set; }
+    public string GeoLong { get; set; }
+    public string GeoLat { get; set; }
 
     [DataType(DataType.Time)]
     [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]

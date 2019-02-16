@@ -34,12 +34,12 @@
         </div>
         <div class="form-group">
           @Html.LabelFor(m => m.Pitch.PitchLength)
-          @Html.TextBoxFor(m => m.Pitch.PitchLength, new { @class = "form-control" })
+          @Html.EditorFor(m => m.Pitch.PitchLength, new { @class = "form-control", type = "number" })
           @Html.ValidationMessageFor(m => m.Pitch.PitchLength)
         </div>
         <div class="form-group">
           @Html.LabelFor(m => m.Pitch.PitchWidth)
-          @Html.TextBoxFor(m => m.Pitch.PitchWidth, new { @class = "form-control" })
+          @Html.EditorFor(m => m.Pitch.PitchWidth, new { @class = "form-control", type = "number" })
           @Html.ValidationMessageFor(m => m.Pitch.PitchWidth)
         </div>
         <div class="form-group">
@@ -74,7 +74,7 @@
         </div>
         <div class="form-group">
           @Html.LabelFor(m => m.Pitch.PricePerHour)
-          @Html.TextBoxFor(m => m.Pitch.PricePerHour, new { @class = "form-control" })
+          @Html.EditorFor(m => m.Pitch.PricePerHour, new { @class = "form-control", type = "number" })
           @Html.ValidationMessageFor(m => m.Pitch.PricePerHour)
         </div>
         <div class="form-group">
@@ -89,6 +89,12 @@
               @Html.ValidationMessageFor(m => m.Pitch.EndTime)
             </div>
           </fieldset>
+        </div>
+        <div>
+          @Html.HiddenFor(m => m.Pitch.GeoLong, new { @class = "form-control pitch-longitude" }) 
+        </div>
+        <div>
+          @Html.HiddenFor(m => m.Pitch.GeoLat, new { @class = "form-control pitch-latitude" })
         </div>
 
         <button type="submit" class="btn btn-primary">Save</button>
