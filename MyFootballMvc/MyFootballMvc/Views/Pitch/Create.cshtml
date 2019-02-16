@@ -34,22 +34,22 @@
         </div>
         <div class="form-group">
           @Html.LabelFor(m => m.Pitch.PitchLength)
-          @Html.EditorFor(m => m.Pitch.PitchLength, new { @class = "form-control", type = "number" })
+          @Html.TextBoxFor(m => m.Pitch.PitchLength, new { @class = "form-control", @type = "number" })
           @Html.ValidationMessageFor(m => m.Pitch.PitchLength)
         </div>
         <div class="form-group">
           @Html.LabelFor(m => m.Pitch.PitchWidth)
-          @Html.EditorFor(m => m.Pitch.PitchWidth, new { @class = "form-control", type = "number" })
+          @Html.TextBoxFor(m => m.Pitch.PitchWidth, new { @class = "form-control", @type = "number" })
           @Html.ValidationMessageFor(m => m.Pitch.PitchWidth)
         </div>
         <div class="form-group">
           @Html.LabelFor(m => m.Pitch.Surface)
-          @Html.DropDownList("surface", new SelectList(Enum.GetValues(typeof(Surface))), "Select", null)
+          @Html.DropDownListFor(m => m.Pitch.Surface, new SelectList(Enum.GetValues(typeof(Surface))))
           @Html.ValidationMessageFor(m => m.Pitch.Surface)
         </div>
         <div class="form-group">
           @Html.LabelFor(m => m.Pitch.AreaType)
-          @Html.DropDownList("area-type", new SelectList(Enum.GetValues(typeof(AreaType))), "Select", null)
+          @Html.DropDownListFor(m => m.Pitch.AreaType, new SelectList(Enum.GetValues(typeof(AreaType))))
           @Html.ValidationMessageFor(m => m.Pitch.AreaType)
         </div>
         <div class="form-group">
@@ -74,7 +74,7 @@
         </div>
         <div class="form-group">
           @Html.LabelFor(m => m.Pitch.PricePerHour)
-          @Html.EditorFor(m => m.Pitch.PricePerHour, new { @class = "form-control", type = "number" })
+          @Html.TextBoxFor(m => m.Pitch.PricePerHour, new { @class = "form-control", type = "number" })
           @Html.ValidationMessageFor(m => m.Pitch.PricePerHour)
         </div>
         <div class="form-group">
