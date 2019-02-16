@@ -1,0 +1,428 @@
+/*page sizes*/
+.hdtsizeb {
+    font-size: 40px;
+}
+
+.hdtsizes {
+    font-size: 15px;
+}
+
+.hdtsizess {
+    font-size: 13px;
+}
+
+/*page sizes*/
+
+/*tag default styles cancel;*/
+
+p:hover {
+    cursor: default;
+}
+
+span:hover {
+    cursor: default;
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+}
+
+a:active {
+    color: #000000;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+a:hover p {
+    cursor: pointer;
+}
+
+a:hover span {
+    cursor: pointer;
+}
+
+/*tag default styles cancel;*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.page-head {
+    height: 250px;
+    background-color: rgba(254, 0, 2, 1);
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.head-video {
+    border: none;
+}
+
+/*page-head-left-section*/
+.page-head-content {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.page-head-img-container {
+    width: 150px;
+    height: 150px;
+    position: relative;
+}
+
+.page-head-img {
+    width: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.page-head-text-container {
+    color: #ffffff;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-head-textcon {
+    margin-bottom: 6px;
+}
+
+.page-head-link {
+
+}
+
+.page-head-club-name {
+
+}
+
+.page-head-stadium-name {
+    color: #ffffff;
+    transition: color 1s ease;
+}
+
+.page-head-stadium-name:hover {
+    color: #1a528b;
+}
+
+.page-head-website-name {
+}
+
+.page-head-website-left-text {
+
+}
+
+.page-head-website-right-text {
+    color: #ffffff;
+}
+
+.page-head-website-right-text:hover {
+    color: rgba(56, 0, 60, 0.6);
+}
+
+.page-head-social {
+    margin-top: 5px;
+}
+
+.page-head-social-wrap {
+    display: flex;
+}
+
+.page-head-social-img-container {
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin: 0 5px;
+    background-color: #ffffff;
+    border-radius: 100%;
+    position: relative;
+    transition: background-color 1s ease;
+}
+
+.page-head-social-img-container:hover {
+    cursor: pointer;
+}
+
+.page-head-social-img-container:hover {
+    background-color: #c6d7ee;
+}
+
+.page-head-social-img-container:active {
+    transition: none;
+    background-color: rgba(16, 0, 144, 0.39)
+}
+
+.page-head-social-img {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.page-head-facebook {
+    fill: #3a5a96;
+}
+
+.page-head-twitter {
+    fill: #05afee;
+}
+
+.page-head-youtube {
+    fill: #ca1411;
+}
+
+.page-head-instagram {
+    fill: #1a528b;
+}
+
+/*page-head-left-section*/
+
+/*page-head-right-section*/
+.page-head-decoration {
+    width: 50%;
+}
+
+.page-head-decoration-wrap {
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: tan;
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Old_Trafford_02.JPG/1200px-Old_Trafford_02.JPG");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.page-head-left-decor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.page-head-right-decor {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.page-head-decor {
+    height: 100%;
+    fill: rgba(254, 0, 2, 1);
+}
+
+.page-head-left-decor-path {
+
+}
+
+.page-head-right-decor-path {
+
+}
+
+.svg-path {
+
+}
+
+/*page-head-right-section*/
+
+/*page-head-tabs-section*/
+
+.page-head-tabs-section {
+    width: 100%;
+    height: 33px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.page-head-tabs-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-head-tab {
+    width: 100px;
+    height: 25px;
+    padding: 4px 4px;
+    margin: 0 2px;
+    border-radius: 5px;
+    background-color: #CB0002;
+    transition: background-color 1s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-head-tab:hover {
+    background-color: #97120f;
+}
+
+.page-head-tab-text {
+    color: #ffffff;
+    transition: color 1s ease;
+}
+
+.page-head-tab:active .page-head-tab-text {
+    transition: none;
+    color: #c6d7ee;
+}
+
+/*burger menu*/
+.burger-menu {
+    display: none;
+}
+
+.burger-menu-line {
+    display: block;
+    width: 30px;
+    height: 5px;
+    border-radius: 7px;
+    background-color: #a5a5a5;
+    margin-bottom: 3px;
+}
+
+/*burger menu*/
+
+/*page-head-tabs-section*/
+
+/*page-main*/
+
+.page-main {
+    padding-top: 30px;
+}
+
+.page-main-wrap {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/*person*/
+
+.person {
+    width: 300px;
+    border: 1px solid #EAEAEA;
+    margin: 0 10px 30px 10px;
+    transition: background-color 1.5s ease;
+}
+
+/*person-head*/
+
+.person-head {
+    background-color: #EAEAEA;
+    transition: background-color 1s ease;
+}
+
+.person:hover .person-head {
+    background-color: rgba(16, 0, 170, 0.39);
+}
+
+.person-head-wrap {
+    width: 85%;
+    /*
+        height: 150px;
+        position: relative;*/
+    padding-top: 10px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+}
+
+.person-img {
+    height: 110px;
+    /*
+        position: absolute;
+        bottom: 0;
+        left: 0;*/
+    display: block;
+}
+
+.person-number {
+    font-weight: bold;
+}
+
+.person-name {
+    font-weight: bold;
+}
+
+.person-state {
+
+}
+
+/*person-head*/
+
+/*person-main*/
+
+.person-main {
+
+}
+
+.person-info {
+    padding: 5px 15px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    transition: background-color 1s ease;
+}
+
+.person-info:hover {
+    background-color: rgba(16, 0, 170, 0.39);
+}
+
+.person-info::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #EAEAEA;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.person-info-name {
+
+}
+
+.person-info-value {
+    font-weight: bold;
+}
+
+.person-info:first-child .person-info-value {
+    font-weight: normal;
+}
+
+.person-view {
+    background-color: #eaeaea;
+    display: block;
+    padding: 5px 15px;
+    text-align: center;
+}
+
+.person-view:hover {
+    background-color: rgba(41, 43, 86, 0.39);
+}
+
+.person-view:active {
+    color: #ffffff;
+}
+
+/*person-main*/
+/*person*/
+/*page-main*/

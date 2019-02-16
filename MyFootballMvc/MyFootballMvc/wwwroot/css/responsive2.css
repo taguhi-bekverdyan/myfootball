@@ -1,0 +1,111 @@
+@media (max-width: 780px) {
+
+    .page-head-content {
+        width: 100%;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    .page-head-img-container {
+        width: 80px;
+        height: 80px;
+        background-color: #ffffff;
+        border-radius: 100%;
+    }
+
+    .page-head-img {
+        width: 50px;
+    }
+
+    .page-head-text-container {
+        text-align: center;
+        margin: 0;
+    }
+
+    .page-head-social-wrap {
+        justify-content: center;
+    }
+
+    .page-head-decoration {
+        width: 100%;
+    }
+
+    .page-main-wrap {
+        width: 100%;
+    }
+}
+
+@media (max-width: 620px) {
+    .page-main-wrap {
+        display: block;
+    }
+
+    .person {
+        margin: 0 auto 30px;
+    }
+
+    .burger-menu {
+        display: block;
+    }
+
+    .burger-menu-line {
+        transform-origin: 0 50%;
+        transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .burger-menu-open .burger-menu-line {
+        background-color: #000000;
+    }
+
+    .burger-menu-open :nth-child(2) {
+        opacity: 0;
+    }
+
+    .burger-menu-open :nth-child(1) {
+        transform: rotate(45grad);
+    }
+
+    .burger-menu-open :nth-child(3) {
+        transform: rotate(-45grad);
+    }
+
+    .page-head-tabs-wrap {
+        padding: 10px 0;
+        width: 100px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        flex-direction: column;
+    }
+
+    .page-head-tab {
+        width: auto;
+        height: auto;
+        padding: 0;
+        margin-bottom: 5px;
+        background-color: unset;
+        opacity: 0;
+        display: none;
+        transition: opacity 1s ease;
+    }
+
+    .burger-menu-open.page-head-tab {
+        opacity: 1;
+        display: block;
+    }
+
+    .page-head-tabs-wrap {
+        transition: background-color 1s ease;
+    }
+
+    .burger-menu-open.page-head-tabs-wrap {
+        background-color: #ededed;
+    }
+
+    .page-head-tab-text {
+        color: #000000;
+    }
+}
