@@ -32,6 +32,10 @@
       "provider": "cdnjs",
       "library": "datatables@1.10.19",
       "destination": "wwwroot/lib/datatables/"
+    },
+    {
+      "library": "bootstrap-colorpicker@2.5.3",
+      "destination": "wwwroot/lib/bootstrap-colorpicker/"
     }
   ]
 }

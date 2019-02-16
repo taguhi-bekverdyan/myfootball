@@ -13,189 +13,213 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace MyFootballMvc.Controllers
 {
-    public class TeamsController : Controller
+  public class TeamsController : Controller
+  {
+    private readonly UsersService _usersSevice;
+    private readonly TeamsService _teamsService;
+
+    public TeamsController()
     {
-        private readonly UsersService _usersSevice;
-        private readonly TeamsService _teamsService;
+      _usersSevice = new UsersService();
+      _teamsService = new TeamsService();
+    }
 
-        public TeamsController()
-        {
-            _usersSevice = new UsersService();
-            _teamsService = new TeamsService();
-        }
+    [Authorize]
+    [Route("Teams/Index")]
+    public async Task<IActionResult> Index()
+    {
+      var viewModel = await GetTeamsIndexViewModel();
+      return View("Index", viewModel);
+    }
 
-        [Authorize]
-        [Route("Teams/Index")]
-        public async Task<IActionResult> Index()
-        {
-            var viewModel = await GetTeamsIndexViewModel();
-            return View("Index", viewModel);
-        }
+    #region Validation actions
 
-        #region TEAM_INFO_ACTIONS
+    public async Task<JsonResult> CheckName([Bind(Prefix = "Team.Name")]string name)
+    {
+      var result = await _teamsService.FindTeamByName(await GetAccessToken(), name);
 
-        [Route("Teams/Fixtures")]
-        public async Task<IActionResult> Fixtures()
-        {
-            return View("Fixtures");
-        }
+      if (result is Team)
+      {
+        return Json(false);
+      }
+      else return Json(true);
+    }
 
-        [Route("Teams/Players")]
-        public async Task<IActionResult> Players()
-        {
-            return View("Players",await GetMyTeamPlayersViewModel());
-        }
+    public async Task<JsonResult> CheckShortName([Bind(Prefix = "Team.ShortName")]string shortName, [Bind(Prefix = "Team.Name")]string name)
+    {
+      var team = await _teamsService.FindTeamByShortName(await GetAccessToken(), shortName);
+      bool condition1, condition2;
 
-        [Route("Teams/StaffMembers")]
-        public async Task<IActionResult> StaffMembers()
-        {
-            return View("StaffMembers",await GetMyTeamStaffMembersViewModel());
-        }
+      condition1 = team is Team ? false : true;
+      condition2 = shortName.ToLower()[0] == name.ToLower()[0] ? true : false;
 
-        [Route("Teams/Coaches")]
-        public async Task<IActionResult> Coaches()
-        {
-            return View("Coaches",await GetMyTeamCoachesViewModel());
-        }
+      return condition1 && condition2 ? Json(true) : Json(false);
+    }
+    #endregion    
 
-        [Route("Teams/SentRequests")]
-        public async Task<IActionResult> SentRequests()
-        {
-            return View("SentRequests", await GetSentRequestsViewModel());
-        }
+    #region TEAM_INFO_ACTIONS
 
-        #endregion
+    [Route("Teams/Fixtures")]
+    public async Task<IActionResult> Fixtures()
+    {
+      return View("Fixtures", await GetMyTeamPlayersViewModel());
+    }
 
+    [Route("Teams/Players")]
+    public async Task<IActionResult> Players()
+    {
+      return View("Players", await GetMyTeamPlayersViewModel());
+    }
 
+    [Route("Teams/StaffMembers")]
+    public async Task<IActionResult> StaffMembers()
+    {
+      return View("StaffMembers", await GetMyTeamStaffMembersViewModel());
+    }
 
-        #region CREATE_TEAM_ACTIONS
+    [Route("Teams/Coaches")]
+    public async Task<IActionResult> Coaches()
+    {
+      return View("Coaches", await GetMyTeamCoachesViewModel());
+    }
 
-        [Route("Teams/Create")]
-        public async Task<IActionResult> Create()
-        {
-            var viewModel = await GetTeamsCreateViewModel();
-            viewModel.Team = new Team();
-            viewModel.ViewType = ViewType.Create;
+    [Route("Teams/SentRequests")]
+    public async Task<IActionResult> SentRequests()
+    {
+      return View("SentRequests", await GetSentRequestsViewModel());
+    }
 
-            return View("CreateOrUpdate", viewModel);
-        }
+    #endregion
 
-        [HttpPost("Teams/CreateOrUpdate")]
-        public async Task<IActionResult> CreateOrUpdate(Team team)
-        {
+    #region CREATE_TEAM_ACTIONS
 
-            string token = await GetAccessToken();
-            string id = await GetUserAuth0Id();
+    [Route("Teams/Create")]
+    public async Task<IActionResult> Create()
+    {
+      var viewModel = await GetTeamsCreateViewModel();
+      viewModel.Team = new Team();
+      viewModel.ViewType = ViewType.Create;
 
-            if (!ModelState.IsValid)
-            {
-                TeamsCreateViewModel viewModel = await GetTeamsCreateViewModel();
-                viewModel.Team = team;
-                viewModel.ViewType = ViewType.Update;
-                return View("CreateOrUpdate", viewModel);
-            }
+      return View("CreateOrUpdate", viewModel);
+    }
 
-            User user = await _usersSevice.FindUserById(token, id);
+    [HttpPost("Teams/CreateOrUpdate")]
+    public async Task<IActionResult> CreateOrUpdate(Team team)
+    {
 
-            if (string.IsNullOrEmpty(team.Id))
-            {
-                team.President = user;
-                team.SentRequests = new List<string>();
-                await _teamsService.Insert(token, team);
-            }
-            else
-            {
-                Team current = await _teamsService.FindTeamById(token, team.Id);
-                current.Name = team.Name;
-                current.ShortName = team.ShortName;
-                await _teamsService.Update(token, current);
-            }
+      string token = await GetAccessToken();
+      string id = await GetUserAuth0Id();
 
-            return RedirectToAction("Index");
-        }
+      if (!ModelState.IsValid)
+      {
+        TeamsCreateViewModel viewModel = await GetTeamsCreateViewModel();
+        viewModel.Team = team;
+        viewModel.ViewType = ViewType.Update;
+        return View("CreateOrUpdate", viewModel);
+      }
 
-        #endregion
+      User user = await _usersSevice.FindUserById(token, id);
 
-        #region TOKEN
-        private async Task<string> GetAccessToken()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                var accessToken = await HttpContext.GetTokenAsync("access_token");
+      if (string.IsNullOrEmpty(team.Id))
+      {
+        team.President = user;
+        team.SentRequests = new List<string>();
+        await _teamsService.Insert(token, team);
+      }
+      else
+      {
+        Team current = await _teamsService.FindTeamById(token, team.Id);
+        current.Name = team.Name;
+        current.ShortName = team.ShortName;
+        await _teamsService.Update(token, current);
+      }
 
-                // if you need to check the access token expiration time, use this value
-                // provided on the authorization response and stored.
-                // do not attempt to inspect/decode the access token
-                var accessTokenExpiresAt = DateTime.Parse(
-                    await HttpContext.GetTokenAsync("expires_at"),
-                    CultureInfo.InvariantCulture,
-                    DateTimeStyles.RoundtripKind);
+      return RedirectToAction("Index");
+    }
 
-                var idToken = await HttpContext.GetTokenAsync("id_token");
+    #endregion
 
-                return accessToken;
+    #region TOKEN
+    private async Task<string> GetAccessToken()
+    {
+      if (User.Identity.IsAuthenticated)
+      {
+        var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-                // Now you can use them. For more info on when and how to use the 
-                // access_token and id_token, see https://auth0.com/docs/tokens
-            }
-            return string.Empty;
+        // if you need to check the access token expiration time, use this value
+        // provided on the authorization response and stored.
+        // do not attempt to inspect/decode the access token
+        var accessTokenExpiresAt = DateTime.Parse(
+            await HttpContext.GetTokenAsync("expires_at"),
+            CultureInfo.InvariantCulture,
+            DateTimeStyles.RoundtripKind);
 
-        }
-        private Task<string> GetUserAuth0Id()
-        {
-            return Task.Factory.StartNew(() =>
-            {
-                return User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            });
-        }
+        var idToken = await HttpContext.GetTokenAsync("id_token");
 
+        return accessToken;
 
-
-        #endregion
-
-        #region GET_METHODS_FOR_VIEW_MODELS
-
-        private async Task<TeamsCreateViewModel> GetTeamsCreateViewModel()
-        {
-            return new TeamsCreateViewModel(await GetAccessToken(), await GetUserAuth0Id());
-        }
-
-        private async Task<MyTeamIndexViewModel> GetTeamsIndexViewModel()
-        {
-            string token = await GetAccessToken();
-            string id = await GetUserAuth0Id();
-            return new MyTeamIndexViewModel(token, id);
-        }
-
-        private async Task<SentRequestsViewModel> GetSentRequestsViewModel()
-        {
-            string token = await GetAccessToken();
-            string id = await GetUserAuth0Id();
-            return new SentRequestsViewModel(token, id);
-        }
-
-        private async Task<MyTeamPlayersViewModel> GetMyTeamPlayersViewModel() {
-            string token = await GetAccessToken();
-            string id = await GetUserAuth0Id();
-            return new MyTeamPlayersViewModel(token,id);
-        }
-
-        private async Task<MyTeamCoachesViewModel> GetMyTeamCoachesViewModel()
-        {
-            string token = await GetAccessToken();
-            string id = await GetUserAuth0Id();
-            return new MyTeamCoachesViewModel(token, id);
-        }
-
-        private async Task<MyTeamStaffMembersViewModel> GetMyTeamStaffMembersViewModel()
-        {
-            string token = await GetAccessToken();
-            string id = await GetUserAuth0Id();
-            return new MyTeamStaffMembersViewModel(token,id);
-        }
-
-        #endregion
+        // Now you can use them. For more info on when and how to use the 
+        // access_token and id_token, see https://auth0.com/docs/tokens
+      }
+      return string.Empty;
 
     }
+    private Task<string> GetUserAuth0Id()
+    {
+      return Task.Factory.StartNew(() =>
+      {
+        return User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+      });
+    }
+
+
+
+    #endregion
+
+    #region GET_METHODS_FOR_VIEW_MODELS
+
+    private async Task<TeamsCreateViewModel> GetTeamsCreateViewModel()
+    {
+      return new TeamsCreateViewModel(await GetAccessToken(), await GetUserAuth0Id());
+    }
+
+    private async Task<MyTeamIndexViewModel> GetTeamsIndexViewModel()
+    {
+      string token = await GetAccessToken();
+      string id = await GetUserAuth0Id();
+      return new MyTeamIndexViewModel(token, id);
+    }
+
+    private async Task<SentRequestsViewModel> GetSentRequestsViewModel()
+    {
+      string token = await GetAccessToken();
+      string id = await GetUserAuth0Id();
+      return new SentRequestsViewModel(token, id);
+    }
+
+    private async Task<MyTeamPlayersViewModel> GetMyTeamPlayersViewModel()
+    {
+      string token = await GetAccessToken();
+      string id = await GetUserAuth0Id();
+      return new MyTeamPlayersViewModel(token, id);
+    }
+
+    private async Task<MyTeamCoachesViewModel> GetMyTeamCoachesViewModel()
+    {
+      string token = await GetAccessToken();
+      string id = await GetUserAuth0Id();
+      return new MyTeamCoachesViewModel(token, id);
+    }
+
+    private async Task<MyTeamStaffMembersViewModel> GetMyTeamStaffMembersViewModel()
+    {
+      string token = await GetAccessToken();
+      string id = await GetUserAuth0Id();
+      return new MyTeamStaffMembersViewModel(token, id);
+    }
+
+    #endregion
+
+  }
 
 }

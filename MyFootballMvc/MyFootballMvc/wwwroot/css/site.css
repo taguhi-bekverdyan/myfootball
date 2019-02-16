@@ -215,6 +215,38 @@ footer {
   float: right;
 }
 
+.input-group-addon {  
+  padding: .25rem;
+  color: #555;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  border-left: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.colorpicker-element .add-on i, .colorpicker-element .input-group-addon i {
+  width: 2rem;
+  height: 2rem;
+  vertical-align: middle;
+}
+
+.colorpicker-element label {
+  line-height: 42px;
+  margin-bottom: 0;
+  margin-right: 40px;
+}
+
+/* Validation */
+.field-validation-error {
+  color: red;
+}
+
+.input-validation-error {
+  border: 2px solid red;
+}
+
 #div-fixture {
     background-color: black;
     width: 100%;
@@ -253,9 +285,6 @@ footer {
 .landlord-phone-number-prefix {
   flex-basis: 15%;
   margin: auto 0.5rem;
-}
-
-.landlord-phone-number {
 }
 
 /* Hide/rearrange for smaller screens */

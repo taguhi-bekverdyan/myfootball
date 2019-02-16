@@ -37,5 +37,6 @@ function AjaxJsonSumbitWithConfirm(url, object, form) {
 }
 
 $(document).ready(function () {
-    $('#all-clubs-table, #all-managers-table, #all-players-table, #pitch-table, #referees-table, #all-referees-table, #players-table,#clubs-table, #managers-table').DataTable();
+  $('#cp1, #cp2, #cp3').colorpicker();
+  $('#all-clubs-table, #all-managers-table, #all-players-table, #pitch-table, #referees-table, #all-referees-table, #players-table,#clubs-table, #managers-table').DataTable();
 });
