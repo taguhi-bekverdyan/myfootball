@@ -28,7 +28,7 @@
                 {<div id="div-fixture">
                         <div style="margin-left:3%;float:left;" id="div-teams-fixture"><a id="teams-link" style="float:right;">@Html.ActionLink(@match.Team1.Name, "Id", "Club", new { match.Team1.Id }, new { @style = "color:white;" })</a> </div>
                         <div style="float:left;margin-left:1%;margin-right:1%;"><image style="float:right;width:20px;height:20px;" src="/images/arsenal.png"></image></div>
-                        <div style="" id="div-match-fixture"><a style="color:black;">@Html.ActionLink(@match.MatchDateTime.ToShortDateString(), "Id", "Match", new { match.Id }, new { @style = "color:black;" })</a></div>
+                        <div style="" id="div-match-fixture"><a style="color:black;">@Html.ActionLink(@match.MatchDateTime.ToShortDateString(),"GetMatchById", "Match", new { leagueName = Model.League.Tournament.Name, Id = match.Id }, new { @style = "color:black;" })</a></div>
                         <div style="float:left;margin-left:1%;margin-right:1%;"><image style="width:20px;height:20px;" src="/images/arsenal.png"></image></div>
                         <div style="float:left;" id="div-teams-fixture"><a id="teams-link" style="float:left;">@Html.ActionLink(@match.Team2.Name, "Id", "Club", new { match.Team2.Id }, new { @style = "color:white;" })</a></div>
                         <div style="float:right;margin-right:3%;"><image style="width:20px;height:20px;float:right;margin-right:15%;" src="/images/arsenal.png"></image></div>
@@ -46,6 +46,6 @@
     }
     else
     {
-        <p id="none">@Model.Tournament.Name hasn't generated yet.</p>
+        <p id="none">@Model.Tournament.Name hasn't generated yet....</p>
     }
 </div>

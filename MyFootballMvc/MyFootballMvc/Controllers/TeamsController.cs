@@ -80,7 +80,9 @@ namespace MyFootballMvc.Controllers
     [Route("Teams/Coaches")]
     public async Task<IActionResult> Coaches()
     {
-      return View("Coaches", await GetMyTeamCoachesViewModel());
+            var teamCoachViewModel = await GetMyTeamCoachesViewModel();
+            teamCoachViewModel.ActiveMenuItem = "teamCoaches";
+            return View("Coaches", teamCoachViewModel);
     }
 
     [Route("Teams/SentRequests")]

@@ -2,6 +2,7 @@
 using MyFootballRestApi.Data;
 using MyFootballRestApi.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MyFootballRestApi.Controllers
@@ -12,10 +13,12 @@ namespace MyFootballRestApi.Controllers
     {
 
         private readonly IRepository<Match> _matchRepository;
+        private readonly IRepository<League> _leagueRepository;
 
         public MatchController()
         {
             _matchRepository = new CouchbaseRepository<Match>();
+            _leagueRepository = new CouchbaseRepository<League>();
         }
 
 
@@ -25,8 +28,19 @@ namespace MyFootballRestApi.Controllers
         {
             try
             {
-                var match = await _matchRepository.GetAll(typeof(Match));
-                return Ok(match);
+                var leagues = await _leagueRepository.GetAll(typeof(League));
+                List<Match> matches = new List<Match>();
+                foreach (var league in leagues)
+                {
+                    foreach (var tour in league.Tour)
+                    {
+                        if (tour.Matches != null && tour.Matches.Count != 0)
+                        {
+                            matches.AddRange(tour.Matches);
+                        }
+                    }
+                }
+                return Ok(matches);
             }
             catch (Exception e)
             {
@@ -34,12 +48,25 @@ namespace MyFootballRestApi.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetMatchById([FromRoute]string id)
+        [HttpGet("{leagueId}/{id}")]
+        public async Task<IActionResult> GetMatchById([FromRoute]string id, [FromRoute]string leagueId)
         {
             try
             {
-                var match = await _matchRepository.Get(id);
+                var league = await _leagueRepository.Get(leagueId);
+                var tours = league.Tour;
+                Match match = new Match();
+                foreach (var tour in tours)
+                {
+                    foreach(var mh in tour.Matches)
+                    {
+                        if(mh.Id == id)
+                        {
+                            match = mh;
+                            break;
+                        }
+                    }
+                }
                 return Ok(match);
             }
             catch (Exception e)
