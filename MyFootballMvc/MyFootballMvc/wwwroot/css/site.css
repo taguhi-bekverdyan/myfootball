@@ -2,209 +2,200 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 .main-container {
-    margin-top: 3rem;
+  margin-top: 3rem;
 }
 
 .body-content {
-    padding-top: 4.5rem;
-    padding-bottom: 3rem;
+  padding-top: 4.5rem;
+  padding-bottom: 3rem;
 }
 
 #none {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    font-size: 40px;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%)
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  font-size: 40px;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
 }
 
 /* Main navbar */
 .main-nav {
-    padding: 0 1rem;
-    height: 4.5rem;
+  padding: 0 1rem;
+  height: 4.5rem;
 }
 
 .navbar .nav-item {
-    padding: 1rem 0;
-    position: relative;
+  padding: 1rem 0;
+  position: relative;
 }
 
 .main-nav .dropdown-menu {
-    margin-top: 0;
-    padding: 0;
-    border: none;
-    left: -50%;
-    z-index: 100;
+  margin-top: 0;
+  padding: 0;
+  border: none;
+  left: -50%;
+  z-index: 100;
 }
 
-    .main-nav .dropdown-menu ul {
-        column-count: 2;
-        list-style-type: none;
-        padding: 0.3rem 0.6rem;
-        background-color: #a557ab;
-    }
-
-    .main-nav .dropdown-menu a {
-        padding: 0;
-    }
-
-    .main-nav .dropdown-menu:before {
-        content: "";
-        display: block;
-        border: 6px solid transparent;
-        border-bottom-color: #a557ab;
-        position: absolute;
-        top: -0.75rem;
-        left: 50%;
-        margin-left: -0.5rem;
-    }
-
-.main-nav .dropdown-item:hover,
-.main-nav .dropdown-item:focus {
+  .main-nav .dropdown-menu ul {
+    column-count: 2;
+    list-style-type: none;
+    padding: 0.3rem 0.6rem;
     background-color: #a557ab;
-    text-decoration: underline;
-}
+  }
 
-.main-nav .nav-item.active:after {
+  .main-nav .dropdown-menu a {
+    padding: 0;
+  }
+
+  .main-nav .dropdown-menu:before {
     content: "";
     display: block;
     border: 6px solid transparent;
-    border-bottom-color: #fff;
+    border-bottom-color: #a557ab;
     position: absolute;
-    bottom: 0;
+    top: -0.75rem;
     left: 50%;
-    margin-left: -6px;
+    margin-left: -0.5rem;
+  }
+
+.main-nav .dropdown-item:hover,
+.main-nav .dropdown-item:focus {
+  background-color: #a557ab;
+  text-decoration: underline;
+}
+
+.main-nav .nav-item.active:after {
+  content: "";
+  display: block;
+  border: 6px solid transparent;
+  border-bottom-color: #fff;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin-left: -6px;
 }
 
 .main-nav .nav-item.dropdown.active:after {
-    border-bottom-color: #c9e6ff
+  border-bottom-color: #c9e6ff
 }
 
 .nav-item:hover .dropdown-menu {
-    display: block;
+  display: block;
 }
 
 .navbar .nav-item a:not(.dropdown-toggle):before {
-    content: "";
-    display: block;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 0;
-    transition: .2s;
-    z-index: -1;
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  transition: .2s;
+  z-index: -1;
 }
 
 .main-nav .nav-item a:hover:before {
-    height: 5px;
-    background-color: #a557ab;
+  height: 5px;
+  background-color: #a557ab;
 }
 
 .main-nav .nav-item.active a:hover:before {
-    display: none;
+  display: none;
 }
 
 /* Subnav*/
 .subnav {
-    top: 4.5rem;
-    padding: 0 15%;
-    z-index: 10;
-    background-color: #c9e6ff !important;
+  top: 4.5rem;
+  padding: 0 15%;
+  z-index: 10;
+  background-color: #c9e6ff !important;
 }
 
-    .subnav .nav-item a:hover:before {
-        height: 5px;
-        background: #4aa4ff;
-    }
+  .subnav .nav-item a:hover:before {
+    height: 5px;
+    background: #4aa4ff;
+  }
 
-    .subnav .nav-item.active a:before {
-        height: 5px;
-        background: #00539a;
-    }
+  .subnav .nav-item.active a:before {
+    height: 5px;
+    background: #00539a;
+  }
 
 /* Carousel */
 .carousel-caption p {
-    font-size: 1.25rem;
-    line-height: 1.4;
+  font-size: 1.25rem;
+  line-height: 1.4;
 }
 
 /* Tournaments and Teams page */
 .page-tournaments-teams {
-    margin-top: 0rem;
-    padding-bottom: 0rem;
+  margin-top: 0rem;
+  padding-bottom: 0rem;
 }
 
 .banner {
-    padding: 1rem 0;
+  padding: 1rem 0;
 }
 
 .banner-header {
-    padding: 0 15%;
+  padding: 0 15%;
 }
 
 .bcolor-1 {
-    background-color: #38003c;
+  background-color: #38003c;
 }
 
 .bcolor-2 {
-    background-color: #003c38;
+  background-color: #003c38;
 }
 
 .bcolor-3 {
-    background-color: #00223c;
+  background-color: #00223c;
 }
 
 .bcolor-4 {
-    background-color: #003c1a;
+  background-color: #003c1a;
 }
 
 .bcolor-5 {
-    background-color: #60000c;
+  background-color: #60000c;
 }
 
 .bcolor-6 {
-    background-color: #550626;
+  background-color: #550626;
 }
 
 .bcolor-7 {
-    background-color: #3ab206;
+  background-color: #3ab206;
 }
 
 .bcolor-8 {
-    background-color: #008980;
+  background-color: #008980;
 }
 
 
 .banner h2 {
-    color: #fff;
+  color: #fff;
 }
 
 .main-content {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .subnav-team {
-    top: 2rem;
+  top: 2rem;
 }
 
 .join-the-tournament {
-    padding: 0;
+  padding: 0;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
-/* QR code generator */
-#qrCode {
-    margin: 15px;
-}
-
+<<<<<<< Updated upstream
 /* Footer */
 footer {
     background-color: #212529;
@@ -215,13 +206,15 @@ footer {
     footer p {
         margin-bottom: 0;
     }
+=======
+>>>>>>> Stashed changes
 
 /* Account edit page */
 .add-new-item {
-    float: right;
+  float: right;
 }
 
-.input-group-addon {  
+.input-group-addon {
   padding: .25rem;
   color: #555;
   background-color: #eee;
@@ -254,50 +247,77 @@ footer {
 }
 
 #div-fixture {
-    background-color: black;
-    width: 100%;
-    height: 10%;
-    display: inline-block;
-    position: relative;
-    border: 3px solid #38003c;
-    margin: auto;
-    padding: 2px;
-    border-radius: 15px;
+  background-color: black;
+  width: 100%;
+  height: 10%;
+  display: inline-block;
+  position: relative;
+  border: 3px solid #38003c;
+  margin: auto;
+  padding: 2px;
+  border-radius: 15px;
 }
 
 #div-match-fixture {
-    background-color: green;
-    vertical-align: middle;
-    width: 11%;
-    float: left;
-    border-left: 3px solid #38003c;
-    border-right: 3px solid #38003c;
-    font-family: verdana;
-    font-size: 18px;
+  background-color: green;
+  vertical-align: middle;
+  width: 11%;
+  float: left;
+  border-left: 3px solid #38003c;
+  border-right: 3px solid #38003c;
+  font-family: verdana;
+  font-size: 18px;
 }
 
 #div-teams-fixture {
-    font-size: 18px;
-    vertical-align: middle;
-    line-height: 18px;
-    font-family: verdana;
+  font-size: 18px;
+  vertical-align: middle;
+  line-height: 18px;
+  font-family: verdana;
 }
 
 .landlord-phone-number-wrapper {
-    display: flex;
-    text-align: center;
+  display: flex;
+  text-align: center;
 }
 
 .landlord-phone-number-prefix {
-    flex-basis: 15%;
-    margin: auto 0.5rem;
+  flex-basis: 15%;
+  margin: auto 0.5rem;
 }
 
+/* Pitchfinder */
+.pitchfinder-map {
+  width: 100%;
+  height: 400px;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+  width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+  margin: 15px;
+}
+
+/* Footer */
+footer {
+  background-color: #212529;
+  color: #fff;
+  padding: 0.25rem 0;
+}
+
+  footer p {
+    margin-bottom: 0;
+    padding: 0 15%;
+  }
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
+  /* Hide captions */
+  .carousel-caption {
+    display: none;
+  }
 }
