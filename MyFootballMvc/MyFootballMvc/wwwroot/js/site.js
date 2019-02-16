@@ -20,8 +20,11 @@ function AjaxJsonSumbitWithConfirm(url, object, form) {
             // Change submit button text to 'Save'
             btn.replaceWith(btn.text(newTxt));
 
-            // Add 'Add new pitch' button
-            $(form).append('<a class="btn btn-primary add-new-item" href="/Pitch/Create">Add new pitch</a>');
+            if (this.url === 'Lamdlord/') {
+              // Add 'Add new pitch' button
+              $(form).append('<a class="btn btn-primary add-new-item" href="/Pitch/Create">Add new pitch</a>');
+            }
+
           }
 
           bootbox.alert("The changes have been done");

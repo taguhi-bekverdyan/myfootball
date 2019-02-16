@@ -1,67 +1,70 @@
 ﻿@model MyFootballMvc.ViewModels.PlayerViewModel
 
 @{
-    ViewData["Title"] = "Players";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+  ViewData["Title"] = "Players";
+  Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="banner bcolor-5">
+  <h2 class="banner-header">Players</h2>
+</div>
+
 <div class="page-players main-container container">
-    <h2>Players</h2>
 
-    <div class="main-content">
-        @if (Model.Players.Count != 0 && Model.Players != null)
-        {
-            <table class="table table-striped table-bordered" id="players-table">
-                <thead>
-                    <tr>
-                        <th scope="col">Club</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Position</th>
-                        <th scope="col">Number</th>
-                        <th scope="col">Is Captain</th>
-                        <th scope="col">Height</th>
-                        <th scope="col">Weight</th>
-                        <th scope="col">Foot</th>
-                    </tr>
-                </thead>
-                <tbody>
+  <div class="main-content">
+    @if (Model.Players.Count != 0 && Model.Players != null)
+    {
+      <table class="table table-striped table-bordered" id="players-table">
+        <thead>
+          <tr>
+            <th scope="col">Club</th>
+            <th scope="col">Name</th>
+            <th scope="col">Position</th>
+            <th scope="col">Number</th>
+            <th scope="col">Is Captain</th>
+            <th scope="col">Height</th>
+            <th scope="col">Weight</th>
+            <th scope="col">Foot</th>
+          </tr>
+        </thead>
+        <tbody>
 
-                    @foreach (var player in Model.Players)
-                    {
-                        string name = player.User.FirstName + " " + player.User.LastName;
-                        <tr>
-                            @if (player.TeamId != null && player.TeamId != "")
-                            {
-                                <td>@Html.ActionLink(Model.Teams.Find(i => i.Id == player.TeamId).Name, "Id", "Club", new { Id = player.TeamId })</td>
-                            }
-                            else
-                            {
-                                <td>None</td>
-                            }
-                            <td>@Html.ActionLink(name, "Id", "Player", new { player.Id })</td>
-                            <td>@Html.DisplayFor(model => player.Position)</td>
-                            <td>@player.Number</td>
+          @foreach (var player in Model.Players)
+          {
+            string name = player.User.FirstName + " " + player.User.LastName;
+            <tr>
+              @if (player.TeamId != null && player.TeamId != "")
+              {
+                <td>@Html.ActionLink(Model.Teams.Find(i => i.Id == player.TeamId).Name, "Id", "Club", new { Id = player.TeamId })</td>
+              }
+              else
+              {
+                <td>None</td>
+              }
+              <td>@Html.ActionLink(name, "Id", "Player", new { player.Id })</td>
+              <td>@Html.DisplayFor(model => player.Position)</td>
+              <td>@player.Number</td>
 
-                            @if (player.IsCaptain)
-                            {
-                                <td>Captain</td>
-                            }
-                            else
-                            {
-                                <td>Not Captain</td>
-                            }
-                            <td>@player.PhysicalStats.Height</td>
-                            <td>@player.PhysicalStats.Weight</td>
-                            <td>@player.PhysicalStats.Foot</td>
-                        </tr>
-                    }
+              @if (player.IsCaptain)
+              {
+                <td>Captain</td>
+              }
+              else
+              {
+                <td>Not Captain</td>
+              }
+              <td>@player.PhysicalStats.Height</td>
+              <td>@player.PhysicalStats.Weight</td>
+              <td>@player.PhysicalStats.Foot</td>
+            </tr>
+          }
 
-                </tbody>
-            </table>
-        }
-        else
-        {
-            <p id="none">There isn't any player...</p>
-        }
-    </div>
+        </tbody>
+      </table>
+    }
+    else
+    {
+      <p id="none">There isn't any player...</p>
+    }
+  </div>
 </div>
