@@ -62,31 +62,41 @@ namespace MyFootballMvc.Controllers
     [Route("Teams/Fixtures")]
     public async Task<IActionResult> Fixtures()
     {
-      return View("Fixtures", await GetMyTeamPlayersViewModel());
+      var teamPlayersViewModel = await GetMyTeamPlayersViewModel();
+      teamPlayersViewModel.ActiveMenuItem = "teamFixtures";
+      return View("Fixtures", teamPlayersViewModel);
     }
 
     [Route("Teams/Players")]
     public async Task<IActionResult> Players()
     {
-      return View("Players", await GetMyTeamPlayersViewModel());
+      var teamPlayersViewModel = await GetMyTeamPlayersViewModel();
+      teamPlayersViewModel.ActiveMenuItem = "teamPlayers";
+      return View("Players", teamPlayersViewModel);
     }
 
     [Route("Teams/StaffMembers")]
     public async Task<IActionResult> StaffMembers()
     {
-      return View("StaffMembers", await GetMyTeamStaffMembersViewModel());
+      var teamStaffMembersViewModel = await GetMyTeamStaffMembersViewModel();
+      teamStaffMembersViewModel.ActiveMenuItem = "teamStaffMembers";
+      return View("StaffMembers", teamStaffMembersViewModel);
     }
 
     [Route("Teams/Coaches")]
     public async Task<IActionResult> Coaches()
     {
-      return View("Coaches", await GetMyTeamCoachesViewModel());
+      var teamCoachViewModel = await GetMyTeamCoachesViewModel();
+      teamCoachViewModel.ActiveMenuItem = "teamCoaches";
+      return View("Coaches", teamCoachViewModel);
     }
 
     [Route("Teams/SentRequests")]
     public async Task<IActionResult> SentRequests()
     {
-      return View("SentRequests", await GetSentRequestsViewModel());
+      var teamSentRequestsViewModel = await GetSentRequestsViewModel();
+      teamSentRequestsViewModel.ActiveMenuItem = "teamSentRequests";
+      return View("SentRequests", teamSentRequestsViewModel);
     }
 
     #endregion
