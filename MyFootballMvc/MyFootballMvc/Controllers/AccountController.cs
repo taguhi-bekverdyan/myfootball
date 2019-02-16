@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace MyFootballMvc.Controllers
         private LandlordService _landlordService { get; set; }
         private CoachService _coachService { get; set; }
         private RequestsService _requestsService { get; set; }
+        private ImageUploadService _imageUploadService { get; set; }
 
         public AccountController()
         {
@@ -36,6 +38,7 @@ namespace MyFootballMvc.Controllers
             _landlordService = new LandlordService();
             _coachService = new CoachService();
             _requestsService = new RequestsService();
+            _imageUploadService = new ImageUploadService();
         }
 
         public async Task Login(string returnUrl = "/")
@@ -61,14 +64,23 @@ namespace MyFootballMvc.Controllers
         {
             string accessToken = await GetAccessToken();
             string id = await GetUserAuth0Id();
+
             List<Team> teams = await _teamsService.FindAll(accessToken);
             teams.Add(new Team() { Name="None",Id=Guid.NewGuid().ToString()});
             User user = await _usersService.FindUserById(accessToken, id);
+
+            UserAuth0Info auth0Info = new UserAuth0Info()
+            {
+                EmailAddress = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value,
+                ProfileImage = User.Claims.FirstOrDefault(c => c.Type == "picture")?.Value
+            };
 
             if (user == null)
             {
                 User u = new User();
                 u.Id = string.Empty;
+                u.Email = auth0Info.EmailAddress;
+                u.Image = auth0Info.ProfileImage;
 
                 return View(new EditAccountViewModel(accessToken, id)
                 {
@@ -88,21 +100,25 @@ namespace MyFootballMvc.Controllers
             if (player == null)
             {
                 player = new Player();
+                player.Avatar = await _imageUploadService.GetPlayerDefaultAvatarAsync();
                 player.PlayerStatus = PlayerStatus.FreeAgent;
             }
             if (coach == null)
             {
                 coach = new Coach();
+                coach.Avatar = await _imageUploadService.GetManagerDefaultAvatarAsync();
                 coach.CoachStatus = CoachStatus.FreeCoach;
             }
             if (staff == null)
             {
                 staff = new Staff();
+                staff.Avatar = await _imageUploadService.GetStaffDefaultAvatarAsync();
                 staff.StaffStatus = StaffStatus.FreeWorker;
             }
             if (referee == null)
             {
                 referee = new Referee();
+                referee.Avatar = await _imageUploadService.GetRefereeDefaultAvatarAsync();
             }
             if (landlord == null)
             {
@@ -128,6 +144,7 @@ namespace MyFootballMvc.Controllers
         {
             string accessToken = await GetAccessToken();
             string id = await GetUserAuth0Id();
+
             if (!ModelState.IsValid)
             {
                 return View("Edit", new EditAccountViewModel(accessToken, id)
@@ -173,7 +190,7 @@ namespace MyFootballMvc.Controllers
         public async Task<IActionResult> Player([FromBody] Player player)
         {
 
-
+            
             if (!ModelState.IsValid)
             {
                 return StatusCode(500);
@@ -183,6 +200,12 @@ namespace MyFootballMvc.Controllers
             string userId = await GetUserAuth0Id();
             try
             {
+
+                if (!player.Avatar.Contains("https://"))
+                {
+                    player.Avatar = await UploadImageAsync(player.Avatar.Split(',')[1]);
+                }
+
                 User user = await _usersService.FindUserById(token, userId);
                 Player pl = await _playerService.GetPlayerByUserId(token, userId);
                 player.User = user;
@@ -195,6 +218,7 @@ namespace MyFootballMvc.Controllers
                     pl.Position = player.Position;
                     pl.PhysicalStats = player.PhysicalStats;
                     pl.PlayerStatus = player.PlayerStatus;
+                    pl.Avatar = player.Avatar;
                     await _playerService.Update(token, pl);
                 }
 
@@ -203,6 +227,16 @@ namespace MyFootballMvc.Controllers
             catch (Exception e)
             {
                 return StatusCode(500, e);
+            }
+        }
+
+        private async Task<string> UploadImageAsync(string base64String)
+        {
+            byte[] imageBytes = Convert.FromBase64String(base64String);
+            // Convert byte[] to Image
+            using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
+            {
+                return await _imageUploadService.UploadImageAsync(ms,DateTime.Now.ToLongTimeString() + Guid.NewGuid().ToString());
             }
         }
 
@@ -219,6 +253,11 @@ namespace MyFootballMvc.Controllers
                 string token = await GetAccessToken();
                 string userId = await GetUserAuth0Id();
 
+                if (!coach.Avatar.Contains("https://"))
+                {
+                    coach.Avatar = await UploadImageAsync(coach.Avatar.Split(',')[1]);
+                }
+
                 User user = await _usersService.FindUserById(token, userId);
                 coach.User = user;
 
@@ -231,6 +270,7 @@ namespace MyFootballMvc.Controllers
                 else
                 {
                     current.License = coach.License;
+                    current.Avatar = coach.Avatar;
                     await _coachService.Update(token, current);
                 }
 
@@ -255,6 +295,11 @@ namespace MyFootballMvc.Controllers
                 string token = await GetAccessToken();
                 string userId = await GetUserAuth0Id();
 
+                if (!staff.Avatar.Contains("https://"))
+                {
+                    staff.Avatar = await UploadImageAsync(staff.Avatar.Split(',')[1]);
+                }
+
                 User user = await _usersService.FindUserById(token, userId);
 
                 staff.User = user;
@@ -269,6 +314,7 @@ namespace MyFootballMvc.Controllers
                 {
                     current.Occupation = staff.Occupation;
                     current.License = staff.License;
+                    current.Avatar = staff.Avatar;
                     await _staffService.Update(token, current);
                 }
 
@@ -293,6 +339,11 @@ namespace MyFootballMvc.Controllers
                 string token = await GetAccessToken();
                 string userId = await GetUserAuth0Id();
 
+                if (!referee.Avatar.Contains("https://"))
+                {
+                    referee.Avatar = await UploadImageAsync(referee.Avatar.Split(',')[1]);
+                }
+
                 User user = await _usersService.FindUserById(token, userId);
                 Referee current = await _refereeService.GetRefereeByUserId(token, userId);
                 referee.User = user;
@@ -304,6 +355,7 @@ namespace MyFootballMvc.Controllers
                 else
                 {
                     current.License = referee.License;
+                    current.Avatar = referee.Avatar;
                     await _refereeService.Update(token, current);
                 }
 
@@ -374,7 +426,17 @@ namespace MyFootballMvc.Controllers
                                 team.Players = new List<Player>();
                             }
                             team.Players.Add(player);
-                            await _playerService.Update(token,player);                           
+                            player.TeamId = team.Id;
+                            for(int i = 1; i < 100; ++i)
+                            {
+                                var z = team.Players.Find(j => j.Number == i);
+                                if (z == null)
+                                {
+                                    player.Number = i;
+                                    break;
+                                }
+                            }
+                            await _playerService.Update(token,player);
                             break;
                         case RequestTo.Staff:
                             Staff staff = await _staffService.GetStaffByUserId(token, request.UserId);
@@ -384,6 +446,7 @@ namespace MyFootballMvc.Controllers
                                 team.StaffMembers = new List<Staff>();
                             }
                             team.StaffMembers.Add(staff);
+                            staff.TeamId = team.Id;
                             await _staffService.Update(token, staff);
                             break;
                         case RequestTo.Coach:
@@ -394,6 +457,7 @@ namespace MyFootballMvc.Controllers
                                 team.Managers = new List<Coach>();
                             }
                             team.Managers.Add(coach);
+                            coach.TeamId = team.Id;
                             await _coachService.Update(token,coach);
                             break;
                         default:

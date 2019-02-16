@@ -12,7 +12,8 @@ namespace MyFootballRestApi.Models
         public string LastName { get; set; }
         public DateTime Birthdate { get; set; }
         public string FavoriteTeamId { get; set; }
-        
+        public string Image { get; set; }
+        public string Email { get; set; }
 
     }
 }

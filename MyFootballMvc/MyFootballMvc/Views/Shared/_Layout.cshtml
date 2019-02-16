@@ -90,7 +90,10 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             @Model.UserName
           </a>
-          
+          @if (Model.UserImage != null)
+          {
+            <img src="@Model.UserImage" alt="Avatar" class="avatar" />
+          }
 
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="nav-link" asp-controller="Account" asp-action="Edit">My Profile</a>
@@ -130,7 +133,7 @@
     @RenderBody()
   </div>
 
-  <footer style="position: absolute;bottom:0;width:100%;">
+  <footer class="fixed-bottom">
     <p>&copy; 2018 - MyFootballMvc</p>
   </footer>
 
@@ -143,8 +146,8 @@
     <script src="~/lib/bootbox.js/bootbox.js"></script>
     <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
     <script src="~/lib/datatables/js/dataTables.bootstrap4.min.js"></script>
-
   </environment>
+
   <environment exclude="Development">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             asp-fallback-src="~/lib/jquery/dist/jquery.min.js"

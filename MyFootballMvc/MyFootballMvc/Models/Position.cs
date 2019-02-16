@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using System.ComponentModel.DataAnnotations;
 
 namespace MyFootballMvc.Models
 {
     public enum Position
     {
+        [Display(Name = "Goalkeeper")]
         Goalkeeper,
-        [Display(Name = "Central Defender")]
+        [Display(Name ="Central Defender")]
         CentralDefender,
         [Display(Name = "Central Defender")]
         RightWingBack,

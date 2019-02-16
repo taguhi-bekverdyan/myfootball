@@ -106,14 +106,18 @@ namespace MyFootballAdmin.Data.Models
                     }
                 }
                 temp = temp.AddDays(1);
-                if (temp.Date == Pauses[index].PauseStart.Date)
+                if (Pauses != null && Pauses.Count != 0)
                 {
-                    temp = Pauses[index].PauseEnd;
-                    if (index < Pauses.Count - 1)
-                        ++index;
-                    indexDayOfWeek = 0;
-                    day = new DayOfWeekForTour();
+                    if (temp.Date == Pauses[index].PauseStart.Date)
+                    {
+                        temp = Pauses[index].PauseEnd;
+                        if (index < Pauses.Count - 1)
+                            ++index;
+                        indexDayOfWeek = 0;
+                        day = new DayOfWeekForTour();
+                    }
                 }
+
             }
 
             if (dayOfWeekForTours.Count < (Teams.Count - 1) * CountOfMatches)

@@ -5,8 +5,11 @@
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="banner bcolor-7">
+    <h2 class="banner-header">@Model.Referee.User.FirstName @Model.Referee.User.LastName</h2>
+</div>
+
 <div class="page-referee-by-id main-container container">
-  <h2>Referee</h2>
 
   <div class="main-content">
     <ul>
@@ -16,4 +19,3 @@
     </ul>
   </div>
 </div>
-

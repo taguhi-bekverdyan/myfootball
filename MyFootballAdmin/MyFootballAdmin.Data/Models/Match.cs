@@ -17,6 +17,7 @@ namespace MyFootballAdmin.Data.Models
         public Guid RefereeId { get; set; }
         public Match()
         {
+            Id = Guid.NewGuid().ToString();
             Events = new List<MatchEventBase>();
             Created = Updated = DateTime.Now;
         }

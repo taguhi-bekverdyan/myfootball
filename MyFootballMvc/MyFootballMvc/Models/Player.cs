@@ -12,7 +12,8 @@ namespace MyFootballMvc.Models
         
         [Required]
         public Position Position { get; set; }
-        public byte[] Avatar { get; set; }
+        
+        public string Avatar { get; set; }
         [Required]
         public PhysicalStats PhysicalStats { get; set; }
         public bool HasTrained { get; set; }

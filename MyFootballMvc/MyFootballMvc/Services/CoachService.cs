@@ -10,12 +10,13 @@ namespace MyFootballMvc.Services
 {
     public class CoachService
     {
-
+        public TeamsService _teamsService;
         private const string Endpoint = "https://localhost:44350/api";
         private readonly RestClient _client;
         public CoachService()
         {
             _client = new RestClient(Endpoint);
+            _teamsService = new TeamsService();
         }
 
         public async Task<List<Coach>> FindAll(string accessToken)
@@ -29,7 +30,9 @@ namespace MyFootballMvc.Services
             return coaches;
         }
 
-        public async Task<Coach> FindCoachById(string accessToken,string id)
+       
+
+            public async Task<Coach> FindCoachById(string accessToken,string id)
         {
             var request = new RestRequest("coach/{id}", Method.GET);
             request.AddHeader("authorization", $"Bearer {accessToken}");
@@ -65,6 +68,7 @@ namespace MyFootballMvc.Services
             return coach;
 
         }
+
         public async Task Insert(string accessToken, Coach coach)
         {
             var request = new RestRequest("coach/create", Method.POST);

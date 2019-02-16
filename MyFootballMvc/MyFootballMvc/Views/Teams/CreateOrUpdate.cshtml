@@ -1,39 +1,109 @@
 ﻿@model MyFootballMvc.ViewModels.TeamsCreateViewModel
 @{
-  ViewData["Title"] = "CreateOrUpdate";
-  Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "CreateOrUpdate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-  .field-validation-error {
-    color: red;
-  }
-
-  .input-validation-error {
-    border: 2px solid red;
-  }
-</style>
-<div class="main-container container">
-    @using (Html.BeginForm("CreateOrUpdate", "Teams", FormMethod.Post))
-    {
-      <div class="form-group">
-        @Html.LabelFor(m => m.Team.Name)
-        @Html.TextBoxFor(m => m.Team.Name, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Team.Name)
-      </div>
-      <div class="form-group">
-        @Html.LabelFor(m => m.Team.ShortName)
-        @Html.TextBoxFor(m => m.Team.ShortName, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Team.ShortName)
-      </div>
-      @Html.HiddenFor(m => m.Team.Id)
-      if (Model.ViewType == MyFootballMvc.ViewModels.ViewType.Create)
-      {
-        <button type="submit" class="btn btn-primary">Create</button>
-      }
-      else
-      {
-        <button type="submit" class="btn btn-primary">Update</button>
-      }
-    }
-  </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<div class="banner bcolor-1">
+    <h2 class="banner-header">Create a Team</h2>
 </div>
+<style>
+    .field-validation-error {
+        color: red;
+    }
+
+    .input-validation-error {
+        border: 2px solid red;
+    }
+
+    .avatar-my-profile {
+        vertical-align: middle;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+    }
+</style>
+<div class="page-create-or-update-team main-container container">
+    <div class="main-content">
+        @using (Html.BeginForm("CreateOrUpdate", "Teams", FormMethod.Post))
+        {
+        <div class="form-group">
+            <div class="form-group">
+                <img src="@Model.Team.Avatar" alt="Avatar" class="avatar-my-profile" id="js-team-image" />
+                <input type="file" name="team image" id="js-team-image-button" />
+
+            </div>
+        </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Team.Name)
+                @Html.TextBoxFor(m => m.Team.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Team.Name)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Team.ShortName)
+                @Html.TextBoxFor(m => m.Team.ShortName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Team.ShortName)
+            </div>
+
+            <div id="cp1" class="form-group input-group colorpicker-component">
+                @Html.LabelFor(m => m.Team.Color1)
+                @Html.TextBoxFor(m => m.Team.Color1, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Team.Color1)
+                <span class="input-group-addon"><i></i></span>
+            </div>
+            <div id="cp2" class="form-group input-group colorpicker-component">
+                @Html.LabelFor(m => m.Team.Color2)
+                @Html.TextBoxFor(m => m.Team.Color2, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Team.Color2)
+                <span class="input-group-addon"><i></i></span>
+            </div>
+            <div id="cp3" class="form-group input-group colorpicker-component">
+                @Html.LabelFor(m => m.Team.Color3)
+                @Html.TextBoxFor(m => m.Team.Color3, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Team.Color3)
+                <span class="input-group-addon"><i></i></span>
+            </div>
+
+            @Html.HiddenFor(m => m.Team.Id)
+            @Html.HiddenFor(m => m.Team.Avatar,new { id="js-hidden-for-team-image"})
+            if (Model.ViewType == MyFootballMvc.ViewModels.ViewType.Create)
+            {
+                <button type="submit" class="btn btn-primary">Create</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-primary">Update</button>
+            }
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="//cdn.rawgit.com/twbs/bootstrap/v4.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/lib/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        function filePreview(input, owner) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#js-" + owner + "-image").attr("src", e.target.result);
+                    $("#js-hidden-for-" + owner + "-image").val(e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#js-team-image-button").change(function () {
+            filePreview(this, "team");
+        });
+    });
+</script>

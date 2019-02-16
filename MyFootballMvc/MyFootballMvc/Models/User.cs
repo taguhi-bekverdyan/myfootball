@@ -20,5 +20,9 @@ namespace MyFootballMvc.Models
 
     public Guid FavoriteTeamId { get; set; }
 
-  }
+        public string Image { get; set; }
+        
+        public string Email { get; set; }
+
+    }
 }

@@ -7,6 +7,7 @@ namespace MyFootballMvc.Models
 {
     public class Tournament : EntityBase<Tournament>
     {
+        public string ImagePath { get; set; }
         public string Name { get; set; }
         public int Priority { get; set; }
         public TournamentType TournamentType { get; set; }

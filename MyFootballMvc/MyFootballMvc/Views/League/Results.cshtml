@@ -4,49 +4,45 @@
     Layout = "~/Views/Shared/_LeagueLayout.cshtml";
 }
 
-<head>
-    <style>
-    </style>
-</head>
-<body>
-    <div class="banner">
-        <h2 class="col-10 offset-1">Fixtures</h2>
-    </div>
+<div class="banner bcolor-2">
+    <h2 class="banner-header">Results</h2>
+</div>
 
-    <div class="main-content container">
-        @if (Model.FixtureViewItem.IsGenerated)
+<div class="main-content container">
+    @if (Model.FixtureViewItem.IsGenerated)
+    {
+        @foreach (var tour in Model.FixtureViewItem.Tours)
         {
-            @foreach (var tour in Model.FixtureViewItem.Tours)
+            var i = 1;
+            <br />
+            if (tour.IsPlayed)
             {
-                var i = 1;
-                <br />
-                if (tour.IsPlayed)
-                {
-                    <h2><i>Tour @i</i></h2><br /><hr />
-                }
+                <h2><i>Tour @i</i></h2><br /><hr />
+            }
 
-                ++i;
-                @foreach (var match in tour.Matches)
+            ++i;
+            @foreach (var match in tour.Matches)
+            {
+                if (match.MatchDateTime < DateTime.Now)
                 {
-                    if (match.MatchDateTime < DateTime.Now)
-                    {
-                        <div id="div-fixture">
-                            <p id="p-fixture" style="float:left;">@Html.ActionLink(match.Team1.Name, "Id","Club", new { match.Team1.Id })</p>
-                            <a id="a-fixture" href="@Html.ActionLink(null,"Id", "Match", new { match.Id})" class="badge badge-primary">@match.MatchDateTime</a>
-                            <p id="p-fixture" style="float:right;">@Html.ActionLink(match.Team2.Name,"Id", "Club", new { match.Team2.Id })</p>
-                        </div>
-                        <br/>
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    <div style="margin-left:3%;float:left;" id="div-teams-fixture"><a id="teams-link" style="float:right;">@Html.ActionLink(@match.Team1.Name, "Id", "Club", new { match.Team1.Id }, new { @style = "color:white;" })</a> </div>
+                    <div style="float:left;margin-left:1%;margin-right:1%;"><image style="float:right;width:20px;height:20px;" src="/images/arsenal.png"></image></div>
+                    <div style="" id="div-match-fixture"><a href="@Html.ActionLink(null,"Id", "Match", new { match.Id }, new { @style = "color:black;" })" style="color:black;">@match.GoalClub1 - @match.GoalClub2</a></div>
+                    <div style="float:left;margin-left:1%;margin-right:1%;"><image style="width:20px;height:20px;" src="/images/arsenal.png"></image></div>
+                    <div style="float:left;" id="div-teams-fixture"><a id="teams-link" style="float:left;">@Html.ActionLink(@match.Team2.Name, "Id", "Club", new { match.Team2.Id }, new { @style = "color:white;" })</a></div>
+                    <div style="float:right;margin-right:3%;"><image style="width:20px;height:20px;float:right;margin-right:15%;" src="/images/arsenal.png"></image></div>
+                    <div style="margin-right:3%;" id="div-teams-fixture"><span style="float:right;color:white;margin-right:3%;">Stadium</span></div>
+                    <br />
+                }
+                else
+                {
+                    return;
                 }
             }
         }
-        else
-        {
-            <h3>@Model.Tournament.Name hasn't generated yet.</h3>
-        }
-    </div>
-</body>
+    }
+    else
+    {
+        <p id="none">@Model.Tournament.Name hasn't started yet.</p>
+    }
+</div>

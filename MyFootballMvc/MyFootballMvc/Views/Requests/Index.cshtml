@@ -6,6 +6,11 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
+
+<div class="banner bcolor-1">
+    <h2 class="banner-header">Invite</h2>
+</div>
+
 <div class="main-container container">
     @if (Model.Players.Count != 0)
     {
@@ -95,8 +100,7 @@
       <table class="table table-striped" id="js-free-coaches-table">
         <thead>
           <tr>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
+            <th scope="col">Name</th>
             <th scope="col">Birthdate</th>
             <th scope="col">Invite</th>
           </tr>
@@ -105,8 +109,7 @@
           @foreach (var coach in Model.Coaches)
           {
             <tr>
-              <td>@coach.User.FirstName</td>
-              <td>@coach.User.LastName</td>
+              <td>@coach.User.FirstName @coach.User.LastName</td>
               <td>@coach.User.Birthdate</td>
               <td>
                 <button class="btn btn-primary coaches-invite-buttons" id="@coach.Id">Invite</button>

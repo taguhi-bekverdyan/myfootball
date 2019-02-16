@@ -12,8 +12,14 @@ namespace MyFootballRestApi.Models
         public string Name { get; set; }
         [Required]
         public string ShortName { get; set; }
+
+        public string Color1 { get; set; }
+        public string Color2 { get; set; }
+        public string Color3 { get; set; }
+
         [Required]
         public User President { get; set; }
+        public string Avatar { get; set; }
 
         public List<Staff> StaffMembers { get; set; }
         public List<Player> Players { get; set; }

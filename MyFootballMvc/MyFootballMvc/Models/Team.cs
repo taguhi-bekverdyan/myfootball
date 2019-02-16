@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,16 +7,31 @@ using System.Threading.Tasks;
 
 namespace MyFootballMvc.Models
 {
-    public class Team:EntityBase<Team>
+    public class Team : EntityBase<Team>
     {
         [Required]
-        [Display(Name="Team full name")]
+        [Remote("CheckName", "Teams", ErrorMessage = "Name is not valid.")]
+        [Display(Name = "Team full name")]
         public string Name { get; set; }
+
         [Required]
-        [Display(Name="Team short name")]
+        [StringLength(3, MinimumLength = 3, ErrorMessage = "Short name must have 3 letters.")]
+        [Remote("CheckShortName", "Teams", ErrorMessage = "Short name must be unique and start with the same letter as full name.", AdditionalFields = "Name")]
+        [Display(Name = "Team short name")]
         public string ShortName { get; set; }
-        
+
+        [Display(Name = "Color 1")]
+        public string Color1 { get; set; } = "#ff0000";
+
+        [Display(Name = "Color 2")]
+        public string Color2 { get; set; } = "#ff0000";
+
+        [Display(Name = "Color 3")]
+        public string Color3 { get; set; } = "#ff0000";
+
         public User President { get; set; }
+
+        public string Avatar { get; set; }
 
         public List<Staff> StaffMembers { get; set; } = new List<Staff>();
         public List<Player> Players { get; set; } = new List<Player>();

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyFootballMvc.Services;
 using MyFootballMvc.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using System.IO;
 
 namespace MyFootballMvc.Controllers
 {
@@ -17,11 +18,14 @@ namespace MyFootballMvc.Controllers
     {
         private readonly UsersService _usersSevice;
         private readonly TeamsService _teamsService;
+        private readonly ImageUploadService _imageUploadService;
+        
 
         public TeamsController()
         {
             _usersSevice = new UsersService();
             _teamsService = new TeamsService();
+            _imageUploadService = new ImageUploadService();
         }
 
         [Authorize]
@@ -32,30 +36,55 @@ namespace MyFootballMvc.Controllers
             return View("Index", viewModel);
         }
 
+        #region Validation actions
+
+        public async Task<JsonResult> CheckName([Bind(Prefix = "Team.Name")]string name)
+        {
+            var result = await _teamsService.FindTeamByName(await GetAccessToken(), name);
+
+            if (result is Team)
+            {
+                return Json(false);
+            }
+            else return Json(true);
+        }
+
+        public async Task<JsonResult> CheckShortName([Bind(Prefix = "Team.ShortName")]string shortName, [Bind(Prefix = "Team.Name")]string name)
+        {
+            var team = await _teamsService.FindTeamByShortName(await GetAccessToken(), shortName);
+            bool condition1, condition2;
+
+            condition1 = team is Team ? false : true;
+            condition2 = shortName.ToLower()[0] == name.ToLower()[0] ? true : false;
+
+            return condition1 && condition2 ? Json(true) : Json(false);
+        }
+        #endregion
+
         #region TEAM_INFO_ACTIONS
 
         [Route("Teams/Fixtures")]
         public async Task<IActionResult> Fixtures()
         {
-            return View("Fixtures");
+            return View("Fixtures", await GetMyTeamPlayersViewModel());
         }
 
         [Route("Teams/Players")]
         public async Task<IActionResult> Players()
         {
-            return View("Players",await GetMyTeamPlayersViewModel());
+            return View("Players", await GetMyTeamPlayersViewModel());
         }
 
         [Route("Teams/StaffMembers")]
         public async Task<IActionResult> StaffMembers()
         {
-            return View("StaffMembers",await GetMyTeamStaffMembersViewModel());
+            return View("StaffMembers", await GetMyTeamStaffMembersViewModel());
         }
 
         [Route("Teams/Coaches")]
         public async Task<IActionResult> Coaches()
         {
-            return View("Coaches",await GetMyTeamCoachesViewModel());
+            return View("Coaches", await GetMyTeamCoachesViewModel());
         }
 
         [Route("Teams/SentRequests")]
@@ -66,8 +95,6 @@ namespace MyFootballMvc.Controllers
 
         #endregion
 
-
-
         #region CREATE_TEAM_ACTIONS
 
         [Route("Teams/Create")]
@@ -75,6 +102,7 @@ namespace MyFootballMvc.Controllers
         {
             var viewModel = await GetTeamsCreateViewModel();
             viewModel.Team = new Team();
+            viewModel.Team.Avatar = await _imageUploadService.GetTeamDefaultAvatarAsync();
             viewModel.ViewType = ViewType.Create;
 
             return View("CreateOrUpdate", viewModel);
@@ -87,12 +115,19 @@ namespace MyFootballMvc.Controllers
             string token = await GetAccessToken();
             string id = await GetUserAuth0Id();
 
+
+
             if (!ModelState.IsValid)
             {
                 TeamsCreateViewModel viewModel = await GetTeamsCreateViewModel();
                 viewModel.Team = team;
                 viewModel.ViewType = ViewType.Update;
                 return View("CreateOrUpdate", viewModel);
+            }
+
+            if (!team.Avatar.Contains("https://"))
+            {
+                team.Avatar = await UploadImageAsync(team.Avatar.Split(',')[1]);
             }
 
             User user = await _usersSevice.FindUserById(token, id);
@@ -108,6 +143,7 @@ namespace MyFootballMvc.Controllers
                 Team current = await _teamsService.FindTeamById(token, team.Id);
                 current.Name = team.Name;
                 current.ShortName = team.ShortName;
+                current.Avatar = team.Avatar;
                 await _teamsService.Update(token, current);
             }
 
@@ -115,6 +151,16 @@ namespace MyFootballMvc.Controllers
         }
 
         #endregion
+
+        private async Task<string> UploadImageAsync(string base64String)
+        {
+            byte[] imageBytes = Convert.FromBase64String(base64String);
+            // Convert byte[] to Image
+            using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
+            {
+                return await _imageUploadService.UploadImageAsync(ms, DateTime.Now.ToLongTimeString() + Guid.NewGuid().ToString());
+            }
+        }
 
         #region TOKEN
         private async Task<string> GetAccessToken()
@@ -174,10 +220,11 @@ namespace MyFootballMvc.Controllers
             return new SentRequestsViewModel(token, id);
         }
 
-        private async Task<MyTeamPlayersViewModel> GetMyTeamPlayersViewModel() {
+        private async Task<MyTeamPlayersViewModel> GetMyTeamPlayersViewModel()
+        {
             string token = await GetAccessToken();
             string id = await GetUserAuth0Id();
-            return new MyTeamPlayersViewModel(token,id);
+            return new MyTeamPlayersViewModel(token, id);
         }
 
         private async Task<MyTeamCoachesViewModel> GetMyTeamCoachesViewModel()
@@ -191,7 +238,7 @@ namespace MyFootballMvc.Controllers
         {
             string token = await GetAccessToken();
             string id = await GetUserAuth0Id();
-            return new MyTeamStaffMembersViewModel(token,id);
+            return new MyTeamStaffMembersViewModel(token, id);
         }
 
         #endregion

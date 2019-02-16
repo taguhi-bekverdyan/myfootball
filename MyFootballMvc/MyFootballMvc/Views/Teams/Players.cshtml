@@ -7,17 +7,20 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 
+<div class="banner bcolor-1">
+    <h2 class="banner-header">Players</h2>
+</div>
 
 <div class="main-container container">
-    <h2>Players</h2>
     @if (Model.MyPlayers != null && Model.MyPlayers.Count != 0)
     {
         <table class="table table-striped" id="js-my-players-table">
             <thead>
                 <tr>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
+                    <th scope="col">Name</th>
                     <th scope="col">Birthdate</th>
+                    <th scope="col">Is Captain</th>
+                    <th scope="col">Position</th>
                     <th scope="col">Height</th>
                     <th scope="col">Weight</th>
                     <th scope="col">Foot</th>
@@ -27,25 +30,34 @@
             <tbody>
                 @foreach (var player in Model.MyPlayers)
                 {
-                    <tr>
-                        <td>@player.User.FirstName</td>
-                        <td>@player.User.LastName</td>
-                        <td>@player.User.Birthdate</td>
-                        <td>@player.PhysicalStats.Height</td>
-                        <td>@player.PhysicalStats.Weight</td>
-                        <td>@player.PhysicalStats.Foot</td>
-                        <td>
-                            @if (player.Number == 0 || player.Number == null)
-                            {
-                                <button class="btn btn-primary js-set-numer-buttons" id="@player.Id">Set a Number</button>
-                            }
-                            else
-                            {
-                                @player.Number
-                                <button class="btn btn-xs btn-danger js-set-numer-buttons" id="@player.Id">Change</button>
-                            }
-                        </td>
-                    </tr>
+                    string name = player.User.FirstName + " " + player.User.LastName;
+                <tr>
+                    <td>@Html.ActionLink(name, "Id", "Player", new { Id = player.Id })</td>
+                    <td>@player.User.Birthdate</td>
+                    @if (player.IsCaptain)
+                    {
+                        <td>Captain</td>
+                    }
+                    else
+                    {
+                        <td>Not Captain</td>
+                    }
+                    <td> @Html.DisplayFor(model => player.Position)</td>
+                    <td>@player.PhysicalStats.Height</td>
+                    <td>@player.PhysicalStats.Weight</td>
+                    <td>@player.PhysicalStats.Foot</td>
+                    <td>
+                        @if (player.Number == 0 || player.Number == null)
+                        {
+                            <button class="btn btn-primary js-set-numer-buttons" id="@player.Id">Set a Number</button>
+                        }
+                        else
+                        {
+                            @player.Number
+                            <button class="btn btn-xs btn-danger js-set-numer-buttons" id="@player.Id">Change</button>
+                        }
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

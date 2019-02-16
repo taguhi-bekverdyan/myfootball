@@ -1,266 +1,240 @@
 ﻿@model MyFootballMvc.ViewModels.EditAccountViewModel
 @{
-  ViewData["Title"] = "Edit";
-  Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-  .field-validation-error {
-    color: red;
-  }
 
-  .input-validation-error {
-    border: 2px solid red;
-  }
+<div class="banner bcolor-1">
+    <h2 class="banner-header">My Profile</h2>
+</div>
+
+<style>
+    .field-validation-error {
+        color: red;
+    }
+
+    .input-validation-error {
+        border: 2px solid red;
+    }
+    .avatar-my-profile {
+        vertical-align: middle;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+    }
 </style>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 <div class="page-my-profile main-container container">
-  <div class="main-content">
-    <div class="row">
-      <div class="col">
-        @using (Html.BeginForm("CreateOrUpdate", "Account"))
-        {
-          <div class="form-group">
-            @Html.LabelFor(m => m.User.FirstName)
-            @Html.TextBoxFor(m => m.User.FirstName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.User.FirstName)
-          </div>
-          <div class="form-group">
-            @Html.LabelFor(m => m.User.LastName)
-            @Html.TextBoxFor(m => m.User.LastName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.User.LastName)
-          </div>
-          @*<div class="form-group">
-              @Html.LabelFor(m => m.User.FavoriteTeamId)
-              @Html.DropDownListFor(m => m.User.FavoriteTeamId,
-             new SelectList(Model.Teams, "Id", "Name"), "Select Team", new { @class = "form-control" })
-              @Html.ValidationMessageFor(m => m.User.FavoriteTeamId)
-            </div>*@
-          <div class="form-group">
-            @Html.LabelFor(m => m.User.Birthdate)
-            <div class="input-group date" data-provide="datepicker">
-              @Html.TextBoxFor(m => m.User.Birthdate,
-                  $"{Model.User.Birthdate.ToShortDateString():d}",
-                  new { @class = "form-control" })
-              <div class="input-group-addon glyphicon glyphicon-th"></div>
-            </div>
-          </div>
-          @Html.HiddenFor(m => m.User.Id)
-          <button type="submit" class="btn btn-primary">Save</button>
-        }
-      </div>
-      @if (Model.IsMember)
-      {
-        <div class="col">
-          <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a class="nav-item nav-link active" id="nav-player-tab"
-                 data-toggle="tab" href="#nav-player" role="tab" aria-controls="nav-player" aria-selected="true">
-                Player
-              </a>
-              <a class="nav-item nav-link" id="nav-coach-tab"
-                 data-toggle="tab" href="#nav-coach" role="tab" aria-controls="nav-coach" aria-selected="false">
-                Coach
-              </a>
-              <a class="nav-item nav-link" id="nav-staff-tab"
-                 data-toggle="tab" href="#nav-staff" role="tab" aria-controls="nav-staff" aria-selected="false">
-                Staff
-              </a>
-              <a class="nav-item nav-link" id="nav-referee-tab"
-                 data-toggle="tab" href="#nav-referee" role="tab" aria-controls="nav-referee" aria-selected="false">
-                Referee
-              </a>
-              <a class="nav-item nav-link" id="nav-landlord-tab"
-                 data-toggle="tab" href="#nav-landlord" role="tab" aria-controls="nav-landlord" aria-selected="false">
-                Landlord
-              </a>
-            </div>
-          </nav>
-          <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-player" role="tabpanel" aria-labelledby="nav-player-tab">
-              @using (Html.BeginForm("Player", "Account", FormMethod.Post, new { id = "js-playerForm" }))
-              {
-                <div class="form-group">
-                  @Html.LabelFor(m => m.Player.Position)
-                  @*@Html.DropDownList("SelectPosition", Html.GetEnumSelectList<Position>(),
-                    "Select your position", new { @class = "form-control" ,id="js-position"})*@
-                  <select id="js-position" class="form-control" asp-for="Player.Position" asp-items="Html.GetEnumSelectList<Position>()">
-                    <option selected="selected" value="">Please select</option>
-                  </select>
-                  @Html.ValidationMessageFor(m => m.Player.Position)
-                </div>
-                <div class="form-group">
-                  @Html.LabelFor(m => m.Player.PhysicalStats.Foot)
-                  @*@Html.DropDownList("SelectFoot", Html.GetEnumSelectList<Foot>(),
-                    "Select your foot", new { @class = "form-control",id="js-foot" })*@
-                  <select id="js-foot" class="form-control" asp-for="Player.PhysicalStats.Foot" asp-items="Html.GetEnumSelectList<Foot>()">
-                    <option selected="selected" value="">Please select</option>
-                  </select>
-                  @Html.ValidationMessageFor(m => m.Player.PhysicalStats.Foot)
-                </div>
-                <div class="form-group">
-                  @Html.LabelFor(m => m.Player.PhysicalStats.Height)
-                  @Html.TextBoxFor(m => m.Player.PhysicalStats.Height,
-                      new {@class = "form-control", id = "js-height"})
-                  @Html.ValidationMessageFor(m => m.Player.PhysicalStats.Height)
-                </div>
-                <div class="form-group">
-                  @Html.LabelFor(m => m.Player.PhysicalStats.Weight)
-                  @Html.TextBoxFor(m => m.Player.PhysicalStats.Weight,
-                      new {@class = "form-control", id = "js-weight"})
-                  @Html.ValidationMessageFor(m => m.Player.PhysicalStats.Weight)
-                </div>
-                @Html.HiddenFor(m => m.Player.PlayerStatus, new { id = "js-player-status-hidden" })
-                <button type="submit" class="btn btn-primary">Become a Player</button>
-              }
-            </div>
-            <div class="tab-pane fade" id="nav-coach" role="tabpanel" aria-labelledby="nav-coach-tab">
-              @using (Html.BeginForm("Coach", "Account", FormMethod.Post, new { id = "js-coachForm" }))
-              {
-                <div class="form-group">
-                  @Html.LabelFor(m => m.Coach.License)
-                  @Html.TextBoxFor(m => m.Coach.License,
-                      new {@class = "form-control", id = "js-coach-license"})
-                  @Html.ValidationMessageFor(m => m.Coach.License)
-                </div>
-                @Html.HiddenFor(m => m.Coach.CoachStatus, new { id = "js-coach-status-hidden" })
-                <button type="submit" class="btn btn-primary">Become a Coach</button>
-              }
-            </div>
-            <div class="tab-pane fade" id="nav-staff" role="tabpanel" aria-labelledby="nav-staff-tab">
-              @using (Html.BeginForm("Staff", "Account", FormMethod.Post, new { id = "js-staffForm" }))
-              {
-                <div class="form-group">
-                  @Html.LabelFor(m => m.Staff.License)
-                  @Html.TextBoxFor(m => m.Staff.License,
-                      new {@class = "form-control", id = "js-staff-license"})
-                  @Html.ValidationMessageFor(m => m.Staff.License)
-                </div>
-                <div class="form-group">
-                  @Html.LabelFor(m => m.Staff.Occupation)
-                  @Html.TextBoxFor(m => m.Staff.Occupation,
-                      new {@class = "form-control", id = "js-staff-occupation"})
-                  @Html.ValidationMessageFor(m => m.Staff.Occupation)
-                </div>
-                @Html.HiddenFor(m => m.Staff.StaffStatus, new { id = "js-staff-status-hidden" })
-                <button type="submit" class="btn btn-primary">Become a Staff</button>
-              }
-            </div>
-            <div class="tab-pane fade" id="nav-referee" role="tabpanel" aria-labelledby="nav-referee-tab">
-              @using (Html.BeginForm("Referee", "Account", FormMethod.Post, new { id = "js-refereeForm" }))
-              {
-                <div class="form-group">
-                  @Html.LabelFor(m => m.Referee.License)
-                  @Html.TextBoxFor(m => m.Referee.License,
-                      new {@class = "form-control", id = "js-referee-license"})
-                  @Html.ValidationMessageFor(m => m.Referee.License)
-                </div>
+    
+    <div class="main-content">
+        <img src="@Model.User.Image" alt="Avatar" class="avatar-my-profile" />
+        <div class="row">
 
-                <button type="submit" class="btn btn-primary">Become a Referee</button>
-              }
-            </div>
-            <div class="tab-pane fade" id="nav-landlord" role="tabpanel" aria-labelledby="nav-landlord-tab">
-              @using (Html.BeginForm("Landlord", "Account", FormMethod.Post, new { id = "js-landlordForm" }))
-              {
-                <div class="form-group">
-                  @Html.LabelFor(m => m.Landlord.Organization)
-                  @Html.TextBoxFor(m => m.Landlord.Organization,
-                      new {@class = "form-control", id = "js-landlord-organization"})
-                  @Html.ValidationMessageFor(m => m.Landlord.Organization)
-                </div>
-                <div class="form-group">
-                  @Html.LabelFor(m => m.Landlord.PhoneNumber)
-                  <div class="landlord-phone-number-wrapper">
-                    <span class="landlord-phone-number-prefix">+374</span>
-                    @Html.TextBoxFor(m => m.Landlord.PhoneNumber,
-            new { @class = "form-control landlord-phone-number", id = "js-landlord-phone-number" })
-                  </div>
-                  @Html.ValidationMessageFor(m => m.Landlord.PhoneNumber)
-                </div>
-
-                @if (Model.Landlord.Organization == null)
+            <div class="col">
+                @using (Html.BeginForm("CreateOrUpdate", "Account"))
                 {
-                  <button type="submit" class="btn btn-primary">Become a Landlord</button>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.User.FirstName)
+                        @Html.TextBoxFor(m => m.User.FirstName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.User.FirstName)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.User.LastName)
+                        @Html.TextBoxFor(m => m.User.LastName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.User.LastName)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.User.Birthdate)
+                        <div class="input-group date" data-provide="datepicker">
+                            @Html.TextBoxFor(m => m.User.Birthdate,
+                                $"{Model.User.Birthdate.ToShortDateString():d}",
+                                new { @class = "form-control" })
+                            <div class="input-group-addon glyphicon glyphicon-th"></div>
+                        </div>
+                    </div>
+                    @Html.HiddenFor(m => m.User.Id)
+                    @Html.HiddenFor(m => m.User.Image)
+                    @Html.HiddenFor(m => m.User.Email)
+                    <button type="submit" class="btn btn-primary">Save</button>
                 }
-                else
-                {
-                  <button type="submit" class="btn btn-primary">Save</button>
-                  @Html.ActionLink("Add new pitch", "Create", "Pitch", null, new { @class = "btn btn-primary add-new-item" })
-                }
-              }
-
             </div>
-          </div>
+            @if (Model.IsMember)
+            {
+                <div class="col">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-player-tab"
+                               data-toggle="tab" href="#nav-player" role="tab" aria-controls="nav-player" aria-selected="true">
+                                Player
+                            </a>
+                            <a class="nav-item nav-link" id="nav-coach-tab"
+                               data-toggle="tab" href="#nav-coach" role="tab" aria-controls="nav-coach" aria-selected="false">
+                                Coach
+                            </a>
+                            <a class="nav-item nav-link" id="nav-staff-tab"
+                               data-toggle="tab" href="#nav-staff" role="tab" aria-controls="nav-staff" aria-selected="false">
+                                Staff
+                            </a>
+                            <a class="nav-item nav-link" id="nav-referee-tab"
+                               data-toggle="tab" href="#nav-referee" role="tab" aria-controls="nav-referee" aria-selected="false">
+                                Referee
+                            </a>
+                            <a class="nav-item nav-link" id="nav-landlord-tab"
+                               data-toggle="tab" href="#nav-landlord" role="tab" aria-controls="nav-landlord" aria-selected="false">
+                                Landlord
+                            </a>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-player" role="tabpanel" aria-labelledby="nav-player-tab">
+                            <br />
+                            @using (Html.BeginForm("Player", "Account", FormMethod.Post, new { id = "js-playerForm" }))
+                            {
+                                <div class="form-group">
+                                    <img src="@Model.Player.Avatar" alt="Avatar" class="avatar-my-profile" id="js-player-image" />
+                                    <input type="file" name="player image" id="js-player-image-button" />
+                                    
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Player.Position)
+                                    @*@Html.DropDownList("SelectPosition", Html.GetEnumSelectList<Position>(),
+                "Select your position", new { @class = "form-control" ,id="js-position"})*@
+                                    <select id="js-position" class="form-control" asp-for="Player.Position" asp-items="Html.GetEnumSelectList<Position>()">
+                                        <option selected="selected" value="">Please select</option>
+                                    </select>
+                                    @Html.ValidationMessageFor(m => m.Player.Position)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Player.PhysicalStats.Foot)
+                                    @*@Html.DropDownList("SelectFoot", Html.GetEnumSelectList<Foot>(),
+                "Select your foot", new { @class = "form-control",id="js-foot" })*@
+                                    <select id="js-foot" class="form-control" asp-for="Player.PhysicalStats.Foot" asp-items="Html.GetEnumSelectList<Foot>()">
+                                        <option selected="selected" value="">Please select</option>
+                                    </select>
+                                    @Html.ValidationMessageFor(m => m.Player.PhysicalStats.Foot)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Player.PhysicalStats.Height)
+                                    @Html.TextBoxFor(m => m.Player.PhysicalStats.Height,
+                                        new {@class = "form-control", id = "js-height"})
+                                    @Html.ValidationMessageFor(m => m.Player.PhysicalStats.Height)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Player.PhysicalStats.Weight)
+                                    @Html.TextBoxFor(m => m.Player.PhysicalStats.Weight,
+                                        new {@class = "form-control", id = "js-weight"})
+                                    @Html.ValidationMessageFor(m => m.Player.PhysicalStats.Weight)
+                                </div>
+                                @Html.HiddenFor(m => m.Player.PlayerStatus, new { id = "js-player-status-hidden" })                           
+                                @Html.HiddenFor(m => m.Player.Avatar, new { id = "js-hidden-for-player-image" })
+                                <button type="submit" class="btn btn-primary">Become a Player</button>
+                            }
+                        </div>
+                        <div class="tab-pane fade" id="nav-coach" role="tabpanel" aria-labelledby="nav-coach-tab">
+                            <br />
+                            @*<img src="@Model.Coach.Avatar" alt="Avatar" class="avatar-my-profile" />*@
+                            @using (Html.BeginForm("Coach", "Account", FormMethod.Post, new { id = "js-coachForm" }))
+                            {
+                                <div class="form-group">
+                                    <img src="@Model.Coach.Avatar" alt="Avatar" class="avatar-my-profile" id="js-coach-image" />
+                                    <input type="file" name="coach image" id="js-coach-image-button" />
+
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Coach.License)
+                                    @Html.TextBoxFor(m => m.Coach.License,
+                                        new {@class = "form-control", id = "js-coach-license"})
+                                    @Html.ValidationMessageFor(m => m.Coach.License)
+                                </div>
+                                @Html.HiddenFor(m => m.Coach.CoachStatus, new { id = "js-coach-status-hidden" })
+                                @Html.HiddenFor(m => m.Coach.Avatar, new { id = "js-hidden-for-coach-image" })
+                                <button type="submit" class="btn btn-primary">Become a Coach</button>
+                            }
+                        </div>
+                        <div class="tab-pane fade" id="nav-staff" role="tabpanel" aria-labelledby="nav-staff-tab">
+                            <br />
+                            @*<img src="@Model.Staff.Avatar" alt="Avatar" class="avatar-my-profile" />*@
+                            @using (Html.BeginForm("Staff", "Account", FormMethod.Post, new { id = "js-staffForm" }))
+                            {
+                                <div class="form-group">
+                                    <img src="@Model.Staff.Avatar" alt="Avatar" class="avatar-my-profile" id="js-staff-image" />
+                                    <input type="file" name="staff image" id="js-staff-image-button" />
+
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Staff.License)
+                                    @Html.TextBoxFor(m => m.Staff.License,
+                                        new {@class = "form-control", id = "js-staff-license"})
+                                    @Html.ValidationMessageFor(m => m.Staff.License)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Staff.Occupation)
+                                    @Html.TextBoxFor(m => m.Staff.Occupation,
+                                        new {@class = "form-control", id = "js-staff-occupation"})
+                                    @Html.ValidationMessageFor(m => m.Staff.Occupation)
+                                </div>
+                                @Html.HiddenFor(m => m.Staff.StaffStatus, new { id = "js-staff-status-hidden" })
+                                @Html.HiddenFor(m => m.Staff.Avatar, new { id = "js-hidden-for-staff-image" })
+                                <button type="submit" class="btn btn-primary">Become a Staff</button>
+                            }
+                        </div>
+                        <div class="tab-pane fade" id="nav-referee" role="tabpanel" aria-labelledby="nav-referee-tab">
+                            <br />
+                            @*<img src="@Model.Referee.Avatar" alt="Avatar" class="avatar-my-profile" />*@
+                            @using (Html.BeginForm("Referee", "Account", FormMethod.Post, new { id = "js-refereeForm" }))
+                            {
+                                <div class="form-group">
+                                    <img src="@Model.Referee.Avatar" alt="Avatar" class="avatar-my-profile" id="js-referee-image" />
+                                    <input type="file" name="staff image" id="js-referee-image-button" />
+
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Referee.License)
+                                    @Html.TextBoxFor(m => m.Referee.License,
+                                        new {@class = "form-control", id = "js-referee-license"})
+                                    @Html.ValidationMessageFor(m => m.Referee.License)
+                                </div>
+                                
+                                @Html.HiddenFor(m => m.Referee.Avatar, new { id = "js-hidden-for-referee-image" })
+                                <button type="submit" class="btn btn-primary">Become a Referee</button>
+                            }
+                        </div>
+                        <div class="tab-pane fade" id="nav-landlord" role="tabpanel" aria-labelledby="nav-landlord-tab">
+                            @using (Html.BeginForm("Landlord", "Account", FormMethod.Post, new { id = "js-landlordForm" }))
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Landlord.Organization)
+                                    @Html.TextBoxFor(m => m.Landlord.Organization,
+                                        new {@class = "form-control", id = "js-landlord-organization"})
+                                    @Html.ValidationMessageFor(m => m.Landlord.Organization)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Landlord.PhoneNumber)
+                                    <div class="landlord-phone-number-wrapper">
+                                        <span class="landlord-phone-number-prefix">+374</span>
+                                        @Html.TextBoxFor(m => m.Landlord.PhoneNumber,
+                                new { @class = "form-control landlord-phone-number", id = "js-landlord-phone-number" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.Landlord.PhoneNumber)
+                                </div>
+
+                                @if (Model.Landlord.Organization == null)
+                                {
+                                    <button type="submit" class="btn btn-primary">Become a Landlord</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    @Html.ActionLink("Add new pitch", "Create", "Pitch", null, new { @class = "btn btn-primary add-new-item" })
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
-      }
     </div>
-  </div>
 </div>
-
-<script type="text/javascript">
-  $(document).ready(function () {
-
-    $("#js-playerForm").submit(function (e) {
-      e.preventDefault();
-
-      var position = $("#js-position").val();
-      var foot = $("#js-foot").val();
-      var height = $("#js-height").val();
-      var weight = $("#js-weight").val();
-      var playerStatus = $("#js-player-status-hidden").val();
-
-      var ps = { Foot: foot, Height: height, Weight: weight };
-
-      var player = { Position: position, PhysicalStats: ps, PlayerStatus: playerStatus };
-
-      AjaxJsonSumbitWithConfirm("Player/", player);
-    });
-
-    $("#js-coachForm").submit(function (e) {
-      e.preventDefault();
-      var license = $("#js-coach-license").val();
-      var coachStatus = $("js-coach-status-hidden").val();
-
-      var coach = { License: license, CoachStatus: coachStatus };
-
-      AjaxJsonSumbitWithConfirm("Coach/", coach);
-    });
-
-    $("#js-staffForm").submit(function (e) {
-      e.preventDefault();
-
-      var license = $("#js-staff-license").val();
-      var occupation = $("#js-staff-occupation").val();
-      var staffStatus = $("js-staff-status-hidden").val();
-
-      var staff = { License: license, Occupation: occupation, StaffStatus: staffStatus };
-
-      AjaxJsonSumbitWithConfirm("Staff/", staff);
-    });
-
-    $("#js-refereeForm").submit(function (e) {
-      e.preventDefault();
-
-      var license = $("#js-referee-license").val();
-
-      var referee = { License: license };
-
-      AjaxJsonSumbitWithConfirm("Referee/", referee);
-    });
-
-    $("#js-landlordForm").submit(function (e) {
-      e.preventDefault();
-
-      var organization = $("#js-landlord-organization").val();
-      var phoneNumber = $("#js-landlord-phone-number").val();
-      var landlord = {
-        Organization: organization,
-        PhoneNumber: phoneNumber
-      };
-
-      AjaxJsonSumbitWithConfirm("Landlord/", landlord);
-    });
-
-  });
-</script>
