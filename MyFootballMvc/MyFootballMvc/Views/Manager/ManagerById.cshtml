@@ -5,8 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="banner bcolor-6">
+    <h2 class="banner-header">@Model.Manager.User.FirstName @Model.Manager.User.LastName</h2>
+</div>
+
 <div class="page-club-by-id main-container container">
-    <h2>@Model.Manager.User.FirstName @Model.Manager.User.LastName</h2>
 
     <div class="main-content">
         <p>Name:@Model.Manager.User.FirstName @Model.Manager.User.LastName</p>
