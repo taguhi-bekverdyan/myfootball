@@ -75,6 +75,13 @@ namespace MyFootballMvc.Controllers
             return View("Players", await GetMyTeamPlayersViewModel());
         }
 
+    [Route("Teams/Coaches")]
+    public async Task<IActionResult> Coaches()
+    {
+            var teamCoachViewModel = await GetMyTeamCoachesViewModel();
+            teamCoachViewModel.ActiveMenuItem = "teamCoaches";
+            return View("Coaches", teamCoachViewModel);
+    }
         [Route("Teams/StaffMembers")]
         public async Task<IActionResult> StaffMembers()
         {
