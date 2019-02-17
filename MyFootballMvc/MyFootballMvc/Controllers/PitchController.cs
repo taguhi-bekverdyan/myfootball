@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyFootballMvc.Models;
 using MyFootballMvc.Services;
@@ -78,6 +79,7 @@ namespace MyFootballMvc.Controllers
       PitchViewModel pitchViewModel = await GetViewModel();
       pitchViewModel.AllPitches = await _pitchService.FindAll(await GetAccessToken());
       pitchViewModel.ActiveMenuItem = "pitchfinder";
+      ViewBag.ApiKey = await GetAccessToken();
       return View("PitchFinder", pitchViewModel);
     }
 

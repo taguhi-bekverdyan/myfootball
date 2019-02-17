@@ -12,7 +12,7 @@
 <div class="page-pitch-by-id main-container container">
 
   <div class="main-content">
-    <ul>
+    <ul class="pitch-info">
       <li>@Html.LabelFor(p => p.Pitch.Name): @Model.Pitch.Name</li>
       <li>@Html.LabelFor(p => p.Pitch.Owner): @Model.Pitch.Owner</li>
       <li>@Html.LabelFor(p => p.Pitch.PitchLength): @Model.Pitch.PitchLength</li>
@@ -26,6 +26,10 @@
       <li>@Html.LabelFor(p => p.Pitch.StartTime): @Model.Pitch.StartTime</li>
       <li>@Html.LabelFor(p => p.Pitch.EndTime): @Model.Pitch.EndTime</li>
     </ul>
+
+    <div id="pitch-map" class="pitch-map">
+
+    </div>
   </div>
 </div>
 
