@@ -20,6 +20,10 @@ for details on configuring this project to bundle and minify static web assets. 
   transform: translate(-50%, -50%)
 }
 
+.hidden {
+  display: none;
+}
+
 /* Main navbar */
 .main-nav {
   padding: 0 1rem;
@@ -195,12 +199,6 @@ for details on configuring this project to bundle and minify static web assets. 
   padding: 0;
 }
 
-/* Pitchfinder */
-.pitchfinder-map {
-  width: 100%;
-  height: 400px;
-}
-
 /* Account edit page */
 .add-new-item {
   float: right;
@@ -276,16 +274,6 @@ for details on configuring this project to bundle and minify static web assets. 
 .landlord-phone-number-prefix {
   flex-basis: 15%;
   margin: auto 0.5rem;
-}
-
-/* Pitchfinder */
-.pitchfinder-map {
-  width: 100%;
-  height: 400px;
-}
-
-.map-wrapper {
-  margin-bottom: 50px;
 }
 
 /* Make .svg files in the carousel display properly in older browsers */
