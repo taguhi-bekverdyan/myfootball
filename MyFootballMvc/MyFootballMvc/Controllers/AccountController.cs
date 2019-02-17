@@ -436,6 +436,8 @@ namespace MyFootballMvc.Controllers
                                     break;
                                 }
                             }
+
+                            await _teamsService.Update(token, team);
                             await _playerService.Update(token,player);
                             break;
                         case RequestTo.Staff:
@@ -447,6 +449,7 @@ namespace MyFootballMvc.Controllers
                             }
                             team.StaffMembers.Add(staff);
                             staff.TeamId = team.Id;
+                            await _teamsService.Update(token, team);
                             await _staffService.Update(token, staff);
                             break;
                         case RequestTo.Coach:
@@ -458,6 +461,7 @@ namespace MyFootballMvc.Controllers
                             }
                             team.Managers.Add(coach);
                             coach.TeamId = team.Id;
+                            await _teamsService.Update(token, team);
                             await _coachService.Update(token,coach);
                             break;
                         default:
