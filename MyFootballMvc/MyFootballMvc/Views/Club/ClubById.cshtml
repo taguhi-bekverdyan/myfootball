@@ -2318,34 +2318,61 @@
     </script>
 
     <section class="page-main">
-        <div class="page-main-wrap">
-            @for (int i = 0; i < 14; ++i)
-            {
-                <div class="person">
-                    <div class="person-head">
-                        <figure class="person-head-wrap">
-                            <img src="//premierleague-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p98745.png" alt="person-name" class="person-img">
-                            <figcaption class="person-title-container">
-                                <p class="person-number">Number</p>
-                                <p class="person-name">player.User.FirstName player.User.LastName</p>
-                                <p class="person-state">player.Position</p>
-                            </figcaption>
-                        </figure>
-                    </div>
-                    <div class="person-main">
-                        <p class="person-info">
-                            <span class="person-info-name">Date of Birth</span>
-                            <span class="person-info-value">player.User.Birthdate</span>
-                        </p>
-                        <p class="person-info">
-                            <span class="person-info-name">Email</span>
-                            <span class="person-info-value">player.User.Email</span>
-                        </p>
-                    </div>
-                    <a href="#" class="person-view">view player</a>
-                </div>
-            }
-        </div>
+      <div class="page-main-wrap">
+        @for (int i = 0; i < 15; ++i)
+        {
+          <div class="person">
+            <div class="person-head">
+              <figure class="person-head-wrap">
+                <img src="//premierleague-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p98745.png" alt="person-name" class="person-img">
+                <figcaption class="person-title-container">
+                  <p class="person-number">Number</p>
+                  <p class="person-name">player.User.FirstName player.User.LastName</p>
+                  <p class="person-state">player.Position</p>
+                </figcaption>
+              </figure>
+            </div>
+            <div class="person-main">
+              <p class="person-info">
+                <span class="person-info-name">Date of Birth</span>
+                <span class="person-info-value">player.User.Birthdate</span>
+              </p>
+              <p class="person-info">
+                <span class="person-info-name">Email</span>
+                <span class="person-info-value">player.User.Email</span>
+              </p>
+            </div>
+          </div>
+        }
+
+        @for (int i = 0; i < 14; ++i)
+        {
+          <div class="person">
+            <div class="person-head">
+              <figure class="person-head-wrap">
+                <img src="//premierleague-static-files.s3.amazonaws.com/premierleague/photos/players/250x250/man37569.png" alt="person-name" class="person-img">
+                <figcaption class="person-title-container">
+                  <p class="person-number">coach.CoachStatus</p>
+                  <p class="person-name">coach.User.FirstName coach.User.LastName</p>
+                  <p class="person-state">coach.License</p>
+                </figcaption>
+              </figure>
+            </div>
+            <div class="person-main">
+              <p class="person-info">
+                <span class="person-info-name">Date of Birth</span>
+                <span class="person-info-value">coach.User.Birthdate</span>
+                
+              </p>
+              <p class="person-info">
+                <span class="person-info-name">Email</span>
+                <span class="person-info-value">coach.User.Email</span>
+              </p>
+            </div>
+          </div>
+        }
+
+      </div>
     </section>
 </div>
 <script>
