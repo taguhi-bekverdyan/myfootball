@@ -14,6 +14,7 @@ namespace MyFootballAdmin.Data.Models
         public StaffStatus StaffStatus { get; set; }
         public string TeamId { get; set; }
         public User User { get; set; }
+        public string Avatar { get; set; }
 
         public Staff()
         {

@@ -118,7 +118,7 @@ namespace MyFootballAdmin.Main.Views.Tournaments
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
