@@ -31,11 +31,15 @@ for details on configuring this project to bundle and minify static web assets. 
     padding-top: 0;
 }
 
-.nav-link {
+.navbar-link {
     color: white;
 }
 
-.nav-link:hover, .nav-link:focus {
+.navbar-link:hover, .nnavbar-link:focus {
+    color: white;
+}
+
+.account-toggle {
     color: white;
 }
 
@@ -284,38 +288,61 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 #div-fixture {
-  background-color: grey;
+  background-color: white;
   width: 100%;
-  height: 10%;
   display: inline-block;
-  position: relative;
-  border: 3px solid #38003c;
-  margin: auto;
-  padding: 2px;
-  border-radius: 15px;
+  margin: 5px;
+  padding: 5px;
+}
+
+#div-fixture:hover {
+    background-color: #b8336a;
+}
+
+.tour-header {
+    font-size: 20px;
+    font-weight:700;
 }
 
 #div-match-fixture {
-  background-color: green;
-  vertical-align: middle;
-  width: 11%;
-  float: left;
-  border-left: 3px solid #38003c;
-  border-right: 3px solid #38003c;
-  font-family: verdana;
-  font-size: 18px;
+    background-color: #97a7b3;
+    vertical-align: middle;
+    float: left;
+    padding: 5px;
+    font-family: verdana;
+    font-size: 18px;
+}
+
+#div-fixture:hover #div-match-fixture {
+    background-color: white;
+}
+
+#div-fixture:hover #div-match-fixture a {
+    color: #b8336a;
+}
+
+#div-match-fixture a {
+    color: white;
 }
 
 #div-teams-fixture {
-  font-size: 18px;
-  vertical-align: middle;
-  line-height: 18px;
-  font-family: verdana;
+    font-size: 18px;
+    margin-top: 5px;
+    line-height: 18px;
+    font-family: verdana;
+}
+
+#div-teams-fixture a {
+    color: black !important;
+}
+
+#div-teams-fixture a:hover {
+    color: white !important;
 }
 
 .landlord-phone-number-wrapper {
-  display: flex;
-  text-align: center;
+    display: flex;
+    text-align: center;
 }
 
 .landlord-phone-number-prefix {
@@ -350,6 +377,7 @@ footer {
     vertical-align: middle;
     width: 50px;
     border-radius: 20%;
+    margin-bottom: 15px;
 }
 
 /* Hide/rearrange for smaller screens */

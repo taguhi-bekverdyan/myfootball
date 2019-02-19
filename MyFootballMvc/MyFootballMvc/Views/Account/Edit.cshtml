@@ -29,10 +29,11 @@
 <div class="page-my-profile main-container container">
     
     <div class="main-content">
-        <img src="@Model.User.Image" alt="Avatar" class="avatar-my-profile" />
         <div class="row">
 
             <div class="col">
+                <img src="@Model.User.Image" alt="Avatar" class="avatar-my-profile" />
+
                 @using (Html.BeginForm("CreateOrUpdate", "Account"))
                 {
                     <div class="form-group">
