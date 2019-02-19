@@ -1,4 +1,6 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+﻿
+
+// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
 
@@ -20,7 +22,7 @@ function AjaxJsonSumbitWithConfirm(url, object, form) {
             // Change submit button text to 'Save'
             btn.replaceWith(btn.text(newTxt));
 
-            if (this.url === 'Lamdlord/') {
+            if (this.url === 'Landlord/') {
               // Add 'Add new pitch' button
               $(form).append('<a class="btn btn-primary add-new-item" href="/Pitch/Create">Add new pitch</a>');
             }

@@ -27,9 +27,9 @@
   <title>@ViewData["Title"] - MyFootballMvc</title>
 
   <environment include="Development">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.css" />
-    <link rel="stylesheet" href="~/lib/datatables/css/dataTables.bootstrap4.min.css" />
+      <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+      <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.css" />
+      <link rel="stylesheet" href="~/lib/datatables/css/dataTables.bootstrap4.min.css" />
   </environment>
   <environment exclude="Development">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css."
@@ -43,7 +43,7 @@
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top main-nav">
-    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Logo</a>
+    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><img src="/images/logo4.png" height="40" alt="myfootball"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -95,21 +95,20 @@
             <img src="@Model.UserImage" alt="Avatar" class="avatar" />
           }
 
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="nav-link" asp-controller="Account" asp-action="Edit">My Profile</a>
-            @if (Model.HasTeams)
-            {
-              <a class="nav-link" asp-controller="Teams" asp-action="Index">My Team</a>
-            }
-            @if (Model.HasPitches)
-            {
-              <a class="nav-link" asp-controller="Pitch" asp-action="MyPitches">My Pitches</a>
-            }
-            <a class="nav-link" asp-controller="Account" asp-action="MyNotifications">My notifications</a>
-            <a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
+            <div class="dropdown-menu my-prof-dropdown" aria-labelledby="navbarDropdown">
+                <a class="nav-link my-prof" asp-controller="Account" asp-action="Edit">My Profile</a>
+                @if (Model.HasTeams)
+                {
+                    <a class="nav-link my-prof" asp-controller="Teams" asp-action="Index">My Team</a>
+                }
+                @if (Model.HasPitches)
+                {
+                    <a class="nav-link my-prof" asp-controller="Pitch" asp-action="MyPitches">My Pitches</a>
+                }
+                <a class="nav-link my-prof" asp-controller="Account" asp-action="MyNotifications">My notifications</a>
+                <div class="dropdown-divider"></div>
+                <a class="nav-link my-prof" asp-controller="Account" asp-action="Logout">Logout</a>
+            </div>
 
         }
         else

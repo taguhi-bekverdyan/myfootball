@@ -17,18 +17,22 @@
     {
         <table class="table table-striped" id="js-my-coaches-table">
             <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Birthdate</th>
-                    <th scope="col">License</th>
-                </tr>
+            <tr>
+                <th scope="col" width="55px">Manager Avatar</th>
+                <th scope="col">Name</th>
+                <th scope="col">Birthdate</th>
+                <th scope="col">License</th>
+            </tr>
             </thead>
             <tbody>
                 @foreach (var coach in Model.MyCoaches)
                 {
                     string name = coach.User.FirstName + " " + coach.User.LastName;
                     <tr>
-                        <th>@Html.ActionLink(@name, "Id", "Manager", new { Id = coach.Id })</th>
+                        <td>
+                            <img src="@coach.Avatar" class="avatar-my-profile"/>
+                        </td>
+                        <th>@Html.ActionLink(@name, "Id", "Manager", new {Id = coach.Id})</th>
                         <th>@coach.User.Birthdate</th>
                         <th>@coach.License</th>
                     </tr>

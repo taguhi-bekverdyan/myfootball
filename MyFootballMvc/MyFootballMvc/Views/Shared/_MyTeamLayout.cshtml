@@ -20,22 +20,22 @@
 
         <div class="collapse navbar-collapse" id="leagueNavbar">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
+                <li class="nav-item @(Model.ActiveMenuItem == "teamFixtures" ? "active" : "")">
                     <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="Fixtures">Fixtures</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item @(Model.ActiveMenuItem == "teamPlayers" ? "active" : "")">
                     <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="Players">Players</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item @(Model.ActiveMenuItem == "teamStaffMembers" ? "active" : "")">
                     <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="StaffMembers">Staff Members</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item @(Model.ActiveMenuItem == "teamCoaches" ? "active" : "")">
                     <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="Coaches">Coaches</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item @(Model.ActiveMenuItem == "invite" ? "active" : "")">
                     <a class="nav-link" asp-area="" asp-controller="Requests" asp-action="Index">Invite</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item @(Model.ActiveMenuItem == "teamSentRequests" ? "active" : "")">
                     <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="SentRequests">Sent Requests</a>
                 </li>
             </ul>

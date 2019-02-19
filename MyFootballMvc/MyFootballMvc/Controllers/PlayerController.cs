@@ -39,6 +39,7 @@ namespace MyFootballMvc.Controllers
         {
             PlayerViewModel viewModel = await GetViewModel();
             viewModel.Player = await _playersService.FindPlayerById(await GetAccessToken(), id);
+            viewModel.Teams = await _teamsService.FindAll(await GetAccessToken());
             return View("PlayerById", viewModel);
         }
 

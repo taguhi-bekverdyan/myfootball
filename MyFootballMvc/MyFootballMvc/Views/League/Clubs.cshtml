@@ -8,31 +8,37 @@
     <h2 class="banner-header">Clubs</h2>
 </div>
 
+
+
 <div class="main-content container">
     @if (Model.League.Teams.Count != 0)
     {
         <table class="table table-striped table-bordered" id="clubs-table">
             <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">ShortName</th>
-                    <th scope="col">President</th>
-                </tr>
+            <tr>
+                <th scope="col" width="55px">Club Avatar</th>
+                <th scope="col">Name</th>
+                <th scope="col">Short Name</th>
+                <th scope="col">President</th>
+            </tr>
             </thead>
             <tbody>
                 @foreach (var team in Model.League.Teams)
                 {
-                <tr>
-                    <td>@Html.ActionLink(@team.Name, "Id", "Club", new { team.Id }, null)</td>
-                    <td>@team.ShortName</td>
-                    <td>@team.President.FirstName @team.President.LastName</td>
-                </tr>
+                    <tr>
+                        <td>
+                            <img src="@team.Avatar" class="avatar-my-profile"/>
+                        </td>
+                        <td>@Html.ActionLink(@team.Name, "Id", "Club", new {team.Id}, null)</td>
+                        <td>@team.ShortName</td>
+                        <td>@team.President.FirstName @team.President.LastName</td>
+                    </tr>
                 }
             </tbody>
         </table>
     }
     else
     {
-        <p id="none"> There isn't club, that join @Model.League...</p>
+        <p id="none"> There isn't any club in this League...</p>
      }
 </div>

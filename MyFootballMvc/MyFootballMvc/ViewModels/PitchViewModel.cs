@@ -13,6 +13,31 @@ namespace MyFootballMvc.ViewModels
     public List<Pitch> MyPitches { get; set; }
     public List<Pitch> AllPitches { get; set; }
 
+    private List<Marker> _markers;
+    public List<Marker> Markers
+    {
+      get
+      {
+        _markers = new List<Marker>();
+
+        if (AllPitches != null)
+        {
+          AllPitches.ForEach(pitch =>
+          {
+            _markers.Add(new Marker
+            {
+              Title = pitch.Name,
+              Url = $"/Pitch/Id/{pitch.Id}",
+              Lat = pitch.GeoLat,
+              Lng = pitch.GeoLong
+            });
+          });
+        }
+
+        return _markers;
+      }
+    }
+
     public PitchViewModel()
     {
 
@@ -22,5 +47,13 @@ namespace MyFootballMvc.ViewModels
     {
 
     }
+  }
+
+  public class Marker
+  {
+    public string Title { get; set; }
+    public string Url { get; set; }
+    public string Lng { get; set; }
+    public string Lat { get; set; }
   }
 }
