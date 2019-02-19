@@ -65,21 +65,24 @@ namespace MyFootballMvc.Controllers
         {
             var leagueViewModel = await GetViewModel(tournamentId);
             leagueViewModel.ActiveMenuItem = "leaguePlayers";
-
+            var token = await GetAccessToken();
             var league = await _leaguesService.FindLeagueByTournamentId(tournamentId);
             var leagueTeams = league.Teams;
             var teams = new List<Team>();
             foreach (var leagueTeam in leagueTeams)
             {
-                var token = await GetAccessToken();
                 var team = await _teamsService.FindTeamById(token, leagueTeam.Id);
                 teams.Add(team);
             }
 
 
             foreach (var team in teams)
-                if (team.Players != null && team.Players.Count != 0)
-                    leagueViewModel.Players.AddRange(team.Players);
+            {
+                var players = await  _teamsService.FindPlayersByTeamId(token, team.Id);
+                if (players != null && players.Count != 0)
+                    leagueViewModel.Players.AddRange(players);
+            }
+
             return View("~/Views/League/Players.cshtml", leagueViewModel);
         }
 
@@ -88,17 +91,23 @@ namespace MyFootballMvc.Controllers
             var leagueViewModel = await GetViewModel(tournamentId);
             leagueViewModel.ActiveMenuItem = "leagueManagers";
             var league = await _leaguesService.FindLeagueByTournamentId(tournamentId);
+            var token = await GetAccessToken();
             var leagueTeams = league.Teams;
             var teams = new List<Team>();
             foreach (var leagueTeam in leagueTeams)
             {
-                var token = await GetAccessToken();
+
                 var team = await _teamsService.FindTeamById(token, leagueTeam.Id);
                 teams.Add(team);
             }
+
             foreach (var team in teams)
-                if (team.Managers != null && team.Managers.Count != 0)
-                    leagueViewModel.Managers.AddRange(team.Managers);
+            {
+                var managers = await _teamsService.FindManagersByTeamId(token, team.Id);
+                if (managers != null && managers.Count != 0)
+                    leagueViewModel.Managers.AddRange(managers);
+            }
+
             return View("~/Views/League/Managers.cshtml", leagueViewModel);
         }
 

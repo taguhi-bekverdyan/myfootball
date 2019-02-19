@@ -27,7 +27,8 @@ namespace MyFootballMvc.Controllers
             ManagerViewModel viewModel = await GetViewModel();
             viewModel.ActiveMenuItem = "managers";
             viewModel.Teams = await _teamsService.FindAll(await GetAccessToken());
-            viewModel.Managers = await _teamsService.FindAllManagers();
+            //viewModel.Managers = await _teamsService.FindAllManagers();
+            viewModel.Managers = await _coachService.FindAll(await GetAccessToken());
             return View("ManagersList", viewModel);
         }
 
