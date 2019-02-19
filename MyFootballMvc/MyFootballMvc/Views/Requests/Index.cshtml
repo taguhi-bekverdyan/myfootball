@@ -134,9 +134,9 @@
           var playerId = $(this).attr("id");
           var requestTo = 0;
           bootbox.prompt("Message", function (result) {
-            if (result != null) {
+              if (result == null) { result = "Hello!"; }
               inviteAjaxRequest(playerId, requestTo, result);
-            }
+            
           });
 
         });
@@ -149,9 +149,9 @@
           var requestTo = 1;
 
           bootbox.prompt("Message", function (result) {
-            if (result != null) {
+              if (result == null) { result = "Hello!"; }
               inviteAjaxRequest(staffId, requestTo, result);
-            }
+            
           });
 
         });
@@ -163,9 +163,9 @@
           var requestTo = 2;
 
           bootbox.prompt("Message", function (result) {
-            if (result != null) {
+              if (result == null) { result = "Hello!"; }
               inviteAjaxRequest(coachId, requestTo, result);
-            }
+            
           });
 
         });
@@ -186,5 +186,3 @@
         }
       });
     </script>
-  </div>
-</div>
