@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MyFootballMvc.Services;
 
 namespace MyFootballMvc.ViewModels
 {
     public class MyTeamPlayersViewModel:MyTeamViewModel
     {
-
         public List<Player> MyPlayers { get; set; }
 
         public MyTeamPlayersViewModel():base()

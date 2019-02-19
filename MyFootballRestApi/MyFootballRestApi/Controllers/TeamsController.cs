@@ -9,32 +9,34 @@ using MyFootballRestApi.Models;
 
 namespace MyFootballRestApi.Controllers
 {
-  [Route("api/[controller]")]
-  [ApiController]
-  public class TeamsController : ControllerBase
-  {
-
-    private readonly IRepository<Team> _teamsRepository;
-
-    public TeamsController()
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TeamsController : ControllerBase
     {
-      _teamsRepository = new CouchbaseRepository<Team>();
-    }
 
-    #region GET
-    [HttpGet]
-    public async Task<IActionResult> GetAll()
-    {
-      try
-      {
-        var teams = await _teamsRepository.GetAll(typeof(Team));
-        return Ok(teams);
-      }
-      catch (Exception e)
-      {
-        return StatusCode(500, e);
-      }
-    }
+        private readonly IRepository<Team> _teamsRepository;
+        private readonly IRepository<League> _leagueRepository;
+
+        public TeamsController()
+        {
+            _teamsRepository = new CouchbaseRepository<Team>();
+            _leagueRepository = new CouchbaseRepository<League>();
+        }
+
+        #region GET
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var teams = await _teamsRepository.GetAll(typeof(Team));
+                return Ok(teams);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
 
         [HttpGet("managers")]
         public async Task<IActionResult> GetAllManagers()
@@ -73,132 +75,154 @@ namespace MyFootballRestApi.Controllers
             }
         }
 
-    [HttpGet("by_president_id/{id}")]
-    public async Task<IActionResult> GetTeamByPresidentId([FromRoute]string id)
-    {
-      try
-      {
-        var teams = await _teamsRepository.GetAll(typeof(Team));
-        var team = teams.FirstOrDefault(t => t.President.Id == id);
-        return Ok(team);
-      }
-      catch (Exception e)
-      {
-        return StatusCode(500, e);
-      }
-    }
-
-
-    [HttpGet("by_name/{name}")]
-    public async Task<IActionResult> GetTeamByName([FromRoute]string name)
-    {
-      try
-      {
-        List<Team> teams = await _teamsRepository.GetAll(typeof(Team));
-        var team = teams.FirstOrDefault(p => p.Name.ToLower() == name.ToLower());
-        if (team == null)
+        [HttpGet("by_president_id/{id}")]
+        public async Task<IActionResult> GetTeamByPresidentId([FromRoute]string id)
         {
-          return NotFound();
+            try
+            {
+                var teams = await _teamsRepository.GetAll(typeof(Team));
+                var team = teams.FirstOrDefault(t => t.President.Id == id);
+                return Ok(team);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
         }
-        return Ok(team);
-      }
-      catch (Exception e)
-      {
-        return StatusCode(500, e);
-      }
-    }
 
-    [HttpGet("by_short_name/{name}")]
-    public async Task<IActionResult> GetTeamByShortName([FromRoute]string name)
-    {
-      try
-      {
-        List<Team> teams = await _teamsRepository.GetAll(typeof(Team));
-        var team = teams.FirstOrDefault(p => p.ShortName.ToLower() == name.ToLower());
-        if (team == null)
+
+        [HttpGet("by_name/{name}")]
+        public async Task<IActionResult> GetTeamByName([FromRoute]string name)
         {
-          return NotFound();
+            try
+            {
+                List<Team> teams = await _teamsRepository.GetAll(typeof(Team));
+                var team = teams.FirstOrDefault(p => p.Name.ToLower() == name.ToLower());
+                if (team == null)
+                {
+                    return NotFound();
+                }
+                return Ok(team);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
         }
-        return Ok(team);
-      }
-      catch (Exception e)
-      {
-        return StatusCode(500, e);
-      }
+
+        [HttpGet("by_short_name/{name}")]
+        public async Task<IActionResult> GetTeamByShortName([FromRoute]string name)
+        {
+            try
+            {
+                List<Team> teams = await _teamsRepository.GetAll(typeof(Team));
+                var team = teams.FirstOrDefault(p => p.ShortName.ToLower() == name.ToLower());
+                if (team == null)
+                {
+                    return NotFound();
+                }
+                return Ok(team);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
+        #endregion
+
+        #region POST
+
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create([FromBody]Team team)
+        {
+            try
+            {
+                team.Id = Guid.NewGuid().ToString();
+                var result = await _teamsRepository.Create(team);
+                if (result == null) { return BadRequest(team); }
+                return Created($"/api/Teams/{team.Id}", result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
+        [HttpPost("Upsert")]
+        public async Task<IActionResult> Upsert([FromBody] Team team)
+        {
+            try
+            {
+                var result = await _teamsRepository.Upsert(team);
+                if (result == null) return BadRequest(team);
+                return Created($"/api/Teams/{team.Id}", result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
+        #endregion
+
+        #region PUT
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update([FromBody] Team team)
+        {
+            try
+            {
+                string id = team.Id;
+                var result = await _teamsRepository.Update(team);
+                if (result == null) return BadRequest(team);
+
+                List<League> leagues = await _leagueRepository.GetAll(typeof(League));
+                foreach (var league in leagues)
+                {
+                    Team tempTeam = league.Teams.FirstOrDefault(t => t.Id == team.Id);
+                    if (tempTeam != null)
+                    {
+                        tempTeam.Players = team.Players;
+                        tempTeam.StaffMembers = team.StaffMembers;
+                        tempTeam.Managers = team.Managers;
+                        tempTeam.Avatar = team.Avatar;
+                        tempTeam.Name = team.Name;
+                        tempTeam.ShortName = team.ShortName;
+                        tempTeam.President = team.President;
+                        tempTeam.SentRequests = team.SentRequests;
+                        tempTeam.Stats = team.Stats;
+
+                        await _leagueRepository.Update(league);
+                    }
+                    
+                }
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+        #endregion
+
+        #region DELETE
+
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            try
+            {
+                await _teamsRepository.Delete(id);
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
+        #endregion
+
     }
-
-    #endregion
-
-    #region POST
-
-    [HttpPost("Create")]
-    public async Task<IActionResult> Create([FromBody]Team team)
-    {
-      try
-      {
-        team.Id = Guid.NewGuid().ToString();
-        var result = await _teamsRepository.Create(team);
-        if (result == null) { return BadRequest(team); }
-        return Created($"/api/Teams/{team.Id}", result);
-      }
-      catch (Exception e)
-      {
-        return StatusCode(500, e);
-      }
-    }
-
-    [HttpPost("Upsert")]
-    public async Task<IActionResult> Upsert([FromBody] Team team)
-    {
-      try
-      {
-        var result = await _teamsRepository.Upsert(team);
-        if (result == null) return BadRequest(team);
-        return Created($"/api/Teams/{team.Id}", result);
-      }
-      catch (Exception e)
-      {
-        return StatusCode(500, e);
-      }
-    }
-
-    #endregion
-
-    #region PUT
-    [HttpPut("Update")]
-    public async Task<IActionResult> Update([FromBody] Team team)
-    {
-      try
-      {
-        string id = team.Id;
-        var result = await _teamsRepository.Update(team);
-        if (result == null) return BadRequest(team);
-        return Ok(result);
-      }
-      catch (Exception e)
-      {
-        return StatusCode(500, e);
-      }
-    }
-    #endregion
-
-    #region DELETE
-
-    [HttpDelete("Delete/{id}")]
-    public async Task<IActionResult> Delete(string id)
-    {
-      try
-      {
-        await _teamsRepository.Delete(id);
-        return NoContent();
-      }
-      catch (Exception e)
-      {
-        return StatusCode(500, e);
-      }
-    }
-
-    #endregion
-
-  }
 }

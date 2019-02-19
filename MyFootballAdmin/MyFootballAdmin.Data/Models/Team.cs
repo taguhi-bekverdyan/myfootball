@@ -16,6 +16,15 @@ namespace MyFootballAdmin.Data.Models
         public List<Player> Players { get; set; }
         public List<Coach> Managers { get; set; }
         public List<string> Stats { get; set; }
+
+        public string Color1 { get; set; }
+        public string Color2 { get; set; }
+        public string Color3 { get; set; }
+
+        public string Avatar { get; set; }
+
+        public List<string> SentRequests { get; set; }
+
         public Team()
         {
             Name = " ";

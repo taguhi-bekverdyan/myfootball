@@ -7,7 +7,7 @@ namespace MyFootballAdmin.Data.Models
     {
         
         public Position Position { get; set; }
-        public byte[] Avatar { get; set; }
+        public string Avatar { get; set; }
         public PhysicalStats PhysicalStats { get; set; }
         public bool HasTrained { get; set; }
         public string TeamId { get; set; }

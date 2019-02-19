@@ -144,12 +144,14 @@ namespace MyFootballRestApi.Controllers
                 await _staffRepository.Update(st);
 
                 List<Team> teams = await _teamRepository.GetAll(typeof(Team));
-                var team = teams.FirstOrDefault(p => p.President.Id == user.Id);
+                var team = teams.FirstOrDefault(p => p.President.Id == id);
                 if (team != null)
                 {
                     team.President = user;
                 }
-                await _teamRepository.Update(team);
+
+                //await _teamRepository.Update(team);
+                await new TeamsController().Update(team);
 
                 return Ok(result);
             }

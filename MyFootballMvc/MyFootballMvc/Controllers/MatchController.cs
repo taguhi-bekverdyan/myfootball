@@ -15,21 +15,29 @@ namespace MyFootballMvc.Controllers
     {
         private readonly MatchService _matchService;
         private readonly RefereeService _refereeService;
+        private readonly LeaguesService _leaguesService;
 
         public MatchController()
         {
             _matchService = new MatchService();
             _refereeService = new RefereeService();
+            _leaguesService = new LeaguesService();
         }
 
       
 
-        [HttpGet("Match/Id/{id}")]
-        public async Task<ActionResult> GetMatchById(string id)
+        [HttpGet("Match/{id}")]
+        public async Task<ActionResult> GetMatchById(string leagueName, string id )
         {
             MatchViewModel viewModel = await GetViewModel();
-            viewModel.Match = await _matchService.FindMatchById(await GetAccessToken(), id);
-            viewModel.Referee = await _refereeService.FindRefereeById(await GetAccessToken(), id);
+            var leagues = await _leaguesService.FindAll();
+            viewModel.League = leagues.Find(i => i.Tournament.Name == leagueName);
+            var leagueId = viewModel.League.Id;
+            viewModel.Match = await _matchService.FindMatchById(await GetAccessToken(), id, leagueId);
+            if (viewModel.Match.RefereeId != null)
+            {
+                viewModel.Referee = await _refereeService.FindRefereeById(await GetAccessToken(), id);
+            }
             return View("MatchById", viewModel);
         }
 

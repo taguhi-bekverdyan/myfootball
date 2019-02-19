@@ -10,6 +10,7 @@ namespace MyFootballMvc.ViewModels
     {
         public Match Match { get; set; } = new Match();
         public Referee Referee { get; set; } = new Referee();
+        public League League { get; set; } = new League();
 
         public MatchViewModel(string token, string id) : base(token, id)
         {

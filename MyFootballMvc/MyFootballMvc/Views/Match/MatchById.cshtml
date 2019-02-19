@@ -6,24 +6,25 @@
 }
 
 <div class="banner bcolor-1">
-    <h2 class="banner-header">>Match</h2>
+    <h2 class="banner-header">Match</h2>
 </div>
 
-<div class="page-club-by-id main-container container">
+<div class="page-player-by-id main-container container">
+
     <div class="main-content">
-        <div>
-            <p  style="float:left;">@Model.Match.Team1.Name</p>
-            <p class="badge badge-primary">@Model.Match.MatchDateTime</p>
+        <ul>
+            <li>@Html.LabelFor(p => p.Match.Team1): @Model.Match.Team1.Name</li>
+            <li>@Html.LabelFor(p => p.Match.Team2): @Model.Match.Team2.Name</li>
+            <li>@Model.Match.MatchDateTime</li>
+
             @if (Model.Match.MatchDateTime < DateTime.Now)
             {
-                <p class="badge badge-primary">@Model.Match.GoalClub1 - @Model.Match.GoalClub2</p>
+                <li>Score: @Model.Match.GoalClub1 - @Model.Match.GoalClub2</li>
             }
-            <p  style="float:right;">@Model.Match.Team2.Name</p>
-            <br/>
-        </div>
-        @if (Model.Match.RefereeId != null)
-        {
-        <p>@Html.LabelFor(r => r.Match.RefereeId)</p>
-        }
+            @if (Model.Match.RefereeId != null)
+            {
+                <li>@Html.LabelFor(p => p.Referee): @Model.Referee</li>
+            }
+        </ul>
     </div>
 </div>

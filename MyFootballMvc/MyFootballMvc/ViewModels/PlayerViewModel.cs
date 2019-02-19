@@ -10,7 +10,7 @@ namespace MyFootballMvc.ViewModels
     {
         public List<Player> Players { get; set; } = new List<Player>();
         public Player Player { get; set; } = new Player();
-        public List<Team> Teams { get; set; } = new List<Team>();
+        public List<Team> Teams { get; set; }
 
         public PlayerViewModel()
         {

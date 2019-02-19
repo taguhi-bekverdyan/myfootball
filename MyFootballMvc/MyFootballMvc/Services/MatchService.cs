@@ -17,10 +17,11 @@ namespace MyFootballMvc.Services
             _client = new RestClient(Endpoint);
         }
 
-        public async Task<Match> FindMatchById(string accessToken, string id)
+        public async Task<Match> FindMatchById(string accessToken, string id, string leagueId)
         {
-            var request = new RestRequest("match/{id}", Method.GET);
+            var request = new RestRequest("match/{leagueId}/{id}", Method.GET);
             request.AddHeader("authorization", $"Bearer {accessToken}");
+            request.AddUrlSegment("leagueId", leagueId);
             request.AddUrlSegment("id", id);
 
             IRestResponse response = await _client.ExecuteTaskAsync(request);

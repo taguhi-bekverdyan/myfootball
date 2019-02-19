@@ -10,13 +10,11 @@ namespace MyFootballMvc.Services
 {
     public class CoachService
     {
-        public TeamsService _teamsService;
         private const string Endpoint = "https://localhost:44350/api";
         private readonly RestClient _client;
         public CoachService()
         {
             _client = new RestClient(Endpoint);
-            _teamsService = new TeamsService();
         }
 
         public async Task<List<Coach>> FindAll(string accessToken)
