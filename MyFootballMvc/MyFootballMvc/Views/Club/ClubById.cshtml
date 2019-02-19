@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="~/css/responsive2.css">
 
 
-<div class="page-club-by-id main-container ">
+<div class="page-club-by-id main-container">
     <section class="page-head">
         <div class="page-head-content">
             <div class="page-head-img-container">
@@ -2292,13 +2292,13 @@
                     <span class="burger-menu-line"></span>
                 </li>
                 <li class="page-head-tab">
-                    <a href="#" class="page-head-tab-text page-head-link hdtsizess">Players</a>
+                    <a href="#players" class="page-head-tab-text page-head-link hdtsizess">Players</a>
                 </li>
                 <li class="page-head-tab">
-                    <a href="" class="page-head-tab-text page-head-link hdtsizess">Managers</a>
+                    <a href="#managers" class="page-head-tab-text page-head-link hdtsizess">Managers</a>
                 </li>
                 <li class="page-head-tab">
-                    <a href="#" class="page-head-tab-text page-head-link hdtsizess">Staff Members</a>
+                    <a href="#staff" class="page-head-tab-text page-head-link hdtsizess">Staff Members</a>
                 </li>
             </ul>
         </nav>
@@ -2318,62 +2318,107 @@
     </script>
 
     <section class="page-main">
-      <div class="page-main-wrap">
-        @for (int i = 0; i < 15; ++i)
-        {
-          <div class="person">
-            <div class="person-head">
-              <figure class="person-head-wrap">
-                <img src="//premierleague-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p98745.png" alt="person-name" class="person-img">
-                <figcaption class="person-title-container">
-                  <p class="person-number">Number</p>
-                  <p class="person-name">player.User.FirstName player.User.LastName</p>
-                  <p class="person-state">player.Position</p>
-                </figcaption>
-              </figure>
+        <div class="page-main-wrap">
+            <div class="page-section">
+                <a class="page-section-banner" name="players">Players</a>
+                <div class="page-section-wrap">
+                    @for (int i = 0; i < 15; ++i)
+                    {
+                        <div class="person">
+                            <div class="person-head">
+                                <figure class="person-head-wrap">
+                                    <img src="//premierleague-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p98745.png" alt="person-name" class="person-img">
+                                    <figcaption class="person-title-container">
+                                        <p class="person-number">Number</p>
+                                        <p class="person-name">player.User.FirstName player.User.LastName</p>
+                                        <p class="person-state">player.Position</p>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="person-main">
+                                <p class="person-info">
+                                    <span class="person-info-name">Date of Birth</span>
+                                    <span class="person-info-value">player.User.Birthdate</span>
+                                </p>
+                                <p class="person-info">
+                                    <span class="person-info-name">Email</span>
+                                    <span class="person-info-value">player.User.Email</span>
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
-            <div class="person-main">
-              <p class="person-info">
-                <span class="person-info-name">Date of Birth</span>
-                <span class="person-info-value">player.User.Birthdate</span>
-              </p>
-              <p class="person-info">
-                <span class="person-info-name">Email</span>
-                <span class="person-info-value">player.User.Email</span>
-              </p>
-            </div>
-          </div>
-        }
+            <div class="page-section">
+                <a class="page-section-banner" name="managers">Managers</a>
+                <div class="page-section-wrap">
+                    @for (int i = 0; i < 14; ++i)
+                    {
+                        <div class="person">
+                            <div class="person-head">
+                                <figure class="person-head-wrap">
+                                    <img src="//premierleague-static-files.s3.amazonaws.com/premierleague/photos/players/250x250/man37569.png" alt="person-name" class="person-img">
+                                    <figcaption class="person-title-container">
+                                        <p class="person-number">coach.CoachStatus</p>
+                                        <p class="person-name">coach.User.FirstName coach.User.LastName</p>
+                                        <p class="person-state">coach.License</p>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="person-main">
+                                <p class="person-info">
+                                    <span class="person-info-name">Date of Birth</span>
+                                    <span class="person-info-value">coach.User.Birthdate</span>
 
-        @for (int i = 0; i < 14; ++i)
-        {
-          <div class="person">
-            <div class="person-head">
-              <figure class="person-head-wrap">
-                <img src="//premierleague-static-files.s3.amazonaws.com/premierleague/photos/players/250x250/man37569.png" alt="person-name" class="person-img">
-                <figcaption class="person-title-container">
-                  <p class="person-number">coach.CoachStatus</p>
-                  <p class="person-name">coach.User.FirstName coach.User.LastName</p>
-                  <p class="person-state">coach.License</p>
-                </figcaption>
-              </figure>
+                                </p>
+                                <p class="person-info">
+                                    <span class="person-info-name">Email</span>
+                                    <span class="person-info-value">coach.User.Email</span>
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
-            <div class="person-main">
-              <p class="person-info">
-                <span class="person-info-name">Date of Birth</span>
-                <span class="person-info-value">coach.User.Birthdate</span>
-                
-              </p>
-              <p class="person-info">
-                <span class="person-info-name">Email</span>
-                <span class="person-info-value">coach.User.Email</span>
-              </p>
-            </div>
-          </div>
-        }
 
-      </div>
-    </section>
+            <div class="page-section">
+                <a class="page-section-banner" name="staff" >Staff Members</a>
+                <div class="page-section-wrap">
+                    @for (int i = 0; i < 14; ++i)
+                    {
+                        <div class="person">
+                            <div class="person-head">
+                                <figure class="person-head-wrap">
+                                    <img src="//premierleague-static-files.s3.amazonaws.com/premierleague/photos/players/250x250/o18757.png" alt="person-name" class="person-img">
+                                    <figcaption class="person-title-container">
+                                        <p class="person-number">staff.Occupation</p>
+                                        <p class="person-name">staff.User.FirstName staff.User.LastName</p>
+                                        <p class="person-state">staff.License</p>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="person-main">
+                                <p class="person-info">
+                                    <span class="person-info-name">Date of Birth</span>
+                                    <span class="person-info-value">staff.User.Birthdate</span>
+
+                                </p>
+                                <p class="person-info">
+                                    <span class="person-info-name">Status</span>
+                                    <span class="person-info-value">staff.StaffStatus</span>
+
+                                </p>
+                                <p class="person-info">
+                                    <span class="person-info-name">Email</span>
+                                    <span class="person-info-value">staff.User.Email</span>
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+</section>
 </div>
 <script>
     var menu = document.getElementById("burger-menu");

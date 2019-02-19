@@ -39,9 +39,6 @@
 }
 
 @media (max-width: 620px) {
-    .page-main-wrap {
-        display: block;
-    }
 
     .person {
         margin: 0 auto 30px;
