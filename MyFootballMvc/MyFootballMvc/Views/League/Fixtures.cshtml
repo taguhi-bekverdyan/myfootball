@@ -29,9 +29,9 @@
                     <div class="container" id="div-fixture">
                         <div class="row">
                             <div style="text-align:right;" class="col-2" id="div-teams-fixture">@Html.ActionLink(@match.Team1.Name, "Id", "Club", new { match.Team1.Id })</div>
-                            <div style="margin-left:1%;margin-right:1%;"><image style="width:20px;height:20px;" src="@match.Team1.Avatar"></image></div>
+                            <div style="margin-left:1%;margin-right:1%;"><image style="width:25px;" src="@match.Team1.Avatar"></image></div>
                             <div id="div-match-fixture">@Html.ActionLink(@match.MatchDateTime.ToShortDateString(), "GetMatchById", "Match", new { leagueName = Model.League.Tournament.Name, Id = match.Id })</div>
-                            <div style="margin-left:1%;margin-right:1%;"><image style="width:20px;height:20px;" src="@match.Team2.Avatar"></image></div>
+                            <div style="margin-left:1%;margin-right:1%;"><image style="width:25px;" src="@match.Team2.Avatar"></image></div>
                             <div class="col-2" style="text-align:left;" id="div-teams-fixture">@Html.ActionLink(@match.Team2.Name, "Id", "Club", new { match.Team2.Id })</div>
                             <div style="text-align:right;" class="col-2"><image style="width:20px;height:20px;margin-left:15%;" src="/images/stadium.png"></image></div>
                             <div style="margin-right:3%;text-align:left;" id="div-teams-fixture"><span style="color:black;margin-right:3%;">Stadium</span></div>
