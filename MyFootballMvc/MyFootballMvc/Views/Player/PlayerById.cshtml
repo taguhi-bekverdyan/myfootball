@@ -3,84 +3,79 @@
 @{
     ViewData["Title"] = "Player";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
 }
 
 <style>
     * {
+        list-style: none;
         margin: 0;
         padding: 0;
         text-decoration: none;
-        list-style: none;
     }
 
-    a:link {
-        color: rgba(29,127,222,0.71);
-    }
+    a:link { color: rgba(29, 127, 222, 0.71); }
 
     /*a:visited {
         color: rgba(29,127,222,0.71);
     }*/
 
-    a {
-        transition: color 2s ease;
-    }
+    a { transition: color 2s ease; }
 
-        /*a:hover {
+    /*a:hover {
             color: #fff;
         }*/
 
     .page {
+        background-attachment: fixed;
         background-image: url("s1200.jpg");
         background-position: bottom 0 left 0;
-        background-size: cover;
-        background-attachment: fixed;
         background-repeat: no-repeat;
+        background-size: cover;
     }
 
     .page-head {
-        background-color: rgba(227,27,35,0.9);
+        background-color: #c9e6ff;
         height: 280px;
         position: relative;
         transition: opacity 1s ease;
     }
 
-        /*.page-head:hover {
+    /*.page-head:hover {
             opacity: 0.8;
         }*/
 
     .person {
-        height: 100%;
-        width: 80%;
-        margin: 0 auto;
         display: flex;
+        height: 100%;
         justify-content: flex-start;
+        margin: 0 auto;
+        width: 80%;
     }
 
     .person-image-container {
-        width: 250px;
         position: relative;
+        width: 250px;
     }
 
     .person-image {
+        bottom: 0;
+        display: block;
         position: absolute;
         width: 250px;
-        display: block;
-        bottom: 0;
         z-index: 999;
     }
 
     .page-head-text {
+        color: #FF220C;
+        font-size: 35px;
         margin-left: 50px;
         padding-top: 80px;
-        font-size: 35px;
-        color: #ceadb2;
         z-index: 1000;
     }
 
     .person-number-big {
-        color: #ceadb2;
-        font-size: 400px;
+        color: #FF220C;
+        font-size: 310px;
         opacity: 0.7;
         position: absolute;
         right: 0;
@@ -88,112 +83,73 @@
         transform: translate(0, -20%);
     }
 
-    .page-main {
-        color: #fff;
-    }
+    .page-main { color: #fff; }
 
     .page-main-wrap {
-        width: 80%;
-        margin: 0 auto;
-        padding: 30px 0;
         display: flex;
         justify-content: space-between;
+        margin: 0 auto;
+        padding: 30px 0;
+        width: 80%;
     }
 
     .left-section {
-        width: 25%;
         height: fit-content;
     }
 
     .basic-details-list {
-        background-color: #ceadb2;
-        border-radius:15px;
-        position: relative;
         padding: 10px;
-        border: 1px solid #000;
-        border-top: 10px solid #e31b23;
-        border-bottom: 10px solid #e31b23;
-        transition: border-radius 0.6s ease;
     }
 
-        .basic-details-list:hover {
-            border-radius: 10px;
-        }
+    .basic-details-list:hover { border-radius: 10px; }
 
     .detail {
-        margin: 10px 0;
         display: flex;
         justify-content: space-between;
+        margin: 10px 0;
     }
 
     .detail-name {
         color: black;
-        font-weight:600;
+        font-weight: 600;
+        text-align: left;
     }
 
     .detail-value {
-        color:black;
+        color: black;
+        text-align: right;
     }
 
     .right-section {
-        width: 50%;
         display: flex;
         justify-content: space-between;
     }
 
     .self-details-section {
-        background-color: #ceadb2;
-        width: 45%;
-        height: fit-content;
-        position: relative;
         padding: 10px;
-        border-radius: 15px;
-        border: 1px solid #000;
-        border-top: 10px solid #e31b23;
-        border-bottom: 10px solid #e31b23;
-        transition: border-radius 0.6s ease;
     }
 
-        .self-details-section:hover {
-            border-radius: 10px;
-        }
+    .self-details-section:hover { border-radius: 10px; }
 
     .self-section-title {
-        text-align: center;
-        font-weight: 600;
         color: black;
+        font-weight: 600;
+        text-align: center;
     }
 
     .phisical-details-section {
-        background-color: #ceadb2;
-        width: 45%;
-        height: fit-content;
-        position: relative;
         padding: 10px;
-        border-radius: 15px;
-        border: 1px solid #000;
-        border-top: 10px solid #e31b23;
-        border-bottom: 10px solid #e31b23;
-        transition: border-radius 0.6s ease;
     }
 
-    .title-detail {
-        justify-content: center;
-    }
-
-    .phisical-details-section:hover {
-        border-radius: 10px;
-    }
+    .title-detail { justify-content: center; }
 
     .phisical-section-title {
-        text-align: center;
-        font-weight: 600;
         color: black;
+        font-weight: 600;
+        text-align: center;
     }
 
-    .page-player-by-id {
-        background-color: blue;
-    }
+    .page-player-by-id { background-color: white; }
 </style>
 
 <div class="page-player-by-id">
@@ -204,67 +160,91 @@
                 <div class="person-image-container">
                     <img class="person-image"
                          src="@Model.Player.Avatar"
-                         alt="Person" />
+                         alt="Person"/>
                 </div>
                 <div class="page-head-text">
-                    <p class="person-number">@Model.Player.Number</p>
-                    <p class="person-name">
-                        @Model.Player.User.FirstName  @Model.Player.User.LastName
+                    <p style="margin-bottom: 0px!important">@Model.Player.Number</p>
+                    <p style="margin-bottom: 0px!important">
+                        @Model.Player.User.FirstName @Model.Player.User.LastName
                     </p>
                 </div>
             </div>
             <p class="person-number-big">@Model.Player.Number</p>
         </div>
-        <div class="page-main">
-            <div class="page-main-wrap">
-                <div class="left-section">
+        <div class="container-fluid page-main">
+            <div class="row page-main-wrap">
+                <div class="col left-section">
+                    <p class="self-section-title">Club</p>
                     <ul class="basic-details-list">
-                        <li class="detail"><span class="detail-name">Club</span>
-    @if (Model.Player.TeamId != null && Model.Player.TeamId != "")
-    {
-        <span>@Html.ActionLink(Model.Teams.Find(i => i.Id == Model.Player.TeamId).Name, "Id", "Club", new { Id = Model.Player.TeamId }, new { @style = "color: black;" })</span>
-    }
-    else
-    {
-        <span>None</span>
-    }
-</a></li>
-                        <li class="detail"><span class="detail-name">Position</span><span class="detail-value">@Html.DisplayFor(model => model.Player.Position)</span></li>
                         <li class="detail">
-                            <span class="detail-name">Captain</span>@if (Model.Player.IsCaptain) { <span class="detail-value">Yes</span>} else {<span class="detail-value">No</span>}
+
+                            @if (Model.Player.TeamId != null && Model.Player.TeamId != "")
+                            {
+                            <span class="detail-name"><img src="@Model.Teams.Find(i => i.Id == Model.Player.TeamId).Avatar" height="35"></span>
+                                <span style="vertical-align: middle">@Html.ActionLink(Model.Teams.Find(i => i.Id == Model.Player.TeamId).Name, "Id", "Club", new {Id = Model.Player.TeamId}, new {style = "color: black;"})</span>
+                            }
+                            else
+                            {
+                                <span>None</span>
+                            }
+                        </li>
+                        <li class="detail">
+                            <span class="detail-name">Position</span><span class="detail-value">@Html.DisplayFor(model => model.Player.Position)</span>
+                        </li>
+                        <li class="detail">
+                            <span class="detail-name">Captain</span>
+                            @if (Model.Player.IsCaptain)
+                            {
+                                <span class="detail-value">Yes</span>
+                            }
+                            else
+                            {
+                                <span class="detail-value">No</span>
+                            }
                         </li>
                     </ul>
                 </div>
-                <div class="right-section">
-                    <div class="self-details-section">
-                        <p class="self-section-title">Person Details</p>
-                        <ul class="self-detail-list">
-                            <li class="detail"><span class="detail-name">Birthdate</span><span class="detail-value">@Model.Player.User.Birthdate.Year/@Model.Player.User.Birthdate.Month/@Model.Player.User.Birthdate.Day</span></li>
-                            @*<li class="detail title-detail"><span class="detail-name">age</span></li>*@
-                            <li class="detail"><span class="detail-name">Age</span><span class="detail-value">
-    @if (DateTime.Now.Month > Model.Player.User.Birthdate.Month||(DateTime.Now.Month == Model.Player.User.Birthdate.Month && DateTime.Now.Day >= Model.Player.User.Birthdate.Day))
-    {
-        <span>@Convert.ToInt64(DateTime.Now.Year - Model.Player.User.Birthdate.Year)</span>
+                <div style="border-left:1px solid #e5e5e5;margin: 5px"></div>
+                <div class="col self-details-section">
+                    <p class="self-section-title">Player Details</p>
+                    <ul style="padding-top:1px">
+                        <li class="detail">
+                            <span class="detail-name">Birthdate</span><span class="detail-value">@Model.Player.User.Birthdate.Year/@Model.Player.User.Birthdate.Month/@Model.Player.User.Birthdate.Day</span>
+                        </li>
+                        @*<li class="detail title-detail"><span class="detail-name">age</span></li>*@
+                        <li class="detail">
+                            <span class="detail-name">Age</span>
+                            <span class="detail-value">
+                                @if (DateTime.Now.Month > Model.Player.User.Birthdate.Month || DateTime.Now.Month == Model.Player.User.Birthdate.Month && DateTime.Now.Day >= Model.Player.User.Birthdate.Day)
+                                {
+                                    <span>@Convert.ToInt64(DateTime.Now.Year - Model.Player.User.Birthdate.Year)</span>
+                                }
+                                else
+                                {
+                                    <span>@Convert.ToInt64(DateTime.Now.Year - Model.Player.User.Birthdate.Year - 1) </span>
+                                }
+                            </span>
+                    </ul>
+                </div>
+                <div style="border-left:1px solid #e5e5e5;margin: 5px"></div>
+                <div class="col phisical-details-section">
+                    <p class="phisical-section-title">Physical stats</p>
+                    <ul style="padding-top: 1px">
+                        <li class="detail">
+                            <span class="detail-name">Height</span><span class="detail-value">@Model.Player.PhysicalStats.Height</span>
+                        </li>
+                        <li class="detail">
+                            <span class="detail-name">Weight</span><span class="detail-value">@Model.Player.PhysicalStats.Weight</span>
+                        </li>
+                        <li class="detail">
+                            <span class="detail-name">Foot</span><span class="detail-value">@Model.Player.PhysicalStats.Foot</span>
+                        </li>
 
-    }
-    else
-    {
-
-        <span>@Convert.ToInt64(DateTime.Now.Year - Model.Player.User.Birthdate.Year - 1) </span>
-        
-    }
-</span>
-                        </ul>
-                    </div>
-                    <div class="phisical-details-section">
-                        <p class="phisical-section-title">Person Phisical state</p>
-                        <ul class="phisical-detail-list">
-                            <li class="detail"><span class="detail-name">Height</span><span class="detail-value">@Model.Player.PhysicalStats.Height</span></li>
-                            <li class="detail"><span class="detail-name">Weight</span><span class="detail-value">@Model.Player.PhysicalStats.Weight</span></li>
-                            <li class="detail"><span class="detail-name">Foot</span><span class="detail-value">@Model.Player.PhysicalStats.Foot</span></li>
-                            
-                        </ul>
-                    </div>
+                    </ul>
+                </div>
+                <div style="border-left:1px solid #e5e5e5;margin: 5px"></div>
+                <div class="col phisical-details-section">
+                    <p class="phisical-section-title">Statistics</p>
                 </div>
             </div>
         </div>
